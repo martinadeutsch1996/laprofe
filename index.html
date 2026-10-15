@@ -425,9 +425,10 @@ const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls)
 const KEY = 'laprofe-proto-v3';
 const WA_MARTINA = '59898899502';
 const APP_URL = 'https://martinadeutsch1996.github.io/laprofe/';
-/* Planilla de Google donde llegan los datos cuando la app se abre fuera de Claude (GitHub).
-   Pegá entre las comillas la URL de tu Apps Script (termina en /exec). Vacío = no se envía nada. */
-const SHEETS_URL = '';
+/* Servidor de LaProfe (Apps Script) cuando la app se abre fuera de Claude (GitHub):
+   guarda los datos en la planilla y hace que Martina digital responda con IA.
+   Pegá entre las comillas la URL de tu Apps Script (termina en /exec). Vacío = respuestas pre-armadas y sin datos. */
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzzxUSZYI4y5pTJCBUMnbXvh4OFT9jo7Wy-Hy6Rpaz0sDS8nntmHaFHESH-uIjWdbGt/exec';
 let S = {perfil:null, done:{}, size:1};
 try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) S = Object.assign(S, s); } catch(e){}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} };
@@ -630,7 +631,7 @@ function brain(extra){
 /* ============ CAPACIDADES (IA, comunidad, identidad) ============ */
 let SAMPLE = null, DB = null, USER = null, UID = null, IS_OWNER = false;
 const capsReady = (async () => {
-  if (!window.claude || !window.claude.use) return;
+  if (!window.claude || !window.claude.use){ if (SHEETS_URL) SAMPLE = sampleServidor; return; }
   try { SAMPLE = await window.claude.use('sample'); } catch(e){}
   try { USER = await window.claude.use('user'); } catch(e){}
   try { DB = await window.claude.use('db'); } catch(e){}
@@ -640,12 +641,30 @@ const capsReady = (async () => {
   if (!$('s-mar').hidden) renderMartina();
 })();
 
+/* ============ MARTINA CON IA FUERA DE CLAUDE ============ */
+function anonUid(){
+  try { let u = localStorage.getItem('laprofe-uid'); if (!u){ u = 'a' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); localStorage.setItem('laprofe-uid', u); } return u; }
+  catch(e){ return 'a' + Date.now().toString(36); }
+}
+async function sampleServidor(messages, opts){
+  opts = opts || {};
+  if (typeof messages === 'string') messages = [{role:'user', content:messages}];
+  let r;
+  try { r = await fetch(SHEETS_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, signal:opts.signal,
+    body:JSON.stringify({tipo:'martina', uid:UID || anonUid(), messages:messages})}); }
+  catch(e){ if (e.name === 'AbortError'){ const x = new Error('cancelado'); x.code = 'cancelled'; throw x; } throw e; }
+  const j = await r.json();
+  if (!j || !j.text) throw new Error((j && j.error) || 'sin respuesta');
+  if (opts.onText) opts.onText({text:j.text});
+  return {text:j.text};
+}
+
 /* ============ DATOS DE USO (para mejorar la app) ============ */
 let DATA = null, dataTimer = null, dataBusy = false, dataDirty = false;
 function track(fn){
   capsReady.then(async () => {
     const SHEETS = !DB && !!SHEETS_URL;
-    if (SHEETS && !UID){ try { UID = localStorage.getItem('laprofe-uid'); if (!UID){ UID = 'a' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); localStorage.setItem('laprofe-uid', UID); } } catch(e){ UID = 'a' + Date.now().toString(36); } }
+    if (SHEETS && !UID) UID = anonUid();
     if ((!DB && !SHEETS) || !UID) return;
     if (!DATA){
       if (SHEETS){ try { DATA = JSON.parse(localStorage.getItem('laprofe-datos') || '{}') || {}; } catch(e){ DATA = {}; } }
