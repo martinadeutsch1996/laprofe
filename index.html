@@ -428,7 +428,7 @@ const APP_URL = 'https://martinadeutsch1996.github.io/laprofe/';
 /* Servidor de LaProfe (Apps Script) cuando la app se abre fuera de Claude (GitHub):
    guarda los datos en la planilla y hace que Martina digital responda con IA.
    Pegá entre las comillas la URL de tu Apps Script (termina en /exec). Vacío = respuestas pre-armadas y sin datos. */
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzzxUSZYI4y5pTJCBUMnbXvh4OFT9jo7Wy-Hy6Rpaz0sDS8nntmHaFHESH-uIjWdbGt/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzf3g3Z8HxhK3zwmXoN2dwo8wcmYY7yFvbaIHEYfJVK4ADz7wkClEiAFNfVPGQkNLnl/exec';
 let S = {perfil:null, done:{}, size:1};
 try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) S = Object.assign(S, s); } catch(e){}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} };
