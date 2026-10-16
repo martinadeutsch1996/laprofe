@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="es" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>LaProfe Digital App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;700;800&display=swap">
@@ -357,9 +357,11 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
   <p class="muted small">Escribile tu pregunta abajo, como en WhatsApp, y tocá <b>Enviar</b>. Responde con la forma de enseñar de Martina. Si algo es importante, confirmalo con ella.</p>
   <div class="chat" id="m-chat"></div>
   <div class="chips" id="m-chips"></div>
+  <p class="note" id="m-mic-note" hidden></p>
   <div class="composer">
     <label for="m-in" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tu pregunta</label>
     <textarea id="m-in" rows="1" placeholder="Tu pregunta…"></textarea>
+    <button class="btn ghost small" type="button" id="m-mic" style="min-height:56px;padding:8px 12px" aria-label="Hablar para dictar la pregunta" hidden>🎤</button>
     <button class="btn small" type="button" id="m-send" style="min-height:56px">Enviar</button>
     <button class="btn small dark" type="button" id="m-stop" hidden style="min-height:56px">Parar</button>
   </div>
@@ -386,6 +388,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
   <div class="card stack">
     <b style="font-size:19px">Mis datos</b>
     <dl class="kv" id="p-kv"></dl>
+    <p class="note">Si Martina te pide tu código, mandale una foto de esta parte.</p>
     <button class="btn ghost" type="button" id="p-edit">Cambiar mis datos</button>
   </div>
   <div class="card stack" id="p-owner" hidden>
@@ -891,7 +894,7 @@ function sendOpinion(){
   $('op-opts').hidden = true; $('op-more').hidden = true; $('op-ok').hidden = false; $('op-no').textContent = 'Cerrar';
   setTimeout(closeOpinion, 2500);
 }
-let openLvl = null;
+let openLvl = null, lastCur = null;
 function renderInicio(){
   const n = doneN();
   $('h-med').textContent = n + (n === 1 ? ' medalla' : ' medallas');
@@ -901,7 +904,7 @@ function renderInicio(){
   $('h-nextc').hidden = !nx; if (nx){ $('h-nt').textContent = nx.t; $('h-nm').textContent = 'Nivel ' + nx.niv.n + ' · ' + nx.min + ' minutos'; }
   $('h-cont').textContent = n === 0 ? 'Empezar mi primera lección' : 'Empezar';
   const box = $('h-levels'); box.innerHTML = '';
-  const cur = nx ? nx.niv.n : NIVELES[NIVELES.length - 1].n; if (openLvl == null) openLvl = cur;
+  const cur = nx ? nx.niv.n : NIVELES[NIVELES.length - 1].n; if (openLvl == null || cur !== lastCur) openLvl = cur; lastCur = cur;
   NIVELES.forEach(nv => {
     const open = openLvl === nv.n;
     const d = nv.ls.filter(l => S.done[l.id]).length, rec = (S.perfil && S.perfil.start) === nv.n;
@@ -1103,6 +1106,15 @@ function finishLesson(){
   $('g-wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   const c = $('g-com'); c.disabled = false; c.dataset.done = ''; c.textContent = '🎉 En la comunidad'; $('g-com-note').textContent = '';
   const nx = ALL[ALL.indexOf(l) + 1]; $('g-next').textContent = nx ? 'Siguiente lección: ' + nx.t + ' →' : 'Volver a mi camino'; $('g-home').hidden = !nx;
+  const nivelOk = l.niv.ls.every(x => S.done[x.id]) && !(S.nivFest || {})[l.niv.n];
+  if (nivelOk){
+    S.nivFest = Object.assign({}, S.nivFest, {[l.niv.n]: true}); save();
+    const sig = NIVELES.find(v => v.n === l.niv.n + 1);
+    $('g-ic').textContent = '🏆'; $('g-t').textContent = '¡Terminaste el Nivel ' + l.niv.n + ': ' + l.niv.t + '!';
+    $('g-mar').textContent = pick(['¡No lo puedo creer' + nm + '! Terminaste un nivel entero. Estoy re orgullosa de vos.','¡Un nivel completo' + nm + '! Esto ya es tuyo para siempre.','¡Aplausos de pie' + nm + '! 👏 Un nivel entero, de a poquito y sin apuro.']) + (sig ? ' Ahora te espera el Nivel ' + sig.n + ': ' + sig.t + '. ¿Vamos?' : ' ¡Terminaste todos los niveles!');
+    if (sig && nx && nx.niv === sig) $('g-next').textContent = 'Empezar el Nivel ' + sig.n + ' →';
+    track(d => { d.niveles = Object.assign({}, d.niveles, {[l.niv.n]: new Date().toISOString()}); });
+  }
   show('logro');
 }
 $('g-wa').addEventListener('click', () => track(d => { d.comp = d.comp || {}; d.comp.familia = (d.comp.familia || 0) + 1; }));
@@ -1223,7 +1235,26 @@ async function ask(q){
     else b.textContent = (e.text ? e.text + '\n\n' : '') + 'Se cortó la respuesta. Probá de nuevo en un momento.';
   } finally { mCtl = null; $('m-send').hidden = false; $('m-stop').hidden = true; }
 }
+$('m-send').addEventListener('click', () => { const n = $('m-mic-note'); if (n.textContent.startsWith('Si está')) n.hidden = true; });
 $('m-send').addEventListener('click', () => ask($('m-in').value));
+/* Dictar la pregunta con la voz (si el celular lo permite) */
+(function(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition, b = $('m-mic'), note = $('m-mic-note');
+  if (!SR){ note.hidden = false; note.textContent = '¿Preferís hablar? Tocá la cajita de abajo y después el micrófono del teclado 🎤.'; return; }
+  b.hidden = false; let rec = null, base = '';
+  const stop = () => { try { rec && rec.stop(); } catch(e){} };
+  b.addEventListener('click', () => {
+    if (rec){ stop(); return; }
+    try { rec = new SR(); } catch(e){ rec = null; return; }
+    rec.lang = 'es-UY'; rec.interimResults = true; rec.continuous = false; base = $('m-in').value ? $('m-in').value.trim() + ' ' : '';
+    rec.onresult = e => { let t = ''; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript; $('m-in').value = base + t; };
+    rec.onerror = e => { note.hidden = false; note.textContent = e.error === 'not-allowed' ? 'Para hablar, el celular tiene que darle permiso al micrófono. Si no, escribí la pregunta, ¡también vale!' : 'No te escuché bien. Probá de nuevo, un poquito más cerca del celular.'; };
+    rec.onend = () => { rec = null; b.textContent = '🎤'; b.classList.remove('pulse'); note.hidden = !note.textContent || note.textContent.startsWith('Te escucho'); if ($('m-in').value.trim()){ note.hidden = false; note.textContent = 'Si está bien, tocá Enviar. Si no, podés corregirlo.'; } };
+    note.hidden = false; note.textContent = 'Te escucho… hablá tranqui. Cuando termines, tocá ⏹.';
+    b.textContent = '⏹'; b.classList.add('pulse');
+    try { rec.start(); } catch(e){ rec = null; b.textContent = '🎤'; b.classList.remove('pulse'); }
+  });
+})();
 $('m-stop').addEventListener('click', () => { if (mCtl) mCtl.abort(); });
 $('m-in').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); ask($('m-in').value); } });
 
@@ -1235,7 +1266,7 @@ function renderPerfil(){
   $('p-wa').href = 'https://wa.me/?text=' + encodeURIComponent('¡Estoy aprendiendo tecnología con LaProfe Digital! Ya completé ' + n + ' lecciones' + (n ? ', la última: "' + (ALL.filter(l => S.done[l.id]).pop() || {}).t + '"' : '') + '. 💪 Si querés aprender conmigo, entrá acá: ' + APP_URL);
   const sz = $('p-sizes'); sz.innerHTML = ''; [[1,'Normal','22px'],[1.15,'Grande','28px'],[1.3,'Muy grande','34px']].forEach(o => { const x = el('button', '', '<span style="font-size:' + o[2] + '">Aa</span><br><span style="font-size:14px;font-family:var(--body)">' + o[1] + '</span>'); x.type = 'button'; x.setAttribute('aria-pressed', String((S.size || 1) === o[0])); x.addEventListener('click', () => { S.size = o[0]; save(); applySize(); renderPerfil(); }); sz.appendChild(x); });
   const kv = $('p-kv'); kv.innerHTML = '';
-  [['Celular', p.os === 'iphone' ? 'iPhone' : 'Android'], ['Edad', p.edad || '—'], ['Con el celular', p.nivel || '—'], ['Intereses', (p.intereses || []).map(k => (INTERESES.find(i => i[0] === k) || [,,k])[2]).join(', ') || '—'], ['También quiere', p.otro || '—']].forEach(r => { const dt = el('dt'); dt.textContent = r[0]; const dd = el('dd'); dd.textContent = r[1]; kv.append(dt, dd); });
+  [['Celular', p.os === 'iphone' ? 'iPhone' : 'Android'], ['Edad', p.edad || '—'], ['Con el celular', p.nivel || '—'], ['Intereses', (p.intereses || []).map(k => (INTERESES.find(i => i[0] === k) || [,,k])[2]).join(', ') || '—'], ['También quiere', p.otro || '—'], ['Tu código', UID || anonUid()]].forEach(r => { const dt = el('dt'); dt.textContent = r[0]; const dd = el('dd'); dd.textContent = r[1]; kv.append(dt, dd); });
   $('p-owner').hidden = !IS_OWNER;
 }
 $('p-edit').addEventListener('click', startOnboarding);
