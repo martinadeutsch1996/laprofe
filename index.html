@@ -110,7 +110,12 @@ a{color:var(--petroleo)}
 .scrollhint{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;align-items:center;gap:8px;background:var(--fg);color:var(--bg);border:none;border-radius:999px;padding:10px 18px;font-weight:800;font-size:16px;min-height:48px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 .modal{position:fixed;inset:0;z-index:20;background:rgba(20,20,42,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px}
 .modal .sheet2{background:var(--bg);border-radius:28px;padding:22px 18px calc(18px + env(safe-area-inset-bottom,0px));width:100%;max-width:440px;display:flex;flex-direction:column;gap:12px;max-height:92vh;overflow:auto}
-.modal h2{font-size:26px}
+.modal h2{font-size:26px;padding-right:52px}
+.modal .sheet2{position:relative}
+.mclose{position:absolute;top:12px;right:12px;width:48px;height:48px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--fg);font-size:22px;font-weight:800;display:grid;place-items:center;z-index:2}
+.mclose:active{transform:scale(.94)}
+.instnav{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.instnav button{background:none;border:none;font-weight:800;font-size:16px;color:var(--fg);text-decoration:underline;text-underline-offset:3px;padding:8px 4px;min-height:44px}
 .modal .opt{display:flex;align-items:center;gap:12px;font-size:19px}
 .modal .opt span{font-size:30px}
 .modal .opt[aria-pressed="true"]{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--card))}
@@ -452,6 +457,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 
 <div class="modal" id="exitm" role="dialog" aria-modal="true" aria-labelledby="exitm-t" hidden>
   <div class="sheet2">
+    <button class="mclose" type="button" aria-label="Cerrar" data-close="exitm">✕</button>
     <h2 id="exitm-t">¿Querés salir de la lección?</h2>
     <p>Tranqui: tu avance queda guardado. La próxima vez seguís desde este mismo paso.</p>
     <button class="btn" type="button" id="exitm-stay">Seguir con la lección</button>
@@ -460,16 +466,19 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 </div>
 <div class="modal" id="instm" role="dialog" aria-modal="true" aria-labelledby="instm-t" hidden>
   <div class="sheet2">
+    <button class="mclose" type="button" aria-label="Cerrar" data-close="instm">✕</button>
     <h2 id="instm-t">Poné LaProfe en tu pantalla de inicio</h2>
+    <div class="instnav"><span class="small muted" id="instm-n" style="font-weight:700"></span><button type="button" id="instm-prev">← Paso anterior</button></div>
     <div class="rl" id="instm-pasos"></div>
     <button class="btn" type="button" id="instm-native" hidden>Agregar ahora</button>
-    <p class="note">Si no te sale, preguntale a Martina digital o escribile a Martina por WhatsApp.</p>
-    <button class="btn" type="button" id="instm-ok">¡Listo, ya está!</button>
-    <button class="btn ghost small" type="button" id="instm-close" style="align-self:center">Cerrar</button>
+    <button class="btn" type="button" id="instm-next">Siguiente paso →</button>
+    <button class="btn" type="button" id="instm-ok" hidden>¡Listo, ya está!</button>
+    <p class="note" id="instm-help" hidden>Si no te sale, preguntale a Martina digital o escribile a Martina por WhatsApp.</p>
   </div>
 </div>
 <div class="modal" id="op" role="dialog" aria-modal="true" aria-labelledby="op-t" hidden>
   <div class="sheet2">
+    <button class="mclose" type="button" aria-label="Cerrar" data-close="op">✕</button>
     <div class="say"><img class="avatar sm" id="op-av" alt="Martina"><div><h2 id="op-t">¿Qué te parece la app?</h2><p class="muted small">Tu opinión me ayuda a mejorarla. Es un ratito.</p></div></div>
     <div class="stack" id="op-opts" style="gap:10px"></div>
     <div class="stack" id="op-more" hidden style="gap:10px">
@@ -937,13 +946,23 @@ function instPasos(){
   return p;
 }
 $('h-inst-ic').src = 'icon-192.png';
+document.addEventListener('click', e => { const c = e.target.closest('.mclose'); if (!c) return; const m = c.dataset.close; if (m === 'op'){ if (opSel && $('op-ok').hidden) sendOpinion(); else closeOpinion(); } else $(m).hidden = true; });
+let instI = 0, instL = [];
+function renderInst(){
+  const x = instL[instI], t = Array.isArray(x) ? x[0] : x, k = Array.isArray(x) ? x[1] : '', box = $('instm-pasos'), last = instI === instL.length - 1;
+  box.innerHTML = ''; box.style.counterReset = 'rl ' + instI;
+  const it = el('div', 'ri', '<p></p>'); it.querySelector('p').textContent = t; if (INST_ART[k]) it.appendChild(el('div', 'instart', INST_ART[k]())); box.appendChild(it);
+  $('instm-n').textContent = 'Paso ' + (instI + 1) + ' de ' + instL.length; $('instm-prev').hidden = instI === 0;
+  $('instm-next').hidden = last; $('instm-ok').hidden = !last; $('instm-help').hidden = !last; $('instm-native').hidden = !(instEvt && instI === 0);
+}
+$('instm-next').addEventListener('click', () => { if (instI < instL.length - 1){ instI++; renderInst(); } });
+$('instm-prev').addEventListener('click', () => { if (instI > 0){ instI--; renderInst(); } });
 $('h-inst-go').addEventListener('click', () => {
-  const box = $('instm-pasos'); box.innerHTML = ''; instPasos().forEach(x => { const t = Array.isArray(x) ? x[0] : x, k = Array.isArray(x) ? x[1] : ''; const it = el('div', 'ri', '<p></p>'); it.querySelector('p').textContent = t; if (INST_ART[k]) it.appendChild(el('div', 'instart', INST_ART[k]())); box.appendChild(it); });
-  $('instm-native').hidden = !instEvt; $('instm').hidden = false; track(d => { d.instVio = (d.instVio || 0) + 1; });
+  instL = instPasos(); instI = 0; renderInst(); $('instm').hidden = false; track(d => { d.instVio = (d.instVio || 0) + 1; });
 });
 $('instm-native').addEventListener('click', async () => { if (!instEvt) return; instEvt.prompt(); try { const r = await instEvt.userChoice; if (r.outcome === 'accepted'){ S.instOk = true; save(); $('instm').hidden = true; $('h-inst').hidden = true; } } catch(e){} instEvt = null; $('instm-native').hidden = true; });
 $('instm-ok').addEventListener('click', () => { S.instOk = true; save(); track(d => { d.instDijo = true; }); $('instm').hidden = true; $('h-inst').hidden = true; toast('¡Bravo! La próxima vez entrá tocando el ícono de LaProfe.'); });
-$('instm-close').addEventListener('click', () => $('instm').hidden = true);
+
 $('h-inst-no').addEventListener('click', () => { S.instNo = Date.now(); save(); $('h-inst').hidden = true; });
 let opVista = false, opSel = null;
 function maybeOpinion(){
