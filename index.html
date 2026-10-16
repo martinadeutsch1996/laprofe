@@ -45,6 +45,8 @@ a{color:var(--petroleo)}
 .avatar.xl{width:120px;height:120px;border-width:4px}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:12px 22px;border-radius:999px;border:none;font-weight:800;font-size:19px;background:var(--coral);color:var(--ink);width:100%;text-align:center;text-decoration:none}
 .btn:disabled{opacity:.45;cursor:default}
+.btn,.opt,.choice,.lesson,.chip,.rep,.lvl-more,.nav button,.sizes button{transition:transform .08s,filter .08s;-webkit-tap-highlight-color:transparent}
+.btn:active:not(:disabled),.opt:active,.choice:active,.lesson:active,.chip:active,.rep:active,.lvl-more:active,.nav button:active,.sizes button:active{transform:scale(.97);filter:brightness(.92)}
 .btn.dark{background:var(--fg);color:var(--bg)}
 .btn.ghost{background:transparent;border:2px solid var(--fg);color:var(--fg)}
 .btn.green{background:#15803D;color:#fff}
@@ -101,6 +103,9 @@ a{color:var(--petroleo)}
 .lvl-toggle{display:flex;align-items:center;gap:12px;width:100%;background:none;border:none;padding:0;text-align:left;color:inherit}
 .lvl-more{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:48px;border-radius:999px;border:2px solid var(--line);background:transparent;font-weight:800;font-size:16px;color:var(--fg)}
 .lvl.closed{padding-block:14px}
+.lvl.full{border-color:var(--lima)}
+.lvl.full .lvl-head .em{background:var(--lima)}
+.okb{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:var(--lima);color:var(--ink);border-radius:999px;padding:4px 12px;font-weight:800;font-size:15px}
 .lvl.closed .lvl-head .em{width:44px;height:44px;font-size:22px}
 .scrollhint{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;align-items:center;gap:8px;background:var(--fg);color:var(--bg);border:none;border-radius:999px;padding:10px 18px;font-weight:800;font-size:16px;min-height:48px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 .modal{position:fixed;inset:0;z-index:20;background:rgba(20,20,42,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px}
@@ -135,6 +140,8 @@ a{color:var(--petroleo)}
 .art .sq{box-shadow:none}
 .pasos{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px}
 .pasos button{background:none;border:none;font-weight:800;font-size:16px;color:var(--fg);padding:8px 4px;min-height:44px;text-decoration:underline;text-underline-offset:3px}
+.instart{margin-top:4px}
+.instart svg{width:100%;height:auto;display:block}
 .beta{background:var(--card);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;border:2px dashed var(--line)}
 .guide{user-select:none;-webkit-user-select:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:4;background:var(--bg);padding-block:6px}
 /* teléfono simulado */
@@ -912,17 +919,26 @@ function instVisible(){
   if (OS() === 'iphone' && doneN() > 0) return false; // en iPhone el ícono arranca de cero: solo se ofrece al principio
   return true;
 }
+/* Dibujitos de cada paso, con flecha roja señalando dónde tocar */
+const ARROW = (x, y, rot) => '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')"><path d="M0 0 L-26 -12 L-20 0 L-26 12 Z" fill="#E5281B"/><rect x="-62" y="-4" width="40" height="8" rx="4" fill="#E5281B"/></g>';
+const INST_ART = {
+  andDots: () => '<svg viewBox="0 0 300 70" role="img" aria-label="Barra de Chrome con los tres puntitos señalados"><rect x="1" y="1" width="298" height="68" rx="12" fill="#fff" stroke="#DDD6CB"/><rect x="14" y="18" width="160" height="34" rx="17" fill="#EEF1F4"/><text x="30" y="40" font-size="14" fill="#555" font-family="system-ui">…github.io/laprofe</text><circle cx="270" cy="35" r="20" fill="none" stroke="#E5281B" stroke-width="4"/><circle cx="270" cy="25" r="3.2" fill="#222"/><circle cx="270" cy="35" r="3.2" fill="#222"/><circle cx="270" cy="45" r="3.2" fill="#222"/>' + ARROW(246, 35, 0) + '</svg>',
+  andAdd: () => '<svg viewBox="0 0 300 96" role="img" aria-label="Menú de Chrome con la opción Agregar a la pantalla principal señalada"><rect x="1" y="1" width="298" height="94" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="18" y="26" font-size="14" fill="#777" font-family="system-ui">Compartir…</text><rect x="8" y="38" width="284" height="34" rx="8" fill="#FFF1EE" stroke="#E5281B" stroke-width="3"/><text x="18" y="60" font-size="15" font-weight="700" fill="#222" font-family="system-ui">Agregar a la pantalla principal</text><text x="18" y="88" font-size="14" fill="#777" font-family="system-ui">Configuración</text></svg>',
+  iosShare: () => '<svg viewBox="0 0 300 70" role="img" aria-label="Barra de Safari con el botón Compartir señalado"><rect x="1" y="1" width="298" height="68" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="22" y="42" font-size="22" fill="#2F6FEB" font-family="system-ui">‹</text><text x="66" y="42" font-size="22" fill="#2F6FEB" font-family="system-ui">›</text><circle cx="150" cy="35" r="22" fill="none" stroke="#E5281B" stroke-width="4"/><rect x="140" y="30" width="20" height="18" rx="3" fill="none" stroke="#2F6FEB" stroke-width="2.4"/><path d="M150 18 V38 M143 25 L150 18 L157 25" fill="none" stroke="#2F6FEB" stroke-width="2.4" stroke-linecap="round"/>' + ARROW(208, 35, 180) + '</svg>',
+  iosAdd: () => '<svg viewBox="0 0 300 96" role="img" aria-label="Menú de compartir con la opción Agregar a pantalla de inicio señalada"><rect x="1" y="1" width="298" height="94" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="18" y="26" font-size="14" fill="#777" font-family="system-ui">Copiar</text><rect x="8" y="38" width="284" height="34" rx="8" fill="#FFF1EE" stroke="#E5281B" stroke-width="3"/><text x="18" y="60" font-size="15" font-weight="700" fill="#222" font-family="system-ui">Agregar a pantalla de inicio</text><rect x="258" y="45" width="20" height="20" rx="4" fill="none" stroke="#222" stroke-width="2"/><path d="M268 50 V60 M263 55 H273" stroke="#222" stroke-width="2"/><text x="18" y="88" font-size="14" fill="#777" font-family="system-ui">Agregar a favoritos</text></svg>',
+  icon: () => '<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><img src="icon-192.png" alt="" style="width:60px;height:60px;border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.15)"><span class="small" style="font-weight:700">LaProfe</span></div>'
+};
 function instPasos(){
   const ua = navigator.userAgent || '', wa = /WhatsApp|FBAN|FBAV|Instagram|; wv\)/i.test(ua), ios = OS() === 'iphone';
   const p = [];
   if (wa) p.push(ios ? 'Si abriste el link desde WhatsApp, primero tocá los tres puntitos ··· o el botón de compartir y elegí "Abrir en Safari".' : 'Si abriste el link desde WhatsApp, primero tocá los tres puntitos ⋮ de arriba y elegí "Abrir en Chrome".');
-  if (ios){ p.push('Abajo, tocá el botón Compartir: un cuadradito con una flecha hacia arriba. (Si no lo ves, tocá los tres puntitos ···).'); p.push('Bajá un poquito y tocá "Agregar a pantalla de inicio".'); p.push('Arriba a la derecha, tocá "Agregar". ¡Listo! Buscá el ícono con mi foto.'); }
-  else { p.push('Arriba a la derecha, tocá los tres puntitos ⋮.'); p.push('Tocá "Agregar a la pantalla principal" o "Instalar app".'); p.push('Tocá "Agregar" o "Instalar". ¡Listo! Buscá el ícono con mi foto.'); }
+  if (ios){ p.push(['Abajo, tocá el botón Compartir: un cuadradito con una flecha hacia arriba. (Si no lo ves, tocá los tres puntitos ···).', 'iosShare']); p.push(['Bajá un poquito y tocá "Agregar a pantalla de inicio".', 'iosAdd']); p.push(['Arriba a la derecha, tocá "Agregar". ¡Listo! Buscá el ícono con mi foto.', 'icon']); }
+  else { p.push(['Arriba a la derecha, tocá los tres puntitos ⋮.', 'andDots']); p.push(['Tocá "Agregar a la pantalla principal" o "Instalar app".', 'andAdd']); p.push(['Tocá "Agregar" o "Instalar". ¡Listo! Buscá el ícono con mi foto.', 'icon']); }
   return p;
 }
 $('h-inst-ic').src = 'icon-192.png';
 $('h-inst-go').addEventListener('click', () => {
-  const box = $('instm-pasos'); box.innerHTML = ''; instPasos().forEach(t => { const it = el('div', 'ri', '<p></p>'); it.querySelector('p').textContent = t; box.appendChild(it); });
+  const box = $('instm-pasos'); box.innerHTML = ''; instPasos().forEach(x => { const t = Array.isArray(x) ? x[0] : x, k = Array.isArray(x) ? x[1] : ''; const it = el('div', 'ri', '<p></p>'); it.querySelector('p').textContent = t; if (INST_ART[k]) it.appendChild(el('div', 'instart', INST_ART[k]())); box.appendChild(it); });
   $('instm-native').hidden = !instEvt; $('instm').hidden = false; track(d => { d.instVio = (d.instVio || 0) + 1; });
 });
 $('instm-native').addEventListener('click', async () => { if (!instEvt) return; instEvt.prompt(); try { const r = await instEvt.userChoice; if (r.outcome === 'accepted'){ S.instOk = true; save(); $('instm').hidden = true; $('h-inst').hidden = true; } } catch(e){} instEvt = null; $('instm-native').hidden = true; });
@@ -971,12 +987,13 @@ function renderInicio(){
   NIVELES.forEach(nv => {
     const open = openLvl === nv.n;
     const d = nv.ls.filter(l => S.done[l.id]).length, rec = (S.perfil && S.perfil.start) === nv.n;
-    const c = el('div', 'lvl' + (open ? '' : ' closed'));
+    const c = el('div', 'lvl' + (open ? '' : ' closed') + (d === nv.ls.length ? ' full' : ''));
     c.innerHTML = '<div class="lvl-head"><span class="em" aria-hidden="true">' + nv.em + '</span><div style="min-width:0;flex:1"><span class="muted small" style="font-weight:800">NIVEL ' + nv.n + '</span><h3 style="font-size:22px"></h3><span class="muted small"></span></div></div><div class="progress"><span style="width:' + (d / nv.ls.length * 100) + '%"></span></div><span class="small muted"><b>' + d + ' de ' + nv.ls.length + '</b> lecciones</span>';
     if (MOSTRAR_PAGO && nv.n > 1 && !S.unlocked) c.insertBefore(el('span', 'lockb', '🔒 LaProfe completo'), c.firstChild);
     c.querySelector('h3').textContent = nv.t; c.querySelectorAll('.muted.small')[1].textContent = nv.d;
     if (open && rec && nv.n > 1 && d < nv.ls.length){ const rn = el('div', 'say', '<img class="avatar sm" alt=""><div class="bubble small">Por lo que me contaste, te recomiendo empezar acá. Podés volver a lo anterior cuando quieras.</div>'); rn.querySelector('img').src = FOTO; c.insertBefore(rn, c.children[1]); }
     if (!open && !rec && nv.n < ((S.perfil && S.perfil.start) || 1) && d === 0){ const on = el('span', 'small muted', 'Opcional: para repasar lo básico'); c.insertBefore(on, c.children[1]); }
+    if (d === nv.ls.length) c.insertBefore(el('span', 'okb', '✓ Nivel completo'), c.children[1]);
     if (!open){ c.querySelectorAll('.muted.small')[1].remove(); c.querySelector('.progress').remove(); const m = el('button', 'lvl-more', 'Ver las ' + nv.ls.length + ' lecciones <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'); m.type = 'button'; m.addEventListener('click', () => { openLvl = nv.n; renderInicio(); c.scrollIntoView && box.children[nv.n - 1] && box.children[nv.n - 1].scrollIntoView({block:'start'}); }); c.appendChild(m); box.appendChild(c); return; }
     nv.ls.forEach(l => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Completada · podés repasarla' : (S.prog && S.prog[l.id]) ? 'Vas por el paso ' + (S.prog[l.id] + 1) + ' de ' + l.steps.length : l.min + ' minutos'; b.addEventListener('click', () => startLesson(l)); c.appendChild(b); });
     box.appendChild(c);
@@ -990,7 +1007,7 @@ function renderInicio(){
   $('h-soon-box').hidden = true; // oculto: los candados suman ruido en el inicio
   $('h-soon').innerHTML = ''; ints.forEach(k => $('h-soon').appendChild(el('span', '', '🔒 ' + esc(SOON[k]))));
 }
-$('h-cont').addEventListener('click', () => { const l = nextLesson(); if (l) startLesson(l); });
+$('h-cont').addEventListener('click', () => { if (Date.now() - (window._hc || 0) < 800) return; window._hc = Date.now(); const l = nextLesson(); if (l) startLesson(l); });
 
 /* ============ REPRODUCTOR DE LECCIONES ============ */
 let si = 0, lessonT0 = 0;
@@ -1002,7 +1019,7 @@ $('l-back').addEventListener('click', () => { if (si > 0){ si--; renderStep(); w
 function stepDots(){ $('l-paso').textContent = 'Paso ' + (si + 1) + ' de ' + curL.steps.length; $('l-back').hidden = si === 0; const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
 const QUE_SIGUE = {ex:'Siguiente', try:'Ahora probalo vos →', check:'Veamos si te acordás →', rec:'Ver el resumen →', real:'Hacerlo en mi celular →'};
 function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Siguiente') : 'Terminar la lección'; }
-  const b = el('button', 'btn', label); b.type = 'button'; b.addEventListener('click', () => { si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
+  const b = el('button', 'btn', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
 const fillOS = s => String(T(s)).replace('{os}', OS() === 'iphone' ? 'iPhone' : 'Android');
 function renderStep(){
   token++; $('toast').hidden = true; yaBajo = false;
