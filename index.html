@@ -418,6 +418,15 @@ const $ = id => document.getElementById(id);
 const FOTO = document.querySelector('.avatar').src;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pick = a => a[Math.floor(Math.random() * a.length)];
+/* Versión de testeo: poné true para volver a mostrar cada parte. */
+const MOSTRAR_PAGO = false;       // pantalla de desbloqueo y candados de los niveles 2 y 3
+const MOSTRAR_COMUNIDAD = false;  // pestaña Comunidad y botón "En la comunidad"
+if (!MOSTRAR_COMUNIDAD){
+  const tab = document.querySelector('.nav button[data-tab="com"]'); if (tab) tab.remove();
+  document.getElementById('nav').style.gridTemplateColumns = 'repeat(3,1fr)';
+  const gc = document.getElementById('g-com'); if (gc) gc.hidden = true;
+  const gw = document.getElementById('g-wa'); if (gw) gw.textContent = 'Contárselo a mi familia por WhatsApp';
+}
 const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 
@@ -636,7 +645,7 @@ const capsReady = (async () => {
   try { USER = await window.claude.use('user'); } catch(e){}
   try { DB = await window.claude.use('db'); } catch(e){}
   if (USER){ try { UID = await USER.id(); IS_OWNER = await USER.isOwner(); } catch(e){} }
-  startCommunity(); startBrain();
+  if (MOSTRAR_COMUNIDAD) startCommunity(); startBrain();
   if (!$('s-per').hidden) renderPerfil();
   if (!$('s-mar').hidden) renderMartina();
 })();
@@ -753,7 +762,7 @@ function renderOb(){
     const n = next('Seguir', !!i.value.trim());
     i.addEventListener('input', () => { obDraft.nombre = i.value.trim(); n.disabled = !obDraft.nombre; });
     i.addEventListener('keydown', e => { if (e.key === 'Enter' && obDraft.nombre) n.click(); });
-    b.append(i, el('p', 'note', 'Así te saludo y así aparecés en la comunidad.'), n); setTimeout(() => i.focus(), 50);
+    b.append(i, el('p', 'note', MOSTRAR_COMUNIDAD ? 'Así te saludo y así aparecés en la comunidad.' : 'Así te saludo en cada lección.'), n); setTimeout(() => i.focus(), 50);
   }
   if (step === 'edad'){
     b.append(back(), el('h1', '', '¿Cuántos años tenés?'), el('p', 'muted', 'Me ayuda a elegir ejemplos que te sirvan.'));
@@ -803,7 +812,7 @@ function renderInicio(){
     const d = nv.ls.filter(l => S.done[l.id]).length, rec = (S.perfil && S.perfil.start) === nv.n;
     const c = el('div', 'lvl' + (rec ? ' rec' : ''));
     c.innerHTML = '<div class="lvl-head"><span class="em" aria-hidden="true">' + nv.em + '</span><div style="min-width:0;flex:1"><span class="muted small" style="font-weight:800">NIVEL ' + nv.n + (rec ? ' · RECOMENDADO PARA EMPEZAR' : '') + '</span><h3 style="font-size:22px"></h3><span class="muted small"></span></div></div><div class="progress"><span style="width:' + (d / nv.ls.length * 100) + '%"></span></div><span class="small muted"><b>' + d + ' de ' + nv.ls.length + '</b> lecciones</span>';
-    if (nv.n > 1 && !S.unlocked) c.insertBefore(el('span', 'lockb', '🔒 LaProfe completo'), c.firstChild);
+    if (MOSTRAR_PAGO && nv.n > 1 && !S.unlocked) c.insertBefore(el('span', 'lockb', '🔒 LaProfe completo'), c.firstChild);
     c.querySelector('h3').textContent = nv.t; c.querySelectorAll('.muted.small')[1].textContent = nv.d;
     nv.ls.forEach(l => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Completada · podés repasarla' : l.min + ' minutos'; b.addEventListener('click', () => startLesson(l)); c.appendChild(b); });
     box.appendChild(c);
@@ -821,7 +830,7 @@ $('h-cont').addEventListener('click', () => { const l = nextLesson(); if (l) sta
 
 /* ============ REPRODUCTOR DE LECCIONES ============ */
 let si = 0, lessonT0 = 0;
-function startLesson(l){ if (l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = 'Nivel ' + l.niv.n + ' · ' + l.t; renderStep(); }
+function startLesson(l){ if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = 'Nivel ' + l.niv.n + ' · ' + l.t; renderStep(); }
 $('l-exit').addEventListener('click', () => show('inicio'));
 function stepDots(){ const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
 function nextBtn(label){ const b = el('button', 'btn', label || 'Siguiente'); b.type = 'button'; b.addEventListener('click', () => { si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
@@ -1191,12 +1200,12 @@ function renderDatos(){
   const trab = {}; P.forEach(v => Object.entries(v.lec || {}).forEach(([id, x]) => (x.trabe || []).forEach(k => { const l = ALL.find(a => a.id === id); if (l){ const st = l.steps[k]; const lab = l.t + ' · ' + (st && st.k === 'real' ? 'en su celular' : st && st.k === 'try' ? 'práctica' : 'paso ' + (k + 1)); trab[lab] = (trab[lab] || 0) + 1; } })));
   box.appendChild(bars('Dónde tocaron "Me trabé"', trab));
   const payLbl = {yo:'Lo pagaría yo', familia:'Que se lo regale la familia', no:'Por ahora no'};
-  box.appendChild(bars('¿Pagarían los niveles 2 y 3? (respuestas)', cnt(v => v.pago && payLbl[v.pago.opcion])));
+  if (MOSTRAR_PAGO) box.appendChild(bars('¿Pagarían los niveles 2 y 3? (respuestas)', cnt(v => v.pago && payLbl[v.pago.opcion])));
   const vieron = P.filter(v => v.pago && v.pago.vio).length;
   const reps = P.reduce((a, v) => a + (Array.isArray(v.repasos) ? v.repasos.length : 0), 0), repP = P.filter(v => Array.isArray(v.repasos) && v.repasos.length).length;
-  box.appendChild(el('div', 'dash-n', '<div><b>' + vieron + '</b><span>vieron la pantalla de desbloqueo</span></div><div><b>' + reps + '</b><span>repasitos hechos</span></div><div><b>' + repP + '</b><span>personas que repasan</span></div>'));
+  box.appendChild(el('div', 'dash-n', (MOSTRAR_PAGO ? '<div><b>' + vieron + '</b><span>vieron la pantalla de desbloqueo</span></div>' : '') + '<div><b>' + reps + '</b><span>repasitos hechos</span></div><div><b>' + repP + '</b><span>personas que repasan</span></div>'));
   const comp = {familia:0, comunidad:0, perfil:0}; P.forEach(v => Object.keys(comp).forEach(k => comp[k] += (v.comp || {})[k] || 0));
-  box.appendChild(bars('Veces que compartieron', {'WhatsApp al terminar una lección':comp.familia, 'En la comunidad':comp.comunidad, 'Su avance desde el perfil':comp.perfil}));
+  box.appendChild(bars('Veces que compartieron', Object.assign({'WhatsApp al terminar una lección':comp.familia}, MOSTRAR_COMUNIDAD ? {'En la comunidad':comp.comunidad} : {}, {'Su avance desde el perfil':comp.perfil})));
   const qs = P.flatMap(v => Array.isArray(v.preguntas) ? v.preguntas : []).sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 40);
   const qc = el('div', 'card stack', '<b style="font-size:18px">Lo que le preguntan a Martina</b><div class="qlist"></div>');
   qs.forEach(q => { const sp = el('span'); sp.textContent = q.q; qc.querySelector('.qlist').appendChild(sp); }); if (!qs.length) qc.appendChild(el('span', 'muted small', 'Todavía nadie le preguntó nada'));
