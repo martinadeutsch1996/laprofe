@@ -372,10 +372,11 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
   <a class="btn ghost small" style="align-self:flex-start" href="https://wa.me/59898899502?text=Hola%20Martina%2C%20" target="_blank" rel="noopener">Escribirle a Martina por WhatsApp</a>
   <div class="chat" id="m-chat"></div>
   <div class="chips" id="m-chips"></div>
+  <button type="button" class="chip" id="m-ideas" hidden style="align-self:flex-start;border-style:dashed">💡 Ideas para preguntar</button>
   <p class="note" id="m-mic-note" hidden></p>
   <div class="composer">
     <label for="m-in" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tu pregunta</label>
-    <textarea id="m-in" rows="1" placeholder="Escribí tu pregunta…"></textarea>
+    <textarea id="m-in" rows="1" placeholder="Tu pregunta…"></textarea>
     <button class="btn ghost small" type="button" id="m-mic" style="min-height:56px;padding:8px 12px" aria-label="Hablar para dictar la pregunta" hidden>🎤</button>
     <button class="btn small" type="button" id="m-send" style="min-height:56px">Enviar</button>
     <button class="btn small dark" type="button" id="m-stop" hidden style="min-height:56px">Detener</button>
@@ -828,7 +829,7 @@ function checkScroll(){
   const enOb = !$('s-ob').hidden && $('ob-next');
   h.classList.toggle('nonav', $('nav').hidden && !enOb);
   if (window.scrollY > 140) yaBajo = true;
-  h.hidden = yaBajo || falta < 160;
+  h.hidden = yaBajo || falta < 160 || !$('s-mar').hidden;
 }
 $('scrollhint').addEventListener('click', () => window.scrollBy({top: Math.round(window.innerHeight * 0.6), behavior: 'smooth'}));
 window.addEventListener('scroll', checkScroll, {passive:true});
@@ -1326,7 +1327,7 @@ function renderMartina(){
 }
 async function ask(q){
   q = String(q || '').trim(); if (!q || mCtl) return;
-  $('m-in').value = '';
+  $('m-in').value = ''; $('m-chips').hidden = true; $('m-ideas').hidden = false;
   const qd = el('div', 'q'); qd.textContent = q; $('m-chat').appendChild(qd);
   const ad = el('div', 'say', '<img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble ai">Pensando…</div>'); $('m-chat').appendChild(ad);
   const b = ad.querySelector('.bubble'); ad.scrollIntoView({behavior:'smooth', block:'end'});
@@ -1368,6 +1369,7 @@ $('m-send').addEventListener('click', () => ask($('m-in').value));
   });
 })();
 $('m-stop').addEventListener('click', () => { if (mCtl) mCtl.abort(); });
+$('m-ideas').addEventListener('click', () => { $('m-chips').hidden = false; $('m-ideas').hidden = true; $('m-chips').scrollIntoView({behavior:'smooth', block:'center'}); });
 $('m-in').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); ask($('m-in').value); } });
 
 /* ============ PERFIL ============ */
