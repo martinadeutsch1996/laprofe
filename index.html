@@ -656,6 +656,22 @@ const REAL = {
  '3e':['Pensá con tu familia una palabra clave, para confirmar que son ellos si alguna vez te piden plata por mensaje.',{android:'En WhatsApp, tocá los tres puntitos de arriba > Ajustes > Cuenta > Verificación en dos pasos. Fijate si está activada.', iphone:'En WhatsApp, tocá el engranaje de abajo a la derecha > Cuenta > Verificación en dos pasos. Fijate si está activada.'}]
 };
 NIVELES.forEach(n => n.ls.forEach(l => { if (MOSTRAR_PRACTICA_REAL && REAL[l.id]){ const i = l.steps.findIndex(x => x.k === 'try'); l.steps.splice(i + 1, 0, {k:'real', pasos:REAL[l.id]}); } }));
+/* Lo que la persona ya sabe hacer al terminar cada lección (se muestra en el festejo) */
+const LOGRO = {
+  '1a':'Ya sabés qué es una app y para qué sirve cada una.',
+  '1b':'Ya sabés diferenciar el WiFi de los datos móviles.',
+  '1c':'Ya sabés qué es la nube y cómo no perder tus fotos.',
+  '1d':'Ya sabés cómo proteger tu celular con un bloqueo de pantalla.',
+  '2a':'Ya sabés tocar, mantener apretado, deslizar y pellizcar.',
+  '2b':'Ya sabés abrir una app y volver a la pantalla de inicio.',
+  '2c':'Ya sabés usar los atajos para prender la linterna y más.',
+  '2d':'Ya sabés agrandar la letra y ajustar el volumen y el brillo.',
+  '3a':'Ya sabés encontrar un chat y ver qué mensajes no leíste.',
+  '3b':'Ya sabés escribir y mandar un mensaje por WhatsApp.',
+  '3c':'Ya sabés grabar, cancelar y mandar un audio.',
+  '3d':'Ya sabés mandar una foto que tenés guardada.',
+  '3e':'Ya sabés reconocer un mensaje de estafa.'
+};
 const ALL = []; NIVELES.forEach(n => n.ls.forEach((l, i) => { l.niv = n; l.idx = i; ALL.push(l); }));
 const doneN = () => ALL.filter(l => S.done[l.id]).length;
 const INTERESES = [['familia','💞','Hablar con mi familia'],['fotos','🖼️','Fotos y recuerdos'],['ciudad','🚌','Moverme por la ciudad'],['redes','❤️','Redes sociales'],['ia','✨','Inteligencia artificial'],['seguridad','🛡️','Seguridad y estafas'],['compras','🛒','Compras online'],['entretenimiento','🎬','Películas, música y videos']];
@@ -802,7 +818,9 @@ $('scrollhint').addEventListener('click', () => window.scrollBy({top: Math.round
 window.addEventListener('scroll', checkScroll, {passive:true});
 window.addEventListener('resize', checkScroll);
 new MutationObserver(() => requestAnimationFrame(checkScroll)).observe(document.querySelector('main'), {childList:true, subtree:true, attributes:true, attributeFilter:['hidden']});
-function toast(txt, ms){ $('toast-txt').textContent = txt; $('toast').hidden = false; clearTimeout(toastT); toastT = setTimeout(() => $('toast').hidden = true, Math.min(ms || 2600, 3000)); }
+function toast(txt, ms){ $('toast-txt').textContent = txt; $('toast').hidden = false; clearTimeout(toastT);
+  const leer = Math.min(Math.max(4500, String(txt).length * 75), 12000); // tiempo para leer tranqui según el largo
+  toastT = setTimeout(() => $('toast').hidden = true, Math.max(ms || 0, leer)); }
 function speak(txt){
   try { const u = new SpeechSynthesisUtterance(txt); u.lang = 'es-UY'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
   catch(e){ toast('En este navegador no se puede escuchar. En la app final es la voz de Martina.'); }
@@ -998,7 +1016,7 @@ function renderStep(){
     if (st.art) z.append(el('div', 'art', ART[st.art] ? ART[st.art]() : ''), el('p', 'note center', 'Es un dibujo para mirar, no hace falta tocarlo.'));
     const row = el('div', 'row aux');
     const sp = el('button', 'btn ghost', '🔊 Escuchar'); sp.type = 'button'; sp.addEventListener('click', () => speak(txt));
-    const nu = el('button', 'btn ghost', '🤔 No entendí'); nu.type = 'button'; nu.addEventListener('click', () => { const id = curL.id, k = si; track(d => { const x = L(d, id); x.nope = addIdx(x.nope, k); }); explainAgain(txt, z, nu); });
+    const nu = el('button', 'btn ghost', '🤔 No entendí'); nu.type = 'button'; nu.addEventListener('click', () => { const id = curL.id, k = si; track(d => { const x = L(d, id); x.nope = addIdx(x.nope, k); }); costo(id); explainAgain(txt, z, nu); });
     row.append(sp, nu); z.append(row, nextBtn());
   }
   if (st.k === 'try'){
@@ -1040,7 +1058,7 @@ function renderStep(){
     const q = el('h2', 'qh'); q.textContent = fillOS(st.q); z.append(q);
     const opts = el('div', 'stack'); const fb = el('div'); const o = T(st.o);
     o.forEach((t, k) => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = fillOS(t); b.addEventListener('click', () => {
-      if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; { const id = curL.id, ks = si; track(d => { const x = L(d, id); if (ok) x.bien = addIdx(x.bien, ks); else x.mal = addIdx(x.mal, ks); }); } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
+      if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; { const id = curL.id, ks = si; track(d => { const x = L(d, id); if (ok) x.bien = addIdx(x.bien, ks); else x.mal = addIdx(x.mal, ks); }); if (!ok){ costo(id); S.mem = Object.assign({}, S.mem, {[id + '-' + ks]: {box:0, next:hoy()}}); save(); } } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
       fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Muy bien!','¡Eso! ¡Viste que sabías!','¡Perfecto! Sos una luz.','¡Exacto! Vas volando.']) : pick(['¡Casi! Equivocarse es parte de aprender.','No pasa nada: así se aprende.','Tranqui, esta confunde a todos al principio.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = fillOS(st.why);
       const nb = nextBtn(); nb.style.marginTop = '12px'; fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
     }); opts.appendChild(b); });
@@ -1055,7 +1073,7 @@ function renderStep(){
 }
 function helpBox(after, ctx, onSkip){
   const old = document.querySelector('.help'); if (old) old.remove();
-  const id = curL.id, k = si; track(d => { const x = L(d, id); x.trabe = addIdx(x.trabe, k); });
+  const id = curL.id, k = si; track(d => { const x = L(d, id); x.trabe = addIdx(x.trabe, k); }); costo(id);
   const h = el('div', 'help', '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble"></div></div>');
   h.querySelector('.bubble').textContent = pick(['¡Tranqui! Trabarse es parte de aprender, a todos nos pasa. Respirá hondo y vamos de nuevo, de a poquito.','No pasa nada, en serio. Esta parte le cuesta a casi todo el mundo al principio. Te ayudo.','¡Para eso estoy! Nadie nace sabiendo. Elegí cómo te ayudo:']);
   if (SAMPLE){ const ai = el('button', 'btn dark', '✨ Que me lo explique Martina digital'); ai.type = 'button'; h.appendChild(ai);
@@ -1083,10 +1101,17 @@ async function explainAgain(txt, z, btn){
 
 /* ============ REPASITO ============ */
 let RQ = [], ri = 0, rok = 0;
+/* Repaso espaciado: cada pregunta tiene una "cajita" (0 a 4). Si acierta, sube y se espacia; si se equivoca, vuelve a 0 y aparece al día siguiente. */
+const INTERVALO = [1, 2, 4, 7, 14]; // días hasta el próximo repaso según la cajita
+const hoy = (dias) => { const d = new Date(); d.setDate(d.getDate() + (dias || 0)); return d.toISOString().slice(0, 10); };
+function costo(id){ S.cost = Object.assign({}, S.cost, {[id]: true}); save(); }
+function memDe(l, idx){ const k = l.id + '-' + idx; return (S.mem && S.mem[k]) || {box: (S.cost && S.cost[l.id]) ? 0 : 1, next: hoy(), nuevo: true}; }
 function startRep(){
-  const pool = []; ALL.filter(l => S.done[l.id]).forEach(l => l.steps.forEach(st => { if (st.k === 'check') pool.push({l, st}); }));
-  for (let i = pool.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-  RQ = pool.slice(0, 3); ri = 0; rok = 0; show('rep'); renderRep();
+  const pool = []; ALL.filter(l => S.done[l.id]).forEach(l => l.steps.forEach((st, idx) => { if (st.k === 'check'){ const m = memDe(l, idx); pool.push({l, st, key: l.id + '-' + idx, m, r: Math.random()}); } }));
+  const t = hoy(), vence = pool.filter(x => x.m.next <= t), resto = pool.filter(x => x.m.next > t);
+  const orden = (a, b) => (a.m.box - b.m.box) || (a.m.next < b.m.next ? -1 : a.m.next > b.m.next ? 1 : 0) || (a.r - b.r);
+  vence.sort(orden); resto.sort(orden);
+  RQ = vence.concat(resto).slice(0, 3); ri = 0; rok = 0; show('rep'); renderRep();
 }
 function renderRep(){
   const sd = $('r-steps'); sd.innerHTML = ''; RQ.forEach((_, i) => sd.appendChild(el('i', i < ri ? 'ok' : i === ri ? 'on' : '')));
@@ -1105,7 +1130,8 @@ function renderRep(){
   z.append(el('span', 'pill soft', ''), el('h2', 'qh')); z.children[0].textContent = 'De la lección: ' + l.t; z.children[0].style.alignSelf = 'flex-start'; z.children[1].textContent = fillOS(st.q);
   const opts = el('div', 'stack'), fb = el('div');
   T(st.o).forEach((t, k) => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = fillOS(t); b.addEventListener('click', () => {
-    if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; if (ok) rok++; b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
+    if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; if (ok) rok++;
+    { const it = RQ[ri], box = ok ? Math.min((it.m.box || 0) + 1, INTERVALO.length - 1) : 0; S.mem = Object.assign({}, S.mem, {[it.key]: {box, next: hoy(INTERVALO[box])}}); save(); track((d, now) => { d.memoria = Object.assign({}, d.memoria, {[it.key]: box}); }); } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
     fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Te acordaste!','¡Eso!','¡Perfecto!']) : pick(['¡Casi! Ahora ya no se te olvida.','Tranqui: para eso repasamos.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = fillOS(st.why);
     const nb = el('button', 'btn', ri < RQ.length - 1 ? 'Siguiente' : 'Ver cómo me fue'); nb.type = 'button'; nb.style.marginTop = '12px'; nb.addEventListener('click', () => { ri++; renderRep(); window.scrollTo(0,0); }); fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
   }); opts.appendChild(b); });
@@ -1145,7 +1171,7 @@ function answerPay(k){
 function finishLesson(){
   const l = curL; S.done[l.id] = true; if (S.prog) delete S.prog[l.id]; save();
   { const secs = Math.round((Date.now() - lessonT0) / 1000); track((d, now) => { const x = L(d, l.id); x.fin = x.fin || now; x.seg = secs; x.paso = l.steps.length; }); }
-  $('g-ic').textContent = l.ic; $('g-t').textContent = '¡Completaste "' + l.t + '"!';
+  $('g-ic').textContent = l.ic; $('g-t').textContent = LOGRO[l.id] || '¡Completaste "' + l.t + '"!';
   
   const nm = NOMBRE() ? ', ' + NOMBRE() : '';
   $('g-mar').textContent = pick(['¡Qué alegría' + nm + '! ¿Viste que podías? Estoy re orgullosa de vos.','¡Bravo' + nm + '! Una lección más en el bolsillo. Así, de a poquito, se llega lejísimo.','¡Eso' + nm + '! Me hiciste el día. ¿Seguimos con la próxima? Ya le estás agarrando la mano.','¡Aplausos' + nm + '! 👏 Y pensar que al principio daba miedo tocar…']);
@@ -1310,7 +1336,7 @@ $('m-in').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKe
 function renderPerfil(){
   const p = S.perfil || {}, n = doneN();
   $('p-name').textContent = p.nombre || ''; $('p-av').textContent = (p.nombre || '🙂').trim().charAt(0).toUpperCase(); $('p-lvl').textContent = n + ' de ' + ALL.length + ' lecciones';
-  const md = $('p-med'); md.innerHTML = ''; const won = ALL.filter(l => S.done[l.id]); won.forEach(l => { const s = el('span', 'on'); s.textContent = l.ic; s.title = l.t; md.appendChild(s); }); md.hidden = !won.length; $('p-med-bar').style.width = (won.length / ALL.length * 100) + '%'; $('p-med-txt').textContent = won.length ? won.length + ' de ' + ALL.length + ' medallas. ¡Vas muy bien!' : 'Cuando termines tu primera lección, acá aparece tu primera medalla.';
+  const md = $('p-med'); md.innerHTML = ''; const won = ALL.filter(l => S.done[l.id]); won.forEach(l => { const s = el('span', 'on'); s.textContent = l.ic; s.title = LOGRO[l.id] || l.t; s.setAttribute('role', 'img'); s.setAttribute('aria-label', LOGRO[l.id] || l.t); md.appendChild(s); }); md.hidden = !won.length; $('p-med-bar').style.width = (won.length / ALL.length * 100) + '%'; $('p-med-txt').textContent = won.length ? won.length + ' de ' + ALL.length + ' medallas. ¡Vas muy bien!' : 'Cuando termines tu primera lección, acá aparece tu primera medalla.';
   $('p-wa').href = 'https://wa.me/?text=' + encodeURIComponent('¡Estoy aprendiendo tecnología con LaProfe Digital! Ya completé ' + n + ' lecciones' + (n ? ', la última: "' + (ALL.filter(l => S.done[l.id]).pop() || {}).t + '"' : '') + '. 💪 Si querés aprender conmigo, entrá acá: ' + APP_URL);
   const sz = $('p-sizes'); sz.innerHTML = ''; [[1,'Normal','22px'],[1.15,'Grande','28px'],[1.3,'Muy grande','34px']].forEach(o => { const x = el('button', '', '<span style="font-size:' + o[2] + '">Aa</span><br><span style="font-size:14px;font-family:var(--body)">' + o[1] + '</span>'); x.type = 'button'; x.setAttribute('aria-pressed', String((S.size || 1) === o[0])); x.addEventListener('click', () => { S.size = o[0]; save(); applySize(); renderPerfil(); }); sz.appendChild(x); });
   const kv = $('p-kv'); kv.innerHTML = '';
