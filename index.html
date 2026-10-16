@@ -473,6 +473,7 @@ const pick = a => a[Math.floor(Math.random() * a.length)];
 /* Versión de testeo: poné true para volver a mostrar cada parte. */
 const MOSTRAR_PAGO = false;       // pantalla de desbloqueo y candados de los niveles 2 y 3
 const MOSTRAR_COMUNIDAD = false;  // pestaña Comunidad y botón "En la comunidad"
+const MOSTRAR_PRACTICA_REAL = false; // paso "Ahora en tu celular" dentro de las lecciones
 if (!MOSTRAR_COMUNIDAD){
   const tab = document.querySelector('.nav button[data-tab="com"]'); if (tab) tab.remove();
   document.getElementById('nav').style.gridTemplateColumns = 'repeat(3,1fr)';
@@ -641,7 +642,7 @@ const REAL = {
  '3d':['Abrí el chat de alguien de confianza.',{android:'Tocá el clip y después "Galería".', iphone:'Tocá el signo de más y después "Fotos".'},'Elegí una foto, escribile algo lindo y tocá enviar.'],
  '3e':['Pensá con tu familia una palabra clave, para confirmar que son ellos si alguna vez te piden plata por mensaje.',{android:'En WhatsApp, tocá los tres puntitos de arriba > Ajustes > Cuenta > Verificación en dos pasos. Fijate si está activada.', iphone:'En WhatsApp, tocá el engranaje de abajo a la derecha > Cuenta > Verificación en dos pasos. Fijate si está activada.'}]
 };
-NIVELES.forEach(n => n.ls.forEach(l => { if (REAL[l.id]){ const i = l.steps.findIndex(x => x.k === 'try'); l.steps.splice(i + 1, 0, {k:'real', pasos:REAL[l.id]}); } }));
+NIVELES.forEach(n => n.ls.forEach(l => { if (MOSTRAR_PRACTICA_REAL && REAL[l.id]){ const i = l.steps.findIndex(x => x.k === 'try'); l.steps.splice(i + 1, 0, {k:'real', pasos:REAL[l.id]}); } }));
 const ALL = []; NIVELES.forEach(n => n.ls.forEach((l, i) => { l.niv = n; l.idx = i; ALL.push(l); }));
 const doneN = () => ALL.filter(l => S.done[l.id]).length;
 const INTERESES = [['familia','💞','Hablar con mi familia'],['fotos','🖼️','Fotos y recuerdos'],['ciudad','🚌','Moverme por la ciudad'],['redes','❤️','Redes sociales'],['ia','✨','Inteligencia artificial'],['seguridad','🛡️','Seguridad y estafas'],['compras','🛒','Compras online'],['entretenimiento','🎬','Películas, música y videos']];
@@ -961,7 +962,7 @@ function renderStep(){
     const api = {say: h => { $('g-txt').innerHTML = h; }, stage, done: () => { nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
     SIMS[st.run](api);
     const hb = el('button', 'btn ghost', '😅 Me trabé, ayudame'); hb.type = 'button'; hb.id = 'try-help';
-    hb.addEventListener('click', () => helpBox(hb, $('g-txt').textContent, () => { hb.hidden = true; api.say('¡No pasa nada! Seguimos, y después lo practicás en tu celular.'); api.done(); }));
+    hb.addEventListener('click', () => helpBox(hb, $('g-txt').textContent, () => { hb.hidden = true; api.say(MOSTRAR_PRACTICA_REAL ? '¡No pasa nada! Seguimos, y después lo practicás en tu celular.' : '¡No pasa nada! Seguimos, y si querés lo repasamos después.'); api.done(); }));
     z.append(hb);
   }
   if (st.k === 'real'){
@@ -1316,7 +1317,7 @@ function renderDatos(){
     const rt = ['😕','🙂','😍'].map(e => P.filter(v => v.rating && v.rating[l.id] === e).length).join('/');
     if (!xs.length) return;
     const trabe = xs.reduce((a, x) => a + (x.trabe || []).length, 0), real = xs.filter(x => x.real === 'todo').length, desp = xs.filter(x => x.real === 'despues').length;
-    const r = el('div', '', '<b style="font-size:16px"></b><div class="small muted">Empezaron ' + xs.length + ' · Terminaron ' + done.length + ' · ' + mins + ' min promedio</div><div class="small">🤔 ' + nope + ' · ✗ ' + mal + ' · 😅 ' + trabe + ' · 😕🙂😍 ' + rt + '</div><div class="small">📱 Lo hicieron en su celular: ' + real + ' · Lo dejaron para después: ' + desp + '</div>'); r.firstChild.textContent = l.ic + ' ' + l.t; r.style.borderBottom = '1px solid var(--line)'; r.style.paddingBottom = '8px';
+    const r = el('div', '', '<b style="font-size:16px"></b><div class="small muted">Empezaron ' + xs.length + ' · Terminaron ' + done.length + ' · ' + mins + ' min promedio</div><div class="small">🤔 ' + nope + ' · ✗ ' + mal + ' · 😅 ' + trabe + ' · 😕🙂😍 ' + rt + '</div>' + (MOSTRAR_PRACTICA_REAL ? '<div class="small">📱 Lo hicieron en su celular: ' + real + ' · Lo dejaron para después: ' + desp + '</div>' : '')); r.firstChild.textContent = l.ic + ' ' + l.t; r.style.borderBottom = '1px solid var(--line)'; r.style.paddingBottom = '8px';
     lc.querySelector('.stack').appendChild(r);
   });
   if (!lc.querySelector('.stack').children.length) lc.querySelector('.stack').appendChild(el('span', 'muted small', 'Nadie empezó una lección todavía'));
