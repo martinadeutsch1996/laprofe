@@ -293,8 +293,8 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 
 <!-- ONBOARDING -->
 <section id="s-ob" class="screen" hidden>
-  <div class="ob-dots" id="ob-dots" aria-hidden="true"></div>
-  <p class="small muted center" id="ob-paso" style="font-weight:700;margin-top:-8px"></p>
+  <div class="ob-dots" id="ob-dots" aria-hidden="true" hidden></div>
+  <p class="small muted center" id="ob-paso" style="font-weight:700"></p>
   <div id="ob-body" class="stack" style="gap:16px"></div>
 </section>
 
@@ -315,7 +315,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 <section id="s-lesson" class="screen" hidden>
   <div class="stack" style="gap:8px">
     <div class="lhead"><b id="l-t"></b><button class="btn ghost small" type="button" id="l-exit">Salir</button></div>
-    <div class="steps" id="l-steps"></div>
+    <div class="steps" id="l-steps" aria-hidden="true" hidden></div>
     <div class="pasos"><span class="small muted" id="l-paso" style="font-weight:700"></span><button type="button" id="l-back">← Paso anterior</button></div>
   </div>
   <div class="stack" id="lz" style="gap:14px"></div>
@@ -414,11 +414,6 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
     <button class="btn dark" type="button" id="p-brain">Abrir el cerebro</button>
     <button class="btn ghost" type="button" id="p-datos">📊 Ver los datos de la app</button>
   </div>
-  <div class="card stack">
-    <b style="font-size:19px">Sobre la voz</b>
-    <p class="small muted">Por ahora, "Escuchar" usa una voz automática. Pronto vas a escuchar la voz de Martina.</p>
-  </div>
-  <p class="note center">Estás usando la versión de prueba.</p>
   <button class="btn ghost small" type="button" id="p-reset" style="align-self:center">Empezar de cero (otra persona)</button>
 </section>
 
@@ -452,7 +447,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 <nav class="nav" id="nav" aria-label="Secciones" hidden>
   <button type="button" data-tab="inicio" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9l8-5 8 5v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>Aprender</button>
   <button type="button" data-tab="com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5M15 14.6c2.6-.3 5 1 6 4.4"/></svg>Comunidad</button>
-  <button type="button" data-tab="mar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3.5V17H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/></svg>Chat con Martina IA</button>
+  <button type="button" data-tab="mar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3.5V17H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/></svg>Martina IA</button>
   <button type="button" data-tab="per"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.3-6.5 8-6.5s7 2 8 6.5"/></svg>Mi perfil</button>
 </nav>
 
@@ -892,7 +887,7 @@ function renderOb(){
     b.firstChild.src = FOTO; b.firstChild.alt = 'Martina'; b.firstChild.style.alignSelf = 'center';
     const p = el('div', 'bubble'); p.textContent = 'Hace más de 10 años que enseño tecnología. Acá te explico, practicás y, si algo no se entiende, te lo explico de nuevo. Primero, contame un poco de vos.';
     const s = vozBtn('bienvenida', p.textContent);
-    const priv = el('p', 'note'); priv.textContent = 'Para mejorar la app, guardamos tus respuestas, las lecciones que hacés y lo que le preguntás a Martina digital. No escribas contraseñas, códigos ni datos del banco: no hacen falta.';
+    const priv = el('p', 'note'); priv.textContent = 'Tu avance queda guardado. No escribas contraseñas, códigos ni datos del banco: no hacen falta.';
     b.append(p, s, next('Empezar'), priv);
   }
   if (step === 'letra'){
@@ -935,7 +930,7 @@ function renderOb(){
     const niv = NIVELES[start - 1];
     b.append(el('img', 'avatar xl')); b.lastChild.src = FOTO; b.lastChild.alt = ''; b.lastChild.style.alignSelf = 'center';
     const h = el('h1', ''); h.textContent = '¡Listo, ' + (obDraft.nombre || '') + '!'; b.append(h);
-    const p = el('div', 'bubble'); p.textContent = 'Te armé tu camino. Te recomiendo empezar por "' + niv.t + '". Si te trabás, tocá "Chat con Martina IA", abajo.';
+    const p = el('div', 'bubble'); p.textContent = 'Te armé tu camino. Te recomiendo empezar por "' + niv.t + '". Si te trabás, tocá "Martina IA", abajo.';
     b.append(p);
     const go = el('button', 'btn', 'Ver mi camino'); go.type = 'button';
     go.addEventListener('click', () => { obDraft.start = start; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); show('inicio'); });
@@ -1026,8 +1021,8 @@ function renderInicio(){
   $('h-med').textContent = n + (n === 1 ? ' medalla' : ' medallas');
   const nx = nextLesson();
   $('h-hello').innerHTML = '<b>¡Hola, ' + esc(NOMBRE()) + '!</b> ' + (n === 0 ? 'Empecemos tranqui, a tu ritmo.' : nx ? '¡Qué bueno verte! Vas muy bien.' : '¡Terminaste los tres niveles! Estoy muy orgullosa.');
-  $('h-beta').hidden = !!S.betaOk;
-  $('h-inst').hidden = !S.betaOk || !instVisible();
+  $('h-beta').hidden = true; /* aviso de versión de prueba: oculto */
+  $('h-inst').hidden = !instVisible();
   const enCurso = nx && S.prog && S.prog[nx.id];
   $('h-nextc').hidden = !nx; if (nx){ $('h-nextc').querySelector('.lbl').textContent = enCurso ? 'Tu lección en curso' : 'Tu próxima lección'; $('h-nt').textContent = nx.t; $('h-nm').textContent = 'Nivel ' + nx.niv.n + ' · ' + (enCurso ? 'Vas por el paso ' + (S.prog[nx.id] + 1) + ' de ' + nx.steps.length : nx.min + ' minutos'); }
   $('h-cont').textContent = enCurso ? 'Continuar lección' : 'Empezar lección';
