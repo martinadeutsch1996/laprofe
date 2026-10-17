@@ -835,7 +835,7 @@ function toast(txt, ms){ $('toast-txt').textContent = txt; $('toast').hidden = f
 /* Voz de Martina: audios grabados en audio/<lección>-p<paso>[-android|-iphone].mp3.
    Los pasos se numeran como en el guion de grabación: contando "Ahora en tu celular" aunque esté oculto.
    Si un paso no tiene audio, se usa la voz automática del celular. */
-const VOZ = new Set(['bienvenida','1a-p1','1a-p2','1a-p3-android','1a-p3-iphone','1a-p7-android','1a-p7-iphone','1b-p1','1b-p2','1b-p3','1b-p4','1b-p9','1c-p1','1c-p2','1c-p6','1d-p1','1d-p2','1d-p5','1d-p7','2a-p1','3a-p1','3a-p2','3a-p6','3b-p1','3b-p4','3b-p6','3c-p1','3c-p5','3d-p1-android','3d-p1-iphone','3d-p5-android','3d-p5-iphone','3e-p1','3e-p2','3e-p5']);
+const VOZ = new Set(['bienvenida','1a-p1','1a-p2','1a-p3-android','1a-p3-iphone','1a-p7-android','1a-p7-iphone','1b-p1','1b-p2','1b-p3','1b-p4','1b-p9','1c-p1','1c-p2','1c-p6','1d-p1','1d-p2','1d-p5','1d-p7','2a-p1','3a-p1','3a-p2','3a-p6','3b-p1','3b-p4','3b-p6','3c-p1','3c-p5','3d-p1-android','3d-p1-iphone','3d-p5-android','3d-p5-iphone','3e-p1','3e-p2','3e-p5','2a-p5','2b-p1','2b-p2-android','2b-p2-iphone','2b-p6-android','2b-p6-iphone','2c-p1-android','2c-p1-iphone','2c-p2','2c-p6-android','2c-p6-iphone','2d-p1','2d-p2-android','2d-p2-iphone','2d-p6-android','2d-p6-iphone']);
 function vozPaso(){
   const t = curL.steps.findIndex(x => x.k === 'try');
   const oculto = !MOSTRAR_PRACTICA_REAL && REAL[curL.id] && t >= 0 && si > t ? 1 : 0;
