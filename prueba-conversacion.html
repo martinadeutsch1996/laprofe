@@ -214,20 +214,20 @@ async function lecc(){
   setPaso(1);
   const dib = el('div', 'dib', '<div class="fake"><i>Mensaje</i><b><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2z"/></svg></b></div><small>Es solo un dibujo: no hace falta tocarlo.</small>');
   await martina('<p>El secreto de los audios: el micrófono se mantiene apretado mientras hablás, no se toca una sola vez.</p><p>Cuando soltás, se manda. Y si te equivocaste, deslizás el dedo a la izquierda sin soltar y se cancela.</p>', {voz:'3c-p1', extra:dib});
-  let r = await opciones([['Entendido →', 'ok'], ['No entendí', 'no']]);
+  let r = await opciones([['Entendido', 'ok'], ['No entendí', 'no']]);
   if (r === 'no'){
     await martina('<p>Tranqui, nos pasa a todos. A mí también me costó al principio.</p><p>Pensalo como el botón de un timbre que hay que dejar apretado: mientras tenés el dedo apoyado, WhatsApp te escucha. Cuando sacás el dedo, se manda.</p>', {voz:null});
-    await opciones([['Ahora sí, entendí →', 'ok']]);
+    await opciones([['Ahora sí, entendí', 'ok']]);
   }
 
   // Paso 2: práctica
   setPaso(2);
   await martina('<p>Ahora probalo vos. Te abro un WhatsApp de práctica: no se le manda nada a nadie de verdad.</p><p>Tocá sin miedo: no se rompe.</p>');
-  await opciones([['Probalo vos →', 1]]);
+  await opciones([['Probalo vos', 1]]);
   const intentosCortos = await practica('mandar');
   await martina(intentosCortos ? '<p>¡Eso! ¡Viste que podías! Y los toques cortos del principio no cuentan: así se aprende.</p>' : '<p>¡Eso! ¡Viste que podías! Mandaste tu primer audio.</p>');
   await martina('<p>¿Te animás a un desafío? Grabá un audio y, sin soltar el dedo, deslizalo a la izquierda para cancelarlo.</p>', {fast:true});
-  r = await opciones([['Sí, probar el desafío →', 'si'], ['Seguir sin desafío', 'no']]);
+  r = await opciones([['Sí, probar el desafío', 'si'], ['Seguir sin desafío', 'no']]);
   let desafio = false;
   if (r === 'si'){ await practica('cancelar'); desafio = true; await martina('<p>¡Impecable! Ahora sabés arrepentirte a tiempo. Eso vale oro.</p>'); }
 
