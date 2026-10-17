@@ -679,8 +679,8 @@ const NIVELES = [
   ]}
 ]}
 ];
-/* Nivel 4 en preparación: solo se ve abriendo la app con ?nivel4 al final del link. Para mostrarlo a todos, poné true. */
-const MOSTRAR_NIVEL_4 = false || /[?&]nivel4\b/.test(location.search);
+/* Nivel 4: visible para todos desde el 17/10/2026. Poné false para ocultarlo. */
+const MOSTRAR_NIVEL_4 = true;
 if (MOSTRAR_NIVEL_4) NIVELES.push(
 {n:4, em:'👪', t:'Más WhatsApp', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
  {id:'4a', ic:'📇', t:'Guardá un contacto', min:5,
