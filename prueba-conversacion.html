@@ -253,7 +253,7 @@ async function lecc(){
   const box = el('div', 'opts');
   const wa = el('a', 'btn wa', 'Compartir por WhatsApp'); wa.target = '_blank'; wa.rel = 'noopener';
   wa.href = 'https://wa.me/?text=' + encodeURIComponent('¡Aprendí a mandar audios por WhatsApp con LaProfe! 🎤 Mandame uno y te contesto con mi voz.');
-  const vuelta = el('a', 'btn', 'Volver a mi camino'); vuelta.href = './';
+  const vuelta = el('a', 'btn', 'Ver todas las lecciones'); vuelta.href = './';
   box.append(wa, vuelta); chat.appendChild(box); down();
 }
 

@@ -306,7 +306,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
   <div class="beta" id="h-inst" hidden><div class="say" style="align-items:center"><img id="h-inst-ic" alt="" style="width:48px;height:48px;border-radius:12px;flex:none;box-shadow:0 1px 4px rgba(0,0,0,.15)"><p><b>Poné LaProfe en la pantalla de inicio.</b> Así la abrís con un toque, como WhatsApp.</p></div><div class="row"><button class="btn dark small" type="button" id="h-inst-go">Mostrame cómo</button><button class="btn ghost small" type="button" id="h-inst-no">Ahora no</button></div></div>
   <div class="nextc" id="h-nextc"><span class="lbl">Tu próxima lección</span><b id="h-nt"></b><span class="muted" id="h-nm"></span><button class="btn" type="button" id="h-cont">Empezar lección</button></div>
   <div id="h-rep"></div>
-  <h2 style="font-size:22px;margin-top:8px">Tu camino</h2>
+  <h2 style="font-size:22px;margin-top:8px">Tus lecciones</h2>
   <div class="stack" id="h-levels"></div>
   <div class="stack" id="h-soon-box"><h2 style="font-size:20px">Después, según lo que te interesa</h2><div class="soon" id="h-soon"></div></div>
 </section>
@@ -355,7 +355,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
     </div>
     <span class="note" id="g-com-note"></span>
   </div>
-  <button class="btn ghost small" type="button" data-go="inicio" id="g-home" style="align-self:center">Volver a mi camino</button>
+  <button class="btn ghost small" type="button" data-go="inicio" id="g-home" style="align-self:center">Ver todas las lecciones</button>
 </section>
 
 <!-- COMUNIDAD -->
@@ -929,9 +929,9 @@ function renderOb(){
     const niv = NIVELES[start - 1];
     b.append(el('img', 'avatar xl')); b.lastChild.src = FOTO; b.lastChild.alt = ''; b.lastChild.style.alignSelf = 'center';
     const h = el('h1', ''); h.textContent = '¡Listo, ' + (obDraft.nombre || '') + '!'; b.append(h);
-    const p = el('div', 'bubble'); p.textContent = 'Te armé tu camino. Te recomiendo empezar por "' + niv.t + '". Si te trabás, tocá "Martina IA", abajo.';
+    const p = el('div', 'bubble'); p.textContent = 'Con lo que me contaste, elegí por dónde empezar: "' + niv.t + '". Si te trabás, tocá "Martina IA", abajo.';
     b.append(p);
-    const go = el('button', 'btn', 'Ver mi camino'); go.type = 'button';
+    const go = el('button', 'btn', 'Ver mis lecciones'); go.type = 'button';
     go.addEventListener('click', () => { obDraft.start = start; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); show('inicio'); });
     b.append(go);
   }
@@ -1186,7 +1186,7 @@ function renderRep(){
     const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div>');
     say.querySelector('.bubble').textContent = ok === tot ? '¡Me encanta! Lo que aprendiste ya quedó. Mañana te traigo otro repasito.' : 'Para esto repasamos: lo que hoy costó, mañana sale solo. ¡Estoy orgullosa de vos!';
     z.append(say);
-    const b = el('button', 'btn', 'Volver a mi camino'); b.type = 'button'; b.addEventListener('click', () => show('inicio')); z.append(b); return;
+    const b = el('button', 'btn', 'Ver todas las lecciones'); b.type = 'button'; b.addEventListener('click', () => show('inicio')); z.append(b); return;
   }
   const {l, st} = RQ[ri];
   z.append(el('span', 'pill soft', ''), el('h2', 'qh')); z.children[0].textContent = 'De la lección: ' + l.t; z.children[0].style.alignSelf = 'flex-start'; z.children[1].textContent = fillOS(st.q);
@@ -1241,7 +1241,7 @@ function finishLesson(){
   const msg = '🎉 ¡Hoy aprendí "' + l.t + '" con LaProfe Digital! Ya llevo ' + doneN() + (doneN() === 1 ? ' medalla' : ' medallas') + '. ' + (l.id === '3b' ? '¡Este mensaje lo mandé yo solita/o! ' : '') + '¿Querés aprender conmigo? Es gratis probarla: ' + APP_URL;
   $('g-wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   const c = $('g-com'); c.disabled = false; c.dataset.done = ''; c.textContent = '🎉 En la comunidad'; $('g-com-note').textContent = '';
-  const nx = ALL[ALL.indexOf(l) + 1]; $('g-next').textContent = nx ? 'Siguiente lección' : 'Volver a mi camino'; $('g-home').hidden = !nx;
+  const nx = ALL[ALL.indexOf(l) + 1]; $('g-next').textContent = nx ? 'Siguiente lección' : 'Ver todas las lecciones'; $('g-home').hidden = !nx;
   const nivelOk = l.niv.ls.every(x => S.done[x.id]) && !(S.nivFest || {})[l.niv.n];
   if (nivelOk){
     S.nivFest = Object.assign({}, S.nivFest, {[l.niv.n]: true}); save();
