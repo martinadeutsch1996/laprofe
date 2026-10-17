@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LaProfe Conversación</title>
+<meta name="theme-color" content="#F6F3EE">
+<link rel="icon" href="icon-192-v2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;700;800&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#F6F3EE; --fg:#1B1B2F; --card:#FFFFFF; --muted:#4A4A5E; --line:#DDD6CB; --soft:#EDE8E0;
+  --coral:#FF5A36; --lima:#C6F432; --petroleo:#0F5257; --ink:#1B1B2F;
+  --wa:#0B141A; --wa-bg:#EFEAE2; --wa-me:#D9FDD3; --wa-green:#25D366; --wa-head:#F0F2F5;
+  --display:'Bricolage Grotesque','Arial Black',system-ui,sans-serif;
+  --body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --z:1;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--fg)}
+body{font-family:var(--body);font-size:calc(19px * var(--z));line-height:1.45;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{max-width:560px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column}
+
+/* Encabezado */
+.top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:12px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;border-bottom:1px solid var(--line)}
+.top img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:3px solid var(--lima);flex:none}
+.top .who{flex:1;min-width:0;display:flex;flex-direction:column}
+.top .who b{font-family:var(--display);font-size:20px;line-height:1.1}
+.top .who span{font-size:16px;color:var(--muted)}
+.top a{flex:none;text-decoration:none;font-weight:800;font-size:17px;border:2px solid var(--ink);border-radius:999px;padding:8px 16px;color:var(--ink)}
+
+/* Conversación */
+.chat{flex:1;display:flex;flex-direction:column;gap:12px;padding:16px 16px 24px}
+.chat > *{scroll-margin-bottom:170px}
+.row{display:flex;gap:10px;align-items:flex-end}
+.row img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:none}
+.msg{background:var(--card);border-radius:22px 22px 22px 6px;padding:14px 16px;max-width:88%;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.msg p{margin:0}
+.msg p + p{margin-top:8px}
+.msg ul{margin:6px 0 0;padding-left:22px}
+.msg li + li{margin-top:4px}
+.me{align-self:flex-end;background:var(--petroleo);color:#fff;border-radius:22px 22px 6px 22px;padding:12px 16px;max-width:85%;font-weight:600}
+.typing{color:var(--muted);font-size:17px;padding-left:46px}
+.voz{margin-top:10px;display:inline-flex;align-items:center;gap:8px;background:var(--soft);border:2px solid transparent;border-radius:999px;padding:8px 16px;font-weight:800;font-size:17px}
+.voz.on{border-color:var(--coral)}
+
+/* Dibujo */
+.dib{margin-top:10px;background:var(--wa-bg);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;align-items:center}
+.dib small{font-size:16px;color:var(--muted)}
+.dib .fake{display:flex;align-items:center;gap:10px;width:100%}
+.dib .fake i{flex:1;height:44px;border-radius:999px;background:#fff;display:flex;align-items:center;padding-left:14px;font-style:normal;color:#8696A0;font-size:16px}
+.dib .fake b{width:52px;height:52px;border-radius:50%;background:var(--wa-green);display:grid;place-items:center;flex:none}
+
+/* Botones de respuesta */
+.opts{display:flex;flex-direction:column;gap:10px;padding-left:46px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:12px 20px;border-radius:999px;border:2px solid var(--ink);background:var(--card);font-weight:800;font-size:19px;width:100%;text-align:center;text-decoration:none;color:var(--ink)}
+.btn.main{background:var(--coral);border-color:var(--coral)}
+.btn.wa{background:var(--wa-green);border-color:var(--wa-green)}
+
+/* Logro */
+.logro{align-self:center;width:100%;background:var(--card);border:3px solid var(--lima);border-radius:24px;padding:20px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.logro .em{font-size:44px;line-height:1}
+.logro .pill{background:var(--lima);color:var(--ink);font-weight:800;font-size:16px;border-radius:999px;padding:4px 12px}
+.logro b{font-family:var(--display);font-size:24px;line-height:1.15}
+.logro span{color:var(--muted);font-size:17px}
+
+/* Escribirle a Martina */
+.composer{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
+.composer .lbl{font-size:16px;color:var(--muted);font-weight:700}
+.composer .line{display:flex;gap:8px}
+.composer textarea{width:100%;font:inherit;font-size:19px;border-radius:22px;border:2px solid var(--line);background:var(--card);color:var(--fg);padding:12px 16px;resize:none;min-height:56px;max-height:140px}
+.composer textarea:focus{outline:none;border-color:var(--petroleo)}
+.composer .sm{flex:1;min-height:52px;padding:8px 14px}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.note{font-size:16px;color:var(--muted);margin:0}
+
+/* Práctica: WhatsApp de mentira, pantalla completa */
+.prac{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;max-width:560px;margin:0 auto}
+.prac .ptop{padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--line)}
+.prac .ptop .l1{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.prac .ptop b{font-family:var(--display);font-size:20px}
+.prac .goal{background:var(--card);border-radius:16px;padding:10px 14px;font-weight:700}
+.phone{flex:1;display:flex;flex-direction:column;margin:12px 16px;border-radius:24px;overflow:hidden;border:2px solid var(--line);background:var(--wa-bg);min-height:0;user-select:none;-webkit-user-select:none}
+.phone .h{background:var(--wa-head);display:flex;align-items:center;gap:10px;padding:10px 14px;color:var(--wa)}
+.phone .h i{width:38px;height:38px;border-radius:50%;background:#0F8F7E;color:#fff;display:grid;place-items:center;font-style:normal;font-weight:800}
+.phone .h div{display:flex;flex-direction:column;line-height:1.2}
+.phone .h small{font-size:14px;color:#667781}
+.phone .ms{flex:1;padding:12px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;justify-content:flex-end}
+.phone .bub{align-self:flex-end;background:var(--wa-me);color:var(--wa);border-radius:12px 12px 2px 12px;padding:8px 12px;display:flex;align-items:center;gap:10px;font-size:16px}
+.phone .bub .wave{display:flex;gap:2px;align-items:center}
+.phone .bub .wave s{display:block;width:3px;background:#8696A0;border-radius:2px}
+.phone .in{display:flex;align-items:center;gap:8px;padding:10px;background:var(--wa-bg)}
+.phone .field{flex:1;min-height:52px;border-radius:999px;background:#fff;display:flex;align-items:center;padding:0 16px;color:#8696A0;font-size:17px;overflow:hidden;white-space:nowrap}
+.phone .field.rec{color:#E53935;font-weight:700;font-size:15px}
+.phone .mic{width:64px;height:64px;border-radius:50%;background:var(--wa-green);border:none;display:grid;place-items:center;flex:none;touch-action:none;-webkit-touch-callout:none}
+.phone .mic.rec{transform:scale(1.15);background:#1DA851}
+.hint{margin:0 16px 12px;background:var(--ink);color:#fff;border-radius:16px;padding:12px 16px;font-weight:700;min-height:52px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <img id="foto" alt="Martina">
+    <div class="who"><b>Martina</b><span id="tema">Lección: Mandá un audio</span></div>
+    <a href="./">Salir</a>
+  </header>
+
+  <section class="chat" id="chat" aria-live="polite"></section>
+
+  <div class="composer">
+    <label for="q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tu pregunta para Martina</label>
+    <textarea id="q" rows="1" placeholder="¿Tenés una duda? Escribila acá"></textarea>
+    <div class="line">
+      <button class="btn sm" type="button" id="mic" hidden aria-label="Decir la pregunta con tu voz">🎤 Hablar</button>
+      <button class="btn sm dark" type="button" id="send">Enviar</button>
+    </div>
+    <p class="note" id="mic-note" hidden></p>
+  </div>
+</main>
+
+<!-- Práctica -->
+<div class="prac" id="prac" hidden>
+  <div class="ptop">
+    <div class="l1"><b>Probalo vos</b><button class="btn sm" type="button" id="p-salir" style="width:auto">Volver al chat</button></div>
+    <div class="goal" id="p-goal"></div>
+  </div>
+  <div class="phone" id="phone">
+    <div class="h"><i>A</i><div><b>Ana Prueba</b><small>Es de práctica: no se manda nada de verdad</small></div></div>
+    <div class="ms" id="p-ms"></div>
+    <div class="in">
+      <div class="field" id="p-field">Mensaje</div>
+      <button class="mic" type="button" id="p-mic" aria-label="Micrófono: mantenelo apretado para grabar">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2z"/></svg>
+      </button>
+    </div>
+  </div>
+  <p class="hint" id="p-hint">Apoyá el dedo en el círculo verde y dejalo apretado mientras hablás.</p>
+</div>
+
+<script>
+(function(){
+const FOTO = "data:image/jpeg;base64,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";
+const BRAIN_BASE = "Sos la \"Martina digital\" de LaProfe Digital: una asistente de inteligencia artificial que enseña tecnología con el estilo de Martina Deutsch, docente uruguaya que hace más de 10 años da clases de tecnología a adultos mayores, en grupo y de forma particular. Si te preguntan quién sos, aclarás con naturalidad que sos la versión digital de Martina, una IA entrenada con sus clases, y que la Martina de verdad está detrás del contenido.\n\nCÓMO HABLÁS\n- Español rioplatense, con voseo uruguayo (\"tocá\", \"fijate\", \"mirá\").\n- SIEMPRE sos dulce, empática, graciosa y compañera. Hablás como una profe que quiere mucho a sus alumnos y está sentada al lado: con cariño, paciencia infinita y humor suave (un chiste cortito, una ocurrencia, nunca a costa de la persona).\n- Te alegrás de verdad por cada logro, por chiquito que sea, y lo festejás con entusiasmo (\"¡Eso! ¡Viste que podías!\").\n- Motivás e impulsás: le decís que puede, que va a aprender, que va muy bien, y la invitás a seguir con el próximo paso.\n- No dejás que nadie se frustre. Si algo no sale o la persona se siente torpe, primero validás (\"Nos pasa a todos, al principio a mí también\"), le sacás peso con humor y le das UN paso fácil para destrabarse. Nunca \"es fácil\", \"simplemente\" ni \"obviamente\".\n- Respuestas CORTAS: máximo 6 a 8 líneas. Una idea por vez. Si es un procedimiento, pasos numerados, cada paso en una línea, con el nombre exacto del botón entre comillas.\n- Nunca tratás a la persona como a un niño ni asumís que le cuesta la tecnología. Hablás de lo que la tecnología permite, no de limitaciones.\n- Usás comparaciones de la vida cotidiana (la nube es como dejar una copia de las fotos en lo de tu hija; las apps son herramientas de una caja; un proyecto es una carpeta que recuerda).\n- Frases tuyas: \"Tocá sin miedo: no se rompe.\" \"No existen las preguntas tontas.\" \"Leé con calma, no hay apuro.\" \"Si no sale, probá de nuevo.\" \"La IA nos ayuda, nosotros decidimos.\" \"Con una IA no da vergüenza preguntar veinte veces lo mismo.\"\n- Terminás, cuando suma, con una pregunta corta para chequear o un mini desafío para practicar.\n- Sin emojis de más (uno como mucho). Sin títulos ni formato markdown pesado.\n\nQUÉ CUIDÁS\n- Adaptá los pasos al celular de la persona (Android o iPhone). Los nombres de los botones pueden variar según la marca o la versión: si no estás segura, decilo y explicá cómo encontrarlo (por ejemplo, la lupa dentro de Ajustes).\n- Nunca pidas ni aceptes contraseñas, códigos, números de tarjeta ni datos bancarios. Si alguien te cuenta que compartió un código o le pidieron plata por mensaje, ayudalo con calma y concreto.\n- Salud, dinero y trámites: sugerí confirmar con un profesional o con la fuente oficial.\n- Si no sabés algo o puede haber cambiado, decilo con honestidad. No inventes. Tu información está revisada a octubre de 2026: las apps cambian seguido, así que si la persona ve algo distinto, decile que es normal y ayudala a encontrarlo igual.\n- Si te preguntan algo fuera de la tecnología, respondé breve y con cariño, y ofrecé volver a lo que están aprendiendo.\n\nLO QUE SABÉS (de las clases de Martina)\nBásicos: smartphone = computadora de bolsillo; Android (Samsung, Motorola, Xiaomi) e iOS (iPhone). WiFi = internet de una red (casa, club, café), no gasta datos; datos móviles = internet de la compañía, se gastan. App = programa para algo específico. Ajustes/Configuración = donde se cambian WiFi, sonido, brillo, letra. Bloqueo de pantalla = PIN, patrón, huella o cara. Enlace/link = te lleva a otra página (ojo con los de desconocidos). Nube = espacio en internet para guardar fotos y archivos. Copia de seguridad = respaldo para no perder nada. Actualización = mejora del celular o una app; hacerla con WiFi y batería.\nGestos: tocar, mantener apretado, deslizar, pellizcar (separar dos dedos agranda). Atajos: Android, deslizar desde arriba; iPhone, desde la esquina superior derecha (Centro de control). Color = prendido, gris = apagado. Modo avión corta todas las conexiones. Letra: Android Ajustes > Pantalla > Tamaño de fuente; iPhone Configuración > Pantalla y brillo > Tamaño del texto.\nWhatsApp: necesitás internet y tener a la persona agendada; si te piden tu WhatsApp, das tu número. Abrir: ícono verde. Chat: tocar el nombre o buscar con la lupa. Mensaje: tocar \"Mensaje\", escribir, flecha verde. Tildes: uno gris salió, dos grises llegó, dos azules leyó (algunos desactivan los azules). Audio: el micrófono se MANTIENE apretado, se suelta para mandar; deslizar a la izquierda cancela; el candadito (deslizar arriba) graba sin apretar y permite escuchar antes de mandar; 1x/1.5x/2x para escuchar más rápido. Fotos: clip (Android) o + (iPhone) > Galería/Fotos > elegir > escribir comentario > enviar; la camarita saca una en el momento. Mantener apretado un mensaje: responder, reaccionar, reenviar, borrar (\"Eliminar para todos\" vs \"para mí\"). \"Reenviado muchas veces\" = desconfiar. Grupos: tocar el nombre > Silenciar notificaciones (nadie se entera); salir: solo se enteran los administradores. Videollamada: camarita arriba a la derecha del chat. Seguridad: el código de 6 números NUNCA se comparte; verificación en dos pasos en Ajustes > Cuenta; bloquear y reportar tocando el nombre. Estafa típica: \"Hola mamá, cambié de número, transferime urgente\" → llamar al número de siempre; palabra clave familiar.\nGoogle Fotos: Fotos (todas por fecha), Colecciones (álbumes, favoritos, papelera), Crear (collage, álbum, video), Buscar (por personas, mascotas, lugares, cosas: escribís \"playa\"). Estrella = favorita. Copia de seguridad = fotos en la nube.\nGoogle Maps: el GPS/ubicación tiene que estar activado; puntito azul = vos; buscar arriba; \"Cómo llegar\" > caminando o en auto. Taxi en Montevideo por WhatsApp: agendar 091 141 141 como TAXI, mandar \"Hola\", mandar la ubicación con el clip, te confirman móvil y demora. Uber: \"¿A dónde vas?\", ver precio y tiempo, \"Elegir\"; antes de subir verificar matrícula, modelo y nombre; nunca subir a otro auto; compartir el recorrido. STM: paradas cercanas, qué ómnibus tomar (lupa, calle y esquina, Destino).\nRedes: Instagram (casita inicio, reels, mensajes, lupita, perfil, + para publicar; corazón = me gusta; historias duran 24 horas). YouTube (lupa para buscar, canal, suscribirse, Shorts = videos cortos, miniatura). X/Twitter: noticias al instante; la tilde azul se puede comprar, no es garantía; buscar otras fuentes antes de compartir; ningún organismo (banco, BPS) pide contraseñas por mensaje.\nIA: la IA reconoce, entiende, recomienda, detecta y genera; aprende de patrones; puede equivocarse con seguridad (\"alucinación\") y tener sesgos: IA no es igual a verdad, verificá lo importante. Buen pedido (prompt): QUÉ + CONTEXTO + ROL + FORMATO (+ EJEMPLO opcional); no es receta obligatoria. Hablar con una IA es conversar: corregí, pedí cambios, repreguntá. Botón mágico: \"No entendí, explicámelo más fácil\". Contexto sí, información privada no. Hablar (modo voz), Mostrar (foto: \"¿qué es esto?\"), Transformar (cambiar una foto), Crear (algo nuevo). ChatGPT tiene chat, biblioteca, proyectos (carpeta que recuerda), búsqueda en internet (si depende de \"hoy\"), imágenes, GPTs, aplicaciones y tareas.";
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzf3g3Z8HxhK3zwmXoN2dwo8wcmYY7yFvbaIHEYfJVK4ADz7wkClEiAFNfVPGQkNLnl/exec';
+const KEY = 'laprofe-proto-v3';
+const $ = id => document.getElementById(id);
+const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+let S = {perfil:null, done:{}, size:1};
+try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) S = Object.assign(S, s); } catch(e){}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} };
+document.documentElement.style.setProperty('--z', S.size || 1);
+const P = S.perfil || {};
+const NOMBRE = P.nombre || '';
+$('foto').src = FOTO;
+
+/* ---------- Voz ---------- */
+let VA = null, VB = null;
+function stopVoz(){ if (VA){ VA.pause(); VA = null; } try { speechSynthesis.cancel(); } catch(e){} if (VB){ VB.textContent = VB.dataset.lbl; VB.classList.remove('on'); VB = null; } }
+function vozBtn(file, txt){
+  const b = el('button', 'voz', file ? '🔊 Escuchar a Martina' : '🔊 Escuchar'); b.type = 'button'; b.dataset.lbl = b.textContent;
+  b.addEventListener('click', () => {
+    const again = VB === b; stopVoz(); if (again) return;
+    b.textContent = '⏹ Parar'; b.classList.add('on'); VB = b;
+    if (file){ const a = new Audio('audio/' + file + '.mp3'); VA = a; a.addEventListener('ended', () => { if (VA === a) stopVoz(); }); a.play().catch(() => { if (VA === a){ VA = null; tts(txt, b); } }); }
+    else tts(txt, b);
+  });
+  return b;
+}
+function tts(txt, b){ try { const u = new SpeechSynthesisUtterance(txt); u.lang = 'es-UY'; u.rate = .9; u.onend = () => { if (VB === b) stopVoz(); }; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch(e){ stopVoz(); } }
+
+/* ---------- Mensajes ---------- */
+const chat = $('chat');
+const down = () => { const last = chat.lastElementChild; if (last) last.scrollIntoView({block:'end'}); };
+async function martina(html, opts){
+  opts = opts || {};
+  const t = el('div', 'typing', 'Martina está escribiendo…'); chat.appendChild(t); down();
+  await wait(opts.fast ? 350 : 750); t.remove();
+  const r = el('div', 'row'); const img = el('img'); img.src = FOTO; img.alt = ''; const m = el('div', 'msg', html);
+  if (opts.voz !== undefined) m.appendChild(vozBtn(opts.voz, m.textContent));
+  if (opts.extra) m.appendChild(opts.extra);
+  r.append(img, m); chat.appendChild(r); down(); return m;
+}
+function yo(txt){ const m = el('div', 'me'); m.textContent = txt; chat.appendChild(m); down(); }
+/* Botones de respuesta: al elegir uno, se convierte en tu mensaje */
+function opciones(list){
+  return new Promise(res => {
+    const box = el('div', 'opts');
+    list.forEach((o, i) => { const b = el('button', 'btn' + (i === 0 ? ' main' : '')); b.type = 'button'; b.textContent = o[0];
+      b.addEventListener('click', () => { stopVoz(); box.remove(); yo(o[0]); res(o[1]); }); box.appendChild(b); });
+    chat.appendChild(box); down();
+  });
+}
+const nombre = NOMBRE ? ', ' + NOMBRE : '';
+
+/* ---------- La lección, como guion ---------- */
+let enPausa = null; // si el alumno pregunta algo, la lección espera
+const L = {paso:0, total:4};
+const setPaso = n => { L.paso = n; $('tema').textContent = n ? 'Paso ' + n + ' de ' + L.total : 'Lección: Mandá un audio'; };
+
+async function lecc(){
+  setPaso(0);
+  await martina('<p>¡Hola' + nombre + '! Hoy te enseño a mandar un audio por WhatsApp.</p><p>Sirve cuando escribir cuesta, o cuando querés que escuchen tu voz.</p>');
+  await martina('<p>Si en algún momento te surge una duda, escribila abajo. No existen las preguntas tontas.</p>', {fast:true});
+  await opciones([['¡Dale, empecemos!', 1]]);
+
+  // Paso 1: explicación (mismo texto que el audio grabado 3c-p1)
+  setPaso(1);
+  const dib = el('div', 'dib', '<div class="fake"><i>Mensaje</i><b><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2z"/></svg></b></div><small>Es solo un dibujo: no hace falta tocarlo.</small>');
+  await martina('<p>El secreto de los audios: el micrófono se mantiene apretado mientras hablás, no se toca una sola vez.</p><p>Cuando soltás, se manda. Y si te equivocaste, deslizás el dedo a la izquierda sin soltar y se cancela.</p>', {voz:'3c-p1', extra:dib});
+  let r = await opciones([['Entendido →', 'ok'], ['No entendí', 'no']]);
+  if (r === 'no'){
+    await martina('<p>Tranqui, nos pasa a todos. A mí también me costó al principio.</p><p>Pensalo como el botón de un timbre que hay que dejar apretado: mientras tenés el dedo apoyado, WhatsApp te escucha. Cuando sacás el dedo, se manda.</p>', {voz:null});
+    await opciones([['Ahora sí, entendí →', 'ok']]);
+  }
+
+  // Paso 2: práctica
+  setPaso(2);
+  await martina('<p>Ahora probalo vos. Te abro un WhatsApp de práctica: no se le manda nada a nadie de verdad.</p><p>Tocá sin miedo: no se rompe.</p>');
+  await opciones([['Probalo vos →', 1]]);
+  const intentosCortos = await practica('mandar');
+  await martina(intentosCortos ? '<p>¡Eso! ¡Viste que podías! Y los toques cortos del principio no cuentan: así se aprende.</p>' : '<p>¡Eso! ¡Viste que podías! Mandaste tu primer audio.</p>');
+  await martina('<p>¿Te animás a un desafío? Grabá un audio y, sin soltar el dedo, deslizalo a la izquierda para cancelarlo.</p>', {fast:true});
+  r = await opciones([['Sí, probar el desafío →', 'si'], ['Seguir sin desafío', 'no']]);
+  let desafio = false;
+  if (r === 'si'){ await practica('cancelar'); desafio = true; await martina('<p>¡Impecable! Ahora sabés arrepentirte a tiempo. Eso vale oro.</p>'); }
+
+  // Paso 3: pregunta rápida (como juego)
+  setPaso(3);
+  await martina('<p>Pregunta rápida 🎯</p><p><b>Tocaste el micrófono una vez y no grabó nada. ¿Qué pasó?</b></p>');
+  while (true){
+    r = await opciones([['Hay que mantenerlo apretado mientras hablo', 'ok'], ['Se rompió el micrófono', 'mal']]);
+    if (r === 'ok'){ await martina('<p>¡Exacto! Un toque corto no graba: hay que dejar el dedo apoyado mientras hablás.</p>'); break; }
+    await martina('<p>Casi. Tranqui, el micrófono está perfecto 😄</p><p>Un toque corto no graba. ¿Qué habría que hacer con el dedo?</p>');
+  }
+
+  // Paso 4: resumen y logro
+  setPaso(4);
+  await martina('<p>Lo que aprendiste hoy:</p><ul><li>Mantené apretado, hablá, soltá.</li><li>Para cancelar: deslizá a la izquierda sin soltar.</li><li>1x → 1.5x → 2x para escuchar más rápido.</li></ul>', {voz:'3c-p5'});
+  S.done = S.done || {}; S.done['3c'] = true;
+  S.logros = Object.assign({}, S.logros, {'3c': new Date().toISOString()}); if (desafio) S.logros['3c-desafio'] = S.logros['3c-desafio'] || new Date().toISOString();
+  save();
+  const n = Object.keys(S.done).filter(k => S.done[k]).length;
+  const lg = el('div', 'logro', '<span class="em" aria-hidden="true">🎤</span><span class="pill">Nuevo logro</span><b>Ya sabés mandar un audio</b><span>' + (desafio ? 'Y además superaste el desafío de cancelar. ' : '') + 'Ya llevás ' + n + (n === 1 ? ' lección terminada.' : ' lecciones terminadas.') + '</span>');
+  await wait(400); chat.appendChild(lg); down();
+  await martina('<p>Estoy muy orgullosa' + nombre + '. ¿Se lo contamos a tu familia?</p>', {fast:true});
+  const box = el('div', 'opts');
+  const wa = el('a', 'btn wa', 'Compartir por WhatsApp'); wa.target = '_blank'; wa.rel = 'noopener';
+  wa.href = 'https://wa.me/?text=' + encodeURIComponent('¡Aprendí a mandar audios por WhatsApp con LaProfe! 🎤 Mandame uno y te contesto con mi voz.');
+  const vuelta = el('a', 'btn', 'Volver a mi camino'); vuelta.href = './';
+  box.append(wa, vuelta); chat.appendChild(box); down();
+}
+
+/* ---------- Práctica ---------- */
+function practica(modo){
+  return new Promise(res => {
+    const pr = $('prac'), ms = $('p-ms'), field = $('p-field'), mic = $('p-mic'), hint = $('p-hint');
+    ms.innerHTML = ''; pr.hidden = false; document.body.style.overflow = 'hidden';
+    $('p-goal').textContent = modo === 'mandar' ? 'Tu objetivo: mandale un audio a Ana.' : 'Desafío: grabá un audio y cancelalo deslizando a la izquierda.';
+    hint.textContent = modo === 'mandar' ? 'Apoyá el dedo en el círculo verde y dejalo apretado mientras hablás.' : 'Apretá el círculo verde y, sin soltar, deslizá el dedo hacia la izquierda.';
+    let t0 = 0, x0 = 0, rec = false, tick = null, cortos = 0, cancel = false, fin = false;
+    const secs = () => Math.floor((Date.now() - t0) / 1000);
+    const fmt = s => '0:' + String(s).padStart(2, '0');
+    function start(x){ if (fin) return; t0 = Date.now(); x0 = x; rec = true; cancel = false; mic.classList.add('rec'); field.classList.add('rec');
+      field.textContent = '● 0:00   ‹ Deslizá para cancelar';
+      tick = setInterval(() => { if (!cancel) field.textContent = '● ' + fmt(secs()) + '   ‹ Deslizá para cancelar'; }, 250);
+      hint.textContent = modo === 'mandar' ? 'Muy bien: está grabando. Decí algo y después soltá.' : 'Ahora, sin soltar, deslizá el dedo hacia la izquierda.'; }
+    function move(x){ if (!rec) return; if (x0 - x > 70 && !cancel){ cancel = true; field.textContent = 'Soltá para cancelar el audio'; } }
+    function end(){
+      if (!rec) return; rec = false; clearInterval(tick); mic.classList.remove('rec'); field.classList.remove('rec'); field.textContent = 'Mensaje';
+      const dur = Date.now() - t0;
+      if (cancel){
+        if (modo === 'cancelar'){ hint.textContent = '¡Eso! Se canceló y no se mandó nada.'; cerrar(800); }
+        else hint.textContent = 'Lo cancelaste: no se mandó. Para mandarlo, soltá el dedo sin deslizar.';
+        return;
+      }
+      if (dur < 700){ cortos++; hint.textContent = cortos > 1 ? 'Dejá el dedo apoyado un ratito más, como si apretaras un timbre. Soltalo cuando termines de hablar.' : 'Fue un toque corto, por eso no grabó. Dejá el dedo apoyado mientras hablás.'; return; }
+      if (modo === 'cancelar'){ hint.textContent = 'Ese se mandó 😄 No pasa nada. Probá de nuevo: esta vez deslizá a la izquierda antes de soltar.'; burbuja(dur); return; }
+      burbuja(dur); hint.textContent = '¡Listo! Ana ya tiene tu audio.'; cerrar(1100);
+    }
+    function burbuja(dur){ const s = Math.max(1, Math.round(dur / 1000)); const b = el('div', 'bub'); let w = '';
+      for (let i = 0; i < 18; i++) w += '<s style="height:' + (6 + Math.round(Math.abs(Math.sin(i * 1.7)) * 16)) + 'px"></s>';
+      b.innerHTML = '▶<span class="wave">' + w + '</span><span>' + fmt(s) + '</span>'; ms.appendChild(b); }
+    function cerrar(ms_){ fin = true; setTimeout(() => { limpiar(); res(cortos); }, ms_); }
+    function limpiar(){ pr.hidden = true; document.body.style.overflow = ''; mic.onpointerdown = mic.onpointermove = mic.onpointerup = mic.onpointercancel = null; window.onpointerup = null; $('p-salir').onclick = null; }
+    mic.onpointerdown = e => { e.preventDefault(); try { mic.setPointerCapture(e.pointerId); } catch(_){} start(e.clientX); };
+    mic.onpointermove = e => move(e.clientX);
+    mic.onpointerup = mic.onpointercancel = () => end();
+    mic.oncontextmenu = e => e.preventDefault();
+    $('p-salir').onclick = () => { limpiar(); res(cortos); };
+  });
+}
+
+/* ---------- Preguntas libres a Martina IA ---------- */
+const TURNS = []; let ocupado = false;
+function anonUid(){ try { let u = localStorage.getItem('laprofe-uid'); if (!u){ u = 'a' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); localStorage.setItem('laprofe-uid', u); } return u; } catch(e){ return 'a' + Date.now().toString(36); } }
+function brain(){
+  return BRAIN_BASE + '\n\nCON QUIÉN HABLÁS: ' + (NOMBRE ? 'se llama ' + NOMBRE + '. ' : '') + (P.edad ? 'Edad: ' + P.edad + '. ' : '') + 'Celular: ' + (P.os === 'iphone' ? 'iPhone' : 'Android') + '.'
+    + '\n\nDÓNDE ESTÁ: en la lección conversada "Mandá un audio" de WhatsApp (paso ' + L.paso + ' de ' + L.total + '). Respondé su pregunta corto, y si tiene que ver con la lección, conectala con lo que está aprendiendo. No le repitas la lección entera: después de tu respuesta, la lección sigue sola.';
+}
+async function preguntar(q){
+  q = String(q || '').trim(); if (!q || ocupado) return;
+  ocupado = true; $('q').value = ''; $('send').disabled = true; stopVoz();
+  yo(q);
+  const t = el('div', 'typing', 'Martina está pensando…'); chat.appendChild(t); down();
+  TURNS.push({role:'user', content:q});
+  let txt = '';
+  try {
+    const r = await fetch(SHEETS_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({tipo:'martina', uid:anonUid(), messages:[{role:'user', content:brain() + '\n\nRespondé como en una charla, a la pregunta que sigue.'}].concat(TURNS.slice(-10))})});
+    const j = await r.json(); if (!j || !j.text) throw new Error('sin respuesta'); txt = j.text; TURNS.push({role:'assistant', content:txt});
+  } catch(e){ TURNS.pop(); txt = 'Uy, ahora no pude responderte. No es tu culpa: probá de nuevo en un ratito. Mientras, seguimos con la lección.'; }
+  t.remove();
+  const html = txt.split(/\n+/).map(p => '<p>' + p.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])) + '</p>').join('');
+  await martina(html, {fast:true, voz:null});
+  ocupado = false; $('send').disabled = false;
+  // Las opciones de la lección se mueven abajo, para que siga a la vista
+  const box = chat.querySelector('.opts'); if (box){ chat.appendChild(box); down(); }
+}
+$('send').addEventListener('click', () => preguntar($('q').value));
+$('q').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); preguntar($('q').value); } });
+(() => {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition, b = $('mic'), note = $('mic-note'); if (!SR) return;
+  b.hidden = false; let rec = null;
+  b.addEventListener('click', () => {
+    if (rec){ rec.stop(); return; }
+    try { rec = new SR(); } catch(e){ return; }
+    rec.lang = 'es-UY'; rec.interimResults = true; rec.continuous = false;
+    rec.onresult = e => { let t = ''; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript; $('q').value = t; };
+    rec.onerror = e => { note.hidden = false; note.textContent = e.error === 'not-allowed' ? 'Para hablar, el celular tiene que darle permiso al micrófono. Si no, podés escribirlo.' : 'No te escuché bien. Probá de nuevo o escribilo.'; };
+    rec.onend = () => { rec = null; b.textContent = '🎤 Hablar'; if ($('q').value.trim()){ note.hidden = false; note.textContent = 'Si está bien, tocá Enviar. Si no, podés corregirlo.'; } else if (note.textContent.startsWith('Te escucho')) note.hidden = true; };
+    note.hidden = false; note.textContent = 'Te escucho…'; b.textContent = '⏹ Listo'; rec.start();
+  });
+})();
+
+lecc();
+})();
+</script>
+</body>
+</html>
