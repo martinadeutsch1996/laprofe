@@ -807,7 +807,7 @@ function show(name){
   SCREENS.forEach(s => $('s-' + s).hidden = s !== name);
   $('nav').hidden = !['inicio','com','mar','per'].includes(name);
   document.querySelectorAll('.nav button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === name ? 'page' : 'false'));
-  try { speechSynthesis.cancel(); } catch(e){}
+  stopVoz();
   if (name === 'inicio'){ renderInicio(); maybeOpinion(); }
   if (name === 'com') renderFeed();
   if (name === 'mar') renderMartina();
@@ -838,9 +838,38 @@ new MutationObserver(() => requestAnimationFrame(checkScroll)).observe(document.
 function toast(txt, ms){ $('toast-txt').textContent = txt; $('toast').hidden = false; clearTimeout(toastT);
   const leer = Math.min(Math.max(4500, String(txt).length * 75), 12000); // tiempo para leer tranqui según el largo
   toastT = setTimeout(() => $('toast').hidden = true, Math.max(ms || 0, leer)); }
-function speak(txt){
+/* Voz de Martina: audios grabados en audio/<lección>-p<paso>[-android|-iphone].mp3.
+   Los pasos se numeran como en el guion de grabación: contando "Ahora en tu celular" aunque esté oculto.
+   Si un paso no tiene audio, se usa la voz automática del celular. */
+const VOZ = new Set(['bienvenida','1a-p1','1a-p2','1a-p3-android','1a-p3-iphone','1a-p7-android','1a-p7-iphone','1b-p1','1b-p2','1b-p3','1b-p4','1b-p9','1c-p1','1c-p2','1c-p6','1d-p1','1d-p2','1d-p5','1d-p7','2a-p1','3a-p1','3a-p2','3a-p6','3b-p1','3b-p4','3b-p6','3c-p1','3c-p5','3d-p1-android','3d-p1-iphone','3d-p5-android','3d-p5-iphone','3e-p1','3e-p2','3e-p5']);
+function vozPaso(){
+  const t = curL.steps.findIndex(x => x.k === 'try');
+  const oculto = !MOSTRAR_PRACTICA_REAL && REAL[curL.id] && t >= 0 && si > t ? 1 : 0;
+  return curL.id + '-p' + (si + 1 + oculto);
+}
+function vozKey(k){ if (!k) return null; const o = k + '-' + OS(); return VOZ.has(o) ? o : VOZ.has(k) ? k : null; }
+let VA = null, VB = null;
+function stopVoz(){
+  try { speechSynthesis.cancel(); } catch(e){}
+  if (VA){ try { VA.pause(); } catch(e){} VA = null; }
+  if (VB){ VB.textContent = VB.dataset.lbl; VB = null; }
+}
+function tts(txt){
   try { const u = new SpeechSynthesisUtterance(txt); u.lang = 'es-UY'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
-  catch(e){ toast('En este navegador no se puede escuchar. En la app final es la voz de Martina.'); }
+  catch(e){ toast('En este navegador no se puede escuchar.'); }
+}
+function speak(txt, key, btn){
+  const again = btn && VB === btn; stopVoz(); if (again) return;
+  const k = vozKey(key);
+  if (!k){ tts(txt); return; }
+  const a = new Audio('audio/' + k + '.mp3'); VA = a;
+  if (btn){ btn.dataset.lbl = btn.dataset.lbl || btn.textContent; btn.textContent = '⏹ Parar'; VB = btn; }
+  a.addEventListener('ended', () => { if (VA === a) stopVoz(); });
+  a.play().catch(() => { if (VA === a){ stopVoz(); tts(txt); } });
+}
+function vozBtn(key, txt, lbl){
+  const b = el('button', 'btn ghost', vozKey(key) ? '🔊 Escuchar a Martina' : (lbl || '🔊 Escuchar')); b.type = 'button';
+  b.addEventListener('click', () => speak(txt, key, b)); return b;
 }
 const later = (fn, ms) => { const t = token; setTimeout(() => { if (t === token) fn(); }, ms); };
 
@@ -862,7 +891,7 @@ function renderOb(){
     b.append(el('img', 'avatar xl'), el('h1', '', 'Hola, soy Martina<span class="dot">.</span>'));
     b.firstChild.src = FOTO; b.firstChild.alt = 'Martina'; b.firstChild.style.alignSelf = 'center';
     const p = el('div', 'bubble'); p.textContent = 'Hace más de 10 años que enseño tecnología. Acá te explico, practicás y, si algo no se entiende, te lo explico de nuevo. Primero, contame un poco de vos.';
-    const s = el('button', 'btn ghost', '🔊 Escuchar'); s.type = 'button'; s.addEventListener('click', () => speak(p.textContent));
+    const s = vozBtn('bienvenida', p.textContent);
     const priv = el('p', 'note'); priv.textContent = 'Para mejorar la app, guardamos tus respuestas, las lecciones que hacés y lo que le preguntás a Martina digital. No escribas contraseñas, códigos ni datos del banco: no hacen falta.';
     b.append(p, s, next('Empezar'), priv);
   }
@@ -1042,7 +1071,7 @@ function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.step
   const b = el('button', 'btn', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
 const fillOS = s => String(T(s)).replace('{os}', OS() === 'iphone' ? 'iPhone' : 'Android');
 function renderStep(){
-  token++; $('toast').hidden = true; yaBajo = false;
+  token++; $('toast').hidden = true; stopVoz(); yaBajo = false;
   if (!S.done[curL.id]){ S.prog = Object.assign({}, S.prog); if (si > 0) S.prog[curL.id] = si; else delete S.prog[curL.id]; save(); }
   { const id = curL.id, k = si; track(d => { const x = L(d, id); x.paso = Math.max(x.paso || 0, k); }); }
   stepDots();
@@ -1054,7 +1083,7 @@ function renderStep(){
     z.append(say);
     if (st.art) z.append(el('div', 'art', ART[st.art] ? ART[st.art]() : ''), el('p', 'note center', 'Es solo un dibujo: no hace falta tocarlo.'));
     const row = el('div', 'row aux');
-    const sp = el('button', 'btn ghost', '🔊 Escuchar'); sp.type = 'button'; sp.addEventListener('click', () => speak(txt));
+    const sp = vozBtn(vozPaso(), txt);
     const nu = el('button', 'btn ghost', '🤔 No entendí'); nu.type = 'button'; nu.addEventListener('click', () => { const id = curL.id, k = si; track(d => { const x = L(d, id); x.nope = addIdx(x.nope, k); }); costo(id); explainAgain(txt, z, nu); });
     row.append(sp, nu); z.append(row, nextBtn());
   }
@@ -1106,7 +1135,7 @@ function renderStep(){
   if (st.k === 'rec'){
     const r = el('div', 'remember', '<span class="pill" style="align-self:flex-start">Para recordar</span><ul></ul>');
     st.pts.forEach(p => { const li = el('li'); li.textContent = fillOS(p); r.querySelector('ul').appendChild(li); });
-    const sp = el('button', 'btn ghost', '🔊 Escuchar el resumen'); sp.type = 'button'; sp.addEventListener('click', () => speak(st.pts.map(fillOS).join('. ')));
+    const sp = vozBtn(vozPaso(), st.pts.map(fillOS).join('. '), '🔊 Escuchar el resumen');
     z.append(r, sp, nextBtn('Terminar lección'));
   }
 }
