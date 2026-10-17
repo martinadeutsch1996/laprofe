@@ -285,6 +285,34 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .ltab th:first-child,.ltab td:first-child{text-align:left}
 .qlist{display:flex;flex-direction:column;gap:6px;font-size:15px}
 .qlist span{background:var(--soft);border-radius:12px;padding:8px 10px}
+/* nivel 4 */
+.sender{display:block;font-weight:800;font-size:14px;margin-bottom:2px}
+.fwdl{display:block;font-style:italic;color:var(--ph-sub);font-size:13px;margin-bottom:2px}
+.quote{display:flex;flex-direction:column;border-left:4px solid #7E57C2;background:rgba(0,0,0,.06);border-radius:8px;padding:6px 10px;font-size:14px;margin-bottom:4px}
+.quote b{color:#7E57C2;font-size:14px}
+.replybar{display:flex;align-items:center;gap:8px;margin:0 8px;padding:8px 10px;background:var(--ph-bar);border-radius:12px 12px 0 0;border-left:4px solid #7E57C2}
+.replybar div{flex:1;min-width:0;display:flex;flex-direction:column;font-size:14px}
+.replybar b{color:#7E57C2}
+.ibtn{background:none;border:2px solid transparent;border-radius:50%;width:46px;height:46px;display:grid;place-items:center;color:var(--ph-text);flex:none}
+.prow{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border:none;border-bottom:1px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);font-size:17px;text-align:left;min-height:56px}
+.prow.red{color:#E5484D;font-weight:700}
+.pform{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--ph-bar);flex:1}
+.pform label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--ph-sub);font-weight:700}
+.pform input{font:inherit;font-size:18px;padding:12px;border-radius:10px;border:2px solid var(--ph-line);background:var(--ph-bg);color:var(--ph-text)}
+.pgreen{background:var(--ph-green);color:#fff;border:none;border-radius:999px;min-height:52px;font-weight:800;font-size:18px}
+.vcall{flex:1;background:#1F2C34;color:#fff;display:flex;flex-direction:column;position:relative;min-height:420px}
+.vcall .who2{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center}
+.vcall .self{position:absolute;right:12px;top:12px;width:84px;height:116px;border-radius:12px;background:#3B4A54;display:grid;place-items:center;font-size:40px;border:2px solid #fff}
+.vcall .ctl{display:flex;justify-content:space-around;padding:14px 8px 18px;background:rgba(0,0,0,.35)}
+.vcall .ctl button{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;color:#fff;font-size:14px;font-weight:700}
+.vcall .ctl span{width:58px;height:58px;border-radius:50%;background:#3B4A54;display:grid;place-items:center;font-size:26px;border:3px solid transparent}
+.vcall .ctl .end span{background:#E5484D}
+.vcall .ctl .off span{background:#fff;color:#1F2C34}
+.sheet{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end}
+.sheet > div{background:var(--ph-bar);width:100%;border-radius:18px 18px 0 0;padding:16px;display:flex;flex-direction:column;gap:6px}
+.sheet label{display:flex;align-items:center;gap:12px;min-height:50px;font-size:17px}
+.sheet input{width:22px;height:22px;accent-color:var(--ph-green)}
+.sysmsg{align-self:center;background:var(--ph-bar);color:var(--ph-sub);border-radius:8px;padding:6px 12px;font-size:14px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -651,6 +679,47 @@ const NIVELES = [
   ]}
 ]}
 ];
+/* Nivel 4 en preparación: solo se ve abriendo la app con ?nivel4 al final del link. Para mostrarlo a todos, poné true. */
+const MOSTRAR_NIVEL_4 = false || /[?&]nivel4\b/.test(location.search);
+if (MOSTRAR_NIVEL_4) NIVELES.push(
+{n:4, em:'👪', t:'Más WhatsApp', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
+ {id:'4a', ic:'📇', t:'Guardá un contacto', min:5,
+  des:'Guardá el número de alguien que te escribe seguido y todavía no tenés agendado.',
+  steps:[
+   {k:'ex', txt:'Para escribirle a alguien por WhatsApp, primero tiene que estar guardado en tu celular. Eso se llama "agendar": le ponés un nombre a un número.', art:'agenda'},
+   {k:'ex', txt:{android:'Se puede hacer desde WhatsApp. Tocás el botón verde de abajo a la derecha, que es para un chat nuevo, y elegís "Nuevo contacto". Escribís el nombre y el número, y tocás "Guardar".', iphone:'Se puede hacer desde WhatsApp. Tocás el signo de más de arriba a la derecha, que es para un chat nuevo, y elegís "Nuevo contacto". Escribís el nombre y el número, y tocás "Guardar".'}, art:'newchat'},
+   {k:'try', run:'waContact'},
+   {k:'check', q:'Te escribe un número que no tenés guardado. Dice que es tu sobrina y que cambió de número. ¿Qué hacés?', o:['La llamo al número de siempre para confirmar, y después la agendo','Le contesto enseguida lo que me pida'], a:0, why:'Primero confirmamos que es ella. Si lo es, la agendás con el número nuevo.'},
+   {k:'rec', pts:['Agendar es ponerle un nombre a un número.',{android:'Botón verde de abajo > "Nuevo contacto" > nombre y número > "Guardar".', iphone:'Signo de más de arriba > "Nuevo contacto" > nombre y número > "Guardar".'},'Si alguien dice que cambió de número, confirmá llamando al de siempre.']}
+  ]},
+ {id:'4b', ic:'📹', t:'Hacé una videollamada', min:5,
+  des:'Llamá por videollamada a alguien de tu familia y mostrale algo lindo de tu casa.',
+  steps:[
+   {k:'ex', txt:'Una videollamada es una llamada en la que se ven las caras. Por WhatsApp es gratis, pero usa mucho internet: conviene hacerla con WiFi.', art:'videoart'},
+   {k:'ex', txt:'Para llamar, entrás al chat de la persona y tocás la camarita de arriba. El teléfono que está al lado es para una llamada sin imagen. Para cortar, tocás el botón rojo.', art:'callbtns'},
+   {k:'try', run:'waVideo'},
+   {k:'check', q:'Te llega una videollamada de alguien de tu familia. ¿Qué tocás para atender?', o:['El botón verde','El botón rojo'], a:0, why:'El verde atiende. El rojo corta o rechaza la llamada.'},
+   {k:'rec', pts:['Camarita de arriba: videollamada. Teléfono: llamada sin imagen.','Verde atiende. Rojo corta.','Mejor con WiFi, porque usa mucho internet.']}
+  ]},
+ {id:'4c', ic:'👪', t:'El grupo de la familia', min:6,
+  des:'Entrá al grupo de tu familia y respondé un mensaje deslizándolo hacia la derecha.',
+  steps:[
+   {k:'ex', txt:'Un grupo es un chat con varias personas a la vez. Lo que escribís, lo leen todos. Arriba de cada mensaje aparece el nombre de quien lo mandó.', art:'groupart'},
+   {k:'ex', txt:'Si un grupo te manda muchas notificaciones, lo podés silenciar. Tocás el nombre del grupo, arriba, y elegís "Silenciar". Los mensajes te siguen llegando, pero el celular no suena.', art:'muteart'},
+   {k:'try', run:'waGroup'},
+   {k:'check', q:'Silenciaste el grupo de la familia. ¿Qué pasa ahora?', o:['Los mensajes me siguen llegando, pero el celular no suena','Me salí del grupo y ya no me pueden escribir'], a:0, why:'Silenciar no te saca del grupo: solo hace que el celular no suene con cada mensaje.'},
+   {k:'rec', pts:['En un grupo, lo que escribís lo leen todos.','Nombre del grupo > "Silenciar": no suena, pero los mensajes llegan.','Para responder un mensaje puntual, deslizalo hacia la derecha.']}
+  ]},
+ {id:'4d', ic:'🔁', t:'Antes de reenviar', min:5,
+  des:'La próxima vez que te llegue una cadena, frená y preguntate quién la escribió antes de reenviarla.',
+  steps:[
+   {k:'ex', txt:'Reenviar es mandarle a otra persona un mensaje que te llegó. Se hace manteniendo apretado el mensaje y tocando la flecha que aparece arriba.', art:'fwdart'},
+   {k:'ex', txt:'Si un mensaje dice "Reenviado muchas veces", pasó por muchísimos celulares y nadie sabe quién lo escribió. Así viajan muchas cadenas y noticias falsas.', art:'fwdlabel'},
+   {k:'try', run:'reenviar'},
+   {k:'check', q:'Un mensaje dice "Reenviado muchas veces". ¿Qué significa?', o:['Que pasó por muchos celulares y no se sabe quién lo escribió','Que es una noticia confirmada'], a:0, why:'Que lo hayan reenviado mucho no lo hace verdad. Antes de pasarlo, fijate quién lo dice.'},
+   {k:'rec', pts:['Reenviar: mantener apretado el mensaje y tocar la flecha.','"Reenviado muchas veces": no se sabe quién lo escribió.','Antes de reenviar: ¿quién lo dice? ¿Lo confirma una fuente oficial?']}
+  ]}
+]});
 const REAL = {
  '1a':['Desbloqueá tu celular y mirá la pantalla de inicio.','Encontrá el ícono de WhatsApp: es verde, con un globito.','Encontrá la cámara.','Contá cuántas apps tenés en la primera pantalla.'],
  '1b':[{android:'Deslizá el dedo desde arriba de todo hacia abajo.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo.'},'Fijate si el abanico del WiFi está de color (prendido) o gris (apagado).','Fijate si los datos móviles están prendidos.',{android:'Cerrá el panel deslizando hacia arriba.', iphone:'Cerrá el panel deslizando hacia arriba o tocando afuera.'}],
@@ -664,7 +733,11 @@ const REAL = {
  '3b':['Abrí el chat de alguien de confianza.','Tocá donde dice "Mensaje" y escribí un saludo.','Tocá la flecha verde.','Mirá los tildes: ¿hay uno o dos?'],
  '3c':['Abrí el chat de alguien de confianza.','Mantené apretado el micrófono, decí "Hola, estoy aprendiendo" y soltá.','Tocá el triángulo para escuchar tu audio.'],
  '3d':['Abrí el chat de alguien de confianza.',{android:'Tocá el clip y después "Galería".', iphone:'Tocá el signo de más y después "Fotos".'},'Elegí una foto, escribile algo lindo y tocá enviar.'],
- '3e':['Pensá con tu familia una palabra clave, para confirmar que son ellos si alguna vez te piden plata por mensaje.',{android:'En WhatsApp, tocá los tres puntitos de arriba > Ajustes > Cuenta > Verificación en dos pasos. Fijate si está activada.', iphone:'En WhatsApp, tocá el engranaje de abajo a la derecha > Cuenta > Verificación en dos pasos. Fijate si está activada.'}]
+ '3e':['Pensá con tu familia una palabra clave, para confirmar que son ellos si alguna vez te piden plata por mensaje.',{android:'En WhatsApp, tocá los tres puntitos de arriba > Ajustes > Cuenta > Verificación en dos pasos. Fijate si está activada.', iphone:'En WhatsApp, tocá el engranaje de abajo a la derecha > Cuenta > Verificación en dos pasos. Fijate si está activada.'}],
+ '4a':['Abrí WhatsApp.',{android:'Tocá el botón verde de abajo a la derecha y elegí "Nuevo contacto".', iphone:'Tocá el signo de más de arriba a la derecha y elegí "Nuevo contacto".'},'Guardá el número de alguien de confianza, con su nombre.'],
+ '4b':['Abrí el chat de alguien de tu familia.','Tocá la camarita de arriba para hacerle una videollamada.','Cuando terminen, tocá el botón rojo para cortar.'],
+ '4c':['Abrí un grupo en el que estés.','Tocá el nombre del grupo, arriba, y fijate dónde está "Silenciar".','Deslizá un mensaje hacia la derecha y respondelo.'],
+ '4d':['Buscá en tus chats algún mensaje que diga "Reenviado".','Mantené apretado un mensaje para ver la flecha de reenviar. No hace falta mandarlo.']
 };
 NIVELES.forEach(n => n.ls.forEach(l => { if (MOSTRAR_PRACTICA_REAL && REAL[l.id]){ const i = l.steps.findIndex(x => x.k === 'try'); l.steps.splice(i + 1, 0, {k:'real', pasos:REAL[l.id]}); } }));
 /* Lo que la persona ya sabe hacer al terminar cada lección (se muestra en el festejo) */
@@ -681,7 +754,11 @@ const LOGRO = {
   '3b':'Ya sabés escribir y mandar un mensaje por WhatsApp.',
   '3c':'Ya sabés grabar, cancelar y mandar un audio.',
   '3d':'Ya sabés mandar una foto que tenés guardada.',
-  '3e':'Ya sabés reconocer un mensaje de estafa.'
+  '3e':'Ya sabés reconocer un mensaje de estafa.',
+  '4a':'Ya sabés guardar un contacto en tu celular.',
+  '4b':'Ya sabés hacer una videollamada y cortarla.',
+  '4c':'Ya sabés silenciar un grupo y responder un mensaje puntual.',
+  '4d':'Ya sabés reconocer una cadena antes de reenviarla.'
 };
 const ALL = []; NIVELES.forEach(n => n.ls.forEach((l, i) => { l.niv = n; l.idx = i; ALL.push(l); }));
 const doneN = () => ALL.filter(l => S.done[l.id]).length;
@@ -1019,7 +1096,7 @@ function renderInicio(){
   const n = doneN();
   $('h-med').textContent = n + (n === 1 ? ' medalla' : ' medallas');
   const nx = nextLesson();
-  $('h-hello').innerHTML = '<b>¡Hola, ' + esc(NOMBRE()) + '!</b> ' + (n === 0 ? 'Empecemos tranqui, a tu ritmo.' : nx ? '¡Qué bueno verte! Vas muy bien.' : '¡Terminaste los tres niveles! Estoy muy orgullosa.');
+  $('h-hello').innerHTML = '<b>¡Hola, ' + esc(NOMBRE()) + '!</b> ' + (n === 0 ? 'Empecemos tranqui, a tu ritmo.' : nx ? '¡Qué bueno verte! Vas muy bien.' : '¡Terminaste todos los niveles! Estoy muy orgullosa.');
   $('h-beta').hidden = true; /* aviso de versión de prueba: oculto */
   $('h-inst').hidden = !instVisible();
   const enCurso = nx && S.prog && S.prog[nx.id];
@@ -1542,6 +1619,14 @@ const ART = {
   ticks: () => '<div class="stack" style="font-weight:700"><span><span style="color:#8696A0">✓</span> Salió</span><span><span style="color:#8696A0">✓✓</span> Le llegó</span><span><span style="color:#53BDEB">✓✓</span> Lo leyó</span></div>',
   micart: () => big('✋🎤','Mantener apretado') + big('👈','Deslizar para cancelar'),
   photoart: () => (OS() === 'iphone' ? big('➕','El signo de más') : big('📎','El clip')) + '<span style="font-size:30px">➜</span>' + big('🖼️','Galería'),
+  agenda: () => big('🔢','Un número') + '<span style="font-size:30px">➜</span>' + big('📇','Con nombre'),
+  newchat: () => (OS() === 'iphone' ? big('➕','Arriba a la derecha') : big('🟢','Abajo a la derecha')) + '<span style="font-size:30px">➜</span>' + big('👤','"Nuevo contacto"'),
+  videoart: () => big('📹','Se ven las caras') + big('📶','Mejor con WiFi'),
+  callbtns: () => big('📹','Videollamada') + big('📞','Sin imagen') + big('🔴','Cortar'),
+  groupart: () => '<div class="stack" style="gap:8px;min-width:230px;max-width:280px"><div class="msg in" style="max-width:100%;background:#fff;color:#111B21"><span class="sender" style="color:#7E57C2">Laura</span>El domingo almorzamos en casa 🍝</div><div class="msg in" style="max-width:100%;background:#fff;color:#111B21"><span class="sender" style="color:#0F8F7E">Pedro</span>¡Buenísimo!</div></div>',
+  muteart: () => big('👆','Nombre del grupo') + '<span style="font-size:30px">➜</span>' + big('🔕','"Silenciar"'),
+  fwdart: () => big('✋','Mantené apretado') + '<span style="font-size:30px">➜</span>' + big('↪️','Reenviar'),
+  fwdlabel: () => '<div class="stack" style="gap:6px;align-items:center"><div class="msg in" style="max-width:280px;background:#fff;color:#111B21"><span class="fwdl">⏩ Reenviado muchas veces</span>¡Pasalo a todos tus contactos!</div><b style="font-size:16px">Nadie sabe quién lo escribió</b></div>',
   alarm: () => big('❓','Número desconocido') + big('⏰','Apuro') + big('💸','Pedido de plata'),
   code: () => '<div style="font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:.2em;background:var(--soft);border-radius:14px;padding:10px 18px">482 913</div><b>No se comparte. Nunca.</b>'
 };
@@ -1875,6 +1960,188 @@ SIMS.estafa = function(api){
       $('efb').querySelector('span').textContent = e.why;
       const n = el('button', 'btn', i < E.length - 1 ? 'Siguiente mensaje' : 'Ver mi resultado'); n.type = 'button'; n.style.marginTop = '12px'; $('efb').appendChild(n);
       n.addEventListener('click', () => { if (i < E.length - 1){ i++; render(); window.scrollTo(0,0); } else { api.stage.innerHTML = '<div class="card center stack"><span style="font-size:56px">🛡️</span><b style="font-size:22px">Acertaste ' + ac + ' de 4</b><p class="muted">' + (ac >= 3 ? '¡Sos difícil de engañar!' : 'Con práctica se aprende a ver las señales. ¡Podés repetirlo cuando quieras!') + '</p></div>'; api.say('Recordá: número desconocido, apuro y pedido de plata o códigos. Ante la duda, frenamos y preguntamos.'); api.done(); } });
+      n.scrollIntoView({behavior:'smooth', block:'center'});
+    }));
+  };
+  render();
+};
+
+/* ============ NIVEL 4: prácticas ============ */
+const I4 = {
+  newchat:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M12 8v5M9.5 10.5h5"/></svg>',
+  plus:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+  cam:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6.5" width="13" height="11" rx="2"/><path d="m15.5 10.5 6-3.5v10l-6-3.5z"/></svg>',
+  tel:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>',
+  back:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>'
+};
+const crowSimple = (n, sub, c) => '<div class="crow bar" style="cursor:default"><div class="who"><span class="pic" style="background:' + c + '">' + esc(n[0]) + '</span><div style="min-width:0"><b>' + esc(n) + '</b><small>' + esc(sub) + '</small></div></div></div>';
+
+SIMS.waContact = function(api){
+  const ios = OS() === 'iphone';
+  api.say(ios ? 'Paso 1: tocá el <b>signo de más</b> verde, arriba a la derecha.' : 'Paso 1: tocá el <b>botón verde</b> de abajo a la derecha.');
+  const nc = ios
+    ? '<button type="button" class="round pulse" id="nc" aria-label="Chat nuevo" style="width:44px;height:44px">' + I4.plus + '</button>'
+    : '<button type="button" class="round pulse" id="nc" aria-label="Chat nuevo" style="position:absolute;right:14px;bottom:14px;width:60px;height:60px;border-radius:18px">' + I4.newchat + '</button>';
+  const lista = () => crowSimple('Familia','Carlos: ¿Quién lleva el postre?','#7E57C2') + crowSimple('Ana Prueba','¡Hola! ¿Cómo andás?','#0F8F7E');
+  api.stage.innerHTML = '<div class="phone" id="ph"><div class="bar"><h3 style="flex:1">Chats</h3>' + (ios ? nc : '') + '</div><div id="list" style="background:var(--ph-bar);flex:1">' + lista() + '</div>' + (ios ? '' : nc) + '</div>';
+  $('list').addEventListener('click', () => toast('Primero vamos a guardar un contacto nuevo. ' + (ios ? 'Tocá el signo de más, arriba.' : 'Tocá el botón verde, abajo.')));
+  $('nc').addEventListener('click', nuevoChat);
+  function nuevoChat(){
+    api.say('Paso 2: tocá <b>Nuevo contacto</b>.');
+    $('ph').innerHTML = '<div class="bar"><h3 style="flex:1">Nuevo chat</h3></div><div style="background:var(--ph-bar);flex:1;display:flex;flex-direction:column">'
+      + '<button type="button" class="prow" id="ng"><span class="pic" style="background:var(--ph-green)">👥</span>Nuevo grupo</button>'
+      + '<button type="button" class="prow pulse" id="nct" style="border:2px solid var(--coral)"><span class="pic" style="background:var(--ph-green)">👤</span>Nuevo contacto</button>'
+      + '<small style="padding:12px 16px 4px;color:var(--ph-sub);font-weight:700">Tus contactos</small>' + crowSimple('Ana Prueba','Disponible','#0F8F7E') + crowSimple('Carlos','En el trabajo','#3F7FD8') + '</div>';
+    $('ng').addEventListener('click', () => toast('Ese es para armar un grupo. Hoy queremos guardar un número: tocá "Nuevo contacto".'));
+    $('nct').addEventListener('click', form);
+  }
+  function form(){
+    api.say('Paso 3: escribí el nombre <b>Taxi</b> y el número <b>091 141 141</b>. Si te cuesta escribir, tocá "Escribir por mí".');
+    $('ph').innerHTML = '<div class="bar"><h3 style="flex:1">Nuevo contacto</h3></div><div class="pform">'
+      + '<label for="cn">Nombre<input id="cn" autocomplete="off" placeholder="Nombre"></label>'
+      + '<label for="ct">Teléfono<input id="ct" type="tel" inputmode="tel" autocomplete="off" placeholder="Número"></label>'
+      + '<div class="helpers" style="padding:0"><button type="button" id="cfill">Escribir por mí</button></div>'
+      + '<button type="button" class="pgreen" id="csave">Guardar</button></div>';
+    const n = $('cn'), t = $('ct');
+    const chk = () => { const ok = n.value.trim() && t.value.replace(/\D/g, '').length >= 8; $('csave').classList.toggle('pulse', !!ok); if (ok) api.say('Paso 4: ¡muy bien! Ahora tocá <b>Guardar</b>.'); };
+    n.addEventListener('input', chk); t.addEventListener('input', chk);
+    $('cfill').addEventListener('click', () => { n.value = 'Taxi'; t.value = '091 141 141'; chk(); });
+    $('csave').addEventListener('click', () => {
+      if (!n.value.trim()){ toast('Falta el nombre. Escribí cómo querés que aparezca, por ejemplo Taxi.'); n.focus(); return; }
+      if (t.value.replace(/\D/g, '').length < 8){ toast('El número quedó corto. Revisalo: tiene que tener todos los números.'); t.focus(); return; }
+      const nom = n.value.trim(), num = t.value.trim();
+      $('ph').innerHTML = '<div class="bar"><h3 style="flex:1">Nuevo chat</h3></div><div style="background:var(--ph-bar);flex:1"><small style="display:block;padding:12px 16px 4px;color:var(--ph-sub);font-weight:700">Tus contactos</small><div class="crow bar pulse" style="border:2px solid var(--coral)"><div class="who"><span class="pic" style="background:#E07A3F"></span><div style="min-width:0"><b></b><small></small></div></div></div>' + crowSimple('Ana Prueba','Disponible','#0F8F7E') + crowSimple('Carlos','En el trabajo','#3F7FD8') + '</div>';
+      const r = $('ph').querySelector('.pulse'); r.querySelector('.pic').textContent = nom[0].toUpperCase(); r.querySelector('b').textContent = nom; r.querySelector('small').textContent = num;
+      $('toast').hidden = true;
+      api.say('¡Listo! <b>' + esc(nom) + '</b> ya está en tus contactos. Ahora, cuando quieras escribirle, lo buscás por su nombre.');
+      api.done();
+    });
+  }
+};
+
+SIMS.waVideo = function(api){
+  let paso = 0, fin = false, seg = 0;
+  api.say('Paso 1: Carlos quiere mostrarte un dibujo. Tocá la <b>camarita</b> de arriba para hacerle una videollamada.');
+  api.stage.innerHTML = '<div class="phone" id="ph"></div>';
+  const chat = (extra) => {
+    $('ph').innerHTML = '<div class="bar"><div class="who"><span class="pic" style="background:#3F7FD8">C</span><div style="min-width:0"><b>Carlos</b><small>en línea</small></div></div>'
+      + '<button type="button" class="ibtn' + (paso === 0 ? ' pulse' : '') + '" id="vbtn" aria-label="Videollamada">' + I4.cam + '</button><button type="button" class="ibtn" id="tbtn" aria-label="Llamada">' + I4.tel + '</button></div>'
+      + '<div class="msgs" id="msgs"></div>';
+    addMsg($('msgs'), '¿Hacemos videollamada así te muestro el dibujo que hice? 🎨', false, '16:20');
+    if (extra) $('msgs').appendChild(el('div', 'sysmsg', extra));
+    $('vbtn').addEventListener('click', () => { if (paso === 0) llamar(); });
+    $('tbtn').addEventListener('click', () => { if (paso === 0) toast('Ese teléfono es para una llamada sin imagen. Para verse las caras, tocá la camarita.'); });
+  };
+  chat();
+  function llamar(){
+    paso = 1;
+    $('ph').innerHTML = '<div class="vcall"><div class="who2"><span class="pic" style="width:96px;height:96px;font-size:40px;background:#3F7FD8">C</span><b style="font-size:22px">Carlos</b><span id="vst">Llamando…</span></div><div class="ctl" id="ctl"></div></div>';
+    api.say('Está sonando en el celular de Carlos. Esperá un momento…');
+    later(() => {
+      $('ph').innerHTML = '<div class="vcall"><div class="who2" style="background:linear-gradient(160deg,#FFD58A,#F28B66)"><span style="font-size:96px;line-height:1">👦🎨</span><b style="font-size:20px;color:#1F2C34">Carlos</b><span id="vt" style="color:#1F2C34;font-weight:700">0:00</span></div><div class="self" aria-hidden="true">🙂</div>'
+        + '<div class="ctl"><button type="button" id="bcam"><span>' + I4.cam + '</span>Cámara</button><button type="button" id="bmic" class="pulse-w"><span>🎤</span>Micrófono</button><button type="button" id="bend" class="end"><span>' + I4.tel + '</span>Cortar</button></div></div>';
+      $('bmic').querySelector('span').classList.add('pulse');
+      paso = 2; api.say('¡Carlos atendió! El cuadradito de arriba sos vos. Paso 2: tocá el <b>micrófono</b> para silenciarte. Así Carlos deja de escucharte un momento.');
+      const tick = () => { if (fin) return; seg++; const t = $('vt'); if (t) t.textContent = '0:' + String(seg).padStart(2, '0'); if (seg < 59) later(tick, 1000); }; later(tick, 1000);
+      $('bcam').addEventListener('click', () => toast('Ese botón apaga tu cámara: Carlos dejaría de verte. Por ahora dejala prendida.'));
+      $('bmic').addEventListener('click', () => {
+        const sp = $('bmic').querySelector('span');
+        if (paso === 2){ paso = 3; $('bmic').classList.add('off'); sp.textContent = '🔇'; sp.classList.add('pulse'); api.say('Ahora Carlos no te escucha. Paso 3: tocá el micrófono <b>de nuevo</b> para que te vuelva a escuchar.'); }
+        else if (paso === 3){ paso = 4; $('bmic').classList.remove('off'); sp.textContent = '🎤'; sp.classList.remove('pulse'); $('bend').querySelector('span').classList.add('pulse'); api.say('¡Te escucha otra vez! Paso 4: para terminar, tocá el <b>botón rojo</b>.'); }
+      });
+      $('bend').addEventListener('click', () => {
+        if (paso < 4){ toast('Ese botón corta la llamada. Antes probemos el micrófono.'); return; }
+        $('toast').hidden = true; fin = true; paso = 5; chat('📹 Videollamada · 0:' + String(seg).padStart(2, '0'));
+        api.say('¡Eso! Hiciste tu primera videollamada y la cortaste. En el chat queda anotado cuánto duró.');
+        api.done();
+      });
+    }, 2200);
+  }
+};
+
+SIMS.waGroup = function(api){
+  let paso = 0, mudo = false;
+  const MS = [['Laura','#7E57C2','El domingo almorzamos en casa 🍝','10:31'],['Pedro','#0F8F7E','¡Buenísimo! Yo llevo el pan','10:33'],['Carlos','#3F7FD8','¿Quién lleva el postre?','10:42']];
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:470px"></div>';
+  const chat = () => {
+    $('ph').innerHTML = '<div class="bar' + (paso === 0 ? ' pulse' : '') + '" id="gh" role="button" tabindex="0" style="cursor:pointer;border:2px solid transparent"><div class="who"><span class="pic" style="background:#7E57C2">👪</span><div style="min-width:0"><b>Familia ' + (mudo ? '🔕' : '') + '</b><small>Laura, Pedro, Carlos, Vos</small></div></div></div>'
+      + '<div class="msgs" id="msgs"></div><div id="rb"></div><div class="helpers" id="help" hidden><button type="button" id="h1">Escribir por mí</button></div><div class="inrow"><label class="field" id="fld" for="inp"><input id="inp" placeholder="Mensaje" autocomplete="off" readonly></label><button class="round" type="button" id="btn" aria-label="Enviar">' + I.mic + '</button></div>';
+    MS.forEach((m, k) => { const d = addMsg($('msgs'), '<span class="sender" style="color:' + m[1] + '">' + m[0] + '</span>' + esc(m[2]), false, m[3]); d.dataset.k = k; if (k === 2 && paso === 3) d.classList.add('pulse'); });
+    $('gh').addEventListener('click', () => { if (paso === 0) info(); else if (paso >= 3) toast('Ya lo silenciaste. Ahora respondele a Carlos: deslizá su mensaje hacia la derecha.'); });
+    $('inp').addEventListener('click', () => { if (paso === 3) toast('Para responderle justo a Carlos, primero deslizá su mensaje hacia la derecha.'); });
+    if (paso === 3) swipe();
+  };
+  api.say('Paso 1: este grupo suena todo el tiempo. Tocá el <b>nombre del grupo</b>, arriba.');
+  chat();
+  function info(){
+    paso = 1; api.say('Estás en la información del grupo. Paso 2: tocá <b>Silenciar</b>.');
+    $('ph').innerHTML = '<div class="bar"><button type="button" class="ibtn" id="gb" aria-label="Volver al chat">' + I4.back + '</button><h3 style="flex:1">Info. del grupo</h3></div><div style="background:var(--ph-bar);flex:1;display:flex;flex-direction:column;position:relative" id="gi">'
+      + '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px"><span class="pic" style="width:72px;height:72px;font-size:34px;background:#7E57C2">👪</span><b style="font-size:20px">Familia</b><small style="color:var(--ph-sub)">Grupo · 4 participantes</small></div>'
+      + '<button type="button" class="prow pulse" id="gm" style="border:2px solid var(--coral)">🔔 <span id="gml">Silenciar</span></button>'
+      + '<button type="button" class="prow" id="gf">🖼️ Archivos, enlaces y documentos</button>'
+      + '<button type="button" class="prow red" id="gx">🚪 Salir del grupo</button></div>';
+    $('gf').addEventListener('click', () => toast('Ahí están las fotos y archivos del grupo. Ahora vamos a silenciarlo: tocá "Silenciar".'));
+    $('gx').addEventListener('click', () => toast('Ese botón te saca del grupo. No hace falta: con silenciarlo alcanza.'));
+    $('gb').addEventListener('click', () => { if (paso === 1) toast('Primero tocá "Silenciar". Después volvemos al chat.'); else { paso = 3; api.say('Paso 4: Carlos preguntó quién lleva el postre. <b>Deslizá su mensaje hacia la derecha</b> para responderle a él.'); chat(); } });
+    $('gm').addEventListener('click', () => {
+      if (paso !== 1) return;
+      const sh = el('div', 'sheet', '<div><b style="font-size:18px">Silenciar notificaciones</b><small style="color:var(--ph-sub)">Los demás no se enteran.</small><label><input type="radio" name="gt" value="8 horas">8 horas</label><label><input type="radio" name="gt" value="1 semana">1 semana</label><label><input type="radio" name="gt" value="Siempre">Siempre</label><p id="gerr" hidden style="margin:0;color:#E5484D;font-weight:700;font-size:15px">Primero elegí por cuánto tiempo.</p><button type="button" class="pgreen" id="gok">Aceptar</button></div>');
+      $('gi').appendChild(sh); api.say('Elegí por cuánto tiempo y tocá <b>Aceptar</b>.');
+      $('gok').addEventListener('click', () => {
+        const v = sh.querySelector('input:checked'); if (!v){ $('gerr').hidden = false; return; }
+        sh.remove(); mudo = true; paso = 2; $('gm').classList.remove('pulse'); $('gm').style.border = 'none'; $('gm').innerHTML = '🔕 Silenciado · ' + esc(v.value);
+        $('gb').classList.add('pulse'); api.say('¡Silenciado! Los mensajes te siguen llegando, pero el celular no suena. Paso 3: tocá la <b>flechita de arriba</b> para volver al chat.');
+      });
+    });
+  }
+  function swipe(){
+    const m = $('msgs').querySelector('[data-k="2"]'); let x0 = null, dx = 0, lp = null;
+    m.style.touchAction = 'pan-y';
+    const fin = () => { m.style.transform = ''; clearTimeout(lp); };
+    m.addEventListener('pointerdown', e => { x0 = e.clientX; dx = 0; try { m.setPointerCapture(e.pointerId); } catch(_){} lp = setTimeout(() => { if (paso === 3 && Math.abs(dx) < 10){ x0 = null; fin(); responder(); } }, 700); });
+    m.addEventListener('pointermove', e => { if (x0 == null) return; dx = Math.max(0, Math.min(80, e.clientX - x0)); m.style.transform = 'translateX(' + dx + 'px)'; if (dx > 10) clearTimeout(lp); });
+    const up = () => { if (x0 == null) return; const ok = dx > 45; x0 = null; fin(); if (ok) responder(); else if (paso === 3) toast('Apoyá el dedo en el mensaje de Carlos y arrastralo hacia la derecha, como si lo empujaras.'); };
+    m.addEventListener('pointerup', up); m.addEventListener('pointercancel', () => { x0 = null; fin(); });
+  }
+  function responder(){
+    if (paso !== 3) return; paso = 4; $('toast').hidden = true;
+    $('msgs').querySelector('[data-k="2"]').classList.remove('pulse');
+    $('rb').innerHTML = '<div class="replybar"><div><b>Carlos</b><span>¿Quién lleva el postre?</span></div></div>';
+    const inp = $('inp'), btn = $('btn'); inp.readOnly = false; $('fld').classList.add('pulse'); $('help').hidden = false;
+    api.say('¡Eso! Arriba de donde escribís aparece el mensaje de Carlos. Paso 5: escribí tu respuesta, por ejemplo <b>Yo llevo el postre</b>, y mandala con la flecha.');
+    $('h1').addEventListener('click', () => { inp.value = '¡Yo llevo el postre!'; inp.dispatchEvent(new Event('input')); });
+    inp.addEventListener('input', () => { const has = inp.value.trim().length > 0; btn.innerHTML = has ? I.send : I.mic; btn.classList.toggle('pulse', has); $('fld').classList.toggle('pulse', !has); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); btn.click(); } });
+    btn.addEventListener('click', () => {
+      if (paso !== 4) return; const txt = inp.value.trim(); if (!txt){ toast('Primero escribí tu respuesta. Si te cuesta, tocá "Escribir por mí".'); return; }
+      paso = 5; inp.value = ''; inp.readOnly = true; btn.innerHTML = I.mic; btn.classList.remove('pulse'); $('fld').classList.remove('pulse'); $('help').hidden = true; $('rb').innerHTML = '';
+      addMsg($('msgs'), '<div class="quote"><b>Carlos</b>¿Quién lleva el postre?</div>' + esc(txt), true, '10:44 <span class="tk">' + tick2(true) + '</span>');
+      later(() => { addMsg($('msgs'), '<span class="sender" style="color:#3F7FD8">Carlos</span>¡Gracias! 😋', false, '10:44'); api.say('¡Lo lograste! Carlos sabe que le respondiste a él, aunque el grupo tenga muchos mensajes.'); api.done(); }, 1600);
+    });
+  }
+};
+
+SIMS.reenviar = function(api){
+  const E = [
+    {from:'Club de lectura', grp:true, fwd:'⏩ Reenviado muchas veces', msg:'URGENTE: desde el lunes WhatsApp va a cobrar. Reenviá este mensaje a 10 contactos o te borran la cuenta.', ok:false, why:'Es una cadena falsa. WhatsApp no avisa así ni borra cuentas por no reenviar. Si cambiara algo de verdad, lo dirían las noticias y la propia app.'},
+    {from:'Laura', fwd:'', msg:'Mañana a las 10 es el acto de Sofi en la escuela. ¿Les avisás a los tíos?', ok:true, why:'Lo escribió Laura, que es de confianza, y te pide que lo pases. Reenviárselo a los tíos está perfecto.'},
+    {from:'Familia', grp:true, fwd:'⏩ Reenviado muchas veces', msg:'Tomar agua caliente con limón en ayunas cura el virus. ¡Pasalo a todos!', ok:false, why:'En temas de salud, primero confirmá con tu médico o con una fuente oficial, como el Ministerio de Salud Pública. Estas cadenas casi nunca tienen razón.'},
+    {from:'Pedro', fwd:'↪️ Reenviado', msg:'Miren qué lindo el atardecer en la rambla 🌅', ok:true, why:'Es una foto linda, sin apuro ni pedidos raros. Compartirla no le hace mal a nadie.'}
+  ];
+  let i = 0, ac = 0;
+  const render = () => {
+    const e = E[i];
+    api.say('Mensaje ' + (i + 1) + ' de 4. Leelo con calma. ¿Lo reenviarías?');
+    api.stage.innerHTML = '<div class="phone" style="min-height:0">' + chatHead(e.from, e.grp ? 'Grupo' : 'Contacto agendado', e.grp ? '#7E57C2' : '#0F8F7E') + '<div class="msgs" style="min-height:150px"><div class="msg in">' + (e.fwd ? '<span class="fwdl"></span>' : '') + '<span class="tx"></span><div class="meta">12:0' + i + '</div></div></div></div><div class="row"><button type="button" class="btn dark" data-a="ok">Lo reenvío</button><button type="button" class="btn" data-a="no">Mejor no</button></div><div id="efb"></div>';
+    if (e.fwd) api.stage.querySelector('.fwdl').textContent = e.fwd;
+    api.stage.querySelector('.tx').textContent = e.msg;
+    api.stage.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
+      if ($('efb').dataset.d) return; $('efb').dataset.d = 1;
+      const good = (b.dataset.a === 'ok') === e.ok; if (good) ac++;
+      $('efb').innerHTML = '<div class="fb ' + (good ? 'ok' : 'no') + '"><b>' + (good ? '¡Bien pensado!' : (e.ok ? 'Este se podía reenviar.' : 'Mejor no reenviarlo.')) + '</b><span></span></div>';
+      $('efb').querySelector('span').textContent = e.why;
+      const n = el('button', 'btn', i < E.length - 1 ? 'Siguiente mensaje' : 'Ver mi resultado'); n.type = 'button'; n.style.marginTop = '12px'; $('efb').appendChild(n);
+      n.addEventListener('click', () => { if (i < E.length - 1){ i++; render(); window.scrollTo(0,0); } else { api.stage.innerHTML = '<div class="card center stack"><span style="font-size:56px">🔁</span><b style="font-size:22px">Acertaste ' + ac + ' de 4</b><p class="muted">' + (ac >= 3 ? '¡Las cadenas no pasan por vos!' : 'Con práctica se aprende a frenar a tiempo. ¡Podés repetirlo cuando quieras!') + '</p></div>'; api.say('Antes de reenviar, preguntate: ¿quién lo escribió? ¿Lo confirma una fuente oficial? Ante la duda, mejor no.'); api.done(); } });
       n.scrollIntoView({behavior:'smooth', block:'center'});
     }));
   };
