@@ -15,6 +15,10 @@
 
 /** Lee el pedido que manda la app. Solo actúa con los datos de uso (no con las preguntas a Martina IA). */
 function pilotoDesdePedido(e) {
+  if (!e || !e.postData) {
+    console.log('Esta función la usa la app, no hace falta ejecutarla. Para probar, elegí "probarPiloto" arriba y tocá Ejecutar.');
+    return;
+  }
   try {
     var d = JSON.parse(e.postData.contents);
     if (d && d.uid && d.data && !d.tipo) guardarPiloto(d.uid, d.data);
