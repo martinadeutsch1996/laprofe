@@ -3243,15 +3243,15 @@ SIMS.apStore = function(api){
   const TABS = ios ? [['☀️','Hoy'],['🎮','Juegos'],['🧩','Apps'],['🕹️','Arcade'],['🔎','Buscar']] : [['🎮','Juegos'],['🧩','Apps'],['🔎','Buscar'],['📚','Libros']];
   const N = ios ? {buscar:1, barra:2, escribir:3, elegir:4, boton:5, confirmar:6, abrir:7} : {buscar:1, barra:2, escribir:3, elegir:4, boton:5, abrir:6};
   let paso = 0, tab = ios ? 'Hoy' : 'Apps';
-  const nav = () => '<nav class="stnav' + (ios ? ' ios' : '') + '" aria-label="Pestañas de la tienda">' + TABS.map(t => '<button type="button" data-tab="' + t[1] + '"' + (t[1] === tab ? ' class="on" aria-current="page"' : '') + '><span aria-hidden="true">' + t[0] + '</span>' + t[1] + '</button>').join('') + '</nav>';
+  const nav = () => '<nav class="stnav' + (ios ? ' ios' : '') + '" aria-label="Pestañas de la tienda">' + TABS.map(t => '<button type="button" data-st="' + t[1] + '"' + (t[1] === tab ? ' class="on" aria-current="page"' : '') + '><span aria-hidden="true">' + t[0] + '</span>' + t[1] + '</button>').join('') + '</nav>';
   const gris = n => Array.from({length:n}, () => '<div class="stcard" aria-hidden="true"><i></i><div><i></i><i></i></div></div>').join('');
   api.stage.innerHTML = '<div class="phone stphone' + (ios ? ' ios' : '') + '" id="ph" style="min-height:480px"></div><p class="muted" style="margin:6px 0 0;font-size:15px">Es solo un dibujo de la tienda. En tu celular puede verse un poco distinto.</p>';
-  const pintar = (html) => { $('ph').innerHTML = '<div class="stbody">' + html + '</div>' + nav(); $('ph').querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => tocarTab(b.dataset.tab))); };
+  const pintar = (html) => { $('ph').innerHTML = '<div class="stbody">' + html + '</div>' + nav(); $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => tocarTab(b.dataset.st))); };
   function inicio(){
     pintar(ios
       ? '<div class="sttop"><b style="font-size:30px;flex:1">Hoy</b><span class="stav" aria-hidden="true"></span></div>' + gris(3)
       : '<div class="sttop"><b style="font-size:20px;flex:1">Google Play</b><span aria-hidden="true" style="font-size:22px">🔔</span><span class="stav" aria-hidden="true"></span></div><div class="stchips" aria-hidden="true"><i>Para vos</i><i>Populares</i><i>Categorías</i></div>' + gris(3));
-    $('ph').querySelector('[data-tab="Buscar"]').classList.add('pulse');
+    $('ph').querySelector('[data-st="Buscar"]').classList.add('pulse');
     $('ph').querySelector('.sttop').addEventListener('click', () => toast(ios ? 'La búsqueda está en "Buscar", abajo a la derecha.' : 'Arriba ya no hay barra para buscar. Está abajo: tocá "Buscar".'));
     api.say('Paso ' + N.buscar + ': tocá <b>Buscar</b>, ' + (ios ? 'abajo a la derecha' : 'abajo') + '. Ahí está la lupa.');
   }
