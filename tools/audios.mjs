@@ -104,7 +104,7 @@ if (LISTAR || !aHacer.length){
 
 /* ---------- 5. Generar con ElevenLabs ---------- */
 const KEY = process.env.ELEVENLABS_API_KEY;
-if (!KEY){ say('\n⚠️ Falta ELEVENLABS_API_KEY: no se generó nada.'); guardarManifiesto(); terminar(); process.exit(1); }
+if (!KEY){ say('\n⚠️ Todavía no está cargada la clave de ElevenLabs (secreto ELEVENLABS_API_KEY): no se generó nada.'); guardarManifiesto(); terminar(); process.exit(0); }
 const API = process.env.ELEVENLABS_API_BASE || 'https://api.elevenlabs.io/v1'; // la variable es solo para pruebas
 async function idDeVoz(){
   if (process.env.ELEVENLABS_VOICE_ID) return process.env.ELEVENLABS_VOICE_ID;
