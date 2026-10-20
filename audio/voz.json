@@ -702,17 +702,17 @@
   },
   "tr3-p1": {
    "origen": "ia",
-   "huella": "e520a40f3548",
+   "huella": "a0938c86eb5d",
    "fecha": "2026-10-20"
   },
   "tr3-p2": {
    "origen": "ia",
-   "huella": "8e4eda3b8230",
+   "huella": "8c1cea2ef3d6",
    "fecha": "2026-10-20"
   },
   "tr3-p3": {
    "origen": "ia",
-   "huella": "4f37335a553e",
+   "huella": "cdbbda01738b",
    "fecha": "2026-10-20"
   },
   "tr3-p7": {
@@ -1033,6 +1033,21 @@
   "or2-p6-iphone": {
    "origen": "ia",
    "huella": "42c0b2322dd4",
+   "fecha": "2026-10-20"
+  },
+  "tr3-p4": {
+   "origen": "ia",
+   "huella": "5f91277904d9",
+   "fecha": "2026-10-20"
+  },
+  "tr3-p5": {
+   "origen": "ia",
+   "huella": "62ca30e8347f",
+   "fecha": "2026-10-20"
+  },
+  "tr3-p9": {
+   "origen": "ia",
+   "huella": "352414e32f4c",
    "fecha": "2026-10-20"
   }
  }
