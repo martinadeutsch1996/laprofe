@@ -464,6 +464,94 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .apbtn{width:100%;min-height:50px;border-radius:999px;border:2px solid transparent;background:var(--ph-green);color:#fff;font-weight:800;font-size:18px}
 .approg{height:12px;border-radius:999px;background:var(--ph-line);overflow:hidden}
 .approg i{display:block;height:100%;width:0;background:var(--ph-green);transition:width .25s}
+/* manuales (19/10/2026) */
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:58px;padding:10px 14px;border-radius:14px;border:2px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);font-size:18px;font-weight:700}
+.tgl i{width:54px;height:32px;border-radius:999px;background:#C7CCD1;position:relative;flex:none;transition:background .2s}
+.tgl i::after{content:'';position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.tgl[aria-checked=true] i{background:#0095F6}
+.tgl[aria-checked=true] i::after{left:25px}
+.calw{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:8px 10px;font-size:15px;text-align:center}
+.calw b{color:var(--ph-sub);font-size:13px}
+.calw span{height:38px;display:grid;place-items:center;border-radius:10px;position:relative}
+.calw .hoy{background:var(--ph-green);color:#fff;font-weight:800}
+.calw .ev{outline:3px solid var(--coral);font-weight:800}
+.calw .ev::after{content:'';position:absolute;bottom:4px;width:6px;height:6px;border-radius:50%;background:var(--coral)}
+.calev{display:flex;gap:10px;align-items:center;margin:8px 12px;padding:12px;border-radius:12px;background:var(--ph-bg);font-size:24px}
+.calev > div{display:flex;flex-direction:column;font-size:16px}
+.calev small{color:var(--ph-sub)}
+.calfab{position:absolute;right:16px;bottom:16px;width:62px;height:62px;border-radius:18px;border:2px solid transparent;background:#1A73E8;color:#fff;font-size:30px;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.calmenu{position:absolute;right:16px;bottom:90px;display:flex;flex-direction:column;gap:8px;z-index:3}
+.calmenu button{min-height:50px;padding:0 18px;border-radius:14px;border:2px solid transparent;background:var(--ph-bar);color:var(--ph-text);font-weight:800;font-size:17px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.calsave{min-height:44px;padding:0 16px;border-radius:999px;border:2px solid transparent;background:#1A73E8;color:#fff;font-weight:800;font-size:16px}
+.calform{display:flex;flex-direction:column;gap:8px;padding:12px 14px;flex:1}
+.calform label{display:flex;flex-direction:column;gap:4px;font-weight:700;color:var(--ph-sub);font-size:14px}
+.calform .cl{font-weight:700;color:var(--ph-sub);font-size:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{min-height:46px;padding:0 14px;border-radius:999px;border:2px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);font-weight:700;font-size:16px}
+.chips button[aria-pressed=true]{background:#1A73E8;border-color:#1A73E8;color:#fff}
+.nota{display:flex;flex-direction:column;gap:2px;margin:0 12px 8px;padding:12px;border-radius:12px;background:var(--ph-bg)}
+.nota small{color:var(--ph-sub);font-size:14px}
+.mapa{position:relative;flex:1;min-height:250px;background:#EEF1E6;overflow:hidden}
+.mcalle{position:absolute;background:#fff;box-shadow:0 0 0 1px #D9DCD0}
+.mcalle.h{left:0;right:0;height:14px}
+.mcalle.v{top:0;bottom:0;width:14px}
+.mverde{position:absolute;width:22%;height:20%;background:#CDE8C2;border-radius:10px}
+.magua{position:absolute;right:-10%;bottom:-12%;width:45%;height:30%;background:#B3D7F2;border-radius:50%}
+.mdot{position:absolute;width:20px;height:20px;border-radius:50%;background:#1A73E8;border:3px solid #fff;box-shadow:0 0 0 8px rgba(26,115,232,.25);transform:translate(-50%,-50%);z-index:2}
+.mpin{position:absolute;font-size:34px;transform:translate(-50%,-100%);z-index:2}
+.mstop{position:absolute;font-size:24px;transform:translate(-50%,-50%)}
+.mbar{position:absolute;left:10px;right:10px;top:10px;background:#fff;border-radius:999px;padding:8px 14px;font-size:14px;color:#555;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.mban{position:absolute;left:10px;right:10px;bottom:12px;background:var(--ph-bar);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:3;font-weight:700}
+.mruta{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.mplace{display:flex;flex-direction:column;gap:6px;padding:14px;background:var(--ph-bar)}
+.mplace small{color:var(--ph-sub);font-size:15px}
+.mbtn{background:#1A73E8;color:#fff;border:2px solid transparent;border-radius:999px;padding:10px 16px;font-weight:800;font-size:16px;min-height:46px}
+.mbtn2{background:var(--ph-bg);color:var(--ph-text);border-radius:999px;padding:10px 16px;font-weight:800;font-size:16px;display:inline-flex;align-items:center}
+.mmodos{display:flex;gap:10px}
+.mmodos button{flex:1;min-height:60px;border-radius:14px;border:2px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);font-size:26px;display:flex;align-items:center;justify-content:center;gap:8px}
+.mmodos button span{font-size:16px;font-weight:800}
+.mmodos button[aria-pressed=true]{background:#E8F0FE;border-color:#1A73E8}
+.mnav{display:flex;gap:12px;align-items:center;padding:14px;background:#0B8043;color:#fff;font-size:34px}
+.mnav > div{display:flex;flex-direction:column;font-size:17px}
+.locsheet{position:absolute;inset:auto 0 0 0;height:70%;background:var(--ph-bar);border-radius:18px 18px 0 0;display:flex;flex-direction:column;gap:10px;padding:10px;z-index:4;box-shadow:0 -4px 16px rgba(0,0,0,.2)}
+.locsheet .mapa{border-radius:12px}
+.locmsg .mapa{min-height:110px;width:200px;border-radius:8px;margin-bottom:4px}
+.ubpanel{display:flex;flex-direction:column;gap:10px;padding:14px;background:#fff;color:#111}
+.ubwhere{min-height:56px;border-radius:12px;border:2px solid transparent;background:#EEE;color:#111;font-weight:800;font-size:19px;text-align:left;padding:0 16px}
+.ubopt{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;border:2px solid #EEE;font-size:26px}
+.ubopt.on{border-color:#111}
+.ubopt > div{flex:1;display:flex;flex-direction:column;font-size:16px}
+.ubopt small,.ubdrv small{color:#555;font-size:14px}
+.ubopt > b{font-size:17px}
+.ubgo{min-height:54px;border-radius:12px;border:2px solid transparent;background:#111;color:#fff;font-weight:800;font-size:18px}
+.ubdrv{display:flex;align-items:center;gap:10px}
+.ubdrv > div{flex:1;display:flex;flex-direction:column}
+.ubmat{border:2px solid #111;border-radius:6px;padding:3px 8px;font-weight:900;letter-spacing:.08em;background:#fff;color:#111}
+.ubcar{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:2px solid #DDD;background:#fff;color:#111;font-size:32px;text-align:left}
+.ubcar > div{display:flex;flex-direction:column;gap:4px;font-size:16px;align-items:flex-start}
+.ubcar.wrong{border-color:var(--warn)}
+.bline{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:2px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);text-align:left}
+.bline > div{display:flex;flex-direction:column;font-size:16px}
+.bline small{color:var(--ph-sub)}
+.bnum{background:#00519E;color:#fff;border-radius:8px;padding:6px 10px;font-size:18px;min-width:56px;text-align:center}
+.gmrow{display:flex;gap:12px;align-items:flex-start;width:100%;padding:12px 14px;border:2px solid transparent;border-bottom:1px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);text-align:left;font-weight:400}
+.gmrow > div{display:flex;flex-direction:column;min-width:0;font-size:16px}
+.gmrow small{color:var(--ph-sub);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gmrow b{font-weight:500}
+.gmrow.unread b,.gmrow.unread > div > span{font-weight:900}
+.gmacts{display:flex;gap:6px;flex-wrap:wrap;padding:12px;border-top:1px solid var(--ph-line)}
+.gmacts span{border:1px solid var(--ph-line);border-radius:999px;padding:8px 12px;font-weight:700;font-size:14px}
+.gmdrawer{position:absolute;left:0;top:0;bottom:0;width:78%;background:var(--ph-bar);box-shadow:4px 0 16px rgba(0,0,0,.25);display:flex;flex-direction:column;z-index:4}
+.gmfab{position:absolute;right:14px;bottom:16px;min-height:56px;padding:0 20px;border-radius:18px;border:2px solid transparent;background:#C2E7FF;color:#001D35;font-weight:800;font-size:17px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.gmform{display:flex;flex-direction:column;gap:8px;padding:10px 14px;flex:1}
+.gmform label{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--ph-line);padding:4px 0}
+.gmform label span{color:var(--ph-sub);font-size:15px;min-width:56px}
+.gmform input,.gmform textarea{flex:1;font:inherit;font-size:17px;border:2px solid transparent;border-radius:8px;background:none;color:var(--ph-text);padding:8px 4px;min-width:0}
+.gmform textarea{border:1px solid var(--ph-line);padding:10px}
+.pulseb{border-color:var(--coral)!important;background:rgba(255,94,58,.06)!important}
+.gmatt{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--ph-line);border-radius:12px;font-size:30px}
+.gmatt > div{display:flex;flex-direction:column;font-size:15px}
+.gmatt small{color:var(--ph-sub)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -896,6 +984,15 @@ NIVELES.push(
    {k:'check', q:'¿Qué hace una IA?', o:['Aprende de muchos ejemplos para reconocer, recomendar o crear','Piensa y siente como una persona','Sabe todo y nunca se equivoca'], a:0, why:'¡Eso! Aprende de ejemplos, pero no es una persona y a veces se equivoca. De eso hablamos en la última lección del nivel.'},
    {k:'rec', pts:['La IA aprende de muchísimos ejemplos.','Reconoce, entiende, recomienda y crea.','Ya la usás: en el teclado, en YouTube y en tus fotos.']}
   ]},
+ {id:'5f', ic:'🧺', t:'La IA en tu día a día', min:6,
+  des:'Pedile a Martina IA que te ayude a escribir un mensaje lindo para alguien que quieras.',
+  steps:[
+   {k:'ex', txt:'Una IA te puede ayudar con cosas de todos los días: hacer preguntas, escribir un mensaje, buscar ideas, aprender algo nuevo o resolver una duda. Es como tener a alguien que sabe mucho siempre disponible.', art:'iadia'},
+   {k:'ex', txt:'Por ejemplo: "Ayudame a escribir un saludo de cumpleaños para mi amiga", "Dame ideas para un almuerzo económico" o "Explicame en palabras simples qué es una transferencia". Y si la respuesta no te convence, le pedís que la cambie.', art:'iaejemplos'},
+   {k:'try', run:'iaDia'},
+   {k:'check', q:'¿Para cuál de estas cosas te puede ayudar una IA?', o:['Para escribir un mensaje, buscar ideas o explicarte algo','Solo para cosas de computación'], a:0, why:'¡Eso! Sirve para muchísimas cosas de la vida diaria. Y lo importante, siempre lo decidís vos.'},
+   {k:'rec', pts:['La IA te ayuda a preguntar, escribir, buscar ideas y aprender.','Contale lo que necesitás, como a una persona.','Si no te convence, pedile que lo cambie.']}
+  ]},
  {id:'5b', app:['chatgpt','gemini'], ic:'💬', t:'Conversá con una IA', min:5,
   des:'Tocá "Martina IA", en el menú de abajo, y preguntale algo que siempre quisiste saber de tu celular.',
   steps:[
@@ -975,6 +1072,119 @@ NIVELES.push(
    {k:'rec', pts:['Tocá "Video" y el botón se pone rojo.','Botón rojo: empieza a grabar. Cuadradito: termina.','Arriba ves cuánto tiempo lleva grabando.']}
   ]}
 ]},
+{n:0, k:'orga', em:'🗓️', t:'Organizate con el celular', d:'Calendario, notas y tus papeles importantes, siempre a mano', ls:[
+ {id:'or1', app:{android:['googlecalendar'], iphone:['calendario']}, ic:'🗓️', t:'Anotá en el calendario', min:6,
+  des:'Anotá en el calendario tu próximo turno médico o un cumpleaños, con un aviso.',
+  steps:[
+   {k:'ex', txt:{android:'El calendario del celular es como una agenda que te avisa. En Android suele estar la app Google Calendar, o Calendario. Ahí anotás turnos, cumpleaños o reuniones.', iphone:'El calendario del celular es como una agenda que te avisa. En iPhone es la app Calendario. Ahí anotás turnos, cumpleaños o reuniones.'}, art:'calart'},
+   {k:'ex', txt:{android:'Para anotar algo, tocás el botón "+" de abajo y elegís "Evento". Escribís qué es, elegís el día y la hora, y tocás "Guardar".', iphone:'Para anotar algo, tocás el "+" de arriba a la derecha. Escribís qué es, elegís el día y la hora, y tocás "Agregar".'}, art:'calpasos'},
+   {k:'ex', txt:'Lo mejor es el aviso: el celular te recuerda el turno antes, por ejemplo un día antes. Así no se te pasa nunca más.', art:'calaviso'},
+   {k:'try', run:'orCal'},
+   {k:'check', q:'Tenés turno con la doctora el jueves. ¿Cómo hacés para no olvidarte?', o:['Lo anoto en el calendario con un aviso un día antes','Confío en que me voy a acordar'], a:0, why:'¡Eso! El aviso te lo recuerda solo, aunque tengas mil cosas en la cabeza.'},
+   {k:'rec', pts:[{android:'"+", "Evento", qué es, día y hora, "Guardar".', iphone:'"+", qué es, día y hora, "Agregar".'},'Poné un aviso para que el celular te lo recuerde.','Sirve para turnos, cumpleaños y reuniones.']}
+  ]},
+ {id:'or2', app:{android:['keep'], iphone:['notas']}, ic:'📝', t:'Escribí una nota', min:4,
+  des:'Escribí en una nota la lista de las compras de esta semana.',
+  steps:[
+   {k:'ex', txt:{android:'En el celular podés anotar cosas como en una libreta: la lista de las compras, una receta o un número. En Android suele estar la app Google Keep o Notas.', iphone:'En el celular podés anotar cosas como en una libreta: la lista de las compras, una receta o un número. En iPhone es la app Notas, la amarilla.'}, art:'notart'},
+   {k:'ex', txt:{android:'Abrís la app, tocás el "+" para una nota nueva y escribís. Se guarda sola. Para volver a encontrarla, buscala con la lupa.', iphone:'Abrís Notas, tocás el lápiz con el cuadradito, abajo a la derecha, y escribís. Se guarda sola. Para volver a encontrarla, buscala con la lupa.'}, art:'notpasos'},
+   {k:'try', run:'orNota'},
+   {k:'check', q:'Escribiste una nota y saliste de la app. ¿Qué pasó con lo que escribiste?', o:['Se guardó sola','Se borró porque no toqué guardar'], a:0, why:'¡Bien! Las notas se guardan solas mientras escribís.'},
+   {k:'rec', pts:['Las notas son tu libreta en el celular.','"+" o el lápiz: nota nueva. Se guarda sola.','La lupa la vuelve a encontrar.']}
+  ]},
+ {id:'or3', app:{android:['googlefotos'], iphone:['fotos']}, ic:'📂', t:'Guardá tus papeles importantes', min:5,
+  des:'Sacale una foto a la garantía de algún aparato de tu casa y guardala en un álbum.',
+  steps:[
+   {k:'ex', txt:'Podés sacarle una foto a un papel importante para tenerlo siempre a mano: una receta médica, la garantía de la heladera o un comprobante. Apoyá la hoja, buscá buena luz y fijate que se lea bien.', art:'papelfoto'},
+   {k:'ex', txt:'Para no perderla entre las demás fotos, guardala en un álbum, por ejemplo "Papeles importantes". Abrís la foto, tocás "Más" o los tres puntitos, y elegís "Agregar a álbum".', art:'album'},
+   {k:'ex', txt:'Ojo: no guardes fotos de tus tarjetas ni de tus contraseñas. Si alguien entra a tu celular, las vería.', art:'nopapel'},
+   {k:'try', run:'orDoc'},
+   {k:'check', q:'¿Cuál de estas fotos no conviene guardar en el celular?', o:['La foto de la tarjeta de crédito, con sus números','La foto de la garantía de la heladera'], a:0, why:'¡Exacto! Los datos de la tarjeta no se guardan en fotos.'},
+   {k:'rec', pts:['Foto del papel: apoyado, con buena luz y que se lea.','"Agregar a álbum" para tenerlos juntos.','Tarjetas y contraseñas: nunca en fotos.']}
+  ]}
+]},
+{n:0, k:'ciudad', em:'🗺️', t:'Moverme por la ciudad', d:'Google Maps, taxi, Uber y ómnibus desde el celular', ls:[
+ {id:'mp1', app:['googlemaps'], ic:'📍', t:'Conocé Google Maps', min:6,
+  des:'Abrí Google Maps, fijate dónde está tu puntito azul y buscá una farmacia cerca.',
+  steps:[
+   {k:'ex', txt:'Google Maps es un mapa en el celular. Te muestra dónde estás, te ayuda a buscar lugares y te dice cómo llegar. Es como tener un mapa y un guía en el bolsillo.', art:'mapart'},
+   {k:'ex', txt:'Para que sepa dónde estás, el celular usa el GPS, que se prende con la ubicación. La activás en los atajos de arriba: buscás "Ubicación" y la tocás.', art:'gps'},
+   {k:'ex', txt:'En la pantalla vas a ver el puntito azul, que sos vos, y arriba la barra para buscar. Escribís el lugar, por ejemplo "Teatro Solís" o "farmacia", y el mapa te lleva ahí.', art:'puntito'},
+   {k:'try', run:'mpBuscar'},
+   {k:'check', q:'¿Qué quiere decir el puntito azul en el mapa?', o:['Que ahí estás vos','Que ahí hay una farmacia'], a:0, why:'¡Eso! El puntito azul sos vos, y se mueve cuando caminás.'},
+   {k:'rec', pts:['Google Maps: dónde estás, buscar lugares y cómo llegar.','La ubicación tiene que estar prendida.','El puntito azul sos vos. Arriba, la barra para buscar.']}
+  ]},
+ {id:'mp2', app:['googlemaps'], ic:'🧭', t:'Cómo llegar', min:5,
+  des:'Elegí la casa de alguien que quieras y mirá en Google Maps cuánto tardás caminando.',
+  steps:[
+   {k:'ex', txt:'Cuando encontrás el lugar, tocás "Cómo llegar". Elegís si vas caminando o en auto, y el mapa te muestra el camino y cuánto vas a tardar.', art:'comollegar'},
+   {k:'ex', txt:'Sirve para ir a la clínica, al súper, a la casa de un familiar o para volver a casa si te desorientaste. Y si el camino está en rojo, quiere decir que hay demoras.', art:'mapusos'},
+   {k:'try', run:'mpLlegar'},
+   {k:'check', q:'Querés ir caminando a la clínica. ¿Qué hacés en Google Maps?', o:['Busco la clínica, toco "Cómo llegar" y elijo caminando','Miro el mapa hasta encontrar la calle'], a:0, why:'¡Bien! Maps te marca el camino y el tiempo, sin tener que adivinar.'},
+   {k:'rec', pts:['Buscás el lugar y tocás "Cómo llegar".','Elegís caminando o en auto.','Te muestra el camino y cuánto vas a tardar.']}
+  ]},
+ {id:'tr1', app:['whatsapp'], ic:'🚕', t:'Pedí un taxi por WhatsApp', min:5,
+  des:'Guardá el número del taxi, 091 141 141, como TAXI en tu celular. ¡Así lo tenés para cuando lo necesites!',
+  steps:[
+   {k:'ex', txt:'En Montevideo podés pedir un taxi mandando un WhatsApp, sin llamar. Primero, una sola vez, guardás el número 091 141 141 con el nombre TAXI, como aprendimos en "Guardá un contacto".', art:'taxiart'},
+   {k:'ex', txt:'Cuando necesites un taxi, abrís el chat de TAXI y mandás "Hola". Te van a preguntar dónde estás: tocás el clip, elegís "Ubicación" y mandás tu ubicación actual. También podés escribir la dirección.', art:'taxipasos'},
+   {k:'ex', txt:'Después te responden con el taxi asignado, el número del móvil y cuánto tarda. Cuando llegue, fijate que el número del móvil sea el mismo.', art:'taximovil'},
+   {k:'try', run:'trTaxi'},
+   {k:'check', q:'Pediste un taxi y te dicen que llega el móvil 1234. ¿Qué hacés cuando llega un taxi?', o:['Me fijo que sea el móvil 1234 antes de subir','Me subo al primero que pare'], a:0, why:'¡Eso! Así sabés que es el que pediste.'},
+   {k:'rec', pts:['Guardá el 091 141 141 como TAXI (una sola vez).','Mandá "Hola" y tu ubicación con el clip.','Antes de subir, fijate el número del móvil.']}
+  ]},
+ {id:'tr2', app:['uber'], ic:'🚗', t:'Viajá en Uber', min:6,
+  des:'Si tenés Uber, abrilo y escribí a dónde querrías ir para ver el precio, sin confirmar el viaje.',
+  steps:[
+   {k:'ex', txt:'Uber es una app para pedir un auto con chofer. Al abrirla te pregunta "¿A dónde vas?". Escribís la calle y el número, una esquina o el nombre del lugar, como "Tres Cruces".', art:'uberart'},
+   {k:'ex', txt:'Antes de confirmar, te muestra el precio, cuánto demora y la forma de pago. Si estás de acuerdo, tocás "Elegir" y la app busca un chofer.', art:'uberprecio'},
+   {k:'ex', txt:'Antes de subir, mirá la foto y el nombre del chofer, el modelo, el color y sobre todo la matrícula del auto. Nunca subas a un auto distinto al que muestra la app. Durante el viaje, podés compartir el recorrido con alguien de tu familia.', art:'ubermatricula'},
+   {k:'try', run:'trUber'},
+   {k:'check', q:'Llega un auto del mismo color, pero con otra matrícula. ¿Qué hacés?', o:['No subo: espero el auto con la matrícula de la app','Subo igual, total es parecido'], a:0, why:'¡Muy bien! La matrícula es la prueba de que es tu viaje.'},
+   {k:'rec', pts:['"¿A dónde vas?": calle, esquina o lugar.','Mirá el precio y el tiempo antes de tocar "Elegir".','Antes de subir, revisá la matrícula. Podés compartir el recorrido.']}
+  ]},
+ {id:'tr3', app:['stm'], ic:'🚌', t:'El ómnibus con STM', min:6,
+  des:'Abrí la app STM y fijate qué ómnibus pasan por la parada más cerca de tu casa.',
+  steps:[
+   {k:'ex', txt:'La app STM Montevideo te ayuda con el ómnibus: ves las paradas cerca tuyo, qué líneas pasan y cuánto falta para que llegue cada una.', art:'stmart'},
+   {k:'ex', txt:'Para saber qué ómnibus tomar: tocás la lupa azul, escribís la calle y la elegís, escribís la esquina y la elegís, y tocás "Destino". La app te dice qué líneas te sirven y en qué parada tomarlas.', art:'stmpasos'},
+   {k:'ex', txt:'El puntito azul del mapa sos vos, en tiempo real. Mirándolo durante el viaje, sabés cuándo te tenés que bajar.', art:'stmbajar'},
+   {k:'try', run:'trBus'},
+   {k:'check', q:'¿Cómo sabés cuándo bajarte del ómnibus?', o:['Miro el puntito azul en el mapa de la app','Cuento las paradas de memoria'], a:0, why:'¡Eso! El puntito azul te muestra dónde vas, en todo momento.'},
+   {k:'rec', pts:['STM: paradas, líneas y cuánto falta.','Lupa azul, calle, esquina y "Destino".','El puntito azul te ayuda a saber cuándo bajar.']}
+  ]}
+]},
+{n:0, k:'gmail', em:'📧', t:'Correo electrónico', d:'Leer, escribir y mandar archivos por Gmail', ls:[
+ {id:'gm1', app:['gmail'], ic:'📬', t:'Conocé tu correo', min:5,
+  des:'Abrí Gmail y fijate cuántos correos sin leer tenés.',
+  steps:[
+   {k:'ex', txt:'El correo electrónico, o mail, es como una carta que llega por internet. Gmail es la app de correo de Google. Tu dirección de correo es como tu domicilio: termina en @gmail.com.', art:'mailart'},
+   {k:'ex', txt:'Al abrir Gmail ves la bandeja de entrada: los correos que te llegaron. Los que están en negrita todavía no los leíste. Tocás uno para abrirlo y la flechita para volver.', art:'bandeja'},
+   {k:'ex', txt:'Con las tres rayitas de arriba abrís el menú. Ahí está "Enviados", con los correos que mandaste, y "Borradores", con los que empezaste y no terminaste.', art:'mailmenu'},
+   {k:'try', run:'gmLeer'},
+   {k:'check', q:'En tu bandeja hay un correo en negrita. ¿Qué quiere decir?', o:['Que todavía no lo leí','Que es muy importante'], a:0, why:'¡Bien! La negrita marca los correos sin leer.'},
+   {k:'rec', pts:['Tu dirección termina en @gmail.com.','En negrita: sin leer. Tocás para abrir.','Tres rayitas: "Enviados" y "Borradores".']}
+  ]},
+ {id:'gm2', app:['gmail'], ic:'✍️', t:'Escribí y respondé un correo', min:6,
+  des:'Mandale un correo a alguien de tu familia contándole que estás aprendiendo con LaProfe.',
+  steps:[
+   {k:'ex', txt:'Para responder un correo, lo abrís y tocás "Responder", abajo. Escribís tu mensaje, revisás a quién le llega y tocás el ícono de enviar. Ojo con "Responder a todos": le llega a varias personas.', art:'responder'},
+   {k:'ex', txt:'Para escribir uno nuevo, tocás "Redactar". En "Para" va la dirección completa de la persona. En "Asunto", de qué se trata, por ejemplo "Consulta sobre el taller". Después escribís el mensaje: saludás, contás qué necesitás y firmás.', art:'redactar'},
+   {k:'try', run:'gmEscribir'},
+   {k:'check', q:'¿Qué va en "Asunto"?', o:['Una frase corta que diga de qué se trata el correo','La dirección de la persona'], a:0, why:'¡Exacto! La dirección va en "Para", y el asunto cuenta de qué trata.'},
+   {k:'rec', pts:['"Responder" sigue una conversación. Ojo con "Responder a todos".','"Redactar": correo nuevo.','"Para": la dirección. "Asunto": de qué se trata. Saludá y firmá.']}
+  ]},
+ {id:'gm3', app:['gmail'], ic:'📎', t:'Adjuntá una foto o documento', min:6,
+  des:'Sacale una foto a una hoja sin datos personales y agregala a un correo como prueba, sin mandarlo.',
+  steps:[
+   {k:'ex', txt:'A veces te piden "mandame una foto del comprobante por correo". Primero sacás la foto: hoja apoyada, buena luz y que se lea completa.', art:'comprobante'},
+   {k:'ex', txt:{android:'En el correo tocás el clip, arriba. Elegís "Fotos" para una imagen o "Archivos" para un documento, y seleccionás lo que querés mandar.', iphone:'En el correo tocás el clip. Elegís "Fotos" para una imagen o "Archivos" para un documento. Si la foto queda dentro del texto, tocala y elegí "Enviar como archivo adjunto".'}, art:'adjuntar'},
+   {k:'ex', txt:'Antes de enviar, revisá: ¿la dirección es correcta?, ¿el asunto explica de qué se trata?, ¿está el archivo? Después de enviar, en "Enviados" lo ves. Eso quiere decir que salió, no que ya lo leyeron.', art:'revisar'},
+   {k:'try', run:'gmAdjuntar'},
+   {k:'check', q:'Mandaste un correo. ¿Dónde te fijás si salió?', o:['En "Enviados", desde las tres rayitas','En la bandeja de entrada'], a:0, why:'¡Bien! Si está en "Enviados", salió. Si no, fijate en "Borradores" y en tu conexión a internet.'},
+   {k:'rec', pts:['Foto del papel: apoyado, con luz y que se lea.','Clip, "Fotos" o "Archivos", y elegís.','Revisá dirección, asunto y adjunto. Después, mirá "Enviados".']}
+  ]}
+]},
 {n:0, k:'google', em:'🔎', t:'Google y búsquedas', d:'Encontrar lo que buscás y saber en qué páginas confiar', ls:[
  {id:'go1', app:['google'], ic:'🔎', t:'Buscá en Google', min:5,
   des:'Buscá en Google una receta que te guste y abrí una de las páginas.',
@@ -984,6 +1194,16 @@ NIVELES.push(
    {k:'try', run:'gSearch'},
    {k:'check', q:'Querés saber qué farmacia está de turno cerca de tu casa. ¿Qué escribís?', o:['"farmacia de turno" y el nombre de tu barrio','"hola google"'], a:0, why:'¡Bien! Con las palabras importantes y tu barrio, Google entiende qué buscás.'},
    {k:'rec', pts:['Google es un buscador de páginas.','Barra de búsqueda, escribís y tocás la lupa.','Podés escribir como hablás o solo las palabras importantes.']}
+  ]},
+ {id:'go4', app:['google'], ic:'💡', t:'¿Qué podés buscar?', min:5,
+  des:'Buscá en Google el horario de un lugar al que tengas que ir esta semana.',
+  steps:[
+   {k:'ex', txt:'En Google podés buscar casi todo: noticias del día, recetas, direcciones, horarios de un comercio, cómo hacer un trámite o información de salud.', art:'gideas'},
+   {k:'ex', txt:'El truco es escribir qué buscás y dónde: "farmacia de turno Pocitos", "horario BPS Colonia", "noticias Uruguay hoy". Para trámites, entrá a la página oficial, la que termina en gub.uy.', art:'gtruco'},
+   {k:'ex', txt:'En temas de salud, lo que encontrás te sirve para entender, pero no reemplaza a tu médico. Mejor buscá en páginas de hospitales o del Ministerio de Salud Pública, y consultá antes de tomar algo.', art:'gsalud'},
+   {k:'try', run:'goIdeas'},
+   {k:'check', q:'Querés saber a qué hora abre el supermercado de tu barrio. ¿Qué buscás?', o:['El nombre del supermercado, el barrio y "horario"','"supermercado"'], a:0, why:'¡Bien! Con el nombre, el lugar y lo que querés saber, Google te da la respuesta justa.'},
+   {k:'rec', pts:['Noticias, recetas, direcciones, horarios, trámites y salud.','Escribí qué buscás y dónde.','Trámites en gub.uy. Salud: siempre consultá a tu médico.']}
   ]},
  {id:'go2', app:['google'], ic:'🎙️', t:'Buscá hablando', min:4,
   des:'Preguntale a Google en voz alta qué tiempo va a hacer mañana.',
@@ -1043,7 +1263,17 @@ NIVELES.push(
    {k:'rec', pts:['Netflix no te pide la tarjeta por mensaje.','No toques enlaces de avisos de pago.','Ante la duda, abrí la app como siempre.']}
   ]}
 ]},
-{n:0, k:'redes', em:'❤️', t:'Instagram y Facebook', d:'Ver lo que comparten tus seres queridos, con cuidado', ls:[
+{n:0, k:'redes', em:'❤️', t:'Redes sociales', d:'Instagram y Facebook: mirar, seguir, conversar y cuidarte', ls:[
+ {id:'rd1', app:['instagram','facebook'], ic:'🌐', t:'¿Qué son las redes sociales?', min:5,
+  des:'Pensá a qué persona, club o tema te gustaría seguir en una red social.',
+  steps:[
+   {k:'ex', txt:'Las redes sociales son apps donde las personas comparten fotos, videos y mensajes de su vida. Las más usadas son Instagram y Facebook. Es como un álbum de fotos compartido: cada uno muestra pedacitos de su vida.', art:'redesart'},
+   {k:'ex', txt:'Te sirven para ver fotos de tu familia aunque viva lejos, seguir temas que te gustan como cocina o jardinería, y estar en contacto con amigos. No hace falta publicar nada: mucha gente entra solo a mirar.', art:'redespara'},
+   {k:'ex', txt:'Vas a ver estas palabras: una publicación queda en el perfil; una historia dura 24 horas; un reel es un video corto; y un mensaje directo es privado, solo lo ve la persona a la que se lo mandás.', art:'redespal'},
+   {k:'try', run:'rdPalabras'},
+   {k:'check', q:'¿Hace falta publicar fotos para usar una red social?', o:['No: se puede entrar solo a mirar','Sí: si no publicás, no podés usarla'], a:0, why:'¡Eso! Muchísima gente solo mira. Publicar es opcional.'},
+   {k:'rec', pts:['Las redes sociales sirven para compartir y mirar fotos, videos y mensajes.','No hace falta publicar: se puede solo mirar.','Publicación queda; historia dura 24 horas; reel es un video corto; mensaje directo es privado.']}
+  ]},
  {id:'ig1', app:['instagram'], ic:'📸', t:'Conocé Instagram', min:5,
   des:'Entrá a Instagram, mirá las historias de alguien que quieras y dale me gusta a una foto.',
   steps:[
@@ -1062,6 +1292,15 @@ NIVELES.push(
    {k:'check', q:'Te gusta la jardinería. ¿Cómo ves más publicaciones de eso?', o:['Busco una cuenta de jardinería y toco "Seguir"','Le doy me gusta a todo lo que veo'], a:0, why:'¡Bien! Al seguir una cuenta, sus publicaciones te aparecen en el inicio.'},
    {k:'rec', pts:['Seguir es gratis y se puede dejar cuando quieras.','Lupa, nombre, perfil y "Seguir".','Lo que publiquen te aparece en el inicio.']}
   ]},
+ {id:'ig3', app:['instagram'], ic:'✈️', t:'Mensajes privados', min:5,
+  des:'Mandale un mensaje privado por Instagram a alguien de tu familia.',
+  steps:[
+   {k:'ex', txt:'En Instagram también se mandan mensajes privados: los ve solo la persona a la que se los mandás. Se abren con el avioncito de papel. Según la versión, está arriba a la derecha o abajo.', art:'avioncito'},
+   {k:'ex', txt:'Si te escribe alguien que no seguís, su mensaje queda aparte, en "Solicitudes". Lo podés leer sin contestar. Si no conocés a esa persona, no aceptes y no respondas.', art:'solicitudes'},
+   {k:'try', run:'igDM'},
+   {k:'check', q:'Te llega una solicitud de mensaje de alguien que no conocés, ofreciendo ganar plata fácil. ¿Qué hacés?', o:['No la acepto y no respondo','La acepto para ver qué ofrece'], a:0, why:'¡Bien! Las ofertas de plata fácil de desconocidos son estafas. Ante la duda, no respondas.'},
+   {k:'rec', pts:['El avioncito de papel abre los mensajes privados.','Los desconocidos quedan en "Solicitudes".','Si no conocés a la persona: no aceptes y no respondas.']}
+  ]},
  {id:'fb1', app:['facebook'], ic:'👍', t:'Conocé Facebook', min:5,
   des:'Entrá a Facebook y dejale un comentario lindo a alguien de tu familia.',
   steps:[
@@ -1070,6 +1309,16 @@ NIVELES.push(
    {k:'try', run:'fbPost'},
    {k:'check', q:'Comentaste una foto de tu prima. ¿Quién puede leer tu comentario?', o:['Solo mi prima','Mi prima y otras personas que vean la foto'], a:1, why:'Exacto: los comentarios se ven. Para algo privado, mejor un mensaje por WhatsApp.'},
    {k:'rec', pts:['Facebook: amigos, familia y grupos.','"Me gusta", "Comentar" y "Compartir".','Lo que comentás lo pueden leer otras personas.']}
+  ]},
+ {id:'pr1', app:['instagram'], ic:'🔒', t:'Configurá tu privacidad', min:6,
+  des:'Revisá con calma si tu cuenta de Instagram es pública o privada, y elegí cómo la querés.',
+  steps:[
+   {k:'ex', txt:'Tu cuenta puede ser pública, y la ve cualquiera, o privada: solo la ve la gente que vos aceptás. Para empezar, la cuenta privada es la más tranquila.', art:'privada'},
+   {k:'ex', txt:'Para cambiarla: andá a tu perfil, tocá las tres rayitas de arriba a la derecha, después "Configuración y privacidad", "Privacidad de la cuenta" y activá "Cuenta privada".', art:'privpasos'},
+   {k:'ex', txt:'Y algunas reglas de oro: tu contraseña no se comparte nunca. Ni el BPS, ni el BROU, ni ningún banco te la van a pedir por mensaje. Anotala en un cuaderno, en un lugar seguro de tu casa.', art:'privreglas'},
+   {k:'try', run:'igPriv'},
+   {k:'check', q:'Tenés la cuenta privada. ¿Quién ve tus fotos?', o:['Solo las personas que vos aceptaste','Cualquier persona que te busque'], a:0, why:'Exacto. Con la cuenta privada, vos decidís quién ve lo que publicás.'},
+   {k:'rec', pts:['Pública: la ve cualquiera. Privada: solo quien vos aceptás.','Perfil, tres rayitas, "Configuración y privacidad", "Privacidad de la cuenta".','Tu contraseña no se comparte nunca, con nadie.']}
   ]},
  {id:'rs1', app:['facebook','instagram'], ic:'🛡️', t:'Cuidarte en las redes', min:6,
   des:'Revisá tus solicitudes de amistad o seguidores y fijate si hay alguien que no conocés.',
@@ -1105,6 +1354,22 @@ const REAL = {
  '5d':['Si tenés una app de IA, abrila.','Tocá el signo de más o el clip, elegí una foto y preguntale "¿Qué es esto?".'],
  '5e':['Pensá en algo importante que le preguntarías a una IA.','Pensá dónde lo confirmarías: una página oficial, un llamado o un profesional.'],
  'ap1':[{android:'Abrí Play Store.', iphone:'Abrí el App Store.'},'Buscá una app que te interese.','Fijate quién la hizo y si es gratis.'],
+'rd1':['Pensá qué red social usa tu familia.','Si la tenés, abrila y mirá el inicio sin publicar nada.'],
+ 'ig3':['En Instagram, tocá el avioncito de papel.','Abrí la conversación de alguien que conozcas y mandale un saludo.'],
+ 'pr1':['En Instagram, andá a tu perfil y tocá las tres rayitas.','Entrá a "Configuración y privacidad" y después a "Privacidad de la cuenta".','Fijate si tu cuenta es privada y elegí cómo la querés.'],
+ '5f':['Tocá "Martina IA", en el menú de abajo.','Pedile que te ayude a escribir un saludo para alguien que quieras.'],
+ 'go4':['Abrí Google.','Buscá el horario de un lugar al que tengas que ir.'],
+ 'or1':[{android:'Abrí Google Calendar o Calendario.', iphone:'Abrí Calendario.'},'Tocá "+" y anotá un turno o un cumpleaños.','Poné un aviso antes y guardalo.'],
+ 'or2':[{android:'Abrí Google Keep o Notas.', iphone:'Abrí Notas.'},'Creá una nota nueva y escribí la lista de las compras.'],
+ 'or3':['Sacale una foto a un papel sin datos personales.','Abrila, tocá "Más" y elegí "Agregar a álbum".'],
+ 'mp1':['Prendé la ubicación desde los atajos de arriba.','Abrí Google Maps y buscá tu puntito azul.','Buscá "farmacia" en la barra de arriba.'],
+ 'mp2':['En Google Maps, buscá un lugar conocido.','Tocá "Cómo llegar" y elegí caminando.'],
+ 'tr1':['Guardá el 091 141 141 como TAXI.','Abrí el chat de TAXI en WhatsApp para tenerlo a mano.'],
+ 'tr2':['Si tenés Uber, abrilo.','Escribí a dónde querrías ir y mirá el precio, sin tocar "Elegir".'],
+ 'tr3':['Abrí la app STM Montevideo.','Tocá una parada cerca tuyo y mirá qué líneas pasan.'],
+ 'gm1':['Abrí Gmail.','Abrí un correo sin leer y volvé a la bandeja.'],
+ 'gm2':['En Gmail, tocá "Redactar".','Escribile a alguien de tu familia, con asunto y firma.'],
+ 'gm3':['En un correo nuevo, tocá el clip.','Elegí una foto sin datos personales y fijate que aparezca. No hace falta mandarlo.'],
  'fo1':['Abrí la cámara.','Tocá en la pantalla algo que quieras enfocar.','Tocá el botón redondo grande para sacar la foto.'],
  'fo2':['Abrí la cámara y tocá las flechitas para la selfie.','Sacate una foto.','Volvé a la cámara de atrás y probá el 2x.'],
  'fo3':['Tocá la fotito de abajo para ver tus fotos.','Deslizá hacia un costado para pasar de foto.','Si hay una que no te gusta, tocá el tachito.'],
@@ -1147,6 +1412,22 @@ const LOGRO = {
   '5d':'Ya sabés mostrarle una foto a una IA y preguntarle qué es.',
   '5e':'Ya sabés cuándo confirmar lo que te dice una IA y qué no escribirle nunca.',
   'ap1':'Ya sabés buscar e instalar una app, y reconocer una copia.',
+'rd1':'Ya sabés qué son las redes sociales y para qué te sirven.',
+  'ig3':'Ya sabés mandar un mensaje privado y qué hacer con las solicitudes.',
+  'pr1':'Ya sabés poner tu cuenta en privado y cuidar tu contraseña.',
+  '5f':'Ya sabés pedirle a una IA que te ayude con cosas de todos los días.',
+  'go4':'Ya sabés buscar noticias, horarios, trámites y más, con las palabras justas.',
+  'or1':'Ya sabés anotar un turno en el calendario con un aviso.',
+  'or2':'Ya sabés escribir una nota en el celular.',
+  'or3':'Ya sabés guardar tus papeles importantes en un álbum.',
+  'mp1':'Ya sabés activar la ubicación y buscar un lugar en Google Maps.',
+  'mp2':'Ya sabés ver cómo llegar a un lugar y cuánto vas a tardar.',
+  'tr1':'Ya sabés pedir un taxi por WhatsApp.',
+  'tr2':'Ya sabés pedir un Uber y revisar la matrícula antes de subir.',
+  'tr3':'Ya sabés qué ómnibus tomar, con la app STM.',
+  'gm1':'Ya sabés leer tus correos y encontrar los enviados.',
+  'gm2':'Ya sabés escribir y responder un correo.',
+  'gm3':'Ya sabés adjuntar una foto a un correo y comprobar que salió.',
   'fo1':'Ya sabés sacar una foto nítida.',
   'fo2':'Ya sabés sacarte una selfie y acercar con el zoom.',
   'fo3':'Ya sabés mirar tus fotos y borrar las que no querés.',
@@ -1167,9 +1448,9 @@ const LOGRO = {
    Cada nivel tiene una clave fija (k). El número que ve el alumno ("Nivel 3") sale del orden.
    PUBLICAR: true = lo ven todos los alumnos; false = oculto.
    Para ver todo lo oculto sin publicarlo, abrí la app con ?prueba al final del link. */
-const PUBLICAR = {camara:false, google:false, videos:false, redes:false, ia:false, apps:false}; // apps = lección "Descargá una app"
+const PUBLICAR = {camara:false, orga:false, ciudad:false, google:false, gmail:false, videos:false, redes:false, ia:false, apps:false}; // apps = lección "Descargá una app"
 const PRUEBA = /[?&](prueba|nivel5)\b/.test(location.search);
-const ORDEN = ['basico','pantalla','camara','whatsapp','maswa','google','videos','redes','ia'];
+const ORDEN = ['basico','pantalla','camara','whatsapp','maswa','orga','ciudad','google','gmail','videos','redes','ia'];
 NIVELES.sort((a, b) => ORDEN.indexOf(a.k) - ORDEN.indexOf(b.k));
 for (let i = NIVELES.length - 1; i >= 0; i--) if (NIVELES[i].k in PUBLICAR && !PUBLICAR[NIVELES[i].k] && !PRUEBA) NIVELES.splice(i, 1);
 NIVELES.forEach(v => { v.ls = v.ls.filter(l => !l.pub || PUBLICAR[l.pub] || PRUEBA); });
@@ -1220,6 +1501,10 @@ YouTube: gratis; lupa arriba; anuncio con "Omitir" a los segundos; tocar el vide
 Netflix: pago mensual; perfiles por persona; "Seguir viendo" retoma; lupa busca; "Audio y subtítulos" (tocando la pantalla mientras se mira). Mensajes falsos de "cuenta suspendida, actualizá tu pago": no tocar el enlace, revisar abriendo la app.
 Instagram/Facebook: seguir es gratis y se deja cuando se quiere. Facebook: "Me gusta", "Comentar", "Compartir"; los comentarios los ven otros. Perfiles copiados: solicitud repetida de alguien que ya es amigo → avisarle por otro medio. Viajes: contarlos a la vuelta.
 Descargar apps: Android, Play Store (Google Play) > buscar > "Instalar" > "Abrir"; iPhone, App Store > lupa "Buscar" > "Obtener" > "Abrir" (puede pedir Face ID, huella o contraseña de la cuenta de Apple: la pide el propio celular, no se le da a nadie). Mirar quién la hizo (hay copias con nombres parecidos). Si aparece un precio, es paga.
+Redes sociales (manual de Instagram de Martina): apps para compartir fotos y videos; no hace falta publicar, se puede solo mirar. Publicación (queda en el perfil), historia (24 horas), reel (video corto, lo puede ver mucha más gente), seguir, me gusta (corazón), comentario, mensaje directo (privado, avioncito de papel), perfil, hashtag (#). Botones de abajo: casita (inicio), lupa (buscar), + (crear: "Publicación", elegir foto, "Siguiente", frase, "Compartir"), Reels, perfil. Crear cuenta: descargar Instagram, "Crear cuenta nueva", nombre y teléfono o correo, usuario, contraseña segura; anotar usuario y contraseña en un cuaderno en casa. Cuenta privada: perfil > tres rayitas > "Configuración y privacidad" > "Privacidad de la cuenta" > "Cuenta privada". Mensajes de desconocidos quedan en "Solicitudes". Cuentas falsas: pocas publicaciones, creadas hace poco, ofrecen dinero fácil o inversiones; la tilde de verificación ayuda pero no es garantía. BPS, BROU, DGI y los bancos nunca piden la contraseña por mensaje.
+Seguridad (manual de Martina): las estafas tienen urgencia, miedo o emoción, y un pedido de datos o dinero. No dar datos personales por WhatsApp o llamadas; no abrir links de desconocidos; no seguir conversaciones con desconocidos; no poner datos bancarios o contraseñas en sitios dudosos. Llamadas que se hacen pasar por un banco y piden códigos: cortar y verificar por otro medio. Nunca compartir contraseñas, códigos de SMS ni datos de tarjeta. Un "familiar" desde otro número que pide plata: llamar a la persona real. Compras: desconfiar de precios demasiado bajos, páginas desconocidas y pagos por fuera de la plataforma. Contraseñas difíciles, distintas y sin compartir. Tomarse un momento, consultar con alguien de confianza; ante la duda, no responder.
+Organización: calendario (Android: Google Calendar, "+" > "Evento" > título, día, hora, aviso > "Guardar"; iPhone: Calendario, "+" > título, día, hora, "Aviso" > "Agregar"). Notas (Android: Google Keep o Notas, "+"; iPhone: Notas, lápiz con cuadradito); se guardan solas. Papeles importantes: foto con la hoja apoyada y buena luz, y "Agregar a álbum" (por ejemplo "Papeles importantes"); nunca fotos de tarjetas ni contraseñas.
+Gmail (manual de Martina): bandeja de entrada; en negrita = sin leer; tres rayitas > "Enviados", "Borradores", "Bandeja de salida". Responder (cuidado con "Responder a todos"); "Redactar": "Para" (dirección completa), "Asunto" (por ejemplo "Consulta sobre el taller"), mensaje (saludo, qué necesitás, firma), ícono de enviar. Adjuntar: clip > Android "Fotos" o "Archivos" (también Cámara o Drive); iPhone "Fotos" o "Archivos" (si la foto queda dentro del texto: tocarla > "Enviar como archivo adjunto"). Revisar dirección, asunto, mensaje y adjunto. En "Enviados" = salió, no quiere decir que lo leyeron; si no aparece, mirar "Borradores", "Bandeja de salida" y la conexión.
 IA: la IA reconoce, entiende, recomienda, detecta y genera; aprende de patrones; puede equivocarse con seguridad ("alucinación") y tener sesgos: IA no es igual a verdad, verificá lo importante. Buen pedido (prompt): QUÉ + CONTEXTO + ROL + FORMATO (+ EJEMPLO opcional); no es receta obligatoria. Hablar con una IA es conversar: corregí, pedí cambios, repreguntá. Botón mágico: "No entendí, explicámelo más fácil". Contexto sí, información privada no. Hablar (modo voz), Mostrar (foto: "¿qué es esto?"), Transformar (cambiar una foto), Crear (algo nuevo). ChatGPT tiene chat, biblioteca, proyectos (carpeta que recuerda), búsqueda en internet (si depende de "hoy"), imágenes, GPTs, aplicaciones y tareas.`;
 
 let brainNotes = []; // notas que carga Martina en el cerebro (db)
@@ -1850,7 +2135,23 @@ const KW = {
   'go1':['google','buscar','buscador','busqueda','busquedas'], 'go2':['buscar hablando','buscar con la voz','microfono'], 'go3':['pagina confiable','patrocinado','gub.uy','pagina oficial','paginas falsas'],
   'yt1':['youtube','videos','musica'], 'yt2':['pantalla completa','omitir','anuncio','pausa','publicidad'],
   'nf1':['netflix','peliculas','series','subtitulos'], 'nf2':['netflix falso','cuenta suspendida','mensaje de netflix'],
-  'ig1':['instagram','historias','me gusta','insta'], 'ig2':['seguir','seguidores'], 'fb1':['facebook','face','comentar','comentario'], 'rs1':['redes sociales','redes','perfil falso','solicitud de amistad','solicitud'],
+  'ig1':['instagram','historias','me gusta','insta'], 'ig2':['seguir','seguidores'], 'fb1':['facebook','face','comentar','comentario'], 'rs1':['cuidarme en las redes','seguridad en redes','perfil falso','solicitud de amistad','solicitud'],
+'rd1':['que son las redes','que son las redes sociales','redes sociales','para que sirven las redes sociales','red social','para que sirven las redes','publicacion','reel','reels','historia'],
+  'ig3':['mensaje privado','mensajes privados','mensaje directo','avioncito','dm','instagram mensaje'],
+  'pr1':['privacidad','privado','instagram privado','cuenta privada de instagram','cuenta privada','privada','configurar instagram','quien ve mis fotos','contrasena de instagram'],
+  '5f':['ayuda de la ia','escribir un texto','escribir un saludo','ideas','para que sirve la ia','ia en el dia'],
+  'go4':['que puedo buscar','noticias','recetas','horario','horarios','tramite','tramites','direccion','salud'],
+  'or1':['calendario','anotar un turno','turno medico','turno con el medico','agenda','turno','recordatorio','cumpleanos','evento','aviso'],
+  'or2':['nota','notas','anotar','lista de compras','libreta','keep'],
+  'or3':['documentos','papeles','garantia','comprobante','receta medica','album','guardar fotos'],
+  'mp1':['google maps','mapa','mapas','maps','ubicacion','gps','donde estoy','buscar un lugar'],
+  'mp2':['como llegar','llegar a','caminando','indicaciones','perdido','desorientado'],
+  'tr1':['taxi','141','pedir un taxi'],
+  'tr2':['uber','auto con chofer','matricula'],
+  'tr3':['omnibus','bus','stm','parada','paradas','linea','transporte'],
+  'gm1':['gmail','correo','mail','email','correo electronico','bandeja'],
+  'gm2':['mandar un correo','mandar un mail','enviar un mail','enviar un correo','escribir un correo','escribir un mail','responder un correo','redactar','asunto'],
+  'gm3':['adjuntar','por correo','comprobante por correo','foto por correo','adjunto','mandar un archivo','mandar un comprobante','archivo por correo'],
   '5a':['inteligencia artificial','ia'], '5b':['chatgpt','chat gpt','gemini','conversar con una ia','hablar con una ia'], '5c':['prompt','pedido','pedirle a la ia'], '5d':['foto a la ia','que es esto'], '5e':['la ia se equivoca','alucinacion','confiar en la ia']
 };
 const sinTilde = t => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -2142,6 +2443,49 @@ const ART = {
   fbbtns: () => '<div style="display:flex;gap:16px;font-weight:800;font-size:16px;background:var(--soft);border-radius:12px;padding:10px 16px"><span>👍 Me gusta</span><span>💬 Comentar</span><span>↗️ Compartir</span></div>',
   clon: () => big('👩','Marta, tu amiga') + big('👩','¿Otra Marta?') + '<b style="width:100%;text-align:center">Puede ser un perfil copiado</b>',
   pensa: () => big('🎁','Premios raros') + big('💸','Piden plata') + big('🏠','Casa sola'),
+  redesart: () => big('📸','Instagram') + big('👍','Facebook') + big('📖','Un álbum compartido'),
+  redespara: () => big('👨‍👩‍👧','Tu familia') + big('🌿','Tus temas') + big('👀','Solo mirar'),
+  redespal: () => '<div class="stack" style="gap:6px;font-size:16px;text-align:left"><span>🖼️ <b>Publicación</b>: queda en el perfil</span><span>⏳ <b>Historia</b>: dura 24 horas</span><span>🎬 <b>Reel</b>: video corto</span><span>✈️ <b>Mensaje directo</b>: privado</span></div>',
+  avioncito: () => big('✈️','El avioncito de papel') + big('🔒','Solo lo ve esa persona'),
+  solicitudes: () => big('📥','"Solicitudes"') + big('🙅','Desconocido: no respondas'),
+  privada: () => big('🌍','Pública: la ve cualquiera') + big('🔒','Privada: solo quien aceptás'),
+  privpasos: () => '<div class="stack" style="gap:6px;font-size:16px;text-align:left;font-weight:700"><span>1. 👤 Tu perfil</span><span>2. ☰ Tres rayitas</span><span>3. ⚙️ Configuración y privacidad</span><span>4. 🔒 Privacidad de la cuenta</span><span>5. ✅ Cuenta privada</span></div>',
+  privreglas: () => big('🔑','Tu contraseña es tuya') + big('📓','Anotala en un cuaderno'),
+  iadia: () => big('❓','Preguntar') + big('✍️','Escribir') + big('💡','Ideas') + big('📚','Aprender'),
+  iaejemplos: () => '<div class="stack" style="gap:6px;min-width:230px;max-width:300px">' + ['Ayudame a escribir un saludo de cumpleaños','Dame ideas para un almuerzo económico','Explicame qué es una transferencia'].map(t => '<div class="msg out" style="max-width:100%;background:#D9FDD3;color:#111B21">' + t + '</div>').join('') + '</div>',
+  gideas: () => big('📰','Noticias') + big('🍲','Recetas') + big('📍','Direcciones') + big('🕘','Horarios') + big('🏛️','Trámites') + big('🩺','Salud'),
+  gtruco: () => '<div style="display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:999px;padding:12px 18px;min-width:240px;font-size:17px">🔎 <span><b>qué</b> + <b>dónde</b>: farmacia de turno Pocitos</span></div>',
+  gsalud: () => big('📖','Para entender') + big('👩‍⚕️','La última palabra: tu médico'),
+  calart: () => '<div style="display:grid;grid-template-columns:repeat(7,34px);gap:4px;font-size:14px;font-weight:700">' + Array.from({length:14}, (_, i) => '<span style="height:34px;border-radius:8px;display:grid;place-items:center;background:' + (i === 9 ? 'var(--coral);color:#fff' : 'var(--soft)') + '">' + (i + 14) + '</span>').join('') + '</div>',
+  calpasos: () => big('➕','1. Tocás "+"') + big('✍️','2. Qué, día y hora') + big('💾', OS() === 'iphone' ? '3. "Agregar"' : '3. "Guardar"'),
+  calaviso: () => big('🔔','Te avisa antes') + big('🩺','¡Turno sin olvidos!'),
+  notart: () => big('📝','Lista de compras') + big('🍰','Recetas') + big('☎️','Números'),
+  notpasos: () => big(OS() === 'iphone' ? '✏️' : '➕', 'Nota nueva') + big('✍️','Escribís') + big('💾','Se guarda sola'),
+  papelfoto: () => big('📄','Hoja apoyada') + big('💡','Buena luz') + big('👓','Que se lea'),
+  album: () => big('🖼️','Abrís la foto') + big('⋮','"Más"') + big('📂','"Agregar a álbum"'),
+  nopapel: () => big('🚫💳','Tarjetas no') + big('🚫🔑','Contraseñas no'),
+  mapart: () => big('📍','Dónde estás') + big('🔎','Buscar lugares') + big('🧭','Cómo llegar'),
+  gps: () => '<span class="qt" aria-pressed="true" style="display:flex;width:130px"><span class="e">📍</span>Ubicación</span>' + big('📡','GPS prendido'),
+  puntito: () => '<div class="mapa" style="width:260px;height:160px;border-radius:14px"><span class="mdot" style="left:45%;top:55%"></span><span class="mbar">🔎 Buscar aquí</span></div>',
+  comollegar: () => '<span style="background:#1A73E8;color:#fff;font-weight:800;border-radius:999px;padding:10px 18px;font-size:17px">Cómo llegar</span>' + big('🚶','Caminando') + big('🚗','En auto'),
+  mapusos: () => big('🏥','La clínica') + big('🛒','El súper') + big('🏡','Volver a casa'),
+  taxiart: () => big('📇','TAXI · 091 141 141') + big('💬','Por WhatsApp'),
+  taxipasos: () => big('👋','"Hola"') + big('📎','Clip') + big('📍','"Ubicación"'),
+  taximovil: () => big('🚕','Móvil 1234') + big('⏱️','Llega en 6 minutos'),
+  uberart: () => '<div style="background:var(--soft);border-radius:14px;padding:12px 18px;font-weight:800;font-size:18px;min-width:220px">📍 ¿A dónde vas?</div>',
+  uberprecio: () => big('💲','Precio') + big('⏱️','Demora') + big('💳','Forma de pago'),
+  ubermatricula: () => '<div style="border:3px solid #111;border-radius:8px;padding:6px 14px;font-weight:900;font-size:24px;letter-spacing:.1em;background:#fff;color:#111">SBX 1234</div><b style="width:100%;text-align:center">Revisá la matrícula antes de subir</b>',
+  stmart: () => big('🚏','Paradas') + big('🚌','Líneas') + big('⏱️','Cuánto falta'),
+  stmpasos: () => big('🔎','Lupa azul') + big('🛣️','Calle y esquina') + big('🎯','"Destino"'),
+  stmbajar: () => big('🔵','El puntito azul sos vos') + big('🛎️','Sabés cuándo bajar'),
+  mailart: () => big('✉️','Una carta por internet') + '<b style="font-size:17px">nombre@gmail.com</b>',
+  bandeja: () => '<div class="stack" style="gap:6px;min-width:240px;max-width:300px;text-align:left"><div style="background:var(--soft);border-radius:10px;padding:8px 12px"><b>Club de jardinería</b><br><b style="font-size:14px">Taller del sábado</b></div><div style="background:var(--soft);border-radius:10px;padding:8px 12px;color:var(--muted)">Laura<br><span style="font-size:14px">Fotos del cumple</span></div><small class="muted">En negrita: sin leer</small></div>',
+  mailmenu: () => big('☰','Tres rayitas') + big('📤','"Enviados"') + big('📝','"Borradores"'),
+  responder: () => big('↩️','"Responder"') + big('↩️👥','Ojo: "Responder a todos"'),
+  redactar: () => '<div class="stack" style="gap:6px;min-width:240px;max-width:300px;text-align:left;font-size:16px"><div style="background:var(--soft);border-radius:10px;padding:8px 12px"><b>Para:</b> la dirección</div><div style="background:var(--soft);border-radius:10px;padding:8px 12px"><b>Asunto:</b> de qué se trata</div><div style="background:var(--soft);border-radius:10px;padding:8px 12px">Hola… Saludos, Ana.</div></div>',
+  comprobante: () => big('🧾','Comprobante') + big('💡','Buena luz') + big('📷','Foto completa'),
+  adjuntar: () => big('📎','El clip') + big('🖼️','"Fotos"') + big('📄','"Archivos"'),
+  revisar: () => '<div class="stack" style="gap:6px;font-size:16px;text-align:left;font-weight:700"><span>☑️ ¿La dirección es correcta?</span><span>☑️ ¿El asunto dice de qué se trata?</span><span>☑️ ¿Está el archivo y se lee?</span><span>📤 Después: "Enviados"</span></div>',
   tienda: () => big('🛍️','La tienda de apps') + big('🆓','Gratis') + big('💲','O pagas'),
   instalar: () => big('🔎','1. Buscás') + big('👆','2. Tocás la app') + '<span style="background:' + (OS() === 'iphone' ? '#1E88E5' : '#1B873F') + ';color:#fff;font-weight:800;border-radius:999px;padding:10px 20px;font-size:17px">' + (OS() === 'iphone' ? 'Obtener' : 'Instalar') + '</span>',
   quien: () => '<div class="stack" style="gap:8px;min-width:240px;max-width:300px;text-align:left"><div style="background:var(--soft);border-radius:12px;padding:10px 12px"><b>Instagram</b><br><small style="color:#1B7F4A;font-weight:800">✓ La hace: Instagram</small></div><div style="background:var(--soft);border-radius:12px;padding:10px 12px"><b>Insta Fotos Pro</b><br><small style="color:#B3261E;font-weight:800">✗ La hace: FotoApps Studio</small></div></div>',
@@ -2171,7 +2515,7 @@ const appIcon = a => '<button type="button" class="app-ic" data-a="' + a[0] + '"
 /* ============ LOGOS DE LAS APPS ============
    Los logos oficiales se suben a la carpeta logos/ con estos nombres: logos/<clave>.png (por ejemplo logos/youtube.png).
    Si el archivo no está, la tarjeta no aparece y la lección se ve como siempre. */
-const LOGO_NOM = {whatsapp:'WhatsApp', google:'Google', youtube:'YouTube', netflix:'Netflix', instagram:'Instagram', facebook:'Facebook', chatgpt:'ChatGPT', gemini:'Gemini', playstore:'Play Store', appstore:'App Store', googlefotos:'Google Fotos', fotos:'Fotos'};
+const LOGO_NOM = {whatsapp:'WhatsApp', google:'Google', youtube:'YouTube', netflix:'Netflix', instagram:'Instagram', facebook:'Facebook', chatgpt:'ChatGPT', gemini:'Gemini', playstore:'Play Store', appstore:'App Store', googlefotos:'Google Fotos', fotos:'Fotos', googlemaps:'Google Maps', uber:'Uber', stm:'STM', gmail:'Gmail', googlecalendar:'Google Calendar', calendario:'Calendario', keep:'Google Keep', notas:'Notas'};
 const logoSrc = k => 'logos/' + k + '.png';
 /* Ícono de una app: el logo si está subido; si no, un cuadradito con un dibujo */
 const appIco = (k, fb, bg, lb) => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-weight:800;font-size:15px"><span class="appico" style="background:' + bg + '">' + (k ? '<img src="' + logoSrc(k) + '" alt="" onload="this.parentNode.classList.add(\'img\')" onerror="this.remove()">' : '') + '<b>' + fb + '</b></span>' + (lb || '') + '</div>';
@@ -2921,6 +3265,413 @@ SIMS.apStore = function(api){
     paso = 5; $('ain').hidden = true; $('apr').hidden = false; api.say('Se está descargando. Esperá un momentito…');
     let p = 0; const av = () => { p = Math.min(100, p + 10); const i = $('apri'); if (i) i.style.width = p + '%'; if (p < 100) later(av, 250); else { paso = 6; $('apr').hidden = true; const b = $('ain'); b.hidden = false; b.textContent = 'Abrir'; b.classList.add('pulse'); api.say('¡Instalada! Paso ' + (ios ? 6 : 5) + ': tocá <b>Abrir</b>.'); } }; av();
   }
+};
+
+/* ============ PRÁCTICAS A PARTIR DE LOS MANUALES (19/10/2026) ============ */
+/* Escribir por mí + campo: devuelve el input ya conectado */
+function campo(id, ph, fill, onInput){ return '<label class="field" id="' + id + 'f" for="' + id + '" style="background:var(--ph-bg)"><input id="' + id + '" placeholder="' + esc(ph) + '" autocomplete="off"></label>'; }
+const filasMenu = (items, target) => items.map(t => '<button type="button" class="prow' + (t === target ? ' pulse' : '') + '" data-row="' + esc(t) + '"' + (t === target ? ' style="border:2px solid var(--coral)"' : '') + '>' + esc(t) + '</button>').join('');
+
+/* ---- Redes ---- */
+SIMS.rdPalabras = function(api){
+  const it = (e, w, q, b, ok, why) => ({html:'<div style="padding:24px;text-align:center;font-size:52px;background:var(--ph-bar)">' + e + '<br><b style="font-size:24px">' + w + '</b></div>', q, b, ok, why});
+  decidir(api, {em:'🌐', bien:'¡Ya hablás el idioma de las redes!', fin:'Publicación, historia, reel y mensaje directo: con estas palabras ya entendés casi todo lo que vas a ver.', items:[
+    it('⏳', 'Historia', '¿Qué es una historia?', ['Una foto o video que dura 24 horas','Una foto que queda para siempre'], 0, 'Las historias desaparecen solas después de un día.'),
+    it('🎬', 'Reel', '¿Qué es un reel?', ['Una foto de perfil','Un video corto'], 1, 'Los reels son videos cortos, y los puede ver mucha gente.'),
+    it('✈️', 'Mensaje directo', '¿Quién lo ve?', ['Solo la persona a la que se lo mandás','Todos tus seguidores'], 0, 'Es privado: como un WhatsApp, pero dentro de la red social.'),
+    it('➕', 'Seguir', '¿Qué pasa cuando seguís una cuenta?', ['Te cobran por mes','Ves lo que publica en tu inicio'], 1, 'Seguir es gratis: es elegir ver lo que esa cuenta publica.')
+  ]});
+};
+
+SIMS.igDM = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
+  const feed = () => {
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Instagram</b><button type="button" class="ibtn pulse" id="dmb" aria-label="Mensajes" style="font-size:24px">✈️</button></div><div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('');
+    api.say('Paso 1: tocá el <b>avioncito de papel</b>, arriba a la derecha, para ver tus mensajes.');
+    $('dmb').addEventListener('click', lista);
+    $('ph').querySelectorAll('.ignav button').forEach(b => b.addEventListener('click', () => toast('Los mensajes se abren con el avioncito de papel, arriba a la derecha.')));
+  };
+  const lista = () => {
+    if (paso === 0) paso = 1; $('toast').hidden = true;
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:19px">Mensajes</b></div>'
+      + '<button type="button" class="crow bar" id="dsol' + (paso === 3 ? '" style="border:2px solid var(--coral)"' : '"') + '><div class="who"><span class="pic" style="background:#9AA4B2">📥</span><div style="min-width:0"><b>Solicitudes</b><small>' + (paso >= 4 ? 'No hay solicitudes' : '1 persona que no seguís') + '</small></div></div></button>'
+      + '<button type="button" class="crow bar' + (paso === 1 ? ' pulse' : '') + '" id="dsofi"><div class="who"><span class="pic" style="background:#E91E63">S</span><div style="min-width:0"><b>Sofi</b><small>' + (paso >= 2 ? 'Vos: ' + esc(enviado) : '● Te mandó una foto') + '</small></div></div></button>'
+      + crowSimple('Club de lectura', '¡Nos vemos el jueves!', '#E07A3F');
+    if (paso === 3) $('dsol').classList.add('pulse');
+    api.say(paso === 1 ? 'Estos son tus mensajes privados. Paso 2: tocá la conversación de <b>Sofi</b>.' : 'Paso 4: alguien que no seguís te escribió. Tocá <b>Solicitudes</b> para verlo.');
+    $('dsofi').addEventListener('click', () => { if (paso === 1) chat(); else toast('Ya le respondiste a Sofi. Ahora tocá "Solicitudes".'); });
+    $('dsol').addEventListener('click', () => { if (paso === 3) solicitud(); else if (paso === 1) toast('Primero respondele a Sofi. Las solicitudes las vemos después.'); });
+  };
+  let enviado = '';
+  const chat = () => {
+    $('ph').innerHTML = '<div class="bar"><button type="button" class="ibtn" id="dback" aria-label="Volver">' + I4.back + '</button><div class="who"><span class="pic" style="background:#E91E63">S</span><b>Sofi</b></div></div><div class="msgs" id="msgs"></div><div class="helpers" style="padding:0 8px 4px"><button type="button" id="h1">Escribir por mí</button></div><div class="inrow"><label class="field pulse" id="dfld" for="dq"><input id="dq" placeholder="Enviar mensaje…" autocomplete="off"></label><button class="round" type="button" id="dsend" aria-label="Enviar">' + I.send + '</button></div>';
+    addMsg($('msgs'), '<div style="font-size:64px;text-align:center">🐶</div>¡Mirá a Fito con el moño nuevo!', false, '10:12');
+    api.say('Sofi te mandó una foto. Solo la ven ustedes dos. Paso 3: escribile algo lindo y tocá la flecha.');
+    const q = $('dq');
+    $('h1').addEventListener('click', () => { q.value = '¡Qué divino! Mandale un beso ❤️'; q.dispatchEvent(new Event('input')); });
+    q.addEventListener('input', () => { const has = q.value.trim().length > 0; $('dsend').classList.toggle('pulse', has); $('dfld').classList.toggle('pulse', !has); });
+    q.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); $('dsend').click(); } });
+    $('dback').addEventListener('click', () => { if (paso === 2.5){ paso = 3; lista(); } else toast('Primero respondele a Sofi.'); });
+    $('dsend').addEventListener('click', () => {
+      const t = q.value.trim(); if (!t){ toast('Primero escribí tu mensaje. Si te cuesta, tocá "Escribir por mí".'); return; } if (paso !== 1) return;
+      paso = 2; enviado = t; q.value = ''; $('dsend').classList.remove('pulse'); addMsg($('msgs'), esc(t), true, '10:13');
+      later(() => { addMsg($('msgs'), '❤️❤️', false, '10:13'); paso = 2.5; $('dback').classList.add('pulse'); api.say('¡Sofi te respondió! Ahora tocá la <b>flechita de arriba</b> para volver a tus mensajes.'); }, 1400);
+    });
+  };
+  const solicitud = () => {
+    paso = 4;
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1">Solicitudes</b></div><div class="msgs" style="flex:none;min-height:140px"><div class="msg in"><span class="sender" style="color:#B3261E">inversiones.rapidas.ok</span>Hola, ¿querés ganar $50.000 por semana desde tu casa? Escribime y te explico 💰<div class="meta">09:40</div></div></div><p style="margin:0 12px;color:var(--ph-sub);font-size:15px">No sabe si leíste su mensaje hasta que lo aceptes.</p><div class="row" style="padding:12px"><button type="button" class="btn dark" id="dacc">Aceptar</button><button type="button" class="btn" id="ddel">Eliminar</button></div><p id="dhint" hidden style="margin:0 12px 12px;font-weight:700"></p>';
+    api.say('Es alguien que no conocés, ofreciendo plata fácil. Paso 5: ¿qué hacés? Elegí una opción.');
+    $('dacc').addEventListener('click', () => { $('dhint').hidden = false; $('dhint').textContent = '💡 Mejor no: es un desconocido con una oferta de plata fácil. Así empiezan muchas estafas.'; });
+    $('ddel').addEventListener('click', () => { $('ph').querySelector('.msgs').innerHTML = '<div class="sysmsg">Solicitud eliminada</div>'; $('dhint').hidden = true; $('ph').querySelector('.row').remove(); api.say('¡Muy bien! Respondiste a tu familia y eliminaste al desconocido. Así se usan los mensajes con tranquilidad.'); api.done(); });
+  };
+  feed();
+};
+
+SIMS.igPriv = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
+  const go = (html, say) => { $('toast').hidden = true; $('ph').innerHTML = html; api.say(say); };
+  go('<div class="bar"><b style="flex:1;font-size:20px">Instagram</b></div><div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('perfil'), 'Paso 1: tocá tu <b>perfil</b>, abajo a la derecha.');
+  $('ph').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (paso === 0){ if (b.dataset.n === 'perfil'){ paso = 1; go('<div class="bar"><b style="flex:1">' + esc(sinTilde(NOMBRE() || 'vos').replace(/\s+/g, '.')) + '</b><button type="button" class="ibtn pulse" id="pmenu" aria-label="Menú" style="font-size:24px">☰</button></div><div class="igprof"><span class="pic" style="width:80px;height:80px;font-size:40px;background:#E07A3F">🙂</span><div><b>' + esc(NOMBRE() || 'Vos') + '</b><small>3 publicaciones · 25 seguidores</small><span>🌍 Cuenta pública</span></div></div><div class="iggrid">' + ['🌻','🎂','🏖️'].map(x => '<span>' + x + '</span>').join('') + '</div>', 'Este es tu perfil. Ahora es pública: la ve cualquiera. Paso 2: tocá las <b>tres rayitas</b>, arriba a la derecha.'); } else toast('Tu perfil es el botón de abajo a la derecha.'); return; }
+    if (paso === 1){ if (b.id === 'pmenu'){ paso = 2; go('<div class="bar"><b style="flex:1">Menú</b></div><div style="display:flex;flex-direction:column">' + filasMenu(['⚙️ Configuración y privacidad','🕘 Tu actividad','🔖 Guardado','⭐ Favoritos'], '⚙️ Configuración y privacidad') + '</div>', 'Paso 3: tocá <b>Configuración y privacidad</b>.'); } else toast('Tocá las tres rayitas, arriba a la derecha.'); return; }
+    if (paso === 2){ if (b.dataset.row === '⚙️ Configuración y privacidad'){ paso = 3; go('<div class="bar"><b style="flex:1">Configuración y privacidad</b></div><div style="display:flex;flex-direction:column">' + filasMenu(['🔔 Notificaciones','🔒 Privacidad de la cuenta','🚫 Cuentas bloqueadas','💬 Mensajes y respuestas'], '🔒 Privacidad de la cuenta') + '</div>', 'Paso 4: tocá <b>Privacidad de la cuenta</b>.'); } else toast('Buscá "Configuración y privacidad".'); return; }
+    if (paso === 3){ if (b.dataset.row === '🔒 Privacidad de la cuenta'){ paso = 4; go('<div class="bar"><b style="flex:1">Privacidad de la cuenta</b></div><div style="padding:16px;display:flex;flex-direction:column;gap:12px;position:relative;flex:1" id="pbox"><button type="button" class="tgl pulse" id="ptg" role="switch" aria-checked="false"><span>Cuenta privada</span><i></i></button><small style="color:var(--ph-sub);font-size:15px">Si tu cuenta es privada, solo las personas que aceptes van a poder ver tus fotos y videos.</small></div>', 'Paso 5: tocá el interruptor de <b>Cuenta privada</b> para prenderlo.'); } else toast('Buscá "Privacidad de la cuenta".'); return; }
+    if (paso === 4 && b.id === 'ptg'){ paso = 5; b.classList.remove('pulse'); const sh = el('div', 'sheet ov', '<div><b style="font-size:18px">¿Cambiar a cuenta privada?</b><small style="color:var(--ph-sub)">Solo tus seguidores van a ver lo que publicás.</small><button type="button" class="pgreen pulse" id="pok" style="background:#0095F6">Cambiar a privada</button></div>'); $('ph').appendChild(sh); api.say('Paso 6: te pide confirmar. Tocá <b>Cambiar a privada</b>.'); return; }
+    if (paso === 5 && b.id === 'pok'){ paso = 6; $('ph').querySelector('.sheet').remove(); $('ptg').setAttribute('aria-checked', 'true'); api.say('¡Listo! Tu cuenta es privada. Desde ahora, vos decidís quién ve tus fotos.'); api.done(); }
+  });
+};
+
+/* ---- IA y Google ---- */
+SIMS.iaDia = function(api){
+  iaTurnos(api, {turnos:[
+    {say:'Vamos a pedirle tres cosas distintas. Paso 1, <b>escribir</b>: tocá "Escribir por mí" y mandalo.', helper:'Ayudame a escribir un saludo de cumpleaños para mi amiga Rosa, que cumple 80', resp:'¡Qué lindo! Te propongo este:\n"¡Feliz cumple, Rosa querida! 80 años de risas, de mates compartidos y de cariño. Que este nuevo año te traiga salud y muchos momentos lindos. ¡Te quiero mucho!"', despues:'¡Mirá qué lindo quedó! Si querés, le pedís que lo haga más corto o más divertido.'},
+    {say:'Paso 2, <b>buscar ideas</b>: tocá "Escribir por mí" y mandalo.', helper:'Dame 3 ideas para un almuerzo rico y económico para 4 personas', resp:'¡Ahí van!\n1. Guiso de lentejas con chorizo.\n2. Tarta de zapallitos y queso.\n3. Arroz con pollo y verduras.\n¿Querés la receta de alguna?', despues:'¡Ideas al instante! Y si no te gusta ninguna, le pedís otras.'},
+    {say:'Paso 3, <b>resolver una duda</b>: tocá "Escribir por mí" y mandalo.', helper:'¿Qué quiere decir que una app se tiene que actualizar?', resp:'Quiere decir que hay una versión nueva y mejorada de la app. Es como cuando arreglan algo de tu casa: queda funcionando mejor y más segura. Conviene hacerlo con WiFi.', despues:'¡Lo lograste! Le pediste que escriba, que te dé ideas y que te explique algo. Y vos decidís qué usar.'}
+  ]});
+};
+
+SIMS.goIdeas = function(api){
+  const bar = '<div class="gtop" style="padding:12px"><b>Google</b></div><div class="gbar" style="margin-bottom:16px"><span aria-hidden="true">🔎</span><span style="color:var(--ph-sub)">¿Qué escribís?</span></div>';
+  decidir(api, {em:'💡', bien:'¡Ya sabés buscar con las palabras justas!', fin:'Qué buscás y dónde, páginas oficiales para trámites, y tu médico para la salud. ¡Con eso encontrás casi todo!', items:[
+    {ctx:'Querés saber qué pasó hoy en el país.', html:bar, q:'¿Qué escribís?', b:['noticias Uruguay hoy','qué pasó'], ok:0, why:'Con "noticias", el lugar y "hoy", Google te muestra lo último.'},
+    {ctx:'Necesitás la farmacia de turno de tu barrio.', html:bar, q:'¿Qué escribís?', b:['farmacia','farmacia de turno Pocitos'], ok:1, why:'Con "de turno" y tu barrio, te aparecen las que están abiertas cerca tuyo.'},
+    {ctx:'Querés hacer un trámite del BPS. Aparecen estas dos páginas:', html:'<div class="gres" style="padding:12px">' + gResult({pat:true, site:'tramites-ya.com', t:'Hacemos tu trámite del BPS', s:'Sin filas. Pagá $900 y listo.'}, 0) + gResult({site:'bps.gub.uy', t:'Banco de Previsión Social', s:'Trámites en línea y atención.'}, 1) + '</div>', q:'¿Cuál abrís?', b:['La de tramites-ya.com','La de bps.gub.uy'], ok:1, why:'La oficial termina en gub.uy. La otra es un anuncio que te cobra por algo que podés hacer vos.'},
+    {ctx:'Te duele la rodilla. Encontraste una página que recomienda una pastilla.', html:'<div class="gres" style="padding:12px">' + gResult({site:'salud-natural-ya.com', t:'La pastilla que cura el dolor de rodilla', s:'Tomá dos por día y olvidate del dolor.'}, 0) + '</div>', q:'¿Qué hacés?', b:['La tomo','Lo leo y lo consulto con mi médico'], ok:1, why:'Internet sirve para entender, pero la última palabra la tiene tu médico.'}
+  ]});
+};
+
+/* ---- Organización ---- */
+SIMS.orCal = function(api){
+  const ios = OS() === 'iphone'; let paso = 0; const sel = {};
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
+  const mes = ev => {
+    const cells = []; for (let i = 0; i < 3; i++) cells.push('<span></span>'); for (let d = 1; d <= 31; d++) cells.push('<span class="' + (d === 19 ? 'hoy' : '') + (ev && d === 22 ? ' ev' : '') + '">' + d + '</span>');
+    return '<div class="bar"><b style="flex:1;font-size:19px">Octubre 2026</b>' + (ios ? '<button type="button" class="ibtn pulse" id="cadd" aria-label="Nuevo evento" style="font-size:26px">＋</button>' : '') + '</div><div class="calw">' + ['L','M','M','J','V','S','D'].map(x => '<b>' + x + '</b>').join('') + cells.join('') + '</div>'
+      + (ev ? '<div class="calev">🩺 <div><b>' + esc(ev.t) + '</b><small>Jueves 22 · ' + ev.h + ' · 🔔 ' + ev.a + '</small></div></div>' : '<p style="margin:8px 14px;color:var(--ph-sub)">No hay eventos esta semana.</p>')
+      + (ios ? '' : '<button type="button" class="calfab' + (ev ? '' : ' pulse') + '" id="cadd" aria-label="Nuevo">＋</button>');
+  };
+  $('ph').innerHTML = mes(); api.say('Hoy es lunes 19. El jueves tenés turno con la doctora. Paso 1: tocá el <b>"+"</b> para anotarlo.');
+  const abrirForm = () => {
+    paso = 2; $('toast').hidden = true;
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1">' + (ios ? 'Nuevo evento' : 'Evento') + '</b><button type="button" class="calsave" id="csave">' + (ios ? 'Agregar' : 'Guardar') + '</button></div><div class="calform"><label>Qué es' + campo('ct', ios ? 'Título' : 'Agregar título') + '</label><div class="helpers" style="padding:0;justify-content:flex-start"><button type="button" id="h1">Escribir por mí</button></div>'
+      + '<span class="cl">Día</span><div class="chips" data-g="d">' + [['20','Mar 20'],['21','Mié 21'],['22','Jue 22'],['23','Vie 23']].map(x => '<button type="button" data-v="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>'
+      + '<span class="cl">Hora</span><div class="chips" data-g="h">' + ['9:00','10:30','15:00'].map(x => '<button type="button" data-v="' + x + '">' + x + '</button>').join('') + '</div>'
+      + '<span class="cl">' + (ios ? 'Aviso' : 'Notificación') + '</span><div class="chips" data-g="a">' + ['Sin aviso','1 hora antes','1 día antes'].map(x => '<button type="button" data-v="' + x + '">' + x + '</button>').join('') + '</div><p id="chint" hidden style="margin:0;font-weight:700"></p></div>';
+    api.say('Paso 2: escribí <b>Turno con la doctora</b>, elegí el <b>jueves 22</b>, la hora y un <b>aviso</b>. Después tocá <b>' + (ios ? 'Agregar' : 'Guardar') + '</b>, arriba.');
+    $('ctf').classList.add('pulse');
+    $('h1').addEventListener('click', () => { $('ct').value = 'Turno con la doctora'; $('ctf').classList.remove('pulse'); listo(); });
+    $('ct').addEventListener('input', () => { $('ctf').classList.toggle('pulse', !$('ct').value.trim()); listo(); });
+    $('ph').querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); sel[g.dataset.g] = b.dataset.v; listo(); }));
+    $('csave').addEventListener('click', guardar);
+  };
+  const listo = () => { const ok = $('ct').value.trim() && sel.d && sel.h && sel.a; $('csave').classList.toggle('pulse', !!ok); };
+  const guardar = () => {
+    const h = $('chint'), t = $('ct').value.trim();
+    if (!t){ h.hidden = false; h.textContent = '💡 Falta escribir qué es. Si te cuesta, tocá "Escribir por mí".'; return; }
+    if (sel.d !== '22'){ h.hidden = false; h.textContent = '💡 El turno es el jueves: elegí "Jue 22".'; return; }
+    if (!sel.h){ h.hidden = false; h.textContent = '💡 Elegí a qué hora es el turno.'; return; }
+    if (!sel.a){ h.hidden = false; h.textContent = '💡 Elegí un aviso, así el celular te lo recuerda.'; return; }
+    paso = 3; $('ph').innerHTML = mes({t, h:sel.h, a:sel.a});
+    api.say(sel.a === 'Sin aviso' ? '¡Anotado! Un consejo: la próxima vez poné un aviso, así el celular te lo recuerda solo.' : '¡Anotado! El jueves 22 quedó marcado, y el celular te va a avisar ' + sel.a.toLowerCase() + '. ¡Ya no se te pasa!'); api.done();
+  };
+  $('ph').addEventListener('click', e => {
+    if (paso === 0 && e.target.closest('#cadd')){ if (ios) abrirForm(); else { paso = 1; $('cadd').classList.remove('pulse'); const m = el('div', 'calmenu', '<button type="button" id="cev" class="pulse">📅 Evento</button><button type="button" id="cta">✅ Tarea</button>'); $('ph').appendChild(m); api.say('Paso 2: elegí <b>Evento</b>.'); $('cta').addEventListener('click', () => toast('Las tareas son para cosas por hacer. Un turno es un evento: tocá "Evento".')); $('cev').addEventListener('click', abrirForm); } }
+  });
+};
+
+SIMS.orNota = function(api){
+  const ios = OS() === 'iphone'; let paso = 0; const notas = [['Receta del flan','2 tazas de leche, 4 huevos…'],['Teléfono del plomero','099 XXX XXX']];
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:460px;background:var(--ph-bar)"></div>';
+  const lista = (f) => {
+    const vis = notas.filter(n => !f || sinTilde(n[0] + ' ' + n[1]).includes(sinTilde(f)));
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Notas</b></div><div class="gbar" id="nbar" style="margin:10px 12px"><span aria-hidden="true">🔎</span><input id="nq" placeholder="Buscar" autocomplete="off"' + (paso < 2 ? ' readonly' : '') + '></div><div id="nl" style="flex:1">' + vis.map(n => '<div class="nota"><b>' + esc(n[0]) + '</b><small>' + esc(n[1]) + '</small></div>').join('') + '</div><button type="button" class="calfab' + (paso === 0 ? ' pulse' : '') + '" id="nadd" aria-label="Nota nueva" style="' + (ios ? 'background:#F4B400' : '') + '">' + (ios ? '✏️' : '＋') + '</button>';
+    $('nadd').addEventListener('click', () => { if (paso === 0) editor(); else toast('Ya escribiste tu nota. Ahora probá buscarla con la lupa.'); });
+  };
+  const editor = () => {
+    paso = 1; $('toast').hidden = true;
+    $('ph').innerHTML = '<div class="bar"><span style="flex:1"></span><button type="button" class="calsave" id="nok">' + (ios ? 'OK' : 'Listo') + '</button></div><div class="pform"><textarea id="nt" rows="6" placeholder="Escribí tu nota…" style="font:inherit;font-size:18px;padding:12px;border-radius:10px;border:2px solid var(--ph-line);background:var(--ph-bg);color:var(--ph-text)"></textarea><div class="helpers" style="padding:0"><button type="button" id="h1">Escribir por mí</button></div></div>';
+    api.say('Paso 2: escribí tu lista, por ejemplo <b>Comprar: pan, leche, yerba y tomates</b>. Después tocá <b>' + (ios ? 'OK' : 'Listo') + '</b>.');
+    const t = $('nt'); t.focus();
+    $('h1').addEventListener('click', () => { t.value = 'Comprar: pan, leche, yerba y tomates'; t.dispatchEvent(new Event('input')); });
+    t.addEventListener('input', () => $('nok').classList.toggle('pulse', t.value.trim().length > 0));
+    $('nok').addEventListener('click', () => {
+      const v = t.value.trim(); if (!v){ toast('Primero escribí algo en la nota.'); return; }
+      paso = 2; const [a, ...r] = v.split(':'); notas.unshift([a.trim(), r.join(':').trim() || v]); lista();
+      $('nbar').classList.add('pulse'); api.say('¡Tu nota quedó guardada, sola! Paso 3: buscala. Tocá la <b>lupa</b> y escribí <b>yerba</b>.');
+      const q = $('nq'); q.addEventListener('input', () => {
+        const f = q.value.trim(); const vis = notas.filter(n => !f || sinTilde(n[0] + ' ' + n[1]).includes(sinTilde(f)));
+        $('nl').innerHTML = vis.map(n => '<div class="nota"><b>' + esc(n[0]) + '</b><small>' + esc(n[1]) + '</small></div>').join('') || '<p style="margin:12px;color:var(--ph-sub)">No hay notas con esa palabra.</p>';
+        if (f.length >= 3 && vis.length === 1 && vis[0] === notas[0] && paso === 2){ paso = 3; $('nbar').classList.remove('pulse'); api.say('¡La encontraste! Con la lupa encontrás cualquier nota escribiendo una palabra que tenga.'); api.done(); }
+      });
+      $('ph').appendChild(el('div', 'helpers', '<button type="button" id="h2">Escribir por mí</button>')); $('h2').addEventListener('click', () => { q.value = 'yerba'; q.dispatchEvent(new Event('input')); });
+    });
+  };
+  lista(); api.say('Estas son tus notas. Paso 1: tocá ' + (ios ? 'el <b>lápiz</b>, abajo a la derecha,' : 'el <b>"+"</b>') + ' para una nota nueva.');
+};
+
+SIMS.orDoc = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone galph" id="ph"><div class="bar" style="background:#000;border:none;color:#fff"><b style="flex:1">Foto</b></div><div class="gview"><span style="font-size:130px;line-height:1">🧾</span><small>Garantía de la heladera</small></div><div class="gacts"><button type="button" id="dsh">↗️<span>Compartir</span></button><button type="button" id="dfa">⭐<span>Favorita</span></button><button type="button" id="dmas" class="pulse">⋮<span>Más</span></button></div></div>';
+  api.say('Le sacaste una foto a la garantía de la heladera. Paso 1: tocá <b>Más</b>, abajo a la derecha.');
+  $('dsh').addEventListener('click', () => toast('Compartir sirve para mandarla. Hoy la vamos a guardar en un álbum: tocá "Más".'));
+  $('dfa').addEventListener('click', () => toast('Favorita la marca con una estrella. Hoy la guardamos en un álbum: tocá "Más".'));
+  $('dmas').addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1; $('dmas').classList.remove('pulse');
+    const sh = el('div', 'sheet ov', '<div>' + filasMenu(['📂 Agregar a álbum','🖼️ Usar como fondo','🖨️ Imprimir','🗑️ Borrar'], '📂 Agregar a álbum') + '</div>'); $('ph').appendChild(sh);
+    api.say('Paso 2: tocá <b>Agregar a álbum</b>.');
+    sh.addEventListener('click', e => { const b = e.target.closest('[data-row]'); if (!b) return;
+      if (paso === 1){ if (b.dataset.row !== '📂 Agregar a álbum'){ toast('Buscá "Agregar a álbum".'); return; } paso = 2; sh.querySelector('div').innerHTML = '<b style="font-size:18px">Elegí un álbum</b>' + filasMenu(['➕ Álbum nuevo','🏖️ Viajes','📂 Papeles importantes'], '📂 Papeles importantes'); api.say('Paso 3: elegí el álbum <b>Papeles importantes</b>.'); return; }
+      if (paso === 2){ if (b.dataset.row !== '📂 Papeles importantes'){ toast('Para que esté con tus otros papeles, elegí "Papeles importantes".'); return; } paso = 3; sh.remove(); $('toast').hidden = true;
+        $('ph').innerHTML = '<div class="bar" style="background:#000;border:none;color:#fff"><b style="flex:1">📂 Papeles importantes</b></div><div class="iggrid" style="padding:8px">' + ['🧾','📄','💊'].map((x, i) => '<span style="background:#222;' + (i === 0 ? 'outline:3px solid var(--coral)' : '') + '">' + x + '</span>').join('') + '</div><p style="color:#ccc;margin:12px">Garantía · Comprobante de la luz · Receta médica</p>';
+        api.say('¡Listo! La garantía está junto a tus otros papeles. Cuando la necesites, abrís el álbum y ahí está.'); api.done(); }
+    });
+  });
+};
+
+/* ---- Ciudad ---- */
+const mapaHtml = extra => '<div class="mapa" id="mapa"><span class="mcalle h" style="top:30%"></span><span class="mcalle h" style="top:68%"></span><span class="mcalle v" style="left:28%"></span><span class="mcalle v" style="left:70%"></span><span class="mverde" style="left:6%;top:40%"></span><span class="magua"></span>' + (extra || '') + '</div>';
+SIMS.mpBuscar = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px"><div class="gbar" id="mbar" style="margin:10px;position:relative;z-index:2"><span aria-hidden="true">🔎</span><input id="mq" placeholder="Buscá aquí" autocomplete="off" readonly></div><div id="mres"></div>' + mapaHtml('<div class="mban" id="mban"><span>📍 Para ver dónde estás, activá la ubicación.</span><button type="button" class="btn small pulse" id="mon">Activar</button></div>') + '<div id="mcard"></div></div>';
+  api.say('El celular todavía no sabe dónde estás. Paso 1: tocá <b>Activar</b> para prender la ubicación.');
+  $('mon').addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1; $('toast').hidden = true; $('mban').remove(); $('mapa').appendChild(el('span', 'mdot', '')); $('mapa').lastChild.style.cssText = 'left:46%;top:55%';
+    $('mbar').classList.add('pulse'); api.say('¡Ahí estás! El <b>puntito azul</b> sos vos. Paso 2: tocá la <b>barra de arriba</b> para buscar un lugar.');
+  });
+  $('mbar').addEventListener('click', () => {
+    if (paso === 0){ toast('Primero activá la ubicación, así el mapa sabe dónde estás.'); return; }
+    if (paso !== 1) return; paso = 2; $('mbar').classList.remove('pulse'); const q = $('mq'); q.readOnly = false; q.focus();
+    $('mres').innerHTML = '<div class="helpers" style="padding:0 10px 8px"><button type="button" id="h1">Escribir por mí</button></div>';
+    api.say('Paso 3: escribí <b>Teatro Solís</b>.');
+    $('h1').addEventListener('click', () => { q.value = 'Teatro Solís'; q.dispatchEvent(new Event('input')); });
+    q.addEventListener('input', () => {
+      if (paso !== 2) return; const ok = sinTilde(q.value).includes('solis');
+      $('mres').innerHTML = (ok ? '<button type="button" class="crow bar pulse" id="mr1" style="margin:0 10px 8px;width:calc(100% - 20px);border-radius:12px"><div class="who"><span class="pic" style="background:#EA4335">📍</span><div style="min-width:0"><b>Teatro Solís</b><small>Buenos Aires s/n, Ciudad Vieja</small></div></div></button>' : '') + '<div class="helpers" style="padding:0 10px 8px"><button type="button" id="h1">Escribir por mí</button></div>';
+      $('h1').addEventListener('click', () => { q.value = 'Teatro Solís'; q.dispatchEvent(new Event('input')); });
+      if (ok){ api.say('Paso 4: tocá <b>Teatro Solís</b> en la lista.'); $('mr1').addEventListener('click', lugar); }
+    });
+  });
+  function lugar(){
+    paso = 3; $('mres').innerHTML = ''; $('mq').blur(); $('mq').readOnly = true;
+    $('mapa').appendChild(el('span', 'mpin', '📍')); $('mapa').lastChild.style.cssText = 'left:66%;top:22%';
+    $('mcard').innerHTML = '<div class="mplace"><b style="font-size:19px">Teatro Solís</b><small>★ 4,7 · Teatro · Abierto</small><div class="row" style="gap:8px"><span class="mbtn">🧭 Cómo llegar</span><span class="mbtn2">📞 Llamar</span></div></div>';
+    api.say('¡Lo encontraste! El pin rojo marca el teatro, y abajo ves su información y las reseñas. Cómo llegar lo vemos en la próxima lección.'); api.done();
+  }
+};
+
+SIMS.mpLlegar = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px">' + mapaHtml('<span class="mdot" style="left:20%;top:72%"></span><span class="mpin" style="left:72%;top:20%">📍</span><svg class="mruta" id="mruta" viewBox="0 0 100 100" preserveAspectRatio="none" hidden><polyline points="22,74 28,74 28,30 70,30 72,24" fill="none" stroke="#1A73E8" stroke-width="2.6" stroke-linejoin="round" stroke-dasharray="1.6 1.6"/></svg>') + '<div id="mcard"><div class="mplace"><b style="font-size:19px">Mercado Agrícola de Montevideo</b><small>★ 4,6 · Mercado · Abierto</small><div class="row" style="gap:8px"><button type="button" class="mbtn pulse" id="mcl">🧭 Cómo llegar</button><span class="mbtn2">📞 Llamar</span></div></div></div></div>';
+  api.say('Querés ir al Mercado Agrícola. Paso 1: tocá <b>Cómo llegar</b>.');
+  $('mcl').addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1;
+    $('mcard').innerHTML = '<div class="mplace"><b>Desde: tu ubicación</b><small>Hasta: Mercado Agrícola de Montevideo</small><div class="mmodos"><button type="button" data-m="auto">🚗<span>8 min</span></button><button type="button" data-m="pie" class="pulse">🚶<span>22 min</span></button></div><p id="mhint" hidden style="margin:0;font-weight:700"></p></div>';
+    api.say('Paso 2: hoy vamos caminando. Tocá el <b>muñequito que camina</b>.');
+    $('mcard').querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => {
+      if (paso !== 1) return;
+      if (b.dataset.m === 'auto'){ $('mhint').hidden = false; $('mhint').textContent = '💡 Ese es en auto. Hoy elegimos caminando: el muñequito.'; return; }
+      paso = 2; $('mruta').hidden = false; b.classList.remove('pulse'); b.setAttribute('aria-pressed', 'true');
+      $('mcard').innerHTML = '<div class="mplace"><b style="font-size:20px">🚶 22 min <small style="display:inline">(1,7 km)</small></b><small>Por calles con veredas</small><button type="button" class="mbtn pulse" id="mgo" style="width:100%">▶ Iniciar</button></div>';
+      api.say('¡Ahí está el camino, en azul, y cuánto vas a tardar! Paso 3: tocá <b>Iniciar</b> para que te vaya guiando.');
+      $('mgo').addEventListener('click', () => { if (paso !== 2) return; paso = 3; $('mcard').innerHTML = '<div class="mnav">⬆️ <div><b>Seguí derecho 300 m</b><small>Después doblá a la derecha</small></div></div>'; api.say('¡Lo lograste! Ahora Maps te va diciendo por dónde ir, paso a paso, hasta que llegues.'); api.done(); });
+    }));
+  });
+};
+
+SIMS.trTaxi = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px">' + chatHead('TAXI', '091 141 141', '#F4B400') + '<div class="msgs" id="msgs"></div><div class="helpers" id="help"><button type="button" id="h1">Escribir por mí</button></div><div class="inrow"><label class="field pulse" id="tfld" for="tq"><input id="tq" placeholder="Mensaje" autocomplete="off"><button type="button" class="clip" id="tclip" aria-label="Adjuntar">' + I.clip + '</button></label><button class="round" type="button" id="tsend" aria-label="Enviar">' + I.send + '</button></div></div>';
+  api.say('Ya tenés guardado el TAXI. Paso 1: escribí <b>Hola</b> y mandalo con la flecha.');
+  const q = $('tq');
+  $('h1').addEventListener('click', () => { q.value = 'Hola'; q.dispatchEvent(new Event('input')); });
+  q.addEventListener('input', () => { const has = q.value.trim().length > 0; $('tsend').classList.toggle('pulse', has && paso === 0); $('tfld').classList.toggle('pulse', !has && paso === 0); });
+  q.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); $('tsend').click(); } });
+  $('tsend').addEventListener('click', () => {
+    if (paso !== 0) return; const t = q.value.trim(); if (!t){ toast('Primero escribí "Hola". Si te cuesta, tocá "Escribir por mí".'); return; }
+    paso = 1; q.value = ''; $('tsend').classList.remove('pulse'); $('tfld').classList.remove('pulse'); $('help').hidden = true;
+    addMsg($('msgs'), esc(t), true, '18:02 <span class="tk">' + tick2(true) + '</span>');
+    later(() => { addMsg($('msgs'), '¡Hola! Para enviarte un taxi, mandanos tu ubicación o escribí la dirección.', false, '18:02'); $('tclip').classList.add('pulse'); api.say('¡Te respondieron! Paso 2: tocá el <b>clip</b> para mandar tu ubicación.'); }, 1300);
+  });
+  $('tclip').addEventListener('click', () => {
+    if (paso === 0){ toast('Primero mandá "Hola".'); return; } if (paso !== 1) return; paso = 2; $('tclip').classList.remove('pulse');
+    const s = el('div', 'sheet', [[OS() === 'iphone' ? 'Fotos' : 'Galería','🖼️','#7E57C2'],['Cámara','📷','#E5484D'],['Ubicación','📍','#1DAA61'],['Documento','📄','#3F7FD8']].map(o => '<button type="button" data-o="' + o[0] + '"' + (o[0] === 'Ubicación' ? ' class="pulse"' : '') + '><span class="si" style="background:' + o[2] + '">' + o[1] + '</span>' + o[0] + '</button>').join(''));
+    $('ph').appendChild(s); api.say('Paso 3: tocá <b>Ubicación</b>.');
+    s.querySelectorAll('[data-o]').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.o !== 'Ubicación'){ toast('Para el taxi, mandamos la ubicación. Tocá "Ubicación".'); return; }
+      s.remove(); paso = 3;
+      const u = el('div', 'locsheet', mapaHtml('<span class="mdot" style="left:46%;top:50%"></span>') + '<button type="button" class="pgreen pulse" id="tloc">📍 Enviar tu ubicación actual</button>'); $('ph').appendChild(u);
+      api.say('Paso 4: tocá <b>Enviar tu ubicación actual</b>.');
+      $('tloc').addEventListener('click', () => {
+        u.remove(); paso = 4; $('toast').hidden = true;
+        addMsg($('msgs'), '<div class="locmsg">' + mapaHtml('<span class="mdot" style="left:46%;top:50%"></span>') + '</div>📍 Ubicación', true, '18:03 <span class="tk">' + tick2(true) + '</span>');
+        later(() => { addMsg($('msgs'), '✅ Taxi asignado.\n🚕 Móvil 1234\n⏱️ Llega en 6 minutos.'.replace(/\n/g, '<br>'), false, '18:03'); api.say('¡Taxi en camino! Cuando llegue, fijate que sea el <b>móvil 1234</b> antes de subir.'); api.done(); }, 1600);
+      });
+    }));
+  });
+};
+
+SIMS.trUber = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px;background:#fff;color:#111"></div>';
+  const P = h => { $('toast').hidden = true; $('ph').innerHTML = h; };
+  P(mapaHtml('<span class="mdot" style="left:40%;top:50%"></span>') + '<div class="ubpanel"><button type="button" class="ubwhere pulse" id="uw">📍 ¿A dónde vas?</button></div>');
+  api.say('Paso 1: tocá <b>¿A dónde vas?</b>');
+  $('ph').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (paso === 0 && b.id === 'uw'){
+      paso = 1; P('<div class="ubpanel" style="flex:1"><b style="font-size:20px">¿A dónde vas?</b>' + campo('uq', 'Calle, esquina o lugar') + '<div class="helpers" style="padding:0;justify-content:flex-start"><button type="button" id="h1">Escribir por mí</button></div><div id="ures"></div></div>');
+      api.say('Paso 2: escribí <b>Tres Cruces</b>.'); const q = $('uq'); q.focus(); $('uqf').classList.add('pulse');
+      const busca = () => { $('uqf').classList.toggle('pulse', !q.value.trim()); $('ures').innerHTML = sinTilde(q.value).includes('cruces') ? '<button type="button" class="crow bar pulse" id="ur1" style="border-radius:12px;margin-top:8px"><div class="who"><span class="pic" style="background:#111">📍</span><div style="min-width:0"><b>Terminal Tres Cruces</b><small>Bv. Artigas 1825</small></div></div></button>' : ''; if ($('ur1')) api.say('Paso 3: tocá <b>Terminal Tres Cruces</b>.'); };
+      q.addEventListener('input', busca); $('h1').addEventListener('click', () => { q.value = 'Tres Cruces'; busca(); });
+      return;
+    }
+    if (paso === 1 && b.id === 'ur1'){
+      paso = 2; P(mapaHtml('<span class="mdot" style="left:30%;top:70%"></span><span class="mpin" style="left:70%;top:18%">📍</span>') + '<div class="ubpanel"><div class="ubopt on"><span>🚗</span><div><b>UberX</b><small>Llega en 4 min · 1 a 4 personas</small></div><b>$ 290</b></div><div class="ubopt"><span>🚙</span><div><b>Comfort</b><small>Llega en 7 min · Más espacio</small></div><b>$ 360</b></div><small style="color:#555">💵 Forma de pago: Efectivo</small><button type="button" class="ubgo pulse" id="ug">Elegir UberX</button></div>');
+      api.say('Antes de confirmar, mirá el <b>precio</b>, cuánto tarda y la forma de pago. Paso 4: si estás de acuerdo, tocá <b>Elegir UberX</b>.'); return;
+    }
+    if (paso === 2 && b.id === 'ug'){
+      paso = 3; P('<div class="ubpanel" style="flex:1;justify-content:center;align-items:center;text-align:center"><span style="font-size:56px">🔎</span><b style="font-size:20px">Buscando chofer…</b></div>'); api.say('La app está buscando un chofer. Esperá un momentito…');
+      later(() => { paso = 4; P(mapaHtml('<span class="mdot" style="left:30%;top:70%"></span><span class="mpin" style="left:40%;top:40%">🚗</span>') + '<div class="ubpanel"><b>Tu chofer llega en 3 min</b><div class="ubdrv"><span class="pic" style="background:#555;width:56px;height:56px">J</span><div><b>Jorge · ★ 4,9</b><small>Chevrolet Onix gris</small></div><span class="ubmat">SBX 1234</span></div><button type="button" class="ubgo pulse" id="ul">Ya llegó: ver los autos</button></div>');
+        api.say('Mirá bien: <b>Jorge</b>, un <b>Onix gris</b>, matrícula <b>SBX 1234</b>. Paso 5: cuando el auto esté llegando, tocá el botón.'); }, 2200);
+      return;
+    }
+    if (paso === 4 && b.id === 'ul'){
+      paso = 5; P('<div class="ubpanel" style="flex:1"><b style="font-size:19px">Paran dos autos grises. ¿Cuál es el tuyo?</b><button type="button" class="ubcar" data-c="no"><span>🚗</span><div><b>Auto gris</b><span class="ubmat">SAB 5678</span></div></button><button type="button" class="ubcar" data-c="si"><span>🚗</span><div><b>Auto gris</b><span class="ubmat">SBX 1234</span></div></button><p id="uhint" hidden style="margin:0;font-weight:700"></p></div>');
+      api.say('Paso 6: fijate la <b>matrícula</b> y tocá el auto correcto.'); return;
+    }
+    if (paso === 5 && b.dataset.c){
+      if (b.dataset.c === 'no'){ $('uhint').hidden = false; $('uhint').textContent = '💡 Ese no: la matrícula de tu viaje es SBX 1234. Nunca subas a otro auto.'; b.classList.add('wrong'); return; }
+      paso = 6; P(mapaHtml('<span class="mpin" style="left:45%;top:45%">🚗</span>') + '<div class="ubpanel"><b>En viaje a Terminal Tres Cruces</b><small style="color:#555">Llegás en 12 min</small><button type="button" class="ubgo pulse" id="ush">📤 Compartir viaje</button></div>');
+      api.say('¡Subiste al auto correcto! Paso 7: para viajar con más tranquilidad, tocá <b>Compartir viaje</b>.'); return;
+    }
+    if (paso === 6 && b.id === 'ush'){
+      paso = 7; $('ush').remove(); $('ph').querySelector('.ubpanel').appendChild(el('div', 'sysmsg', '📤 Laura puede ver tu viaje en su celular'));
+      api.say('¡Lo lograste! Pediste el viaje, revisaste la matrícula y compartiste el recorrido con tu familia.'); api.done();
+    }
+  });
+};
+
+SIMS.trBus = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px"></div>';
+  const P = h => { $('toast').hidden = true; $('ph').innerHTML = h; };
+  P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">STM</b><button type="button" class="ibtn pulse" id="blupa" aria-label="Buscar" style="background:#1E88E5;color:#fff">' + I.search + '</button></div>' + mapaHtml('<span class="mdot" style="left:46%;top:56%"></span><span class="mstop" style="left:36%;top:30%">🚏</span><span class="mstop" style="left:66%;top:66%">🚏</span>'));
+  api.say('Estas son las paradas cerca tuyo. Querés ir a 18 de Julio y Ejido. Paso 1: tocá la <b>lupa azul</b>.');
+  const etapa = (lbl, ph, val, opc, sig) => {
+    P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">' + lbl + '</b></div><div class="pform">' + campo('bq', ph) + '<div class="helpers" style="padding:0;justify-content:flex-start"><button type="button" id="h1">Escribir por mí</button></div><div id="bres"></div></div>');
+    const q = $('bq'); q.focus(); $('bqf').classList.add('pulse');
+    const f = () => { $('bqf').classList.toggle('pulse', !q.value.trim()); const ok = q.value.trim().length >= 3 && sinTilde(opc).includes(sinTilde(q.value.trim()).slice(0, 4)); $('bres').innerHTML = ok ? '<button type="button" class="prow pulse" id="bop" style="border:2px solid var(--coral);border-radius:12px">📍 ' + esc(opc) + '</button>' : ''; if (ok) $('bop').addEventListener('click', sig); };
+    q.addEventListener('input', f); $('h1').addEventListener('click', () => { q.value = val; f(); });
+  };
+  $('ph').addEventListener('click', e => {
+    if (paso === 0 && e.target.closest('#blupa')){
+      paso = 1; api.say('Paso 2: escribí la calle, <b>18 de Julio</b>, y elegila de la lista.');
+      etapa('Calle', 'Escribí la calle', '18 de Julio', 'Av. 18 de Julio', () => {
+        paso = 2; api.say('Paso 3: ahora la esquina. Escribí <b>Ejido</b> y elegila.');
+        etapa('Esquina', 'Escribí la esquina', 'Ejido', 'Ejido', () => {
+          paso = 3; P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">Av. 18 de Julio y Ejido</b></div>' + mapaHtml('<span class="mpin" style="left:60%;top:30%">📍</span>') + '<div class="mplace"><b>Av. 18 de Julio y Ejido</b><div class="row" style="gap:8px"><span class="mbtn2">Origen</span><button type="button" class="mbtn pulse" id="bdest">🎯 Destino</button></div></div>');
+          api.say('Paso 4: como es a donde querés ir, tocá <b>Destino</b>.');
+          $('bdest').addEventListener('click', () => {
+            paso = 4; P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">Para llegar a 18 de Julio y Ejido</b></div><div style="display:flex;flex-direction:column;gap:8px;padding:12px;background:var(--ph-bar);flex:1"><button type="button" class="bline pulse" id="bl1"><b class="bnum">121</b><div><b>Parada a 2 cuadras</b><small>Llega en 4 min · Viaje de 18 min</small></div></button><button type="button" class="bline"><b class="bnum">180</b><div><b>Parada a 3 cuadras</b><small>Llega en 11 min · Viaje de 20 min</small></div></button><small style="color:var(--ph-sub)">Ejemplo para practicar: las líneas reales pueden ser otras.</small></div>');
+            api.say('La app te dice qué líneas te sirven, en qué parada y cuánto falta. Paso 5: tocá la que llega antes, la <b>121</b>.');
+            $('bl1').addEventListener('click', () => { paso = 5; P(mapaHtml('<span class="mdot" style="left:30%;top:66%"></span><span class="mpin" style="left:66%;top:24%">📍</span><svg class="mruta" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="30,68 30,30 66,30 66,26" fill="none" stroke="#00519E" stroke-width="2.6"/></svg>') + '<div class="mplace"><b>🚌 Línea 121</b><small>Bajate en Av. 18 de Julio y Ejido. Mirá el puntito azul para saber cuándo.</small></div>'); api.say('¡Lo lograste! Sabés qué ómnibus tomar, dónde, y con el puntito azul vas a saber cuándo bajarte.'); api.done(); });
+          });
+        });
+      });
+    }
+  });
+};
+
+/* ---- Gmail ---- */
+const gmCorreos = () => [['Club de jardinería','Taller del sábado','¡Hola! El sábado a las 10 hacemos el taller de plantines…',true],['Laura','Fotos del cumple','Te paso las fotos que sacamos el domingo.',false],['Farmacia del barrio','Tu pedido está listo','Podés pasar a retirarlo de 9 a 20.',false]];
+const gmLista = (pulseK) => '<div class="bar"><button type="button" class="ibtn" id="gmenu" aria-label="Menú" style="font-size:24px">☰</button><div class="gbar" style="flex:1;margin:0;min-height:44px"><span aria-hidden="true">🔎</span><span style="color:var(--ph-sub)">Buscar en el correo</span></div></div><small style="padding:8px 14px 0;color:var(--ph-sub);font-weight:700">Recibidos</small>' + gmCorreos().map((c, k) => '<button type="button" class="gmrow' + (c[3] ? ' unread' : '') + (k === pulseK ? ' pulse' : '') + '" data-k="' + k + '"><span class="pic" style="background:' + ['#43A047','#7E57C2','#3F7FD8'][k] + '">' + c[0][0] + '</span><div><b>' + esc(c[0]) + '</b><span>' + esc(c[1]) + '</span><small>' + esc(c[2]) + '</small></div></button>').join('');
+SIMS.gmLeer = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)">' + gmLista(0) + '</div>';
+  api.say('Esta es tu bandeja de entrada. El de arriba está en negrita: no lo leíste. Paso 1: tocalo para abrirlo.');
+  $('ph').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (paso === 0){ if (b.dataset.k === '0'){ paso = 1; $('toast').hidden = true; $('ph').innerHTML = '<div class="bar"><button type="button" class="ibtn pulse" id="gback" aria-label="Volver">' + I4.back + '</button><span style="flex:1"></span></div><div style="padding:14px;display:flex;flex-direction:column;gap:10px;flex:1"><b style="font-size:21px">Taller del sábado</b><div class="who"><span class="pic" style="background:#43A047">C</span><div><b>Club de jardinería</b><small>para mí</small></div></div><p style="margin:0;font-size:17px">¡Hola! El sábado a las 10 hacemos el taller de plantines. Traé una maceta chica. ¡Te esperamos!</p></div><div class="gmacts"><span>↩️ Responder</span><span>↩️👥 Responder a todos</span><span>↪️ Reenviar</span></div>'; api.say('¡Ya lo leíste! Abajo están "Responder" y "Reenviar". Paso 2: tocá la <b>flechita de arriba</b> para volver.'); } else toast('Ese ya lo leíste. Abrí el que está en negrita, arriba.'); return; }
+    if (paso === 1 && b.id === 'gback'){ paso = 2; $('ph').innerHTML = gmLista(-1).replace('class="gmrow unread', 'class="gmrow'); $('gmenu').classList.add('pulse'); api.say('¿Viste? Ya no está en negrita. Paso 3: tocá las <b>tres rayitas</b> de arriba a la izquierda.'); return; }
+    if (paso === 2){ if (b.id === 'gmenu'){ paso = 3; const d = el('div', 'gmdrawer', '<b style="padding:14px;font-size:19px">Gmail</b>' + filasMenu(['📥 Recibidos','📤 Enviados','📝 Borradores','🗑️ Papelera'], '📤 Enviados')); $('ph').appendChild(d); api.say('Paso 4: tocá <b>Enviados</b>.'); } else toast('Tocá las tres rayitas, arriba a la izquierda.'); return; }
+    if (paso === 3 && b.dataset.row){ if (b.dataset.row !== '📤 Enviados'){ toast('Buscá "Enviados".'); return; } paso = 4; $('toast').hidden = true; $('ph').innerHTML = '<div class="bar"><b style="flex:1">Enviados</b></div><button type="button" class="gmrow"><span class="pic" style="background:#E07A3F">Yo</span><div><b>Para: Laura</b><span>Receta del flan</span><small>Te paso la receta que me pediste…</small></div></button>'; api.say('¡Lo lograste! En "Enviados" están los correos que mandaste. Si uno está ahí, salió.'); api.done(); }
+  });
+};
+
+SIMS.gmEscribir = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)">' + gmLista(-1) + '<button type="button" class="gmfab pulse" id="gred">✏️ Redactar</button></div>';
+  api.say('Vamos a escribirle a Laura. Paso 1: tocá <b>Redactar</b>, abajo a la derecha.');
+  $('ph').querySelectorAll('.gmrow, #gmenu').forEach(b => b.addEventListener('click', () => toast('Hoy escribimos un correo nuevo: tocá "Redactar", abajo.')));
+  $('gred').addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1;
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1">Redactar</b><button type="button" class="ibtn" id="gsend" aria-label="Enviar">' + I.send.replace('#fff', 'currentColor') + '</button></div><div class="gmform"><label><span>Para</span><input id="gpara" autocomplete="off" inputmode="email"></label><label><span>Asunto</span><input id="gas" autocomplete="off"></label><textarea id="gmsg" rows="5" placeholder="Redactar correo"></textarea><div class="helpers" style="padding:0;justify-content:flex-start"><button type="button" id="h1">Escribir por mí</button></div><p id="ghint" hidden style="margin:0;font-weight:700"></p></div>';
+    const F = [['gpara','laura.gomez@gmail.com','En <b>Para</b>, escribí la dirección de Laura: <b>laura.gomez@gmail.com</b>.'],['gas','Fotos del cumple','En <b>Asunto</b>, escribí de qué se trata: <b>Fotos del cumple</b>.'],['gmsg','Hola Laura:\n¡Qué lindas las fotos del domingo! ¿Me mandás la del brindis?\nSaludos,\n' + (NOMBRE() || 'Ana') + '.','Ahora escribí el mensaje: saludá, contá qué necesitás y firmá.']];
+    let k = 0; const marca = () => F.forEach((x, i) => $(x[0]).classList.toggle('pulseb', i === k));
+    const sig = () => { while (k < F.length && $(F[k][0]).value.trim()) k++; if (k < F.length){ api.say('Paso ' + (k + 2) + ': ' + F[k][2]); marca(); } else { F.forEach(x => $(x[0]).classList.remove('pulseb')); $('gsend').classList.add('pulse'); api.say('¡Listo para mandar! Revisá la dirección y tocá el <b>ícono de enviar</b>, arriba.'); } };
+    F.forEach(x => $(x[0]).addEventListener('input', () => { $('gsend').classList.remove('pulse'); $('ghint').hidden = true; const i = F.indexOf(x); if (i === k && $(x[0]).value.trim().length > 3) sig(); }));
+    F.forEach(x => $(x[0]).addEventListener('blur', () => { if (F.indexOf(x) === k && $(x[0]).value.trim()) sig(); }));
+    $('h1').addEventListener('click', () => { if (k < F.length){ $(F[k][0]).value = F[k][1]; sig(); } });
+    sig();
+    $('gsend').addEventListener('click', () => {
+      const h = $('ghint'), para = $('gpara').value.trim();
+      if (!para.includes('@') || !para.includes('.')){ h.hidden = false; h.textContent = '💡 Revisá la dirección: tiene que tener @ y un punto, como laura.gomez@gmail.com.'; return; }
+      if (!$('gas').value.trim()){ h.hidden = false; h.textContent = '💡 Falta el asunto: una frase corta que diga de qué se trata.'; return; }
+      if (!$('gmsg').value.trim()){ h.hidden = false; h.textContent = '💡 Falta el mensaje.'; return; }
+      paso = 2; $('ph').innerHTML = gmLista(-1) + '<div class="sysmsg" style="position:absolute;left:12px;right:12px;bottom:16px;text-align:center">✓ Enviado</div>';
+      api.say('¡Lo mandaste! Abajo dice "Enviado". Y si después lo querés ver, está en "Enviados".'); api.done();
+    });
+  });
+};
+
+SIMS.gmAdjuntar = function(api){
+  const ios = OS() === 'iphone'; let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"><div class="bar"><b style="flex:1">Re: Comprobante</b><button type="button" class="ibtn pulse" id="gclip" aria-label="Adjuntar">' + I.clip + '</button><button type="button" class="ibtn" id="gsend" aria-label="Enviar">' + I.send.replace('#fff', 'currentColor') + '</button></div><div class="gmform"><label><span>Para</span><input value="administracion@edificio-ejemplo.com" readonly></label><label><span>Asunto</span><input value="Re: Comprobante" readonly></label><div style="font-size:17px;padding:4px 2px">Hola, adjunto el comprobante solicitado.<br>Saludos,<br>' + esc(NOMBRE() || 'Ana') + '.</div><div id="gadj"></div><p id="ghint" hidden style="margin:0;font-weight:700"></p></div></div>';
+  api.say('La administración te pidió el comprobante de pago. El mensaje ya está escrito. Paso 1: tocá el <b>clip</b>, arriba.');
+  $('gsend').addEventListener('click', () => {
+    if (paso < 3){ $('ghint').hidden = false; $('ghint').textContent = '💡 Todavía falta el comprobante: primero adjuntalo con el clip.'; return; }
+    if (paso !== 3) return; paso = 4; $('ph').innerHTML = '<div class="bar"><b style="flex:1">Enviados</b></div><button type="button" class="gmrow"><span class="pic" style="background:#E07A3F">Yo</span><div><b>Para: administracion@edificio-ejemplo.com</b><span>Re: Comprobante 📎</span><small>Hola, adjunto el comprobante solicitado.</small></div></button>';
+    api.say('¡Lo lograste! El correo está en "Enviados", con el clip que indica que lleva el adjunto.'); api.done();
+  });
+  $('gclip').addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1; $('gclip').classList.remove('pulse');
+    const ops = ios ? ['Fotos','Archivos'] : ['Fotos','Archivos','Cámara','Drive'];
+    const s = el('div', 'sheet ov', '<div><b style="font-size:18px">Adjuntar</b>' + filasMenu(ops.map(o => ({Fotos:'🖼️ Fotos', Archivos:'📁 Archivos', 'Cámara':'📷 Cámara', Drive:'☁️ Drive'})[o]), '🖼️ Fotos') + '</div>'); $('ph').appendChild(s);
+    api.say('Paso 2: el comprobante es una foto. Tocá <b>Fotos</b>.');
+    s.addEventListener('click', e => { const b = e.target.closest('[data-row]'); if (!b) return;
+      if (paso === 1){ if (b.dataset.row !== '🖼️ Fotos'){ toast('"Archivos" es para documentos. El comprobante es una foto: tocá "Fotos".'); return; } paso = 2; s.querySelector('div').innerHTML = '<b style="font-size:18px">Elegí la foto</b><div class="iggrid">' + [['🧾','Comprobante'],['🐶','Fito'],['🌻','Flor']].map(f => '<button type="button" data-f="' + f[1] + '" aria-label="' + f[1] + '"' + (f[1] === 'Comprobante' ? ' class="pulse"' : '') + ' style="aspect-ratio:1;font-size:40px;border:none;background:var(--ph-bg);border-radius:8px">' + f[0] + '</button>').join('') + '</div>'; api.say('Paso 3: tocá la foto del <b>comprobante</b>.'); return; }
+    });
+    s.addEventListener('click', e => { const f = e.target.closest('[data-f]'); if (!f || paso !== 2) return;
+      if (f.dataset.f !== 'Comprobante'){ toast('Esa es otra foto. Buscá la del comprobante.'); return; }
+      paso = 3; s.remove(); $('toast').hidden = true; $('ghint').hidden = true;
+      $('gadj').innerHTML = '<div class="gmatt">🧾 <div><b>comprobante.jpg</b><small>Adjunto · 1,2 MB</small></div></div>';
+      $('gsend').classList.add('pulse'); api.say('¡Ahí está el adjunto! Revisá: dirección, asunto y archivo. Paso 4: tocá el <b>ícono de enviar</b>, arriba.');
+    });
+  });
 };
 
 /* ---- Cámara ---- */
