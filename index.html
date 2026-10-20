@@ -321,6 +321,127 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .iaprev{display:flex;align-items:center;gap:10px;margin:0 8px;padding:8px 12px;background:var(--ph-bar);border-radius:12px;font-weight:700;font-size:15px;color:var(--ph-sub)}
 .iaprev span{font-size:34px}
 .iaimg{font-size:64px;line-height:1.1;text-align:center;background:rgba(0,0,0,.06);border-radius:8px;margin-bottom:6px;padding:8px}
+/* niveles nuevos (19/10/2026) */
+.blur{filter:blur(4px)}
+.camph{background:#000;color:#fff;min-height:0}
+.camtop{height:36px;display:flex;justify-content:center;align-items:center;font-weight:800;font-size:17px;font-variant-numeric:tabular-nums}
+.vf{flex:1;position:relative;overflow:hidden;background:linear-gradient(#9FD3F5,#CDEFC0);display:grid;place-items:center;min-height:210px;cursor:pointer}
+.vf.selfie{background:linear-gradient(#F6D6B8,#E9B98F)}
+.vf #scene{font-size:96px;line-height:1;transition:transform .3s,filter .3s}
+.vf .focus{position:absolute;width:84px;height:84px;border:3px solid #FFD54F;border-radius:8px;transform:translate(-50%,-50%);pointer-events:none}
+.vf.flash::after{content:'';position:absolute;inset:0;background:#fff;animation:camflash .4s forwards;pointer-events:none}
+@keyframes camflash{from{opacity:1}to{opacity:0}}
+.zooms{display:flex;gap:10px;justify-content:center;padding:10px 0 4px}
+.zooms button{background:rgba(255,255,255,.2);color:#fff;border:2px solid transparent;border-radius:999px;min-width:52px;min-height:46px;font-weight:800;font-size:16px}
+.zooms button[aria-pressed=true]{background:#fff;color:#000}
+.modes{display:flex;gap:24px;justify-content:center;padding:4px 0}
+.modes button{background:none;border:2px solid transparent;color:#ddd;font-weight:800;font-size:17px;min-height:46px;padding:0 10px;border-radius:12px}
+.modes button.on{color:#FFD54F;text-decoration:underline;text-underline-offset:6px}
+.camrow{display:flex;align-items:center;justify-content:space-around;padding:10px 12px 20px}
+.thumb{width:58px;height:58px;border-radius:12px;border:2px solid #fff;background:#333;font-size:30px;display:grid;place-items:center;padding:0}
+.shut{width:80px;height:80px;border-radius:50%;border:5px solid #fff;background:transparent;display:grid;place-items:center;padding:0}
+.shut span{width:62px;height:62px;border-radius:50%;background:#fff;display:block;transition:all .2s}
+.shut.vid span{background:#E5484D}
+.shut.rec span{width:30px;height:30px;border-radius:6px;background:#E5484D}
+.flipb{width:58px;height:58px;border-radius:50%;border:2px solid transparent;background:rgba(255,255,255,.2);font-size:26px;color:#fff;padding:0}
+.rdot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#E5484D;margin-right:8px}
+.galph{background:#000;color:#fff;min-height:0}
+.gview{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:260px;cursor:grab;user-select:none}
+.gview #gimg{font-size:150px;line-height:1;transition:transform .15s}
+.gview small{font-size:16px;color:#ccc}
+.gview .sysmsg{background:#333;color:#fff}
+.gacts{display:flex;justify-content:space-around;padding:10px 6px 16px;background:#111}
+.gacts button{background:none;border:2px solid transparent;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:26px;min-width:76px;min-height:60px;border-radius:12px}
+.gacts button span{font-size:14px;font-weight:700}
+.gtop{display:flex;justify-content:center;padding:18px 12px 10px}
+.gtop b{font-size:30px;letter-spacing:-.5px}
+.gbar{display:flex;align-items:center;gap:8px;margin:0 12px 10px;padding:4px 6px 4px 14px;border:2px solid var(--ph-line);border-radius:999px;background:var(--ph-bar);min-height:52px;cursor:text}
+.gbar input{flex:1;min-width:0;border:none;background:none;font:inherit;font-size:17px;color:var(--ph-text);outline:none}
+.gico{width:46px;height:46px;border-radius:50%;border:2px solid transparent;background:var(--ph-bg);font-size:22px;flex:none}
+.gres{display:flex;flex-direction:column;gap:8px;padding:0 12px 12px}
+.gr{display:flex;flex-direction:column;gap:2px;text-align:left;background:var(--ph-bar);border:1px solid var(--ph-line);border-radius:12px;padding:10px 12px;color:var(--ph-text);font-size:15px;width:100%}
+.gr small{color:var(--ph-sub);font-size:13px}
+.gr .gt{color:#1A0DAB;font-size:17px}
+.gpat{font-size:13px;font-weight:800}
+.gvoice{position:absolute;inset:0;background:var(--ph-bar);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px;text-align:center;z-index:3}
+.gvoice .gm{font-size:64px}
+.gvoice b{font-size:21px}
+.gvoice small{color:var(--ph-sub);font-size:15px}
+.gwx{display:flex;gap:14px;align-items:center;background:var(--ph-bg);border-radius:14px;padding:14px;font-size:16px}
+.yfeed{display:flex;flex-direction:column;gap:12px;padding:10px}
+.ytc{display:flex;flex-direction:column;gap:6px;text-align:left;background:none;border:2px solid transparent;border-radius:12px;padding:4px;color:var(--ph-text);font-size:16px;width:100%}
+.ytth{position:relative;height:130px;border-radius:12px;background:#2B2B2B;display:grid;place-items:center;font-size:56px}
+.ytth small{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.8);color:#fff;font-size:13px;font-weight:700;border-radius:4px;padding:2px 6px}
+.ytp{position:relative;aspect-ratio:16/9;background:#111;color:#fff;display:grid;place-items:center;cursor:pointer}
+.ytp.full{position:fixed;inset:0;z-index:50;aspect-ratio:auto}
+.ytbig{font-size:72px}
+.ytbar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.3)}
+.ytbar i{display:block;height:100%;width:0;background:#E53935;transition:width .4s}
+.yad{position:absolute;left:8px;bottom:12px;background:#F4B400;color:#000;font-weight:800;font-size:14px;border-radius:4px;padding:3px 8px}
+.yskip{position:absolute;right:8px;bottom:14px;background:rgba(0,0,0,.75);color:#fff;border:2px solid #fff;border-radius:8px;padding:10px 16px;font-weight:800;font-size:17px}
+.yctl{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.yplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;border:3px solid transparent;background:rgba(0,0,0,.55);color:#fff;font-size:30px}
+.yfull{position:absolute;right:8px;bottom:12px;width:50px;height:50px;border-radius:10px;border:3px solid transparent;background:rgba(0,0,0,.55);color:#fff;font-size:24px}
+.yfnote{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px;white-space:nowrap}
+.nfph{background:#141414;color:#fff;min-height:480px}
+.nfwho{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:20px}
+.nfps{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.nfp{background:none;border:2px solid transparent;border-radius:12px;color:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;font-weight:700;font-size:15px;padding:6px}
+.nfp > span{width:76px;height:76px;border-radius:10px;display:grid;place-items:center;font-size:40px}
+.nfrow{padding:6px 12px 10px;display:flex;flex-direction:column;gap:8px}
+.nfrow > div{display:flex;gap:8px}
+.nfc{position:relative;flex:1;min-width:0;height:130px;border-radius:8px;border:2px solid transparent;background:#2B2B2B;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:40px;padding:4px;overflow:hidden}
+.nfc small{font-size:13px;font-weight:700;line-height:1.2}
+.nfc i{position:absolute;left:0;bottom:0;height:4px;background:#E50914}
+.nfplay{position:relative;aspect-ratio:16/10;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.nfplay small{color:#ccc;font-size:15px}
+.nfsub{position:absolute;bottom:14px;left:10px;right:10px;text-align:center;font-weight:800;font-size:18px;text-shadow:0 1px 3px #000}
+.nfctl{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.nfbtn{background:#fff;color:#000;border:3px solid transparent;border-radius:8px;padding:10px 14px;font-weight:800;font-size:16px}
+.nfpanel{position:absolute;inset:0;background:#141414;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px 14px;z-index:3}
+.nfpanel > div{display:flex;flex-direction:column;gap:8px}
+.nfpanel span,.nfpanel button{background:none;border:2px solid transparent;border-radius:8px;color:#bbb;text-align:left;font-size:17px;padding:10px 8px}
+.nfpanel .sel{color:#fff;font-weight:800}
+.nfnoti{background:#1F1F1F;color:#fff;margin:12px;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px;font-size:16px}
+.nfnoti small{color:#aaa}
+.phone[data-dark]{background:#141414}
+.mailc{background:var(--ph-bar);padding:14px;display:flex;flex-direction:column;gap:6px;font-size:16px}
+.mailc small{color:var(--ph-sub);font-size:13px;overflow-wrap:anywhere}
+.ignav{display:flex;justify-content:space-around;border-top:1px solid var(--ph-line);background:var(--ph-bar);padding:4px 2px 6px;margin-top:auto}
+.ignav button{background:none;border:2px solid transparent;border-radius:10px;color:var(--ph-text);display:flex;flex-direction:column;align-items:center;font-size:12px;font-weight:700;padding:4px 2px;min-width:54px;min-height:52px}
+.ignav button span{font-size:22px}
+.igst{display:flex;gap:10px;padding:10px 10px 6px;overflow-x:auto}
+.igs{background:none;border:2px solid transparent;border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--ph-text);padding:2px;flex:none}
+.igs > span{width:64px;height:64px;border-radius:50%;padding:3px;background:#C7CCD1;display:block}
+.igs.ring > span{background:linear-gradient(45deg,#F9A825,#E91E63,#8E24AA)}
+.igs > span > span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--ph-bar);font-size:30px;border:2px solid var(--ph-bar)}
+.igpost{display:flex;flex-direction:column;border-top:1px solid var(--ph-line)}
+.igimg{height:170px;display:grid;place-items:center;font-size:96px;background:linear-gradient(#FCE4EC,#F8BBD0);user-select:none}
+.igact{display:flex;gap:6px;padding:4px 8px}
+.igact button{background:none;border:2px solid transparent;border-radius:50%;width:48px;height:48px;font-size:26px;color:var(--ph-text)}
+.igstory{position:absolute;inset:0;background:linear-gradient(160deg,#8E24AA,#E91E63);z-index:4;display:flex;flex-direction:column}
+.igpb{height:4px;margin:10px 10px 0;background:rgba(255,255,255,.4);border-radius:2px}
+.igpb i{display:block;height:100%;width:0;background:#fff;border-radius:2px;transition:width .25s}
+.igx{background:none;border:2px solid transparent;border-radius:50%;width:48px;height:48px;color:#fff;font-size:24px}
+.igsc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;font-size:26px}
+.igsc span{font-size:72px}
+.igprof{display:flex;gap:14px;align-items:center;padding:14px 12px}
+.igprof > div{display:flex;flex-direction:column;gap:2px;font-size:15px}
+.igprof small{color:var(--ph-sub)}
+.igfollow{width:100%;min-height:46px;border-radius:10px;border:2px solid transparent;background:#0095F6;color:#fff;font-weight:800;font-size:17px}
+.igfollow.on{background:var(--ph-line);color:var(--ph-text)}
+.iggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.iggrid span{aspect-ratio:1;background:#E8F5E9;display:grid;place-items:center;font-size:40px}
+.fbp{display:flex;flex-direction:column;background:var(--ph-bar)}
+.fbn{padding:8px 12px;color:var(--ph-sub);font-size:14px}
+.fbacts{display:flex;border-top:1px solid var(--ph-line);border-bottom:1px solid var(--ph-line)}
+.fbacts button{flex:1;background:none;border:2px solid transparent;border-radius:8px;min-height:50px;font-weight:700;font-size:15px;color:var(--ph-sub)}
+.fbacts button.on{color:#1877F2}
+.fbcm{display:flex;gap:8px;align-items:flex-start;padding:8px 12px}
+.fbcm > div{background:var(--ph-bg);border-radius:14px;padding:8px 12px;display:flex;flex-direction:column;font-size:15px}
+.fbreq{display:flex;gap:12px;align-items:center;padding:16px 14px;background:var(--ph-bar);font-size:16px}
+.fbreq > div{display:flex;flex-direction:column}
+.fbreq small{color:var(--ph-sub)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -562,7 +683,7 @@ const NOMBRE = () => (S.perfil && S.perfil.nombre) || '';
 
 /* ============ CONTENIDO: 3 NIVELES ============ */
 const NIVELES = [
-{n:1, em:'🌱', t:'Primeros pasos', d:'Los conceptos básicos para perderle el miedo', ls:[
+{n:1, k:'basico', em:'🌱', t:'Primeros pasos', d:'Los conceptos básicos para perderle el miedo', ls:[
  {id:'1a', ic:'📱', t:'Tu celular, una computadora de bolsillo', min:4,
   des:'Mirá la pantalla de tu celular y contá cuántas apps tenés. ¿Cuáles usás todos los días?',
   steps:[
@@ -605,7 +726,7 @@ const NIVELES = [
    {k:'rec', pts:['Cargá el celular cuando baje de 20 %.','El bloqueo de pantalla protege lo tuyo. Tu PIN no se comparte.','Las actualizaciones son mejoras: hacelas con WiFi.']}
   ]}
 ]},
-{n:2, em:'👆', t:'La pantalla de mi celular', d:'Gestos, pantalla de inicio, atajos y letra grande', ls:[
+{n:2, k:'pantalla', em:'👆', t:'La pantalla de mi celular', d:'Gestos, pantalla de inicio, atajos y letra grande', ls:[
  {id:'2a', ic:'👆', t:'Los 4 gestos', min:5,
   des:'Practicá los 4 gestos en tu celular: tocá una app, mantené apretada una foto, deslizá en la galería y agrandá una foto con dos dedos.',
   steps:[
@@ -642,7 +763,7 @@ const NIVELES = [
    {k:'rec', pts:['Botones del costado: volumen.',{android:'Ajustes > Pantalla > Tamaño de fuente.', iphone:'Configuración > Pantalla y brillo > Tamaño del texto.'},'El brillo también está en los atajos de arriba.']}
   ]}
 ]},
-{n:3, em:'💬', t:'WhatsApp', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
+{n:3, k:'whatsapp', em:'💬', t:'WhatsApp', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
  {id:'3a', ic:'💬', t:'Conocé WhatsApp', min:4,
   des:'Abrí WhatsApp y fijate qué chats tienen el número verde. ¿Quién te escribió?',
   steps:[
@@ -690,7 +811,7 @@ const NIVELES = [
 /* Nivel 4: visible para todos desde el 17/10/2026. Poné false para ocultarlo. */
 const MOSTRAR_NIVEL_4 = true;
 if (MOSTRAR_NIVEL_4) NIVELES.push(
-{n:4, em:'👪', t:'Más WhatsApp', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
+{n:4, k:'maswa', em:'👪', t:'Más WhatsApp', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
  {id:'4a', ic:'📇', t:'Guardá un contacto', min:5,
   des:'Guardá el número de alguien que te escribe seguido y todavía no tenés agendado.',
   steps:[
@@ -728,11 +849,9 @@ if (MOSTRAR_NIVEL_4) NIVELES.push(
    {k:'rec', pts:['Reenviar: mantener apretado el mensaje y tocar la flecha.','"Reenviado muchas veces": no se sabe quién lo escribió.','Antes de reenviar: ¿quién lo dice? ¿Lo confirma una fuente oficial?']}
   ]}
 ]});
-/* Nivel 5: La inteligencia artificial. Poné false para ocultarlo a los alumnos.
-   Para verlo antes de publicarlo, abrí la app con ?nivel5 al final del link. */
-const MOSTRAR_NIVEL_5 = false || /[?&]nivel5\b/.test(location.search);
-if (MOSTRAR_NIVEL_5) NIVELES.push(
-{n:5, em:'✨', t:'La inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
+/* Nivel: La inteligencia artificial (se publica con PUBLICAR.ia, más abajo) */
+NIVELES.push(
+{n:5, k:'ia', em:'✨', t:'La inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
  {id:'5a', ic:'✨', t:'¿Qué es la inteligencia artificial?', min:5,
   des:'Pensá en tu día de hoy: ¿en qué momento el celular te sugirió, te corrigió o te recomendó algo? Ahí había IA.',
   steps:[
@@ -781,6 +900,153 @@ if (MOSTRAR_NIVEL_5) NIVELES.push(
    {k:'rec', pts:['La IA puede equivocarse, aunque suene segura.','Salud, dinero y trámites: se confirman en la fuente oficial.','Contraseñas, códigos y datos del banco: nunca.','La IA nos ayuda, nosotros decidimos.']}
   ]}
 ]});
+/* ============ NIVELES NUEVOS (19/10/2026) ============ */
+NIVELES.push(
+{n:0, k:'camara', em:'📷', t:'Cámara y fotos', d:'Sacar fotos, selfies y videos, y encontrarlos después', ls:[
+ {id:'fo1', ic:'📸', t:'Sacá tu primera foto', min:4,
+  des:'Sacale una foto a algo lindo de tu casa: una planta, un cuadro o tu mascota.',
+  steps:[
+   {k:'ex', txt:'La cámara viene en todos los celulares. Para abrirla, tocás el ícono que tiene dibujada una cámara de fotos. Lo que ves en la pantalla es lo que va a salir en la foto.', art:'camicon'},
+   {k:'ex', txt:'Para sacar la foto, tocás el botón redondo grande de abajo. Una sola vez, sin apretar fuerte. Si querés que algo salga nítido, primero lo tocás en la pantalla: así el celular enfoca ahí.', art:'shutter'},
+   {k:'ex', txt:'Un truco para que no salga movida: sostené el celular con las dos manos, con los codos pegados al cuerpo, y quedate quieto un segundito después de tocar.', art:'manos'},
+   {k:'try', run:'camShoot'},
+   {k:'check', q:'¿Cómo sacás la foto?', o:['Tocando una vez el botón redondo grande de abajo','Apretando el botón del costado durante un rato'], a:0, why:'¡Eso! Un toque al botón redondo grande, y listo.'},
+   {k:'rec', pts:['La cámara se abre con su ícono.','Tocá lo que querés enfocar y después el botón redondo grande.','Dos manos y quietito: la foto no sale movida.']}
+  ]},
+ {id:'fo2', ic:'🤳', t:'Selfie y zoom', min:5,
+  des:'Sacate una selfie y mandásela a alguien que quieras.',
+  steps:[
+   {k:'ex', txt:'Una selfie es una foto que te sacás a vos mismo. Para eso se usa la cámara de adelante: tocás el botón de las flechitas que dan vuelta y la cámara se da vuelta.', art:'flip'},
+   {k:'ex', txt:'Para acercar algo que está lejos, tocás el número que dice 2x, o separás dos dedos sobre la pantalla. Si podés acercarte caminando, mejor: la foto sale más nítida.', art:'zoom'},
+   {k:'try', run:'camSelfie'},
+   {k:'check', q:'Querés sacarte una selfie. ¿Qué tocás primero?', o:['El botón de las flechitas, para dar vuelta la cámara','El botón de la fotito, abajo'], a:0, why:'Las flechitas cambian a la cámara de adelante. La fotito es para ver las fotos que ya sacaste.'},
+   {k:'rec', pts:['Flechitas: cambia a la cámara de adelante para la selfie.','2x o separar dos dedos: acerca.','Si podés, acercate caminando: sale más nítida.']}
+  ]},
+ {id:'fo3', ic:'🖼️', t:'Mirá y borrá tus fotos', min:5,
+  des:'Buscá en tu galería una foto que salió movida y borrala.',
+  steps:[
+   {k:'ex', txt:{android:'Todas tus fotos quedan guardadas en la galería. Desde la cámara, la fotito de abajo te muestra la última que sacaste. También podés abrir la app Galería o Google Fotos.', iphone:'Todas tus fotos quedan guardadas en la app Fotos. Desde la cámara, la fotito de abajo a la izquierda te muestra la última que sacaste.'}, art:'galeria'},
+   {k:'ex', txt:'Para pasar de una foto a otra, deslizás el dedo hacia un costado. Para borrar una, tocás el tachito. No te asustes: queda unos días en la papelera, por si te arrepentís.', art:'tacho'},
+   {k:'try', run:'camGallery'},
+   {k:'check', q:'Borraste una foto sin querer. ¿Qué pasó con ella?', o:['Se perdió para siempre','Está en la papelera unos días y la podés recuperar'], a:1, why:'¡Bien! Por unos días la podés recuperar desde la papelera. Después se borra del todo.'},
+   {k:'rec', pts:[{android:'Tus fotos están en la galería o en Google Fotos.', iphone:'Tus fotos están en la app Fotos.'},'Deslizá hacia un costado para pasar de foto.','El tachito borra, y la foto queda unos días en la papelera.']}
+  ]},
+ {id:'fo4', ic:'🎥', t:'Grabá un video', min:4,
+  des:'Grabá un video cortito de algo que se mueva: tu mascota, la calle o el mar.',
+  steps:[
+   {k:'ex', txt:'La misma cámara también graba videos. Abajo hay palabras como "Foto" y "Video": tocás "Video" y el botón redondo se pone rojo.', art:'modos'},
+   {k:'ex', txt:'Tocás el botón rojo y empieza a grabar: arriba vas viendo cuánto tiempo lleva. Para terminar, tocás el mismo botón, que ahora tiene un cuadradito.', art:'grabar'},
+   {k:'try', run:'camVideo'},
+   {k:'check', q:'Querés grabar a tu nieto cantando. ¿Qué hacés primero?', o:['Toco "Video" y después el botón rojo','Saco muchas fotos seguidas'], a:0, why:'¡Exacto! "Video" primero, y después el botón rojo para empezar a grabar.'},
+   {k:'rec', pts:['Tocá "Video" y el botón se pone rojo.','Botón rojo: empieza a grabar. Cuadradito: termina.','Arriba ves cuánto tiempo lleva grabando.']}
+  ]}
+]},
+{n:0, k:'google', em:'🔎', t:'Google y búsquedas', d:'Encontrar lo que buscás y saber en qué páginas confiar', ls:[
+ {id:'go1', ic:'🔎', t:'Buscá en Google', min:5,
+  des:'Buscá en Google una receta que te guste y abrí una de las páginas.',
+  steps:[
+   {k:'ex', txt:'Google es un buscador: escribís lo que querés saber y te muestra páginas de internet que hablan de eso. Viene en casi todos los celulares y también se usa desde Chrome o Safari.', art:'buscador'},
+   {k:'ex', txt:'Tocás la barra de búsqueda, escribís y tocás la lupa. Podés escribir como hablás ("¿cómo se hacen los buñuelos?") o solo las palabras importantes ("receta buñuelos de acelga").', art:'barra'},
+   {k:'try', run:'gSearch'},
+   {k:'check', q:'Querés saber qué farmacia está de turno cerca de tu casa. ¿Qué escribís?', o:['"farmacia de turno" y el nombre de tu barrio','"hola google"'], a:0, why:'¡Bien! Con las palabras importantes y tu barrio, Google entiende qué buscás.'},
+   {k:'rec', pts:['Google es un buscador de páginas.','Barra de búsqueda, escribís y tocás la lupa.','Podés escribir como hablás o solo las palabras importantes.']}
+  ]},
+ {id:'go2', ic:'🎙️', t:'Buscá hablando', min:4,
+  des:'Preguntale a Google en voz alta qué tiempo va a hacer mañana.',
+  steps:[
+   {k:'ex', txt:'Si no tenés ganas de escribir, le podés hablar. En la barra de búsqueda hay un micrófono: lo tocás, decís lo que buscás y Google lo escribe por vos.', art:'micgoogle'},
+   {k:'ex', txt:'Hablá normal, como si le preguntaras a una persona. Si escribió algo mal, no pasa nada: lo corregís con el teclado o lo volvés a decir.', art:'hablale'},
+   {k:'try', run:'gVoice'},
+   {k:'check', q:'Tocaste el micrófono y Google escribió otra cosa. ¿Qué hacés?', o:['Lo vuelvo a decir o lo corrijo con el teclado','Dejo de usar Google'], a:0, why:'Nos pasa a todos. Se vuelve a decir más despacito, o se corrige con el teclado.'},
+   {k:'rec', pts:['El micrófono de la barra busca hablando.','Hablá normal, como a una persona.','Si escribió mal, lo decís de nuevo o lo corregís.']}
+  ]},
+ {id:'go3', ic:'✅', t:'¿En qué página confiar?', min:6,
+  des:'Buscá "BPS" en Google y fijate que la página oficial termine en gub.uy.',
+  steps:[
+   {k:'ex', txt:'Algunos de los primeros resultados dicen "Patrocinado". Son anuncios: alguien pagó para aparecer arriba. No siempre son malos, pero no son la respuesta más confiable.', art:'patrocinado'},
+   {k:'ex', txt:'Para trámites, usá las páginas oficiales. En Uruguay, las del Estado terminan en gub.uy, como bps.gub.uy. Desconfiá de ofertas increíbles y de páginas que te piden la tarjeta para algo gratis.', art:'gubuy'},
+   {k:'try', run:'gTrust'},
+   {k:'check', q:'Buscás cómo hacer un trámite del BPS. ¿Qué página elegís?', o:['La que termina en bps.gub.uy','La primera que dice "Patrocinado" y te cobra por ayudarte'], a:0, why:'¡Eso! La página oficial termina en gub.uy, y los trámites ahí no te cobran de más.'},
+   {k:'rec', pts:['"Patrocinado" quiere decir anuncio.','Las páginas del Estado terminan en gub.uy.','Ofertas increíbles o pedidos de tarjeta: desconfiá.']}
+  ]}
+]},
+{n:0, k:'videos', em:'🎬', t:'YouTube y Netflix', d:'Videos, películas y series para disfrutar', ls:[
+ {id:'yt1', ic:'▶️', t:'Buscá un video en YouTube', min:5,
+  des:'Buscá en YouTube una canción que te guste mucho y escuchala.',
+  steps:[
+   {k:'ex', txt:'YouTube es una app con videos de todo, gratis: recetas, música, gimnasia, cómo arreglar cosas o noticias. Su ícono es rojo, con un triangulito blanco.', art:'ytart'},
+   {k:'ex', txt:'Para encontrar un video, tocás la lupa de arriba, escribís lo que buscás y tocás el video que quieras ver. La imagen de cada video te muestra de qué se trata.', art:'ytbusca'},
+   {k:'try', run:'ytSearch'},
+   {k:'check', q:'Querés aprender a hacer tortas fritas. ¿Qué hacés en YouTube?', o:['Toco la lupa y escribo "tortas fritas"','Miro los videos que aparecen hasta que salga uno'], a:0, why:'¡Bien! Con la lupa vas directo a lo que buscás.'},
+   {k:'rec', pts:['YouTube: videos de todo, gratis.','La lupa de arriba busca.','La imagen de cada video te muestra de qué se trata.']}
+  ]},
+ {id:'yt2', ic:'⏯️', t:'Mirá cómodo', min:5,
+  des:'Mirá un video de YouTube en pantalla completa, con el celular acostado.',
+  steps:[
+   {k:'ex', txt:'Antes de algunos videos aparece un anuncio. A los pocos segundos, abajo a la derecha, aparece "Omitir": lo tocás y empieza tu video.', art:'omitir'},
+   {k:'ex', txt:'Si tocás el video una vez, aparecen los botones: en el medio, pausa; en la esquina, el cuadradito de pantalla completa. Con el celular acostado se ve más grande.', art:'controles'},
+   {k:'try', run:'ytControls'},
+   {k:'check', q:'Te sonó el timbre en la mitad del video. ¿Qué hacés?', o:['Toco el video y después la pausa','Cierro YouTube y lo busco de nuevo después'], a:0, why:'¡Eso! Con la pausa queda esperándote donde lo dejaste.'},
+   {k:'rec', pts:['"Omitir" saltea el anuncio.','Un toque al video muestra los botones.','Pausa en el medio; pantalla completa en la esquina.']}
+  ]},
+ {id:'nf1', ic:'🍿', t:'Conocé Netflix', min:5,
+  des:'Si tenés Netflix, buscá una película que hayas visto hace mucho y fijate si está.',
+  steps:[
+   {k:'ex', txt:'Netflix es una app para mirar películas y series. Es paga: se paga todos los meses. Una cuenta puede tener varios perfiles, uno para cada persona de la casa.', art:'nfart'},
+   {k:'ex', txt:'Al abrirla, elegís tu perfil. En "Seguir viendo" retomás una serie justo donde la dejaste. Con la lupa buscás una película o una serie por su nombre.', art:'perfiles'},
+   {k:'ex', txt:'Si no escuchás bien, ponele subtítulos: tocás la pantalla mientras mirás y elegís "Audio y subtítulos". Según la versión de la app, puede estar en otro lugar.', art:'subt'},
+   {k:'try', run:'nfBrowse'},
+   {k:'check', q:'Ayer dejaste una serie por la mitad. ¿Dónde la encontrás?', o:['En "Seguir viendo"','Tengo que empezarla de nuevo'], a:0, why:'¡Exacto! Netflix se acuerda de dónde la dejaste, en tu perfil.'},
+   {k:'rec', pts:['Netflix es pago y tiene un perfil para cada persona.','"Seguir viendo": retomás donde dejaste.','"Audio y subtítulos": para poner subtítulos.']}
+  ]},
+ {id:'nf2', ic:'🛡️', t:'Cuidá tu cuenta de Netflix', min:5,
+  des:'Si alguna vez te llega un aviso de pago de Netflix, entrá directo a la app para revisarlo, sin tocar el enlace.',
+  steps:[
+   {k:'ex', txt:'Hay mensajes falsos que se hacen pasar por Netflix: "Tu cuenta fue suspendida, actualizá tu pago". Traen un enlace a una página que copia a la de Netflix para robarte la tarjeta.', art:'nffalso'},
+   {k:'ex', txt:'La regla: no toques el enlace. Si tenés dudas, abrí la app de Netflix como siempre. Si hay un problema con el pago de verdad, te lo va a avisar ahí adentro.', art:'nfapp'},
+   {k:'try', run:'nfEstafa'},
+   {k:'check', q:'Te llega un mensaje: "Netflix: tu cuenta se suspende hoy. Pagá acá". ¿Qué hacés?', o:['Toco el enlace y pago rápido','No toco el enlace y abro la app de Netflix para revisar'], a:1, why:'¡Bien! Desde la app ves si de verdad hay algo para pagar.'},
+   {k:'rec', pts:['Netflix no te pide la tarjeta por mensaje.','No toques enlaces de avisos de pago.','Ante la duda, abrí la app como siempre.']}
+  ]}
+]},
+{n:0, k:'redes', em:'❤️', t:'Instagram y Facebook', d:'Ver lo que comparten tus seres queridos, con cuidado', ls:[
+ {id:'ig1', ic:'📸', t:'Conocé Instagram', min:5,
+  des:'Entrá a Instagram, mirá las historias de alguien que quieras y dale me gusta a una foto.',
+  steps:[
+   {k:'ex', txt:'Instagram es una app para compartir fotos y videos. Abajo están los botones: la casita es el inicio, donde ves lo que publican las personas que seguís. Según la versión, los botones pueden cambiar un poco de lugar.', art:'igart'},
+   {k:'ex', txt:'Arriba hay circulitos con fotos: son las historias, fotos y videos que duran 24 horas. Para darle me gusta a una publicación, tocás el corazón que está abajo de la foto.', art:'historias'},
+   {k:'try', run:'igFeed'},
+   {k:'check', q:'¿Cuánto dura una historia de Instagram?', o:['24 horas','Para siempre'], a:0, why:'¡Eso! Las historias se borran solas después de un día.'},
+   {k:'rec', pts:['La casita es el inicio.','Los circulitos de arriba son historias: duran 24 horas.','El corazón es "me gusta".']}
+  ]},
+ {id:'ig2', ic:'➕', t:'Seguí a alguien', min:4,
+  des:'Buscá en Instagram a alguien de tu familia o un tema que te guste y seguilo.',
+  steps:[
+   {k:'ex', txt:'Para ver lo que publica una persona o un lugar, lo tenés que "seguir". Seguir es gratis, y lo podés dejar de hacer cuando quieras.', art:'seguir'},
+   {k:'ex', txt:'Tocás la lupa, escribís el nombre y entrás a su perfil. Ahí tocás "Seguir". Desde ese momento, lo que publique te aparece en el inicio.', art:'perfilig'},
+   {k:'try', run:'igFollow'},
+   {k:'check', q:'Te gusta la jardinería. ¿Cómo ves más publicaciones de eso?', o:['Busco una cuenta de jardinería y toco "Seguir"','Le doy me gusta a todo lo que veo'], a:0, why:'¡Bien! Al seguir una cuenta, sus publicaciones te aparecen en el inicio.'},
+   {k:'rec', pts:['Seguir es gratis y se puede dejar cuando quieras.','Lupa, nombre, perfil y "Seguir".','Lo que publiquen te aparece en el inicio.']}
+  ]},
+ {id:'fb1', ic:'👍', t:'Conocé Facebook', min:5,
+  des:'Entrá a Facebook y dejale un comentario lindo a alguien de tu familia.',
+  steps:[
+   {k:'ex', txt:'Facebook sirve para estar en contacto con amigos y familia, y para sumarte a grupos de lo que te gusta. En el inicio ves lo que publican tus amigos y tus grupos.', art:'fbart'},
+   {k:'ex', txt:'Abajo de cada publicación hay tres botones: "Me gusta", "Comentar" y "Compartir". Ojo: lo que comentás lo pueden leer otras personas, no solo quien publicó.', art:'fbbtns'},
+   {k:'try', run:'fbPost'},
+   {k:'check', q:'Comentaste una foto de tu prima. ¿Quién puede leer tu comentario?', o:['Solo mi prima','Mi prima y otras personas que vean la foto'], a:1, why:'Exacto: los comentarios se ven. Para algo privado, mejor un mensaje por WhatsApp.'},
+   {k:'rec', pts:['Facebook: amigos, familia y grupos.','"Me gusta", "Comentar" y "Compartir".','Lo que comentás lo pueden leer otras personas.']}
+  ]},
+ {id:'rs1', ic:'🛡️', t:'Cuidarte en las redes', min:6,
+  des:'Revisá tus solicitudes de amistad o seguidores y fijate si hay alguien que no conocés.',
+  steps:[
+   {k:'ex', txt:'En las redes hay perfiles falsos. Una señal: alguien que ya es tu amigo te manda una solicitud otra vez. Puede ser una copia de su perfil para pedirles plata a sus conocidos.', art:'clon'},
+   {k:'ex', txt:'Desconfiá de premios, ofertas o desconocidos muy amables que al poco tiempo piden plata o datos. Y pensá antes de publicar: mejor contar el viaje cuando volviste, no mientras la casa está sola.', art:'pensa'},
+   {k:'try', run:'rsCuida'},
+   {k:'check', q:'Te llega una solicitud de amistad de tu vecina Marta, que ya es tu amiga en Facebook. ¿Qué hacés?', o:['La acepto, total es Marta','No la acepto y le aviso a Marta por otro lado'], a:1, why:'¡Bien pensado! Puede ser un perfil copiado. Avisale por WhatsApp o llamándola.'},
+   {k:'rec', pts:['Una solicitud repetida puede ser un perfil copiado.','Premios, ofertas o desconocidos que piden plata: frenamos.','Los viajes se cuentan a la vuelta.']}
+  ]}
+]});
 const REAL = {
  '1a':['Desbloqueá tu celular y mirá la pantalla de inicio.','Encontrá el ícono de WhatsApp: es verde, con un globito.','Encontrá la cámara.','Contá cuántas apps tenés en la primera pantalla.'],
  '1b':[{android:'Deslizá el dedo desde arriba de todo hacia abajo.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo.'},'Fijate si el abanico del WiFi está de color (prendido) o gris (apagado).','Fijate si los datos móviles están prendidos.',{android:'Cerrá el panel deslizando hacia arriba.', iphone:'Cerrá el panel deslizando hacia arriba o tocando afuera.'}],
@@ -803,7 +1069,22 @@ const REAL = {
  '5b':['Tocá "Martina IA", en el menú de abajo.','Preguntale algo de tu celular que siempre quisiste saber.','Si no entendés la respuesta, escribile "No entendí, explicámelo más fácil".'],
  '5c':['Tocá "Martina IA", en el menú de abajo.','Pedile algo con las tres partes: qué querés, para quién y cómo lo querés.'],
  '5d':['Si tenés una app de IA, abrila.','Tocá el signo de más o el clip, elegí una foto y preguntale "¿Qué es esto?".'],
- '5e':['Pensá en algo importante que le preguntarías a una IA.','Pensá dónde lo confirmarías: una página oficial, un llamado o un profesional.']
+ '5e':['Pensá en algo importante que le preguntarías a una IA.','Pensá dónde lo confirmarías: una página oficial, un llamado o un profesional.'],
+ 'fo1':['Abrí la cámara.','Tocá en la pantalla algo que quieras enfocar.','Tocá el botón redondo grande para sacar la foto.'],
+ 'fo2':['Abrí la cámara y tocá las flechitas para la selfie.','Sacate una foto.','Volvé a la cámara de atrás y probá el 2x.'],
+ 'fo3':['Tocá la fotito de abajo para ver tus fotos.','Deslizá hacia un costado para pasar de foto.','Si hay una que no te gusta, tocá el tachito.'],
+ 'fo4':['Abrí la cámara y tocá "Video".','Tocá el botón rojo y grabá unos segundos.','Tocá el cuadradito para terminar.'],
+ 'go1':['Abrí Google o Chrome.','Tocá la barra de búsqueda y escribí una receta que te guste.','Tocá la lupa y abrí una página.'],
+ 'go2':['Abrí Google.','Tocá el micrófono de la barra.','Decí: "¿Qué tiempo va a hacer mañana?".'],
+ 'go3':['Buscá "BPS" en Google.','Fijate cuáles dicen "Patrocinado".','Buscá la página que termina en gub.uy.'],
+ 'yt1':['Abrí YouTube.','Tocá la lupa y buscá una canción que te guste.','Tocá el video para mirarlo.'],
+ 'yt2':['Abrí un video en YouTube.','Si aparece un anuncio, esperá "Omitir" y tocalo.','Tocá el video, pausalo y probá la pantalla completa.'],
+ 'nf1':['Si tenés Netflix, abrilo y elegí tu perfil.','Fijate si hay algo en "Seguir viendo".','Mientras mirás, tocá la pantalla y buscá "Audio y subtítulos".'],
+ 'nf2':['Pensá con tu familia qué hacer si llega un aviso de pago raro.','Recordá: se revisa abriendo la app, sin tocar enlaces.'],
+ 'ig1':['Abrí Instagram.','Tocá un circulito de arriba para ver una historia.','Dale me gusta a una foto tocando el corazón.'],
+ 'ig2':['En Instagram, tocá la lupa.','Escribí el nombre de alguien o de un tema que te guste.','Entrá al perfil y tocá "Seguir".'],
+ 'fb1':['Abrí Facebook.','Buscá una publicación de alguien de tu familia.','Tocá "Me gusta" o dejale un comentario.'],
+ 'rs1':['Mirá tus solicitudes de amistad o tus seguidores.','Si hay alguien que no conocés, no lo aceptes.']
 };
 NIVELES.forEach(n => n.ls.forEach(l => { if (MOSTRAR_PRACTICA_REAL && REAL[l.id]){ const i = l.steps.findIndex(x => x.k === 'try'); l.steps.splice(i + 1, 0, {k:'real', pasos:REAL[l.id]}); } }));
 /* Lo que la persona ya sabe hacer al terminar cada lección (se muestra en el festejo) */
@@ -829,8 +1110,38 @@ const LOGRO = {
   '5b':'Ya sabés conversar con una IA y pedirle que te lo explique más fácil.',
   '5c':'Ya sabés armar un buen pedido: qué querés, para quién y cómo.',
   '5d':'Ya sabés mostrarle una foto a una IA y preguntarle qué es.',
-  '5e':'Ya sabés cuándo confirmar lo que te dice una IA y qué no escribirle nunca.'
+  '5e':'Ya sabés cuándo confirmar lo que te dice una IA y qué no escribirle nunca.',
+  'fo1':'Ya sabés sacar una foto nítida.',
+  'fo2':'Ya sabés sacarte una selfie y acercar con el zoom.',
+  'fo3':'Ya sabés mirar tus fotos y borrar las que no querés.',
+  'fo4':'Ya sabés grabar un video y pararlo.',
+  'go1':'Ya sabés buscar en Google y abrir una página.',
+  'go2':'Ya sabés buscar en Google hablando.',
+  'go3':'Ya sabés reconocer un anuncio y una página oficial.',
+  'yt1':'Ya sabés buscar y mirar un video en YouTube.',
+  'yt2':'Ya sabés saltear anuncios, pausar y ver en pantalla completa.',
+  'nf1':'Ya sabés elegir tu perfil, seguir viendo y poner subtítulos en Netflix.',
+  'nf2':'Ya sabés reconocer un mensaje falso de Netflix.',
+  'ig1':'Ya sabés mirar historias y dar me gusta en Instagram.',
+  'ig2':'Ya sabés buscar y seguir a alguien en Instagram.',
+  'fb1':'Ya sabés dar me gusta y comentar en Facebook.',
+  'rs1':'Ya sabés reconocer un perfil falso y cuidar lo que publicás.'
 };
+/* ============ ORDEN Y PUBLICACIÓN DE LOS NIVELES ============
+   Cada nivel tiene una clave fija (k). El número que ve el alumno ("Nivel 3") sale del orden.
+   PUBLICAR: true = lo ven todos los alumnos; false = oculto.
+   Para ver todo lo oculto sin publicarlo, abrí la app con ?prueba al final del link. */
+const PUBLICAR = {camara:false, google:false, videos:false, redes:false, ia:false};
+const PRUEBA = /[?&](prueba|nivel5)\b/.test(location.search);
+const ORDEN = ['basico','pantalla','camara','whatsapp','maswa','google','videos','redes','ia'];
+NIVELES.sort((a, b) => ORDEN.indexOf(a.k) - ORDEN.indexOf(b.k));
+for (let i = NIVELES.length - 1; i >= 0; i--) if (NIVELES[i].k in PUBLICAR && !PUBLICAR[NIVELES[i].k] && !PRUEBA) NIVELES.splice(i, 1);
+NIVELES.forEach((v, i) => { v.n = i + 1; });
+/* Antes el nivel recomendado y los festejos se guardaban por número: se pasan a clave */
+const K_VIEJO = [null, 'basico', 'pantalla', 'whatsapp', 'maswa'];
+if (S.perfil && S.perfil.start && !S.perfil.startK){ S.perfil.startK = K_VIEJO[S.perfil.start] || 'basico'; save(); }
+if (S.nivFest && !S.nivFestK){ const nf = {}; Object.keys(S.nivFest).forEach(x => { nf[K_VIEJO[x] || x] = true; }); S.nivFest = nf; S.nivFestK = 1; save(); }
+const startN = () => { const k = S.perfil && S.perfil.startK; const v = k && NIVELES.find(x => x.k === k); return v ? v.n : 1; };
 const ALL = []; NIVELES.forEach(n => n.ls.forEach((l, i) => { l.niv = n; l.idx = i; ALL.push(l); }));
 const doneN = () => ALL.filter(l => S.done[l.id]).length;
 const INTERESES = [['familia','💞','Hablar con mi familia'],['fotos','🖼️','Fotos y recuerdos'],['ciudad','🚌','Moverme por la ciudad'],['redes','❤️','Redes sociales'],['ia','✨','Inteligencia artificial'],['seguridad','🛡️','Seguridad y estafas'],['compras','🛒','Compras online'],['entretenimiento','🎬','Películas, música y videos']];
@@ -866,6 +1177,11 @@ WhatsApp: necesitás internet y tener a la persona agendada; si te piden tu What
 Google Fotos: Fotos (todas por fecha), Colecciones (álbumes, favoritos, papelera), Crear (collage, álbum, video), Buscar (por personas, mascotas, lugares, cosas: escribís "playa"). Estrella = favorita. Copia de seguridad = fotos en la nube.
 Google Maps: el GPS/ubicación tiene que estar activado; puntito azul = vos; buscar arriba; "Cómo llegar" > caminando o en auto. Taxi en Montevideo por WhatsApp: agendar 091 141 141 como TAXI, mandar "Hola", mandar la ubicación con el clip, te confirman móvil y demora. Uber: "¿A dónde vas?", ver precio y tiempo, "Elegir"; antes de subir verificar matrícula, modelo y nombre; nunca subir a otro auto; compartir el recorrido. STM: paradas cercanas, qué ómnibus tomar (lupa, calle y esquina, Destino).
 Redes: Instagram (casita inicio, reels, mensajes, lupita, perfil, + para publicar; corazón = me gusta; historias duran 24 horas). YouTube (lupa para buscar, canal, suscribirse, Shorts = videos cortos, miniatura). X/Twitter: noticias al instante; la tilde azul se puede comprar, no es garantía; buscar otras fuentes antes de compartir; ningún organismo (banco, BPS) pide contraseñas por mensaje.
+Cámara: ícono de cámara; lo que se ve en pantalla es la foto; tocar en la pantalla enfoca; botón redondo grande saca la foto; dos manos y quieto para que no salga movida. Flechitas = dar vuelta la cámara (selfie). Zoom: 1x/2x o separar dos dedos; acercarse caminando sale más nítido. Fotito de abajo = última foto; galería/Google Fotos (Android) o Fotos (iPhone); deslizar pasa de foto; tachito borra y queda unos días en la papelera. "Video" + botón rojo graba; cuadradito termina.
+Google: buscador; barra, escribir, lupa; se puede escribir como se habla o con palabras clave; micrófono para buscar hablando. "Patrocinado" = anuncio. Páginas del Estado uruguayo terminan en gub.uy (bps.gub.uy). Desconfiar de ofertas increíbles y de páginas que piden tarjeta para algo gratis.
+YouTube: gratis; lupa arriba; anuncio con "Omitir" a los segundos; tocar el video muestra pausa y pantalla completa; celular acostado se ve más grande.
+Netflix: pago mensual; perfiles por persona; "Seguir viendo" retoma; lupa busca; "Audio y subtítulos" (tocando la pantalla mientras se mira). Mensajes falsos de "cuenta suspendida, actualizá tu pago": no tocar el enlace, revisar abriendo la app.
+Instagram/Facebook: seguir es gratis y se deja cuando se quiere. Facebook: "Me gusta", "Comentar", "Compartir"; los comentarios los ven otros. Perfiles copiados: solicitud repetida de alguien que ya es amigo → avisarle por otro medio. Viajes: contarlos a la vuelta.
 IA: la IA reconoce, entiende, recomienda, detecta y genera; aprende de patrones; puede equivocarse con seguridad ("alucinación") y tener sesgos: IA no es igual a verdad, verificá lo importante. Buen pedido (prompt): QUÉ + CONTEXTO + ROL + FORMATO (+ EJEMPLO opcional); no es receta obligatoria. Hablar con una IA es conversar: corregí, pedí cambios, repreguntá. Botón mágico: "No entendí, explicámelo más fácil". Contexto sí, información privada no. Hablar (modo voz), Mostrar (foto: "¿qué es esto?"), Transformar (cambiar una foto), Crear (algo nuevo). ChatGPT tiene chat, biblioteca, proyectos (carpeta que recuerda), búsqueda en internet (si depende de "hoy"), imágenes, GPTs, aplicaciones y tareas.`;
 
 let brainNotes = []; // notas que carga Martina en el cerebro (db)
@@ -1073,20 +1389,20 @@ function renderOb(){
     b.append(choices(INTERESES, 'intereses', true, true), ol, ot, next('Seguir'));
   }
   if (step === 'listo'){
-    const start = obDraft.nivel === 'Me manejo bastante' ? 3 : obDraft.nivel === 'Uso lo básico' ? 2 : 1;
-    const niv = NIVELES[start - 1];
+    const startK = obDraft.nivel === 'Me manejo bastante' ? 'whatsapp' : obDraft.nivel === 'Uso lo básico' ? 'pantalla' : 'basico';
+    const niv = NIVELES.find(v => v.k === startK) || NIVELES[0], start = niv.n;
     b.append(el('img', 'avatar xl')); b.lastChild.src = FOTO; b.lastChild.alt = ''; b.lastChild.style.alignSelf = 'center';
     const h = el('h1', ''); h.textContent = '¡Listo, ' + (obDraft.nombre || '') + '!'; b.append(h);
     const p = el('div', 'bubble'); p.textContent = 'Con lo que me contaste, elegí por dónde empezar: "' + niv.t + '". Si te trabás, tocá "Martina IA", abajo.';
     b.append(p);
     const go = el('button', 'btn', 'Ver mis lecciones'); go.type = 'button';
-    go.addEventListener('click', () => { obDraft.start = start; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); show('inicio'); });
+    go.addEventListener('click', () => { obDraft.start = start; obDraft.startK = startK; S.nivFestK = 1; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); show('inicio'); });
     b.append(go);
   }
 }
 
 /* ============ INICIO ============ */
-function nextLesson(){ const st = (S.perfil && S.perfil.start) || 1; const mid = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (mid) return mid; return ALL.find(l => l.niv.n >= st && !S.done[l.id]) || ALL.find(l => !S.done[l.id]); }
+function nextLesson(){ const st = startN(); const mid = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (mid) return mid; return ALL.find(l => l.niv.n >= st && !S.done[l.id]) || ALL.find(l => !S.done[l.id]); }
 $('h-beta-ok').addEventListener('click', () => { S.betaOk = true; save(); $('h-beta').hidden = true; $('h-inst').hidden = !instVisible(); });
 /* ===== Instalar en la pantalla de inicio ===== */
 const STANDALONE = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
@@ -1177,13 +1493,13 @@ function renderInicio(){
   const cur = nx ? nx.niv.n : NIVELES[NIVELES.length - 1].n; if (openLvl == null || cur !== lastCur) openLvl = cur; lastCur = cur;
   NIVELES.forEach(nv => {
     const open = openLvl === nv.n;
-    const d = nv.ls.filter(l => S.done[l.id]).length, rec = (S.perfil && S.perfil.start) === nv.n;
+    const d = nv.ls.filter(l => S.done[l.id]).length, rec = startN() === nv.n;
     const c = el('div', 'lvl' + (open ? '' : ' closed') + (d === nv.ls.length ? ' full' : ''));
     c.innerHTML = '<div class="lvl-head"><span class="em" aria-hidden="true">' + nv.em + '</span><div style="min-width:0;flex:1"><span class="muted small" style="font-weight:800">Nivel ' + nv.n + '</span><h3 style="font-size:22px"></h3><span class="muted small"></span></div></div><div class="progress"><span style="width:' + (d / nv.ls.length * 100) + '%"></span></div><span class="small muted"><b>' + d + ' de ' + nv.ls.length + '</b> lecciones</span>';
     if (MOSTRAR_PAGO && nv.n > 1 && !S.unlocked) c.insertBefore(el('span', 'lockb', '🔒 LaProfe completo'), c.firstChild);
     c.querySelector('h3').textContent = nv.t; c.querySelectorAll('.muted.small')[1].textContent = nv.d;
     if (open && rec && nv.n > 1 && d < nv.ls.length){ const rn = el('div', 'say', '<img class="avatar sm" alt=""><div class="bubble small">Por lo que me contaste, te recomiendo empezar acá. Podés volver atrás cuando quieras.</div>'); rn.querySelector('img').src = FOTO; c.insertBefore(rn, c.children[1]); }
-    if (!open && !rec && nv.n < ((S.perfil && S.perfil.start) || 1) && d === 0){ const on = el('span', 'small muted', 'Opcional: para repasar lo básico'); c.insertBefore(on, c.children[1]); }
+    if (!open && !rec && nv.n < startN() && d === 0){ const on = el('span', 'small muted', 'Opcional: para repasar lo básico'); c.insertBefore(on, c.children[1]); }
     if (d === nv.ls.length) c.insertBefore(el('span', 'okb', '✓ Nivel completo'), c.children[1]);
     if (!open){ c.querySelectorAll('.muted.small')[1].remove(); c.querySelector('.progress').remove(); const m = el('button', 'lvl-more', 'Ver las ' + nv.ls.length + ' lecciones <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'); m.type = 'button'; m.addEventListener('click', () => { openLvl = nv.n; renderInicio(); c.scrollIntoView && box.children[nv.n - 1] && box.children[nv.n - 1].scrollIntoView({block:'start'}); }); c.appendChild(m); box.appendChild(c); return; }
     nv.ls.forEach(l => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Terminada · podés repetirla' : (S.prog && S.prog[l.id]) ? 'Vas por el paso ' + (S.prog[l.id] + 1) + ' de ' + l.steps.length : l.min + ' minutos'; b.addEventListener('click', () => startLesson(l)); c.appendChild(b); });
@@ -1390,14 +1706,14 @@ function finishLesson(){
   $('g-wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   const c = $('g-com'); c.disabled = false; c.dataset.done = ''; c.textContent = '🎉 En la comunidad'; $('g-com-note').textContent = '';
   const nx = ALL[ALL.indexOf(l) + 1]; $('g-next').textContent = nx ? 'Siguiente lección' : 'Ver todas las lecciones'; $('g-home').hidden = !nx;
-  const nivelOk = l.niv.ls.every(x => S.done[x.id]) && !(S.nivFest || {})[l.niv.n];
+  const nivelOk = l.niv.ls.every(x => S.done[x.id]) && !(S.nivFest || {})[l.niv.k];
   if (nivelOk){
-    S.nivFest = Object.assign({}, S.nivFest, {[l.niv.n]: true}); save();
+    S.nivFest = Object.assign({}, S.nivFest, {[l.niv.k]: true}); S.nivFestK = 1; save();
     const sig = NIVELES.find(v => v.n === l.niv.n + 1);
     $('g-ic').textContent = '🏆'; $('g-t').textContent = '¡Terminaste el Nivel ' + l.niv.n + ': ' + l.niv.t + '!';
     $('g-mar').textContent = pick(['¡No lo puedo creer' + nm + '! Terminaste un nivel entero. Estoy re orgullosa de vos.','¡Un nivel completo' + nm + '! Esto ya es tuyo para siempre.','¡Aplausos de pie' + nm + '! 👏 Un nivel entero, de a poquito y sin apuro.']) + (sig ? ' Ahora te espera el Nivel ' + sig.n + ': ' + sig.t + '. ¿Vamos?' : ' ¡Terminaste todos los niveles!');
     if (sig && nx && nx.niv === sig) $('g-next').textContent = 'Empezar el Nivel ' + sig.n;
-    track(d => { d.niveles = Object.assign({}, d.niveles, {[l.niv.n]: new Date().toISOString()}); });
+    track(d => { d.niveles = Object.assign({}, d.niveles, {[l.niv.k]: new Date().toISOString()}); });
   }
   show('logro');
 }
@@ -1710,6 +2026,38 @@ const ART = {
   iafoto: () => big('📷','Una foto') + '<span style="font-size:30px">+</span>' + big('❓','"¿Qué es esto?"'),
   iaclip: () => (OS() === 'iphone' ? big('➕','1. El signo de más') : big('📎','1. El clip')) + big('🖼️','2. La foto') + big('✍️','3. Tu pregunta'),
   iaerror: () => big('🤖','Puede equivocarse') + big('🔎','Lo importante se confirma'),
+  camicon: () => ic('📷','#9AA4B2','Cámara') + '<span style="font-size:30px">➜</span>' + big('🖼️','Lo que ves es la foto'),
+  shutter: () => big('👆','1. Tocá lo que querés enfocar') + big('⚪','2. Botón redondo grande'),
+  manos: () => big('🙌','Con las dos manos') + big('🧍','Quietito un segundo'),
+  flip: () => big('🔄','Las flechitas') + '<span style="font-size:30px">➜</span>' + big('🤳','Selfie'),
+  zoom: () => '<span class="qt" style="display:flex;width:auto;padding:8px 14px">1x</span><span class="qt" aria-pressed="true" style="display:flex;width:auto;padding:8px 14px">2x</span>' + big('🤏','O separá dos dedos'),
+  galeria: () => '<div style="display:grid;grid-template-columns:repeat(3,64px);gap:6px">' + ['🌻','🐶','🏖️','🎂','🌳','👵'].map(e => '<span style="height:64px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font-size:32px">' + e + '</span>').join('') + '</div>',
+  tacho: () => big('👉','Deslizar: otra foto') + big('🗑️','Tachito: borrar') + big('♻️','Papelera: unos días'),
+  modos: () => '<div style="display:flex;gap:18px;font-weight:800;font-size:18px;align-items:center"><span>Foto</span><span style="color:var(--coral);border-bottom:3px solid var(--coral)">Video</span></div><span style="width:58px;height:58px;border-radius:50%;background:#E5484D;border:5px solid #fff;box-shadow:0 0 0 2px #ccc"></span>',
+  grabar: () => big('🔴','Empieza') + big('⏱️','0:12') + big('⏹️','Termina'),
+  buscador: () => big('✍️','Escribís') + '<span style="font-size:30px">➜</span>' + big('📄','Páginas sobre eso'),
+  barra: () => '<div style="display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:999px;padding:12px 18px;min-width:240px;font-size:17px">🔎 <span>receta buñuelos de acelga</span></div>',
+  micgoogle: () => '<div style="display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:999px;padding:12px 18px;min-width:240px;font-size:17px">🔎 <span style="flex:1;color:var(--muted)">Buscar</span><span style="font-size:24px">🎙️</span></div>',
+  hablale: () => big('🗣️','Hablá normal') + big('⌨️','Si escribió mal, corregí'),
+  patrocinado: () => '<div style="background:var(--soft);border-radius:14px;padding:12px 14px;max-width:290px;text-align:left"><b style="font-size:14px">Patrocinado</b><div style="font-weight:800;font-size:17px">Trámites en 5 minutos</div><small class="muted">Alguien pagó para salir primero</small></div>',
+  gubuy: () => '<div style="background:var(--soft);border-radius:14px;padding:12px 14px;max-width:290px;text-align:left"><small class="muted">bps.gub.uy</small><div style="font-weight:800;font-size:17px">Banco de Previsión Social</div><small style="color:#1B7F4A;font-weight:800">✓ Termina en gub.uy: es del Estado</small></div>',
+  ytart: () => '<span style="width:74px;height:52px;border-radius:14px;background:#E53935;display:grid;place-items:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></span>' + big('🍳','Recetas') + big('🎵','Música') + big('🧘','Gimnasia'),
+  ytbusca: () => big('🔎','La lupa de arriba') + '<span style="font-size:30px">➜</span>' + big('🖼️','Elegís el video'),
+  omitir: () => '<div style="position:relative;width:260px;height:140px;border-radius:12px;background:#222;color:#fff;display:grid;place-items:center;font-size:40px">📢<span style="position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.7);border:1px solid #fff;border-radius:6px;padding:6px 10px;font-size:15px;font-weight:700">Omitir</span></div>',
+  controles: () => big('⏸️','Pausa, en el medio') + big('⛶','Pantalla completa, en la esquina'),
+  nfart: () => big('🎬','Películas') + big('📺','Series') + big('💳','Se paga por mes'),
+  perfiles: () => ['🙂','👵','🧒'].map((e, i) => '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:700;font-size:14px"><span style="width:60px;height:60px;border-radius:10px;background:' + ['#E50914','#3F7FD8','#F4B400'][i] + ';display:grid;place-items:center;font-size:32px">' + e + '</span>' + ['Vos','Abuela','Niños'][i] + '</div>').join(''),
+  subt: () => '<div style="width:260px;height:140px;border-radius:12px;background:#222;color:#fff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;font-size:16px;font-weight:700">—¿Me pasás el mate?</div>',
+  nffalso: () => '<div class="msg in" style="max-width:290px;background:#fff;color:#111B21;text-align:left">NETFLIX: tu cuenta fue suspendida. Actualizá tu pago acá: <u style="color:#3F7FD8">netflix-pagos.xyz</u></div><b style="width:100%;text-align:center">Es falso</b>',
+  nfapp: () => big('🚫','No toques el enlace') + big('📱','Abrí la app como siempre'),
+  igart: () => big('🏠','Inicio') + big('🔎','Buscar') + big('❤️','Me gusta'),
+  historias: () => ['Sofi','Club','Pedro'].map((n, i) => '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:14px;font-weight:700"><span style="width:62px;height:62px;border-radius:50%;padding:3px;background:linear-gradient(45deg,#F9A825,#E91E63,#8E24AA)"><span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#fff;font-size:28px">' + ['👧','🌱','👨'][i] + '</span></span>' + n + '</div>').join(''),
+  seguir: () => big('👤','Un perfil') + '<span style="font-size:30px">➜</span><span style="background:#0095F6;color:#fff;font-weight:800;border-radius:10px;padding:10px 22px;font-size:17px">Seguir</span>',
+  perfilig: () => big('🔎','1. Lupa') + big('✍️','2. Nombre') + big('➕','3. "Seguir"'),
+  fbart: () => big('👨‍👩‍👧','Familia y amigos') + big('👥','Grupos'),
+  fbbtns: () => '<div style="display:flex;gap:16px;font-weight:800;font-size:16px;background:var(--soft);border-radius:12px;padding:10px 16px"><span>👍 Me gusta</span><span>💬 Comentar</span><span>↗️ Compartir</span></div>',
+  clon: () => big('👩','Marta, tu amiga') + big('👩','¿Otra Marta?') + '<b style="width:100%;text-align:center">Puede ser un perfil copiado</b>',
+  pensa: () => big('🎁','Premios raros') + big('💸','Piden plata') + big('🏠','Casa sola'),
   iaprivado: () => big('🔑','Contraseñas') + big('🔢','Códigos') + big('💳','Datos del banco') + '<b style="width:100%;text-align:center;font-size:17px">Nunca se le escriben a una IA</b>'
 };
 
@@ -2401,6 +2749,420 @@ SIMS.iaConfio = function(api){
     }); });
   };
   render();
+};
+
+/* ============ NIVELES NUEVOS: prácticas ============ */
+/* Tarjetas de decisión: cada situación tiene un contenido de pantalla, una pregunta y dos respuestas */
+function decidir(api, cfg){
+  const E = cfg.items; let i = 0, ac = 0;
+  const render = () => {
+    const e = E[i];
+    api.say('Situación ' + (i + 1) + ' de ' + E.length + '. Leela con calma.');
+    api.stage.innerHTML = (e.ctx ? '<p class="ctx" style="margin:0;font-weight:700"></p>' : '') + '<div class="phone" style="min-height:0"' + (e.dark ? ' data-dark="1"' : '') + '>' + e.html + '</div><h2 class="qh" style="margin:4px 0"></h2><div class="row"><button type="button" class="btn dark" data-a="0"></button><button type="button" class="btn dark" data-a="1"></button></div><div id="efb"></div>';
+    if (e.ctx) api.stage.querySelector('.ctx').textContent = e.ctx;
+    api.stage.querySelector('.qh').textContent = e.q;
+    api.stage.querySelectorAll('[data-a]').forEach(b => { b.textContent = e.b[+b.dataset.a]; b.addEventListener('click', () => {
+      if ($('efb').dataset.d) return; $('efb').dataset.d = 1;
+      const good = +b.dataset.a === e.ok; if (good) ac++;
+      $('efb').innerHTML = '<div class="fb ' + (good ? 'ok' : 'no') + '"><b>' + (good ? pick(['¡Bien pensado!','¡Eso!','¡Muy bien visto!']) : 'Mirá esto:') + '</b><span></span></div>';
+      $('efb').querySelector('span').textContent = e.why;
+      const n = el('button', 'btn', i < E.length - 1 ? 'Siguiente situación' : 'Ver mi resultado'); n.type = 'button'; n.style.marginTop = '12px'; $('efb').appendChild(n);
+      n.addEventListener('click', () => { if (i < E.length - 1){ i++; render(); window.scrollTo(0,0); } else { api.stage.innerHTML = '<div class="card center stack"><span style="font-size:56px">' + cfg.em + '</span><b style="font-size:22px">Acertaste ' + ac + ' de ' + E.length + '</b><p class="muted">' + (ac >= E.length - 1 ? cfg.bien : 'Con práctica se aprende a ver las señales. ¡Podés repetirlo cuando quieras!') + '</p></div>'; api.say(cfg.fin); api.done(); } });
+      n.scrollIntoView({behavior:'smooth', block:'center'});
+    }); });
+  };
+  render();
+}
+const msgCard = (from, sub, color, txt) => chatHead(from, sub, color) + '<div class="msgs" style="min-height:120px"><div class="msg in">' + esc(txt) + '<div class="meta">11:05</div></div></div>';
+
+/* ---- Cámara ---- */
+function camUI(api, escena){
+  api.stage.innerHTML = '<div class="phone camph" id="ph"><div class="camtop" id="ctime"></div><div class="vf" id="vf"><span id="scene"></span><span class="focus" id="focus" hidden></span></div>'
+    + '<div class="zooms"><button type="button" data-z="1" aria-pressed="true">1x</button><button type="button" data-z="2" aria-pressed="false">2x</button></div>'
+    + '<div class="modes"><button type="button" data-m="video">Video</button><button type="button" data-m="foto" class="on">Foto</button></div>'
+    + '<div class="camrow"><button type="button" class="thumb" id="thumb" aria-label="Ver tus fotos"></button><button type="button" class="shut" id="shut" aria-label="Sacar la foto"><span></span></button><button type="button" class="flipb" id="flip" aria-label="Dar vuelta la cámara">🔄</button></div></div>';
+  $('scene').textContent = escena;
+}
+const camFlash = () => { const v = $('vf'); v.classList.remove('flash'); void v.offsetWidth; v.classList.add('flash'); };
+const camZoom = z => { $('scene').style.transform = 'scale(' + z + ')'; document.querySelectorAll('.zooms button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.z === z))); };
+
+SIMS.camShoot = function(api){
+  camUI(api, '🌻'); let paso = 0;
+  $('scene').classList.add('blur');
+  api.say('Paso 1: tocá la <b>flor</b> en la pantalla para enfocarla.');
+  $('vf').addEventListener('click', e => {
+    if (paso !== 0) return;
+    const r = $('vf').getBoundingClientRect(), f = $('focus'); f.hidden = false; f.style.left = (e.clientX - r.left) + 'px'; f.style.top = (e.clientY - r.top) + 'px';
+    $('scene').classList.remove('blur'); paso = 1; $('shut').classList.add('pulse');
+    api.say('¡Enfocada! ¿Viste el cuadradito amarillo? Paso 2: tocá el <b>botón redondo grande</b> de abajo.');
+  });
+  $('shut').addEventListener('click', () => {
+    if (paso === 0){ toast('Primero tocá la flor en la pantalla, así sale nítida.'); return; }
+    if (paso !== 1) return; paso = 2; $('shut').classList.remove('pulse'); $('focus').hidden = true; $('toast').hidden = true;
+    camFlash(); $('thumb').textContent = '🌻';
+    api.say('¡Clic! Sacaste tu foto. Mirá la fotito de abajo: ahí quedó guardada. ¡Te quedó hermosa!'); api.done();
+  });
+  $('flip').addEventListener('click', () => toast('Ese botón da vuelta la cámara, para la selfie. Hoy sacamos una foto de la flor.'));
+  $('thumb').addEventListener('click', () => toast(paso < 2 ? 'Ahí van a aparecer tus fotos. Primero sacá una.' : 'Ahí está tu foto. Mirar las fotos lo practicamos en otra lección.'));
+  document.querySelectorAll('.zooms button, .modes button').forEach(b => b.addEventListener('click', () => toast('Eso lo vemos en otra lección. Ahora sacamos una foto de la flor.')));
+};
+
+SIMS.camSelfie = function(api){
+  camUI(api, '🌳'); let paso = 0, frente = false;
+  const vf = $('vf'), sc = $('scene');
+  sc.style.fontSize = '44px'; $('flip').classList.add('pulse');
+  api.say('Paso 1: tocá las <b>flechitas</b> de abajo a la derecha para dar vuelta la cámara.');
+  $('flip').addEventListener('click', () => {
+    if (paso === 0){ paso = 1; frente = true; $('flip').classList.remove('pulse'); vf.classList.add('selfie'); sc.style.fontSize = ''; sc.textContent = '🙂'; $('shut').classList.add('pulse'); api.say('¡Ahí estás vos! Paso 2: tocá el <b>botón redondo grande</b> para sacarte la selfie.'); return; }
+    if (paso === 2){ paso = 3; frente = false; $('flip').classList.remove('pulse'); vf.classList.remove('selfie'); sc.textContent = '🌳'; sc.style.fontSize = '44px'; document.querySelector('[data-z="2"]').classList.add('pulse'); api.say('Volviste a la cámara de atrás. Ese árbol está lejos. Paso 4: tocá <b>2x</b> para acercarlo.'); return; }
+    toast(paso === 1 ? 'Primero sacate la selfie con el botón redondo grande.' : 'Ahora sacamos la foto del árbol con el botón redondo grande.');
+  });
+  document.querySelectorAll('.zooms button').forEach(b => b.addEventListener('click', () => {
+    if (paso !== 3){ toast(frente ? 'El zoom lo usamos después, con la cámara de atrás.' : 'Primero seguí el paso que te digo arriba.'); return; }
+    if (b.dataset.z !== '2'){ toast('Tocá el 2x para acercar.'); return; }
+    paso = 4; b.classList.remove('pulse'); camZoom(2); $('shut').classList.add('pulse'); api.say('¡Mirá qué cerca quedó! Paso 5: sacale la foto con el <b>botón redondo grande</b>.');
+  }));
+  $('shut').addEventListener('click', () => {
+    if (paso === 1){ paso = 2; $('shut').classList.remove('pulse'); camFlash(); $('thumb').textContent = '🙂'; $('flip').classList.add('pulse'); api.say('¡Qué linda selfie! Paso 3: tocá las <b>flechitas</b> de nuevo para volver a la cámara de atrás.'); return; }
+    if (paso === 4){ paso = 5; $('shut').classList.remove('pulse'); camFlash(); $('thumb').textContent = '🌳'; api.say('¡Lo lograste! Te sacaste una selfie y acercaste el árbol con el zoom. ¡Ya podés sacar las fotos de la familia!'); api.done(); return; }
+    toast(paso === 0 ? 'Primero dale vuelta a la cámara con las flechitas.' : paso === 3 ? 'Primero acercá el árbol tocando 2x.' : 'Seguí el paso que te digo arriba.');
+  });
+  $('thumb').addEventListener('click', () => toast('Ahí quedan tus fotos. Mirarlas lo practicamos en la próxima lección.'));
+  document.querySelectorAll('.modes button').forEach(b => b.addEventListener('click', () => toast('Los videos los vemos en otra lección. Ahora sacamos fotos.')));
+};
+
+SIMS.camGallery = function(api){
+  const ios = OS() === 'iphone';
+  camUI(api, '🏡'); let paso = 0, idx = 2;
+  const F = [{e:'🐶', t:'Fito en el patio'}, {e:'🌫️', t:'Esta salió movida', blur:true}, {e:'🌻', t:'La flor del jardín'}];
+  $('thumb').textContent = '🌻'; $('thumb').classList.add('pulse');
+  api.say('Paso 1: tocá la <b>fotito</b> de abajo para ver tus fotos.');
+  $('shut').addEventListener('click', () => toast('Hoy no sacamos fotos: vamos a mirar las que ya tenés. Tocá la fotito de abajo.'));
+  $('flip').addEventListener('click', () => toast('Hoy vamos a mirar tus fotos. Tocá la fotito de abajo.'));
+  document.querySelectorAll('.zooms button, .modes button').forEach(b => b.addEventListener('click', () => toast('Hoy vamos a mirar tus fotos. Tocá la fotito de abajo.')));
+  $('thumb').addEventListener('click', ver);
+  function ver(){
+    if (paso !== 0) return; paso = 1;
+    $('ph').className = 'phone galph';
+    $('ph').innerHTML = '<div class="bar" style="background:#000;border:none;color:#fff"><b style="flex:1" id="gcount"></b></div><div class="gview" id="gv"><span id="gimg"></span><small id="gcap"></small></div><div class="gacts"><button type="button" id="gsh">↗️<span>Compartir</span></button><button type="button" id="ged">✏️<span>Editar</span></button><button type="button" id="gdel">🗑️<span>Borrar</span></button></div>';
+    pinta(); api.say('Esta es la última foto que sacaste. Paso 2: <b>deslizá el dedo hacia un costado</b> para ver la anterior.');
+    const gv = $('gv'); let x0 = null, dx = 0; gv.style.touchAction = 'pan-y';
+    gv.addEventListener('pointerdown', e => { x0 = e.clientX; dx = 0; try { gv.setPointerCapture(e.pointerId); } catch(_){} });
+    gv.addEventListener('pointermove', e => { if (x0 == null) return; dx = e.clientX - x0; $('gimg').style.transform = 'translateX(' + Math.max(-80, Math.min(80, dx)) + 'px)'; });
+    const up = () => { if (x0 == null) return; const ok = Math.abs(dx) > 45; x0 = null; $('gimg').style.transform = ''; if (ok) pasar(); else if (paso === 1 || paso === 2) toast('Apoyá el dedo en la foto y arrastralo hacia un costado, como pasando la hoja de un álbum.'); };
+    gv.addEventListener('pointerup', up); gv.addEventListener('pointercancel', () => { x0 = null; $('gimg').style.transform = ''; });
+    $('gsh').addEventListener('click', () => toast('Compartir sirve para mandar la foto, por ejemplo por WhatsApp. Hoy buscamos la foto movida.'));
+    $('ged').addEventListener('click', () => toast('Editar sirve para recortarla o mejorarla. Hoy buscamos la foto movida.'));
+    $('gdel').addEventListener('click', borrar);
+  }
+  function pinta(){ const f = F[idx]; $('gimg').textContent = f.e; $('gimg').classList.toggle('blur', !!f.blur); $('gcap').textContent = f.t; $('gcount').textContent = 'Foto ' + (idx + 1) + ' de ' + F.length; }
+  function pasar(){
+    if (paso === 1){ idx = 1; paso = 2; pinta(); $('gdel').classList.add('pulse'); $('toast').hidden = true; api.say('¡Eso! Esta salió movida: no se ve nada. Paso 3: tocá el <b>tachito</b> para borrarla.'); return; }
+    if (paso === 2){ toast('Esta es la foto movida. Tocá el tachito para borrarla.'); return; }
+    idx = idx === 0 ? F.length - 1 : idx - 1; pinta();
+  }
+  function borrar(){
+    if (paso === 1){ toast('Esa foto está linda. Primero deslizá para buscar la que salió movida.'); return; }
+    if (paso !== 2) return;
+    $('gdel').classList.remove('pulse');
+    const s = el('div', 'sheet ov', '<div><b style="font-size:18px">' + (ios ? 'Eliminar foto' : '¿Mover a la papelera?') + '</b><small style="color:var(--ph-sub)">Queda unos días en la papelera, por si te arrepentís.</small><button type="button" class="pgreen pulse" id="gok" style="background:#E5484D">' + (ios ? 'Eliminar foto' : 'Mover a la papelera') + '</button><button type="button" class="prow" id="gno" style="justify-content:center;border:none">Cancelar</button></div>');
+    $('ph').appendChild(s); api.say('Te pregunta si estás seguro. Paso 4: tocá <b>' + (ios ? 'Eliminar foto' : 'Mover a la papelera') + '</b>.');
+    $('gno').addEventListener('click', () => { s.remove(); $('gdel').classList.add('pulse'); api.say('No pasa nada: cancelaste. Si querés borrarla, tocá el tachito otra vez.'); });
+    $('gok').addEventListener('click', () => {
+      s.remove(); paso = 3; F.splice(1, 1); idx = 0; pinta();
+      $('gv').appendChild(el('div', 'sysmsg', '🗑️ La foto movida está en la papelera'));
+      api.say('¡Listo! Borraste la foto movida. Y si te arrepentís, está unos días en la papelera.'); api.done();
+    });
+  }
+};
+
+SIMS.camVideo = function(api){
+  camUI(api, '🐕'); let paso = 0, seg = 0, grab = false;
+  const vb = document.querySelector('[data-m="video"]'); vb.classList.add('pulse');
+  api.say('Paso 1: tocá <b>Video</b>, abajo, para pasar de fotos a videos.');
+  document.querySelectorAll('.modes button').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.m === 'foto'){ if (paso > 0) toast('Para grabar, quedate en "Video".'); return; }
+    if (paso !== 0) return; paso = 1; vb.classList.remove('pulse');
+    document.querySelectorAll('.modes button').forEach(x => x.classList.toggle('on', x === b));
+    $('shut').classList.add('vid', 'pulse'); $('shut').setAttribute('aria-label', 'Grabar'); $('ctime').textContent = '0:00';
+    api.say('¿Viste? El botón se puso rojo. Paso 2: tocá el <b>botón rojo</b> para empezar a grabar a Fito.');
+  }));
+  $('shut').addEventListener('click', () => {
+    if (paso === 0){ toast('Ese botón saca fotos. Primero tocá "Video", abajo.'); return; }
+    if (paso === 1){
+      paso = 2; grab = true; $('shut').classList.remove('pulse'); $('shut').classList.add('rec'); $('shut').setAttribute('aria-label', 'Terminar');
+      api.say('¡Grabando! Arriba ves el tiempo que lleva. Grabá unos segundos…');
+      const tick = () => { if (!grab) return; seg++; $('ctime').innerHTML = '<span class="rdot"></span>0:' + String(seg).padStart(2, '0'); if (seg === 3){ $('toast').hidden = true; $('shut').classList.add('pulse'); api.say('¡Muy bien! Paso 3: tocá el botón con el <b>cuadradito</b> para terminar.'); } if (seg < 59) later(tick, 1000); };
+      later(tick, 1000); return;
+    }
+    if (paso === 2){
+      if (seg < 2){ toast('Grabá unos segunditos más y después tocá el cuadradito.'); return; }
+      grab = false; paso = 3; $('shut').classList.remove('rec', 'pulse'); $('ctime').textContent = ''; $('thumb').textContent = '🎥'; $('toast').hidden = true;
+      api.say('¡Lo grabaste! Tu video de ' + seg + ' segundos quedó guardado con tus fotos.'); api.done();
+    }
+  });
+  $('flip').addEventListener('click', () => toast('Ese botón da vuelta la cámara. Hoy grabamos a Fito.'));
+  $('thumb').addEventListener('click', () => toast(paso < 3 ? 'Ahí va a quedar tu video. Primero grabalo.' : 'Ahí quedó tu video.'));
+  document.querySelectorAll('.zooms button').forEach(b => b.addEventListener('click', () => toast('El zoom también funciona con video, pero hoy no lo necesitamos.')));
+};
+
+/* ---- Google ---- */
+function gUI(api){
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:440px;background:var(--ph-bar)"><div class="gtop"><b>Google</b></div><div class="gbar" id="gbar"><span aria-hidden="true">🔎</span><input id="gq" placeholder="Buscar" autocomplete="off" readonly><button type="button" class="gico" id="gbtn" aria-label="Buscar hablando">🎙️</button></div><div class="helpers" id="help" hidden><button type="button" id="h1">Escribir por mí</button></div><div id="gres" class="gres"></div></div>';
+}
+const gResult = (r, k) => '<button type="button" class="gr" data-r="' + k + '">' + (r.pat ? '<b class="gpat">Patrocinado</b>' : '') + '<small>' + esc(r.site) + '</small><b class="gt">' + esc(r.t) + '</b><span>' + esc(r.s) + '</span></button>';
+
+SIMS.gSearch = function(api){
+  gUI(api); let paso = 0;
+  const inp = $('gq'), btn = $('gbtn');
+  $('gbar').classList.add('pulse');
+  api.say('Paso 1: tocá la <b>barra de búsqueda</b>, donde dice "Buscar".');
+  $('gbar').addEventListener('click', e => { if (paso !== 0 || e.target === btn) return; paso = 1; $('gbar').classList.remove('pulse'); inp.readOnly = false; inp.focus(); $('help').hidden = false; api.say('Paso 2: escribí <b>receta de buñuelos de acelga</b>. Si te cuesta, tocá "Escribir por mí".'); });
+  $('h1').addEventListener('click', () => { inp.value = 'receta de buñuelos de acelga'; inp.dispatchEvent(new Event('input')); });
+  inp.addEventListener('input', () => { const has = inp.value.trim().length > 0; btn.textContent = has ? '🔎' : '🎙️'; btn.setAttribute('aria-label', has ? 'Buscar' : 'Buscar hablando'); btn.classList.toggle('pulse', has && paso === 1); if (has && paso === 1) api.say('¡Bien! Paso 3: tocá la <b>lupa</b> de la derecha para buscar.'); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); btn.click(); } });
+  btn.addEventListener('click', () => {
+    if (paso === 0){ toast('Ese micrófono es para buscar hablando. Hoy escribimos: tocá la barra.'); return; }
+    if (paso !== 1) return;
+    if (!inp.value.trim()){ toast('El micrófono busca hablando. Hoy primero escribí lo que buscás.'); return; }
+    paso = 2; btn.classList.remove('pulse'); inp.readOnly = true; inp.blur(); $('help').hidden = true;
+    const R = [{site:'cocinacasera.com.uy', t:'Buñuelos de acelga, como los de la abuela', s:'Con harina, huevo y acelga. Listos en 30 minutos.'}, {site:'recetasfaciles.net', t:'Buñuelos de acelga al horno', s:'Una versión más liviana, sin fritura.'}, {site:'saboresdelsur.com', t:'5 recetas con acelga', s:'Tartas, buñuelos y más ideas.'}];
+    $('gres').innerHTML = R.map(gResult).join(''); $('gres').querySelector('[data-r="0"]').classList.add('pulse');
+    api.say('¡Estos son los resultados! Cada uno es una página distinta. Paso 4: tocá el <b>primero</b> para abrirlo.');
+    $('gres').querySelectorAll('.gr').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.r !== '0'){ toast('Esa también sirve, pero hoy abrimos la primera.'); return; }
+      paso = 3; $('toast').hidden = true;
+      $('ph').innerHTML = '<div class="bar"><button type="button" class="ibtn" aria-label="Volver">' + I4.back + '</button><small style="flex:1;color:var(--ph-sub)">cocinacasera.com.uy</small></div><div style="padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--ph-bar);flex:1"><span style="font-size:64px;text-align:center">🥬</span><b style="font-size:20px">Buñuelos de acelga, como los de la abuela</b><span>1. Lavá y picá la acelga.</span><span>2. Mezclá con 2 huevos y harina.</span><span>3. Freí cucharadas de la mezcla hasta que estén doradas.</span></div>';
+      api.say('¡Lo lograste! Entraste a la página. Para volver a los resultados, se toca la flechita de arriba.'); api.done();
+    }));
+  });
+};
+
+SIMS.gVoice = function(api){
+  gUI(api); let paso = 0;
+  const btn = $('gbtn'); btn.classList.add('pulse');
+  api.say('Paso 1: tocá el <b>micrófono</b> de la barra de búsqueda.');
+  $('gbar').addEventListener('click', e => { if (e.target !== btn && paso === 0) toast('Hoy buscamos hablando. Tocá el micrófono, a la derecha de la barra.'); });
+  btn.addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1; btn.classList.remove('pulse');
+    const ov = el('div', 'gvoice', '<span class="gm" aria-hidden="true">🎙️</span><b id="gvt">Te escucho…</b><button type="button" class="btn pulse" id="gsay">🗣️ Decir: "¿Qué tiempo va a hacer mañana?"</button><small>En tu celular hablás de verdad. Acá, para practicar, tocá el botón.</small>');
+    $('ph').appendChild(ov); api.say('Google te está escuchando. Paso 2: tocá el botón para <b>decirle</b> la pregunta.');
+    $('gsay').addEventListener('click', () => {
+      if (paso !== 1) return; paso = 2; $('gsay').remove(); $('gvt').textContent = '¿Qué tiempo va a hacer mañana?';
+      later(() => {
+        ov.remove(); $('gq').value = '¿Qué tiempo va a hacer mañana?'; btn.textContent = '🔎';
+        $('gres').innerHTML = '<div class="gwx"><span style="font-size:52px">☀️</span><div><b style="font-size:30px">21°</b><br><span>Mañana · Soleado</span><br><small style="color:var(--ph-sub)">Mínima 12° · Sin lluvia</small></div></div>' + gResult({site:'pronostico-tiempo.com', t:'Pronóstico extendido para tu zona', s:'Temperatura, lluvia y viento para los próximos días.'}, 0);
+        api.say('¡Lo lograste! Google escribió tu pregunta solo y te mostró el pronóstico. Mañana, ¡a salir a caminar!'); api.done();
+      }, 1500);
+    });
+  });
+};
+
+SIMS.gTrust = function(api){
+  const it = (r, ok, why) => ({q:'¿Entrás a esta página?', b:['Entro','Mejor no'], ok, why, html:'<div class="gtop" style="padding:10px 14px"><b>Google</b></div><div class="gres" style="padding:0 10px 12px">' + gResult(r, 0) + '</div>'});
+  decidir(api, {em:'✅', bien:'¡Ya sabés mirar antes de tocar!', fin:'Antes de entrar, mirá: ¿dice "Patrocinado"? ¿Termina en gub.uy? ¿Te piden la tarjeta? Con eso ya te cuidás muchísimo.', items:[
+    it({pat:true, site:'tramites-rapidos.com', t:'Renová tu cédula en 5 minutos', s:'Pagá $1.500 y hacemos el trámite por vos.'}, 1, 'Es un anuncio que te cobra por algo que podés hacer en la página oficial. Para la cédula, buscá la página que termina en gub.uy.'),
+    it({site:'bps.gub.uy', t:'Banco de Previsión Social', s:'Jubilaciones, pensiones y trámites en línea.'}, 0, 'Termina en gub.uy: es la página oficial del Estado. Podés entrar con confianza.'),
+    it({pat:true, site:'super-ofertas-ya.shop', t:'iPhone nuevo a $990, ¡solo hoy!', s:'Quedan 3 unidades. Pagá ahora con tu tarjeta.'}, 1, 'Una oferta increíble, con apuro y pidiendo la tarjeta: son señales de alarma. Mejor no.'),
+    it({site:'recetasdelaabuela.com.uy', t:'Torta de naranja casera', s:'Ingredientes y pasos para una torta esponjosa.'}, 0, 'Es una receta: no te pide datos ni plata. Si no te gusta, buscás otra.')
+  ]});
+};
+
+/* ---- YouTube ---- */
+const ytCard = (e, t, d, k) => '<button type="button" class="ytc" data-v="' + k + '"><span class="ytth">' + e + '<small>' + d + '</small></span><b>' + esc(t) + '</b></button>';
+SIMS.ytSearch = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:460px;background:var(--ph-bar)"><div class="bar" id="ybar"><b style="flex:1;font-size:19px"><span style="color:#E53935">▶</span> YouTube</b><button type="button" class="ibtn pulse" id="ylupa" aria-label="Buscar">' + I.search + '</button></div><div id="yfeed" class="yfeed">' + ytCard('🎻', 'Tangos para escuchar en la tarde', '58:12', 'a') + ytCard('🧘', 'Gimnasia suave en una silla', '15:40', 'b') + '</div></div>';
+  api.say('Paso 1: tocá la <b>lupa</b> de arriba.');
+  $('yfeed').addEventListener('click', () => { if (paso === 0) toast('Esos videos te los recomienda YouTube. Hoy buscamos uno: tocá la lupa de arriba.'); });
+  $('ylupa').addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1;
+    $('ybar').innerHTML = '<label class="field pulse" id="yfld" for="yq" style="background:var(--ph-bg)"><input id="yq" placeholder="Buscar en YouTube" autocomplete="off"></label><button type="button" class="ibtn" id="ygo" aria-label="Buscar">' + I.search + '</button>';
+    $('ph').insertBefore(el('div', 'helpers', '<button type="button" id="h1">Escribir por mí</button>'), $('yfeed')); $('ph').querySelector('.helpers').style.paddingTop = '8px';
+    const q = $('yq'); q.focus();
+    api.say('Paso 2: escribí <b>tortas fritas</b> y tocá la lupa. Si te cuesta, tocá "Escribir por mí".');
+    $('h1').addEventListener('click', () => { q.value = 'tortas fritas'; q.dispatchEvent(new Event('input')); });
+    q.addEventListener('input', () => { const has = q.value.trim().length > 0; $('ygo').classList.toggle('pulse', has); $('yfld').classList.toggle('pulse', !has); });
+    q.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); $('ygo').click(); } });
+    $('ygo').addEventListener('click', () => {
+      if (paso !== 1) return; if (!q.value.trim()){ toast('Primero escribí qué video buscás.'); return; }
+      paso = 2; $('ygo').classList.remove('pulse'); q.blur(); $('ph').querySelector('.helpers').remove();
+      $('yfeed').innerHTML = ytCard('🫓', 'Tortas fritas caseras, como las de la abuela', '8:25', '0') + ytCard('☔', 'Tortas fritas para un día de lluvia', '6:10', '1');
+      $('yfeed').querySelector('[data-v="0"]').classList.add('pulse');
+      api.say('¡Estos son los videos! La imagen te muestra de qué se trata. Paso 3: tocá el <b>primero</b>.');
+      $('yfeed').querySelectorAll('.ytc').forEach(b => b.addEventListener('click', () => {
+        if (b.dataset.v !== '0'){ toast('Ese también es de tortas fritas, pero hoy miramos el primero.'); return; }
+        paso = 3; $('toast').hidden = true;
+        $('ph').innerHTML = '<div class="ytp" id="ytp"><span class="ytbig">🫓</span><div class="ytbar"><i id="ypr"></i></div></div><div style="padding:12px 14px;display:flex;flex-direction:column;gap:6px;background:var(--ph-bar);flex:1"><b style="font-size:18px">Tortas fritas caseras, como las de la abuela</b><small style="color:var(--ph-sub)">Cocina de casa · 12 mil vistas</small></div>';
+        let p = 0; const av = () => { p = Math.min(100, p + 4); const pr = $('ypr'); if (pr) pr.style.width = p + '%'; if (p < 100) later(av, 400); }; av();
+        api.say('¡Lo lograste! El video ya está andando. Ya podés buscar recetas, música o lo que quieras.'); api.done();
+      }));
+    });
+  });
+};
+
+SIMS.ytControls = function(api){
+  let paso = 0, play = false, full = false, p = 8;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:0;background:var(--ph-bar)"><div class="ytp" id="ytp"><span class="ytbig" id="yimg">📢</span><span class="yad" id="yad">Anuncio · 0:05</span><button type="button" class="yskip" id="yskip" hidden>Omitir</button><div class="yctl" id="yctl" hidden><button type="button" class="yplay" id="yplay" aria-label="Pausa">⏸</button><button type="button" class="yfull" id="yfull" aria-label="Pantalla completa">⛶</button></div><div class="ytbar"><i id="ypr"></i></div></div><div style="padding:12px 14px;background:var(--ph-bar)"><b style="font-size:18px">Tortas fritas caseras, como las de la abuela</b></div></div>';
+  api.say('Primero aparece un anuncio. Paso 1: esperá unos segundos a que aparezca <b>Omitir</b>, abajo a la derecha, y tocalo.');
+  let s = 5; const cuenta = () => { s--; if ($('yad')) $('yad').textContent = 'Anuncio · 0:0' + Math.max(s, 0); if (s === 2){ $('yskip').hidden = false; $('yskip').classList.add('pulse'); } if (s > 0 && paso === 0) later(cuenta, 1000); }; later(cuenta, 1000);
+  const corre = () => { if (!play) return; p = Math.min(100, p + 2); $('ypr').style.width = p + '%'; if (p < 100) later(corre, 500); };
+  $('yskip').addEventListener('click', e => { e.stopPropagation(); if (paso !== 0) return; paso = 1; $('yskip').remove(); $('yad').remove(); $('yimg').textContent = '🫓'; play = true; corre(); api.say('¡Chau anuncio! Ya empezó tu video. Paso 2: tocá el <b>video</b> una vez para que aparezcan los botones.'); });
+  $('ytp').addEventListener('click', () => {
+    if (paso === 0){ toast('Esperá un poquito: abajo a la derecha va a aparecer "Omitir".'); return; }
+    if (paso === 1){ paso = 2; $('toast').hidden = true; $('yctl').hidden = false; $('yplay').classList.add('pulse'); api.say('¡Ahí están los botones! Paso 3: tocá la <b>pausa</b>, en el medio.'); }
+  });
+  $('yplay').addEventListener('click', e => {
+    e.stopPropagation();
+    if (paso === 2){ paso = 3; play = false; $('yplay').textContent = '▶'; $('yplay').setAttribute('aria-label', 'Seguir'); api.say('¡Pausado! El video te espera. Paso 4: tocá el <b>triangulito</b> para que siga.'); return; }
+    if (paso === 3){ paso = 4; play = true; corre(); $('yplay').textContent = '⏸'; $('yplay').classList.remove('pulse'); $('yfull').classList.add('pulse'); api.say('¡Sigue andando! Paso 5: tocá el <b>cuadradito</b> de la esquina para verlo en pantalla completa.'); return; }
+    if (paso >= 4) toast(paso === 4 ? 'Ahora tocá el cuadradito de la esquina.' : 'Para salir, tocá el cuadradito de la esquina.');
+  });
+  $('yfull').addEventListener('click', e => {
+    e.stopPropagation();
+    if (paso < 4){ toast('Antes probemos la pausa, en el medio.'); return; }
+    if (paso === 4){ paso = 5; full = true; $('ytp').classList.add('full'); $('yfull').setAttribute('aria-label', 'Salir de pantalla completa'); $('ytp').appendChild(el('span', 'yfnote', 'Para salir, tocá el cuadradito.')); api.say('¡Pantalla completa!'); return; }
+    if (paso === 5){ paso = 6; full = false; $('ytp').classList.remove('full'); $('yfull').classList.remove('pulse'); const n = $('ytp').querySelector('.yfnote'); if (n) n.remove(); api.say('¡Muy bien! Saltaste el anuncio, pausaste, seguiste y lo viste en grande. En tu celular, acostalo para verlo todavía más grande.'); api.done(); }
+  });
+};
+
+/* ---- Netflix ---- */
+SIMS.nfBrowse = function(api){
+  let paso = 0; const yo = NOMBRE() || 'Vos';
+  api.stage.innerHTML = '<div class="phone nfph" id="ph"></div>';
+  const perfiles = () => {
+    $('ph').innerHTML = '<div class="nfwho"><b style="font-size:20px">¿Quién está viendo?</b><div class="nfps">' + [[yo,'🙂','#E50914',1],['Carlos','👨','#3F7FD8',0],['Niños','🧒','#F4B400',0]].map(p => '<button type="button" class="nfp' + (p[3] ? ' pulse' : '') + '" data-p="' + p[3] + '"><span style="background:' + p[2] + '">' + p[1] + '</span>' + esc(p[0]) + '</button>').join('') + '</div></div>';
+    api.say('Paso 1: tocá <b>tu perfil</b>, el que tiene tu nombre.');
+    $('ph').querySelectorAll('.nfp').forEach(b => b.addEventListener('click', () => { if (b.dataset.p !== '1'){ toast('Ese es el perfil de otra persona. Tocá el que tiene tu nombre, así Netflix sabe qué venías mirando.'); return; } inicio(); }));
+  };
+  const inicio = () => {
+    paso = 1; $('toast').hidden = true;
+    $('ph').innerHTML = '<div class="bar" style="background:transparent;border:none;color:#fff"><b style="flex:1">Hola, ' + esc(yo) + '</b><span aria-hidden="true">🔎</span></div><div class="nfrow"><b>Seguir viendo</b><div><button type="button" class="nfc pulse" id="nfs"><span>🌊</span><i style="width:60%"></i><small>Historias del puerto</small></button><button type="button" class="nfc" data-o="1"><span>🕵️</span><i style="width:25%"></i><small>El caso Rivera</small></button></div></div><div class="nfrow"><b>Para vos</b><div>' + ['🎭','🐎','🌌'].map(e => '<button type="button" class="nfc" data-o="1"><span>' + e + '</span></button>').join('') + '</div></div>';
+    api.say('Este es tu inicio. Ayer dejaste "Historias del puerto" por la mitad. Paso 2: tocala en <b>Seguir viendo</b>.');
+    $('ph').querySelectorAll('[data-o]').forEach(b => b.addEventListener('click', () => toast('Esa también se puede mirar. Hoy seguimos con "Historias del puerto", en "Seguir viendo".')));
+    $('nfs').addEventListener('click', ver);
+  };
+  const ver = () => {
+    paso = 2; $('toast').hidden = true;
+    $('ph').innerHTML = '<div class="nfplay" id="nfv"><span style="font-size:80px">🌊</span><small id="nfr">Retomando desde 23:10</small><div class="nfsub" id="nfsub" hidden>—¿Me pasás el mate?</div><div class="nfctl" id="nfctl" hidden><button type="button" class="nfbtn pulse" id="nfas">💬 Audio y subtítulos</button></div></div><div style="padding:12px 14px;color:#fff"><b>Historias del puerto</b><br><small style="color:#aaa">Temporada 1 · Capítulo 3</small></div>';
+    api.say('¡Retomó justo donde la dejaste! Paso 3: no se escucha muy bien. Tocá la <b>pantalla</b> para ver los botones.');
+    $('nfv').addEventListener('click', () => { if (paso !== 2) return; paso = 3; $('nfctl').hidden = false; api.say('Paso 4: tocá <b>Audio y subtítulos</b>.'); });
+    $('nfas').addEventListener('click', e => {
+      e.stopPropagation(); if (paso !== 3) return; paso = 4;
+      const pn = el('div', 'nfpanel', '<div><b>Audio</b><span class="sel">✓ Español</span></div><div><b>Subtítulos</b><button type="button" id="nfoff" class="sel">✓ Desactivados</button><button type="button" id="nfes" class="pulse">Español</button></div>');
+      $('ph').appendChild(pn); api.say('Paso 5: en Subtítulos, tocá <b>Español</b>.');
+      $('nfoff').addEventListener('click', () => toast('Así quedan sin subtítulos. Tocá "Español" para ponerlos.'));
+      $('nfes').addEventListener('click', () => { if (paso !== 4) return; paso = 5; pn.remove(); $('nfctl').hidden = true; $('nfr').hidden = true; $('nfsub').hidden = false; api.say('¡Lo lograste! Elegiste tu perfil, seguiste la serie y le pusiste subtítulos. ¡Que la disfrutes!'); api.done(); });
+    });
+  };
+  perfiles();
+};
+
+SIMS.nfEstafa = function(api){
+  decidir(api, {em:'🛡️', bien:'¡A vos no te engañan con Netflix!', fin:'Netflix no te pide la tarjeta por mensaje. Ante la duda, no toques el enlace y abrí la app como siempre.', items:[
+    {html:msgCard('+598 9X XXX 332', 'No está en tus contactos', '#8A8A8A', 'NETFLIX: tu cuenta fue suspendida. Actualizá tu pago hoy: netflix-pagos.xyz'), q:'¿Tocás el enlace?', b:['Lo toco','Mejor no'], ok:1, why:'Número desconocido, apuro y un enlace raro. Netflix no te pide el pago por mensaje.'},
+    {dark:true, html:'<div class="nfnoti"><b>Novedad</b><span>Llegó la segunda temporada de "Historias del puerto".</span><small>Dentro de la app de Netflix</small></div>', ctx:'Abriste la app de Netflix y ves este aviso:', q:'¿La mirás?', b:['La miro','Mejor no'], ok:0, why:'Es un aviso dentro de la app, y no te pide datos ni plata. ¡A disfrutar!'},
+    {html:msgCard('Netflix Promo 🎉', 'No está en tus contactos', '#8A8A8A', 'Ganaste 1 año gratis de Netflix. Mandanos los números de tu tarjeta para verificar que sos vos.'), q:'¿Le mandás los datos?', b:['Se los mando','No se los mando'], ok:1, why:'Nadie regala un año gratis pidiendo la tarjeta. Es una estafa: no contestes y bloqueá el número.'},
+    {html:'<div class="mailc"><small>De: Netflix &lt;avisos@netfl1x-cuenta.com&gt;</small><b>Tu pago fue rechazado</b><span>Ingresá tus datos en las próximas 24 horas o vas a perder tu cuenta.</span></div>', ctx:'Te llega este correo:', q:'¿Qué hacés?', b:['Ingreso mis datos','Abro la app para revisar'], ok:1, why:'Mirá la dirección: "netfl1x", con un uno. Ante la duda, abrís la app como siempre y revisás desde ahí.'}
+  ]});
+};
+
+/* ---- Instagram ---- */
+const igNav = act => '<div class="ignav">' + [['home','🏠','Inicio'],['buscar','🔎','Buscar'],['crear','➕','Crear'],['reels','▶️','Reels'],['perfil','👤','Perfil']].map(b => '<button type="button" data-n="' + b[0] + '"' + (b[0] === act ? ' class="pulse"' : '') + '><span>' + b[1] + '</span>' + b[2] + '</button>').join('') + '</div>';
+SIMS.igFeed = function(api){
+  let paso = 0, visto = false, like = false;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
+  const feed = () => {
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Instagram</b><span aria-hidden="true">♡</span></div><div class="igst">' + [['Tu historia','🙂',0,0],['Sofi','👧',1,1],['Club','🌱',1,0],['Pedro','👨',1,0]].map(s => '<button type="button" class="igs' + (s[2] && !(s[3] && visto) ? ' ring' : '') + (s[3] && paso === 0 ? ' pulse' : '') + '" data-s="' + s[3] + '"><span><span>' + s[1] + '</span></span>' + s[0] + '</button>').join('') + '</div>'
+      + '<div class="igpost"><div class="who" style="padding:8px 12px"><span class="pic" style="background:#E91E63">S</span><b>sofi.gomez</b></div><div class="igimg" id="igimg">🎂</div><div class="igact"><button type="button" id="igheart" class="' + (paso === 2 ? 'pulse' : '') + '" aria-label="Me gusta">' + (like ? '❤️' : '♡') + '</button><button type="button" aria-label="Comentar" data-x="1">💬</button><button type="button" aria-label="Compartir" data-x="1">↗️</button></div><small style="padding:0 12px;font-weight:800" id="iglikes">' + (like ? '1 Me gusta' : '') + '</small><p style="margin:2px 12px 10px;font-size:16px"><b>sofi.gomez</b> ¡Gracias a todos por venir a mi cumple! 🎉</p></div>' + igNav('');
+    $('ph').querySelectorAll('.igs').forEach(b => b.addEventListener('click', () => { if (b.dataset.s === '1' && paso === 0) historia(); else if (paso === 0) toast('Esa es otra historia. Tocá el circulito de Sofi.'); }));
+    $('igheart').addEventListener('click', megusta);
+    $('igimg').addEventListener('dblclick', megusta);
+    $('ph').querySelectorAll('[data-x], .ignav button').forEach(b => b.addEventListener('click', () => toast(paso === 0 ? 'Primero miremos la historia de Sofi: tocá su circulito, arriba.' : 'Para el me gusta, tocá el corazón que está abajo de la foto.')));
+  };
+  const historia = () => {
+    paso = 1; $('toast').hidden = true;
+    const h = el('div', 'igstory', '<div class="igpb"><i id="igpb"></i></div><div class="who" style="padding:10px 12px;color:#fff;flex:none"><span class="pic" style="background:#E91E63">S</span><b style="flex:1">Sofi</b><button type="button" class="igx pulse" id="igx" aria-label="Cerrar">✕</button></div><div class="igsc"><span>🎂🎈</span><b>¡Cumplí 15!</b></div>');
+    $('ph').appendChild(h);
+    let p = 0; const av = () => { p = Math.min(100, p + 5); const b = $('igpb'); if (b) b.style.width = p + '%'; if (p < 100 && paso === 1) later(av, 250); }; av();
+    api.say('¡Esta es la historia de Sofi! Dura 24 horas. Paso 2: cuando termines de mirarla, tocá la <b>✕</b> de arriba para volver.');
+    $('igx').addEventListener('click', () => { paso = 2; visto = true; h.remove(); feed(); api.say('¿Viste? El circulito de Sofi ya no tiene color: quiere decir que la viste. Paso 3: dale me gusta a su foto tocando el <b>corazón</b> de abajo.'); });
+  };
+  const megusta = () => {
+    if (paso === 0){ toast('Primero miremos la historia de Sofi: tocá su circulito, arriba.'); return; }
+    if (paso !== 2) return; paso = 3; like = true; $('toast').hidden = true;
+    $('igheart').textContent = '❤️'; $('igheart').classList.remove('pulse'); $('iglikes').textContent = '1 Me gusta';
+    api.say('¡Corazón rojo! A Sofi le va a llegar un aviso de que te gustó su foto. ¡Le vas a alegrar el día!'); api.done();
+  };
+  api.say('Paso 1: tocá el <b>circulito de Sofi</b>, arriba, para ver su historia.');
+  feed();
+};
+
+SIMS.igFollow = function(api){
+  let paso = 0;
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
+  $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Instagram</b></div><div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('buscar');
+  api.say('Paso 1: tocá la <b>lupa</b> de abajo para buscar.');
+  $('ph').querySelectorAll('.ignav button').forEach(b => b.addEventListener('click', () => { if (b.dataset.n === 'buscar') buscar(); else toast('Para buscar, tocá la lupa.'); }));
+  function buscar(){
+    if (paso !== 0) return; paso = 1; $('toast').hidden = true;
+    $('ph').innerHTML = '<div class="bar"><label class="field pulse" id="ifld" for="iq" style="background:var(--ph-bg)">🔎<input id="iq" placeholder="Buscar" autocomplete="off"></label></div><div class="helpers" style="padding-top:8px"><button type="button" id="h1">Escribir por mí</button></div><div id="ires" style="flex:1"></div>' + igNav('');
+    const q = $('iq'); q.focus();
+    api.say('Paso 2: escribí <b>huerta en casa</b>. Si te cuesta, tocá "Escribir por mí".');
+    $('h1').addEventListener('click', () => { q.value = 'huerta en casa'; q.dispatchEvent(new Event('input')); });
+    q.addEventListener('input', () => {
+      const has = q.value.trim().length > 2; $('ifld').classList.toggle('pulse', !has);
+      $('ires').innerHTML = has ? '<button type="button" class="crow bar pulse" id="ihc"><div class="who"><span class="pic" style="background:#43A047">🌱</span><div style="min-width:0"><b>huertaencasa.uy</b><small>Huerta en casa · 8.400 seguidores</small></div></div></button>' + crowSimple('huertas_del_sur', 'Huertas del Sur', '#8D6E63') : '';
+      if (has){ api.say('¡Ahí apareció! Paso 3: tocá <b>Huerta en casa</b> para entrar a su perfil.'); $('ihc').addEventListener('click', perfil); }
+    });
+    $('ph').querySelectorAll('.ignav button').forEach(b => b.addEventListener('click', () => toast('Primero escribí lo que buscás, arriba.')));
+  }
+  function perfil(){
+    paso = 2;
+    $('ph').innerHTML = '<div class="bar"><b style="flex:1">huertaencasa.uy</b></div><div class="igprof"><span class="pic" style="width:80px;height:80px;font-size:40px;background:#43A047">🌱</span><div><b>Huerta en casa</b><small>120 publicaciones · 8.400 seguidores</small><span>Ideas para tu huerta en el balcón o el fondo 🍅</span></div></div><div style="padding:0 12px 12px"><button type="button" class="igfollow pulse" id="igf">Seguir</button></div><div class="iggrid">' + ['🍅','🌿','🥬','🌻','🥕','🪴'].map(e => '<span>' + e + '</span>').join('') + '</div>' + igNav('');
+    api.say('Este es su perfil: ves sus fotos y cuántas personas la siguen. Paso 4: tocá <b>Seguir</b>.');
+    $('ph').querySelectorAll('.ignav button, .iggrid span').forEach(b => b.addEventListener('click', () => toast(paso === 2 ? 'Primero tocá el botón azul "Seguir".' : '¡Ya la seguís!')));
+    $('igf').addEventListener('click', () => {
+      if (paso !== 2) return; paso = 3; const b = $('igf'); b.textContent = 'Siguiendo'; b.classList.remove('pulse'); b.classList.add('on');
+      api.say('¡Listo, ya la seguís! Desde ahora, sus publicaciones te van a aparecer en el inicio. Si un día no te interesa más, tocás "Siguiendo" y la dejás de seguir.'); api.done();
+    });
+  }
+};
+
+/* ---- Facebook ---- */
+SIMS.fbPost = function(api){
+  let paso = 0; const yo = NOMBRE() || 'Vos';
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:0;background:var(--ph-bar)"><div class="bar"><b style="flex:1;font-size:21px;color:#1877F2">Facebook</b></div>'
+    + '<div class="fbp"><div class="who" style="padding:10px 12px"><span class="pic" style="background:#7E57C2">L</span><div style="min-width:0"><b>Laura (tu prima)</b><small>Hace 2 horas</small></div></div><p style="margin:0 12px 8px">Atardecer en Piriápolis 🌅</p><div class="igimg" style="background:linear-gradient(#FFB74D,#F06292)">🌅</div><small class="fbn" id="fbn">👍 12 personas</small>'
+    + '<div class="fbacts"><button type="button" id="fbl" class="pulse">👍 Me gusta</button><button type="button" id="fbc">💬 Comentar</button><button type="button" id="fbs">↗️ Compartir</button></div><div id="fbcom"></div></div></div>';
+  api.say('Laura publicó una foto. Paso 1: tocá <b>Me gusta</b>, abajo de la foto.');
+  $('fbs').addEventListener('click', () => toast('Compartir la muestra en tu perfil. Hoy le damos me gusta y la comentamos.'));
+  $('fbl').addEventListener('click', () => {
+    if (paso !== 0) return; paso = 1; $('toast').hidden = true; const b = $('fbl'); b.classList.remove('pulse'); b.classList.add('on'); b.textContent = '👍 Te gusta'; $('fbn').textContent = '👍 Vos y 12 personas más';
+    $('fbc').classList.add('pulse'); api.say('¡Le diste me gusta! Paso 2: tocá <b>Comentar</b> para escribirle algo.');
+  });
+  $('fbc').addEventListener('click', () => {
+    if (paso === 0){ toast('Primero tocá "Me gusta".'); return; } if (paso !== 1) return; paso = 2; $('fbc').classList.remove('pulse');
+    $('fbcom').innerHTML = '<div class="helpers" style="padding:8px 8px 0"><button type="button" id="h1">Escribir por mí</button></div><div class="inrow"><label class="field pulse" id="ffld" for="fq" style="background:var(--ph-bg)"><input id="fq" placeholder="Escribí un comentario…" autocomplete="off"></label><button class="round" type="button" id="fsend" aria-label="Enviar">' + I.send + '</button></div>';
+    const q = $('fq'); q.focus(); api.say('Paso 3: escribí <b>¡Qué linda foto!</b> y tocá la flecha para publicarlo.');
+    $('h1').addEventListener('click', () => { q.value = '¡Qué linda foto, prima! 😍'; q.dispatchEvent(new Event('input')); });
+    q.addEventListener('input', () => { const has = q.value.trim().length > 0; $('fsend').classList.toggle('pulse', has); $('ffld').classList.toggle('pulse', !has); });
+    q.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); $('fsend').click(); } });
+    $('fsend').addEventListener('click', () => {
+      const t = q.value.trim(); if (!t){ toast('Primero escribí tu comentario. Si te cuesta, tocá "Escribir por mí".'); return; } if (paso !== 2) return; paso = 3;
+      $('fbcom').innerHTML = '<div class="fbcm"><span class="pic" style="background:#E07A3F">' + esc(yo[0].toUpperCase()) + '</span><div><b>' + esc(yo) + '</b><span></span></div></div>'; $('fbcom').querySelector('.fbcm span:last-child').textContent = t;
+      later(() => { $('fbcom').appendChild(el('div', 'fbcm', '<span class="pic" style="background:#7E57C2">L</span><div><b>Laura</b><span>¡Gracias! 🥰 Tenés que venir la próxima.</span></div>')); api.say('¡Lo lograste! Laura te respondió. Acordate: este comentario lo pueden leer otras personas que vean la foto.'); api.done(); }, 1600);
+    });
+  });
+};
+
+SIMS.rsCuida = function(api){
+  decidir(api, {em:'🛡️', bien:'¡Usás las redes con muy buen ojo!', fin:'Solicitudes repetidas, premios que piden plata y casas solas: con esas tres señales ya te cuidás muchísimo.', items:[
+    {ctx:'Marta, tu vecina, ya es tu amiga en Facebook. Hoy te llega esto:', html:'<div class="fbreq"><span class="pic" style="background:#3F7FD8">M</span><div><b>Marta Pérez</b><small>te envió una solicitud de amistad</small></div></div>', q:'¿La aceptás?', b:['La acepto','No, y le aviso a Marta'], ok:1, why:'Si Marta ya es tu amiga, esta puede ser una copia de su perfil. Avisale por WhatsApp o llamándola.'},
+    {html:msgCard('Sorteos Oficiales 🏆', 'Te escribe por Facebook', '#8A8A8A', '¡Felicitaciones! Ganaste una heladera. Para enviártela, pagá $500 de envío con este enlace.'), q:'¿Pagás el envío?', b:['Lo pago','Mejor no'], ok:1, why:'No participaste de ningún sorteo y te piden plata. Es una estafa: no pagues y bloquealo.'},
+    {ctx:'Estás por publicar esto en tu perfil:', html:'<div class="fbp" style="padding:12px"><b>' + esc(NOMBRE() || 'Vos') + '</b><p style="margin:6px 0 0">¡Mañana nos vamos 15 días a Florianópolis! La casa queda sola 😅</p></div>', q:'¿Lo publicás así?', b:['Lo publico','Mejor lo cuento a la vuelta'], ok:1, why:'Avisar que la casa queda sola puede ser peligroso. Las fotos del viaje, mejor a la vuelta.'},
+    {ctx:'Pedro, tu nieto, comentó tu foto:', html:'<div class="fbcm" style="padding:12px"><span class="pic" style="background:#0F8F7E">P</span><div><b>Pedro</b><span>¡Qué linda foto! Te quiero mucho ❤️</span></div></div>', q:'¿Le respondés?', b:['Le respondo','Lo bloqueo'], ok:0, why:'Es alguien que conocés y no te pide nada. ¡Respondele con cariño!'}
+  ]});
 };
 
 /* ============ ARRANQUE ============ */
