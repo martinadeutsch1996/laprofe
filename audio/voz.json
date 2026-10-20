@@ -954,6 +954,76 @@
    "origen": "ia",
    "huella": "35e21957aa1d",
    "fecha": "2026-10-20"
+  },
+  "ig2-p6": {
+   "origen": "ia",
+   "huella": "35dc6ea815f0",
+   "fecha": "2026-10-20"
+  },
+  "ig3-p1": {
+   "origen": "ia",
+   "huella": "079845518d7d",
+   "fecha": "2026-10-20"
+  },
+  "ig3-p2": {
+   "origen": "ia",
+   "huella": "7a33c56882b3",
+   "fecha": "2026-10-20"
+  },
+  "ig3-p6": {
+   "origen": "ia",
+   "huella": "f0a498c5ac17",
+   "fecha": "2026-10-20"
+  },
+  "fb1-p1": {
+   "origen": "ia",
+   "huella": "575e12d71e20",
+   "fecha": "2026-10-20"
+  },
+  "fb1-p2": {
+   "origen": "ia",
+   "huella": "ae16fd5f12c4",
+   "fecha": "2026-10-20"
+  },
+  "fb1-p6": {
+   "origen": "ia",
+   "huella": "0b8195acc074",
+   "fecha": "2026-10-20"
+  },
+  "pr1-p1": {
+   "origen": "ia",
+   "huella": "810d84605a14",
+   "fecha": "2026-10-20"
+  },
+  "pr1-p2": {
+   "origen": "ia",
+   "huella": "ee3844f8ebdd",
+   "fecha": "2026-10-20"
+  },
+  "pr1-p3": {
+   "origen": "ia",
+   "huella": "90031c160a1e",
+   "fecha": "2026-10-20"
+  },
+  "pr1-p7": {
+   "origen": "ia",
+   "huella": "612c7cb1480b",
+   "fecha": "2026-10-20"
+  },
+  "rs1-p1": {
+   "origen": "ia",
+   "huella": "016fd1143261",
+   "fecha": "2026-10-20"
+  },
+  "rs1-p2": {
+   "origen": "ia",
+   "huella": "b354cf9c3184",
+   "fecha": "2026-10-20"
+  },
+  "rs1-p6": {
+   "origen": "ia",
+   "huella": "8cd842df1996",
+   "fecha": "2026-10-20"
   }
  }
 }
