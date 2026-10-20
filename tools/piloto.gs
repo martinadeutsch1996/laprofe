@@ -1,19 +1,27 @@
 /**
  * LaProfe Digital · Pestaña "Piloto" de la planilla "LaProfe – datos"
  *
- * Pegar este código como un archivo nuevo en el Apps Script de la planilla
- * (Archivo → "+" → Secuencia de comandos → nombre: piloto).
+ * 1. Pegar TODO este código como un archivo nuevo en el Apps Script de la planilla
+ *    (al lado de "Archivos", tocar "+" → "Secuencia de comandos" → nombre: piloto).
+ * 2. En el archivo donde está "function doPost(e) {", pegar esta línea justo debajo:
  *
- * Después, en doPost, en la parte que guarda los datos de uso (la que recibe
- * {uid, data}, no la de Martina IA), sumar esta línea:
+ *        pilotoDesdePedido(e);
  *
- *     guardarPiloto(body.uid, body.data);
- *
- * (cambiar "body" por el nombre que tenga ahí el pedido ya leído con JSON.parse).
- * Por último: Implementar → Gestionar implementaciones → ✏️ → Nueva versión → Implementar.
+ * 3. Implementar → Gestionar implementaciones → ✏️ → Versión: Nueva versión → Implementar.
  *
  * Crea sola la pestaña "Piloto" la primera vez. Una fila por alumno, con su código anónimo.
+ * Si algo de acá falla, no frena el resto: los datos siguen llegando a las otras pestañas.
  */
+
+/** Lee el pedido que manda la app. Solo actúa con los datos de uso (no con las preguntas a Martina IA). */
+function pilotoDesdePedido(e) {
+  try {
+    var d = JSON.parse(e.postData.contents);
+    if (d && d.uid && d.data && !d.tipo) guardarPiloto(d.uid, d.data);
+  } catch (err) {
+    console.log('Piloto: ' + err);
+  }
+}
 
 var PILOTO_PLANILLA = '1VK1dv_3GB8U2s_GaulYZGFspIUzZK4V2p2UzMsgZKbo';
 var PILOTO_ZONA = 'America/Montevideo';
