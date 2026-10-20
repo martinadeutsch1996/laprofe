@@ -308,11 +308,19 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .vcall .ctl span{width:58px;height:58px;border-radius:50%;background:#3B4A54;display:grid;place-items:center;font-size:26px;border:3px solid transparent}
 .vcall .ctl .end span{background:#E5484D}
 .vcall .ctl .off span{background:#fff;color:#1F2C34}
-.sheet{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end}
-.sheet > div{background:var(--ph-bar);width:100%;border-radius:18px 18px 0 0;padding:16px;display:flex;flex-direction:column;gap:6px}
-.sheet label{display:flex;align-items:center;gap:12px;min-height:50px;font-size:17px}
-.sheet input{width:22px;height:22px;accent-color:var(--ph-green)}
+.sheet.ov{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end}
+.sheet.ov > div{background:var(--ph-bar);width:100%;border-radius:18px 18px 0 0;padding:16px;display:flex;flex-direction:column;gap:6px}
+.sheet.ov label{display:flex;align-items:center;gap:12px;min-height:50px;font-size:17px}
+.sheet.ov input{width:22px;height:22px;accent-color:var(--ph-green)}
 .sysmsg{align-self:center;background:var(--ph-bar);color:var(--ph-sub);border-radius:8px;padding:6px 12px;font-size:14px}
+/* nivel 5 */
+.iamenu{position:absolute;left:8px;right:8px;bottom:70px;background:var(--ph-bar);border-radius:18px;padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:3}
+.iamenu > button{background:none;border:2px solid transparent;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:15px;font-weight:700;color:var(--ph-text);padding:6px 2px;border-radius:12px;min-height:72px}
+.iamenu .si{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:26px}
+.iamenu .iath{font-size:44px;background:var(--ph-home);border-radius:12px;aspect-ratio:1;justify-content:center}
+.iaprev{display:flex;align-items:center;gap:10px;margin:0 8px;padding:8px 12px;background:var(--ph-bar);border-radius:12px;font-weight:700;font-size:15px;color:var(--ph-sub)}
+.iaprev span{font-size:34px}
+.iaimg{font-size:64px;line-height:1.1;text-align:center;background:rgba(0,0,0,.06);border-radius:8px;margin-bottom:6px;padding:8px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -720,6 +728,59 @@ if (MOSTRAR_NIVEL_4) NIVELES.push(
    {k:'rec', pts:['Reenviar: mantener apretado el mensaje y tocar la flecha.','"Reenviado muchas veces": no se sabe quién lo escribió.','Antes de reenviar: ¿quién lo dice? ¿Lo confirma una fuente oficial?']}
   ]}
 ]});
+/* Nivel 5: La inteligencia artificial. Poné false para ocultarlo a los alumnos.
+   Para verlo antes de publicarlo, abrí la app con ?nivel5 al final del link. */
+const MOSTRAR_NIVEL_5 = false || /[?&]nivel5\b/.test(location.search);
+if (MOSTRAR_NIVEL_5) NIVELES.push(
+{n:5, em:'✨', t:'La inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
+ {id:'5a', ic:'✨', t:'¿Qué es la inteligencia artificial?', min:5,
+  des:'Pensá en tu día de hoy: ¿en qué momento el celular te sugirió, te corrigió o te recomendó algo? Ahí había IA.',
+  steps:[
+   {k:'ex', txt:'La inteligencia artificial, o IA, es una tecnología que aprende de muchísimos ejemplos. Así puede reconocer cosas, entender lo que le decís, recomendarte y crear textos o imágenes.', art:'iaart'},
+   {k:'ex', txt:'Seguro ya la usaste sin darte cuenta. Cuando el teclado te sugiere una palabra, cuando YouTube te muestra un video parecido o cuando buscás "playa" en tus fotos y aparecen todas, hay IA.', art:'iayausas'},
+   {k:'ex', txt:'También hay asistentes de IA con los que se conversa, como ChatGPT o Gemini. Les escribís o les hablás como a una persona, y te responden. Martina IA, acá en la app, es uno de ellos.', art:'iaasist'},
+   {k:'try', run:'iaDonde'},
+   {k:'check', q:'¿Qué hace una IA?', o:['Aprende de muchos ejemplos para reconocer, recomendar o crear','Piensa y siente como una persona','Sabe todo y nunca se equivoca'], a:0, why:'¡Eso! Aprende de ejemplos, pero no es una persona y a veces se equivoca. De eso hablamos en la última lección del nivel.'},
+   {k:'rec', pts:['La IA aprende de muchísimos ejemplos.','Reconoce, entiende, recomienda y crea.','Ya la usás: en el teclado, en YouTube y en tus fotos.']}
+  ]},
+ {id:'5b', ic:'💬', t:'Conversá con una IA', min:5,
+  des:'Tocá "Martina IA", en el menú de abajo, y preguntale algo que siempre quisiste saber de tu celular.',
+  steps:[
+   {k:'ex', txt:'Hablar con una IA es conversar. Le escribís una pregunta, la mandás y te responde. Si algo no te quedó claro, le volvés a preguntar, como a una persona.', art:'iachat'},
+   {k:'ex', txt:'Hay un botón mágico que siempre funciona: escribirle "No entendí, explicámelo más fácil". Y tranqui: con una IA no da vergüenza preguntar veinte veces lo mismo.', art:'iamagic'},
+   {k:'try', run:'iaConversa'},
+   {k:'check', q:'La IA te respondió con palabras que no entendés. ¿Qué hacés?', o:['Le escribo "No entendí, explicámelo más fácil"','Cierro la app: no es para mí'], a:0, why:'¡Eso! La IA se adapta a vos. Le podés pedir que lo explique más fácil, más corto o con un ejemplo.'},
+   {k:'rec', pts:['Hablar con una IA es conversar: preguntás y repreguntás.','El botón mágico: "No entendí, explicámelo más fácil".','No existen las preguntas tontas.']}
+  ]},
+ {id:'5c', ic:'✍️', t:'Pedile bien las cosas', min:6,
+  des:'Pedile a Martina IA una idea para la cena con lo que tenés en la heladera. Contale para cuántos es y cómo querés la respuesta.',
+  steps:[
+   {k:'ex', txt:'Cuanto mejor le contás lo que necesitás, mejor te responde. Un buen pedido tiene tres partes: qué querés, para qué o para quién, y cómo te gustaría la respuesta.', art:'prompt3'},
+   {k:'ex', txt:'Por ejemplo, en lugar de escribir solo "receta", escribís: "Una receta de cena para dos, con arroz, huevos y zapallitos. Explicala en pasos cortos". No es una regla obligatoria: es una ayuda.', art:'promptej'},
+   {k:'try', run:'iaPedido'},
+   {k:'check', q:'¿Cuál de estos pedidos va a tener una mejor respuesta?', o:['"Receta"','"Una receta de cena para dos, con arroz y huevos, en pasos cortos"'], a:1, why:'Le dijiste qué querés, para cuántos y cómo. Con eso la IA te entiende mucho mejor.'},
+   {k:'rec', pts:['Qué querés + para qué o para quién + cómo lo querés.','No es una regla obligatoria: es una ayuda.','Si la respuesta no te sirve, pedile cambios.']}
+  ]},
+ {id:'5d', ic:'📷', t:'Mostrale una foto', min:5,
+  des:'Si tenés una app de IA en el celular, sacale una foto a una planta de tu casa y preguntale qué planta es y cómo cuidarla.',
+  steps:[
+   {k:'ex', txt:'Muchas IA también pueden mirar. Le mandás una foto y le preguntás "¿Qué es esto?". Sirve para una planta, un cartel en otro idioma o un aparato que no sabés usar.', art:'iafoto'},
+   {k:'ex', txt:'Se hace parecido a WhatsApp: en el chat de la IA tocás el signo de más o el clip, elegís la foto y escribís tu pregunta. Según la app, el botón puede cambiar un poquito de lugar.', art:'iaclip'},
+   {k:'try', run:'iaFoto'},
+   {k:'check', q:'Te dieron un remedio nuevo y la letra de la caja es muy chica. ¿Cómo te ayuda la IA?', o:['Le mando una foto para que me lea lo que dice, y cómo tomarlo lo confirmo con mi médico','Le pregunto cuánto tomar y le hago caso sin consultar'], a:0, why:'La IA te ayuda a leer, pero en temas de salud la última palabra la tiene tu médico o tu farmacéutico.'},
+   {k:'rec', pts:['La IA también mira fotos: "¿Qué es esto?".','Signo de más o clip, elegís la foto y escribís tu pregunta.','En salud, la última palabra la tiene tu médico.']}
+  ]},
+ {id:'5e', ic:'🧐', t:'La IA también se equivoca', min:6,
+  des:'La próxima vez que una IA te dé un dato importante, confirmalo en la página oficial o llamando antes de usarlo.',
+  steps:[
+   {k:'ex', txt:'La IA a veces se equivoca, y lo dice muy segura. Puede inventar un dato, una fecha o un horario. Por eso, lo importante se confirma en una fuente oficial.', art:'iaerror'},
+   {k:'ex', txt:'Y hay cosas que nunca se le escriben: contraseñas, códigos, números de tarjeta ni datos del banco. Contarle tu situación ayuda; tus datos privados no hacen falta.', art:'iaprivado'},
+   {k:'try', run:'iaConfio'},
+   {k:'check', q:'Una IA te dice en qué horario atiende una oficina para un trámite. ¿Qué hacés?', o:['Lo confirmo en la página oficial o llamando antes de ir','Voy directo: la IA nunca se equivoca'], a:0, why:'¡Bien! La IA ayuda mucho, pero lo importante siempre se confirma.'},
+   {k:'check', q:'¿Qué no se le escribe nunca a una IA?', o:['Lo que tengo en la heladera','Contraseñas, códigos y datos del banco'], a:1, why:'Exacto. Para ayudarte, a la IA le alcanza con que le cuentes tu situación. Tus claves no hacen falta.'},
+   {k:'rec', pts:['La IA puede equivocarse, aunque suene segura.','Salud, dinero y trámites: se confirman en la fuente oficial.','Contraseñas, códigos y datos del banco: nunca.','La IA nos ayuda, nosotros decidimos.']}
+  ]}
+]});
 const REAL = {
  '1a':['Desbloqueá tu celular y mirá la pantalla de inicio.','Encontrá el ícono de WhatsApp: es verde, con un globito.','Encontrá la cámara.','Contá cuántas apps tenés en la primera pantalla.'],
  '1b':[{android:'Deslizá el dedo desde arriba de todo hacia abajo.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo.'},'Fijate si el abanico del WiFi está de color (prendido) o gris (apagado).','Fijate si los datos móviles están prendidos.',{android:'Cerrá el panel deslizando hacia arriba.', iphone:'Cerrá el panel deslizando hacia arriba o tocando afuera.'}],
@@ -737,7 +798,12 @@ const REAL = {
  '4a':['Abrí WhatsApp.',{android:'Tocá el botón verde de abajo a la derecha y elegí "Nuevo contacto".', iphone:'Tocá el signo de más de arriba a la derecha y elegí "Nuevo contacto".'},'Guardá el número de alguien de confianza, con su nombre.'],
  '4b':['Abrí el chat de alguien de tu familia.','Tocá la camarita de arriba para hacerle una videollamada.','Cuando terminen, tocá el botón rojo para cortar.'],
  '4c':['Abrí un grupo en el que estés.','Tocá el nombre del grupo, arriba, y fijate dónde está "Silenciar".','Deslizá un mensaje hacia la derecha y respondelo.'],
- '4d':['Buscá en tus chats algún mensaje que diga "Reenviado".','Mantené apretado un mensaje para ver la flecha de reenviar. No hace falta mandarlo.']
+ '4d':['Buscá en tus chats algún mensaje que diga "Reenviado".','Mantené apretado un mensaje para ver la flecha de reenviar. No hace falta mandarlo.'],
+ '5a':['Abrí el teclado en WhatsApp y empezá a escribir "Hola".','Fijate si arriba del teclado aparecen palabras sugeridas.'],
+ '5b':['Tocá "Martina IA", en el menú de abajo.','Preguntale algo de tu celular que siempre quisiste saber.','Si no entendés la respuesta, escribile "No entendí, explicámelo más fácil".'],
+ '5c':['Tocá "Martina IA", en el menú de abajo.','Pedile algo con las tres partes: qué querés, para quién y cómo lo querés.'],
+ '5d':['Si tenés una app de IA, abrila.','Tocá el signo de más o el clip, elegí una foto y preguntale "¿Qué es esto?".'],
+ '5e':['Pensá en algo importante que le preguntarías a una IA.','Pensá dónde lo confirmarías: una página oficial, un llamado o un profesional.']
 };
 NIVELES.forEach(n => n.ls.forEach(l => { if (MOSTRAR_PRACTICA_REAL && REAL[l.id]){ const i = l.steps.findIndex(x => x.k === 'try'); l.steps.splice(i + 1, 0, {k:'real', pasos:REAL[l.id]}); } }));
 /* Lo que la persona ya sabe hacer al terminar cada lección (se muestra en el festejo) */
@@ -758,7 +824,12 @@ const LOGRO = {
   '4a':'Ya sabés guardar un contacto en tu celular.',
   '4b':'Ya sabés hacer una videollamada y cortarla.',
   '4c':'Ya sabés silenciar un grupo y responder un mensaje puntual.',
-  '4d':'Ya sabés reconocer una cadena antes de reenviarla.'
+  '4d':'Ya sabés reconocer una cadena antes de reenviarla.',
+  '5a':'Ya sabés qué es la IA y dónde la usás todos los días.',
+  '5b':'Ya sabés conversar con una IA y pedirle que te lo explique más fácil.',
+  '5c':'Ya sabés armar un buen pedido: qué querés, para quién y cómo.',
+  '5d':'Ya sabés mostrarle una foto a una IA y preguntarle qué es.',
+  '5e':'Ya sabés cuándo confirmar lo que te dice una IA y qué no escribirle nunca.'
 };
 const ALL = []; NIVELES.forEach(n => n.ls.forEach((l, i) => { l.niv = n; l.idx = i; ALL.push(l); }));
 const doneN = () => ALL.filter(l => S.done[l.id]).length;
@@ -1628,7 +1699,18 @@ const ART = {
   fwdart: () => big('✋','Mantené apretado') + '<span style="font-size:30px">➜</span>' + big('↪️','Reenviar'),
   fwdlabel: () => '<div class="stack" style="gap:6px;align-items:center"><div class="msg in" style="max-width:280px;background:#fff;color:#111B21"><span class="fwdl">⏩ Reenviado muchas veces</span>¡Pasalo a todos tus contactos!</div><b style="font-size:16px">Nadie sabe quién lo escribió</b></div>',
   alarm: () => big('❓','Número desconocido') + big('⏰','Apuro') + big('💸','Pedido de plata'),
-  code: () => '<div style="font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:.2em;background:var(--soft);border-radius:14px;padding:10px 18px">482 913</div><b>No se comparte. Nunca.</b>'
+  code: () => '<div style="font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:.2em;background:var(--soft);border-radius:14px;padding:10px 18px">482 913</div><b>No se comparte. Nunca.</b>',
+  iaart: () => big('👁️','Reconoce') + big('💬','Entiende') + big('👍','Recomienda') + big('🎨','Crea'),
+  iayausas: () => big('⌨️','El teclado') + big('▶️','YouTube') + big('🖼️','Tus fotos'),
+  iaasist: () => big('✍️','Le escribís') + big('🗣️','O le hablás') + big('✨','Te responde'),
+  iachat: () => '<div class="stack" style="gap:8px;min-width:230px;max-width:290px"><div class="msg out" style="max-width:85%;background:#D9FDD3;color:#111B21">¿Cómo agrando la letra?</div><div class="msg in" style="max-width:85%;background:#fff;color:#111B21">✨ ¡Te ayudo! ¿Tenés Android o iPhone?</div></div>',
+  iamagic: () => '<div class="msg out" style="max-width:290px;background:#D9FDD3;color:#111B21;font-size:18px;font-weight:700">No entendí, explicámelo más fácil 🪄</div>',
+  prompt3: () => big('🎯','Qué querés') + big('👥','Para qué o para quién') + big('📋','Cómo lo querés'),
+  promptej: () => '<div class="stack" style="gap:10px;min-width:230px;max-width:300px"><div style="display:flex;gap:8px;align-items:center"><span style="font-size:26px">😕</span><div class="msg out" style="flex:1;max-width:none;background:#D9FDD3;color:#111B21">Receta</div></div><div style="display:flex;gap:8px;align-items:center"><span style="font-size:26px">😃</span><div class="msg out" style="flex:1;max-width:none;background:#D9FDD3;color:#111B21">Una receta de cena para dos, con arroz, huevos y zapallitos. En pasos cortos.</div></div></div>',
+  iafoto: () => big('📷','Una foto') + '<span style="font-size:30px">+</span>' + big('❓','"¿Qué es esto?"'),
+  iaclip: () => (OS() === 'iphone' ? big('➕','1. El signo de más') : big('📎','1. El clip')) + big('🖼️','2. La foto') + big('✍️','3. Tu pregunta'),
+  iaerror: () => big('🤖','Puede equivocarse') + big('🔎','Lo importante se confirma'),
+  iaprivado: () => big('🔑','Contraseñas') + big('🔢','Códigos') + big('💳','Datos del banco') + '<b style="width:100%;text-align:center;font-size:17px">Nunca se le escriben a una IA</b>'
 };
 
 /* ============ ÍCONOS DE TELÉFONO ============ */
@@ -2085,7 +2167,7 @@ SIMS.waGroup = function(api){
     $('gb').addEventListener('click', () => { if (paso === 1) toast('Primero tocá "Silenciar". Después volvemos al chat.'); else { paso = 3; api.say('Paso 4: Carlos preguntó quién lleva el postre. <b>Deslizá su mensaje hacia la derecha</b> para responderle a él.'); chat(); } });
     $('gm').addEventListener('click', () => {
       if (paso !== 1) return;
-      const sh = el('div', 'sheet', '<div><b style="font-size:18px">Silenciar notificaciones</b><small style="color:var(--ph-sub)">Los demás no se enteran.</small><label><input type="radio" name="gt" value="8 horas">8 horas</label><label><input type="radio" name="gt" value="1 semana">1 semana</label><label><input type="radio" name="gt" value="Siempre">Siempre</label><p id="gerr" hidden style="margin:0;color:#E5484D;font-weight:700;font-size:15px">Primero elegí por cuánto tiempo.</p><button type="button" class="pgreen" id="gok">Aceptar</button></div>');
+      const sh = el('div', 'sheet ov', '<div><b style="font-size:18px">Silenciar notificaciones</b><small style="color:var(--ph-sub)">Los demás no se enteran.</small><label><input type="radio" name="gt" value="8 horas">8 horas</label><label><input type="radio" name="gt" value="1 semana">1 semana</label><label><input type="radio" name="gt" value="Siempre">Siempre</label><p id="gerr" hidden style="margin:0;color:#E5484D;font-weight:700;font-size:15px">Primero elegí por cuánto tiempo.</p><button type="button" class="pgreen" id="gok">Aceptar</button></div>');
       $('gi').appendChild(sh); api.say('Elegí por cuánto tiempo y tocá <b>Aceptar</b>.');
       $('gok').addEventListener('click', () => {
         const v = sh.querySelector('input:checked'); if (!v){ $('gerr').hidden = false; return; }
@@ -2144,6 +2226,179 @@ SIMS.reenviar = function(api){
       n.addEventListener('click', () => { if (i < E.length - 1){ i++; render(); window.scrollTo(0,0); } else { api.stage.innerHTML = '<div class="card center stack"><span style="font-size:56px">🔁</span><b style="font-size:22px">Acertaste ' + ac + ' de 4</b><p class="muted">' + (ac >= 3 ? '¡Las cadenas no pasan por vos!' : 'Con práctica se aprende a frenar a tiempo. ¡Podés repetirlo cuando quieras!') + '</p></div>'; api.say('Antes de reenviar, preguntate: ¿quién lo escribió? ¿Lo confirma una fuente oficial? Ante la duda, mejor no.'); api.done(); } });
       n.scrollIntoView({behavior:'smooth', block:'center'});
     }));
+  };
+  render();
+};
+
+/* ============ NIVEL 5: prácticas de IA ============ */
+const IA_HEAD = '<div class="bar"><div class="who"><span class="pic" style="background:#5B4BC4">✨</span><div style="min-width:0"><b>Asistente de IA</b><small>Te responde al instante</small></div></div></div>';
+const iaHtml = t => esc(t).replace(/\n/g, '<br>');
+/* Chat con la IA en varias vueltas. Cada vuelta: qué dice Martina, qué texto ofrece "Escribir por mí", la respuesta de la IA y qué dice Martina después. */
+function iaTurnos(api, cfg){
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:470px">' + IA_HEAD + '<div class="msgs" id="msgs"></div><div id="iax"></div><div class="helpers" id="help" hidden><button type="button" id="h1"></button></div><div class="inrow">' + (cfg.adjuntar ? '<button type="button" class="clip" id="iaclip" aria-label="Adjuntar">' + (OS() === 'iphone' ? I.plus : I.clip) + '</button>' : '') + '<label class="field" id="fld" for="inp"><input id="inp" placeholder="Preguntá lo que quieras" autocomplete="off"></label><button class="round" type="button" id="btn" aria-label="Enviar">' + I.send + '</button></div></div>';
+  const inp = $('inp'), btn = $('btn'), msgs = $('msgs');
+  let k = -1, espera = true;
+  (cfg.previos || []).forEach(m => addMsg(msgs, iaHtml(m[0]), m[1], m[2] || '10:40'));
+  const listo = () => { const has = inp.value.trim().length > 0; btn.classList.toggle('pulse', has && !espera); $('fld').classList.toggle('pulse', !has && !espera); };
+  inp.addEventListener('input', listo);
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); btn.click(); } });
+  $('h1').addEventListener('click', () => { inp.value = cfg.turnos[k].helper; listo(); });
+  inp.addEventListener('focus', () => { if (espera && cfg.alEsperar) toast(cfg.alEsperar()); });
+  const vuelta = () => {
+    k++; const tu = cfg.turnos[k];
+    api.say(tu.say);
+    const abrir = () => { espera = false; $('h1').textContent = 'Escribir por mí'; $('help').hidden = false; listo(); };
+    if (tu.antes){ espera = true; tu.antes(abrir); } else abrir();
+  };
+  btn.addEventListener('click', () => {
+    if (espera){ toast(cfg.alEsperar ? cfg.alEsperar() : 'Esperá un momento, que la IA está respondiendo.'); return; }
+    const txt = inp.value.trim(); if (!txt){ toast('Primero escribí tu pregunta. Si te cuesta, tocá "Escribir por mí".'); inp.focus(); return; }
+    const tu = cfg.turnos[k]; espera = true; inp.value = ''; inp.blur(); listo(); $('help').hidden = true; $('toast').hidden = true;
+    const adj = cfg.adjunto && cfg.adjunto(); if (adj) $('iax').innerHTML = '';
+    addMsg(msgs, (adj || '') + esc(txt), true, '10:4' + (k + 1));
+    later(() => msgs.appendChild(el('div', 'typing', 'Escribiendo…')), 500);
+    later(() => { const t = msgs.querySelector('.typing'); if (t) t.remove(); addMsg(msgs, iaHtml(T(tu.resp)), false, '10:4' + (k + 1)); msgs.lastChild.scrollIntoView({behavior:'smooth', block:'nearest'}); api.say(tu.despues); if (k < cfg.turnos.length - 1) later(vuelta, 2600); else api.done(); }, 2000);
+  });
+  vuelta();
+}
+
+SIMS.iaDonde = function(api){
+  const E = [
+    {e:'⌨️', t:'Mientras escribís, el teclado te sugiere la palabra que ibas a poner.', ia:true, why:'La IA aprendió cómo escribimos y adivina la palabra que sigue.'},
+    {e:'🔦', t:'Prendés la linterna desde los atajos.', ia:false, why:'La linterna es un interruptor: prende y apaga. No necesita aprender nada.'},
+    {e:'▶️', t:'YouTube te muestra videos parecidos a los que mirás.', ia:true, why:'La IA se fija en lo que te gusta y te recomienda cosas parecidas.'},
+    {e:'🖼️', t:'En tus fotos escribís "playa" y aparecen todas las fotos de la playa.', ia:true, why:'La IA reconoce lo que hay en cada foto, aunque nunca le hayas puesto un nombre.'},
+    {e:'🧮', t:'La calculadora suma 25 + 17.', ia:false, why:'La calculadora sigue una regla fija. Para sumar no hace falta aprender de ejemplos.'}
+  ];
+  let i = 0, ac = 0;
+  const render = () => {
+    const e = E[i];
+    api.say('Situación ' + (i + 1) + ' de ' + E.length + '. ¿Acá hay inteligencia artificial?');
+    api.stage.innerHTML = '<div class="card center stack" style="gap:10px"><span style="font-size:56px;line-height:1">' + e.e + '</span><p style="font-size:19px;font-weight:700;margin:0"></p></div><div class="row"><button type="button" class="btn dark" data-a="si">Tiene IA</button><button type="button" class="btn dark" data-a="no">No tiene IA</button></div><div id="efb"></div>';
+    api.stage.querySelector('p').textContent = e.t;
+    api.stage.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
+      if ($('efb').dataset.d) return; $('efb').dataset.d = 1;
+      const good = (b.dataset.a === 'si') === e.ia; if (good) ac++;
+      $('efb').innerHTML = '<div class="fb ' + (good ? 'ok' : 'no') + '"><b>' + (good ? '¡Bien visto!' : (e.ia ? 'Acá sí hay IA.' : 'Acá no hay IA.')) + '</b><span></span></div>';
+      $('efb').querySelector('span').textContent = e.why;
+      const n = el('button', 'btn', i < E.length - 1 ? 'Siguiente situación' : 'Ver mi resultado'); n.type = 'button'; n.style.marginTop = '12px'; $('efb').appendChild(n);
+      n.addEventListener('click', () => { if (i < E.length - 1){ i++; render(); window.scrollTo(0,0); } else { api.stage.innerHTML = '<div class="card center stack"><span style="font-size:56px">✨</span><b style="font-size:22px">Acertaste ' + ac + ' de ' + E.length + '</b><p class="muted">' + (ac >= 4 ? '¡Ya reconocés la IA en tu día a día!' : 'Al principio cuesta verla, porque trabaja calladita. ¡Podés repetirlo cuando quieras!') + '</p></div>'; api.say('¿Viste? La IA ya está en muchas cosas que usás todos los días. Ahora vamos a conversar con una.'); api.done(); } });
+      n.scrollIntoView({behavior:'smooth', block:'center'});
+    }));
+  };
+  render();
+};
+
+SIMS.iaConversa = function(api){
+  iaTurnos(api, {turnos:[
+    {say:'Paso 1: preguntale a la IA <b>¿Qué es el modo avión?</b> y tocá la flecha para mandarlo. Si te cuesta escribir, tocá "Escribir por mí".', helper:'¿Qué es el modo avión?',
+     resp:'El modo avión es una configuración del dispositivo que desactiva las radiofrecuencias de transmisión, incluidas la conectividad celular, WiFi y Bluetooth, en cumplimiento de las normativas aeronáuticas.',
+     despues:'Uf, ¡qué palabras raras! Tranqui, nos pasa a todos. Ahora vamos a usar el botón mágico…'},
+    {say:'Paso 2: escribile <b>No entendí, explicámelo más fácil</b> y mandalo.', helper:'No entendí, explicámelo más fácil',
+     resp:'¡Claro! El modo avión apaga las conexiones del celular. Mientras está prendido, no te llegan llamadas ni mensajes. Se usa, por ejemplo, en los aviones.',
+     despues:'¡Mucho mejor! ¿Viste? La IA se adapta a vos. Ahora repreguntemos…'},
+    {say:'Paso 3: preguntale <b>¿Y cómo lo apago?</b> y mandalo.', helper:'¿Y cómo lo apago?',
+     resp:{android:'Deslizá el dedo desde arriba de todo hacia abajo y tocá el avioncito. Si está de color, está prendido. Si está gris, está apagado.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo y tocá el avioncito. Si está de color, está prendido. Si está gris, está apagado.'},
+     despues:'¡Lo lograste! Preguntaste, pediste que te lo explique más fácil y repreguntaste. Eso es conversar con una IA.'}
+  ]});
+};
+
+SIMS.iaPedido = function(api){
+  const P = [
+    {say:'Paso 1: ¿qué querés? Elegí la parte que le dice a la IA <b>qué necesitás</b>.', bien:'Una idea de regalo', mal:'Algo', no:'Con "algo" la IA no sabe qué buscar. Elegí la otra opción.'},
+    {say:'Paso 2: ¿para quién es? Elegí la parte que le da <b>más contexto</b>.', bien:'para mi nieta, que cumple 8 años y le encantan los animales', mal:'para alguien', no:'"Para alguien" no le cuenta nada. Cuanto más le contás, mejor te ayuda.'},
+    {say:'Paso 3: ¿cómo querés la respuesta? Elegí <b>cómo te gustaría</b> que te conteste.', bien:'Dame 3 ideas cortas', mal:'Escribime todo lo que sepas', no:'Así te puede contestar algo larguísimo. Mejor pedile algo corto.'}
+  ];
+  let k = 0; const partes = [];
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:0">' + IA_HEAD + '<div class="msgs" id="msgs"></div><div class="inrow"><label class="field" id="fld" for="inp"><input id="inp" placeholder="Preguntá lo que quieras" autocomplete="off" readonly></label><button class="round" type="button" id="btn" aria-label="Enviar">' + I.send + '</button></div></div><div class="card stack" id="arma" style="gap:10px"><b>Tu pedido</b><p id="ped" class="muted" style="margin:0;font-size:18px">Todavía vacío</p><div class="stack" id="ops"></div><p id="pist" hidden style="margin:0;font-weight:700;color:var(--fg)"></p></div>';
+  addMsg($('msgs'), 'Regalo', true, '10:40');
+  addMsg($('msgs'), 'Hay muchísimos regalos posibles: ropa, un libro, un perfume, algo de tecnología… ¿Para quién es? ¿Qué le gusta?', false, '10:40');
+  const texto = () => { let t = partes[0] || ''; if (partes[1]) t += ' ' + partes[1]; if (partes[2]) t += '. ' + partes[2] + '.'; return t; };
+  const paso = () => {
+    const p = P[k]; api.say(k === 0 ? 'Mirá: alguien le escribió solo "Regalo" y la IA no supo qué contestar. Vamos a armar un pedido mejor. ' + p.say : p.say);
+    const ops = $('ops'); ops.innerHTML = '';
+    const lista = Math.random() < .5 ? [[p.bien, 1], [p.mal, 0]] : [[p.mal, 0], [p.bien, 1]];
+    lista.forEach(o => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = o[0]; b.addEventListener('click', () => {
+      if (!o[1]){ b.classList.add('wrong'); $('pist').textContent = '💡 ' + p.no; $('pist').hidden = false; return; }
+      $('pist').hidden = true; partes.push(p.bien); $('ped').textContent = texto(); $('ped').classList.remove('muted');
+      k++; if (k < P.length) paso(); else enviar();
+    }); ops.appendChild(b); });
+  };
+  const enviar = () => {
+    $('ops').innerHTML = ''; $('inp').value = texto(); $('btn').classList.add('pulse');
+    api.say('¡Qué buen pedido! Ya está escrito abajo. Paso 4: tocá la <b>flecha</b> para mandarlo.');
+    $('ph').scrollIntoView({behavior:'smooth', block:'center'});
+    let ido = false;
+    $('btn').addEventListener('click', () => {
+      if (ido) return; ido = true; $('btn').classList.remove('pulse'); const t = $('inp').value; $('inp').value = '';
+      addMsg($('msgs'), esc(t), true, '10:41');
+      later(() => $('msgs').appendChild(el('div', 'typing', 'Escribiendo…')), 400);
+      later(() => { const ty = $('msgs').querySelector('.typing'); if (ty) ty.remove();
+        addMsg($('msgs'), iaHtml('¡Qué lindo! Tres ideas para una nena de 8 años a la que le encantan los animales:\n1. Un libro de animales con figuritas para pegar.\n2. Un peluche de su animal favorito, con una tarjeta escrita por vos.\n3. Una salida a una granja para ver animales de cerca.'), false, '10:41');
+        api.say('¿Viste la diferencia? Con el mismo tema, ahora la respuesta te sirve de verdad. Y si no te convence, le pedís otras ideas.'); api.done(); }, 2000);
+    });
+  };
+  $('fld').addEventListener('click', () => { if (k < P.length) toast('Primero armamos el pedido eligiendo las partes de abajo.'); });
+  $('btn').addEventListener('click', () => { if (k < P.length) toast('Primero armamos el pedido eligiendo las partes de abajo.'); });
+  paso();
+};
+
+SIMS.iaFoto = function(api){
+  const ios = OS() === 'iphone';
+  let foto = null;
+  iaTurnos(api, {adjuntar:true,
+    alEsperar: () => foto ? 'Esperá un momento, que la IA está respondiendo.' : 'Primero elegí la foto: tocá ' + (ios ? 'el signo de más' : 'el clip') + ', al lado de donde escribís.',
+    adjunto: () => foto ? '<div class="iaimg" aria-hidden="true">🪴</div>' : '',
+    turnos:[
+    {say:'Paso 1: tocá ' + (ios ? 'el <b>signo de más</b>' : 'el <b>clip</b>') + ', al lado de donde escribís.', helper:'¿Qué planta es y cómo la cuido?',
+     antes: abrir => {
+       const c = $('iaclip'); c.classList.add('pulse');
+       c.addEventListener('click', () => {
+         if (foto) return; c.classList.remove('pulse');
+         $('toast').hidden = true; const s = el('div', 'iamenu', '<button type="button" id="iacam"><span class="si" style="background:#E5484D">📷</span>Cámara</button><button type="button" id="iafo" class="pulse"><span class="si" style="background:#7E57C2">🖼️</span>Fotos</button>');
+         s.style.gridTemplateColumns = 'repeat(2,1fr)'; $('ph').appendChild(s); api.say('Paso 2: tocá <b>Fotos</b> para elegir una foto que ya tenés.');
+         $('iacam').addEventListener('click', () => toast('La cámara saca una foto en el momento. Hoy elegimos una que ya tenés: tocá "Fotos".'));
+         $('iafo').addEventListener('click', () => {
+           s.style.gridTemplateColumns = ''; s.innerHTML = '<b style="grid-column:1/-1;font-size:16px">Elegí la foto de la planta</b>' + [['🏖️','La playa'],['🪴','Una planta'],['🐶','Un perro']].map(f => '<button type="button" class="iath' + (f[0] === '🪴' ? ' pulse' : '') + '" data-f="' + f[0] + '" aria-label="' + f[1] + '">' + f[0] + '</button>').join('');
+           api.say('Paso 3: tocá la foto de la <b>planta</b>.');
+           s.querySelectorAll('[data-f]').forEach(b => b.addEventListener('click', () => {
+             if (b.dataset.f !== '🪴'){ toast('Esa es otra foto. Buscá la de la planta, la del macetero.'); return; }
+             foto = b.dataset.f; s.remove(); $('toast').hidden = true;
+             $('iax').innerHTML = '<div class="iaprev"><span aria-hidden="true">🪴</span>Foto lista para mandar</div>';
+             abrir(); api.say('¡Muy bien! La foto ya está lista. Paso 4: escribí <b>¿Qué planta es y cómo la cuido?</b> y tocá la flecha.');
+           }));
+         });
+       });
+     },
+     resp:'Parece un potus, una planta de interior muy resistente.\nPara cuidarla:\n1. Ponela con luz, pero sin sol directo.\n2. Regala cuando la tierra de arriba esté seca, más o menos una vez por semana.\n3. Si las hojas se ponen amarillas, puede ser por exceso de agua.',
+     despues:'¡Lo lograste! Le mostraste una foto y te respondió qué es y cómo cuidarla. Lo mismo sirve para un cartel o un aparato.'}
+  ]});
+};
+
+SIMS.iaConfio = function(api){
+  const E = [
+    {ctx:'Le preguntaste cómo hacer que una torta quede esponjosa.', ia:'Batí bien los huevos con el azúcar hasta que quede una crema clarita, y no abras el horno en los primeros 20 minutos.', q:'¿Usás este consejo así?', b:['Lo uso así','Lo confirmo antes'], ok:0, why:'Es un consejo de cocina: si no sale perfecto, no pasa nada grave. Probalo sin miedo.'},
+    {ctx:'Le preguntaste en qué horario atiende una oficina para hacer un trámite.', ia:'Esa oficina atiende todos los martes de 9 a 12.', q:'¿Vas directo con ese horario?', b:['Voy directo','Lo confirmo antes'], ok:1, why:'Los horarios cambian y la IA puede inventarlos. Confirmalo en la página oficial o llamando antes de ir.'},
+    {ctx:'Le contaste que te duele la cabeza y ya tomaste una pastilla.', ia:'Podés tomar dos pastillas más si el dolor sigue.', q:'¿Le hacés caso?', b:['Le hago caso','Lo consulto antes'], ok:1, why:'En salud, la última palabra la tiene tu médico o tu farmacéutico. La IA no te conoce como ellos.'},
+    {ctx:'Querés que la IA te ayude a entender un gasto de tu tarjeta. Estás por mandarle esto:', yo:'Te paso el número de mi tarjeta y el código de atrás para que lo revises.', q:'¿Lo mandás?', b:['Lo mando','No lo mando'], ok:1, why:'Números de tarjeta, códigos y contraseñas no se le escriben nunca a una IA. Contale qué te pasa, sin tus datos: con eso ya te puede ayudar.'}
+  ];
+  let i = 0, ac = 0;
+  const render = () => {
+    const e = E[i];
+    api.say('Situación ' + (i + 1) + ' de ' + E.length + '. Leela con calma.');
+    api.stage.innerHTML = '<p class="ctx" style="margin:0;font-weight:700"></p><div class="phone" style="min-height:0">' + IA_HEAD + '<div class="msgs" style="min-height:130px">' + (e.yo ? '<div class="msg out" style="opacity:.75;border:2px dashed var(--ph-sub)"><span class="tx"></span><div class="meta">Sin mandar</div></div>' : '<div class="msg in"><span class="tx"></span><div class="meta">10:5' + i + '</div></div>') + '</div></div><h2 class="qh" style="margin:4px 0"></h2><div class="row"><button type="button" class="btn dark" data-a="0"></button><button type="button" class="btn dark" data-a="1"></button></div><div id="efb"></div>';
+    api.stage.querySelector('.ctx').textContent = e.ctx;
+    api.stage.querySelector('.tx').textContent = e.yo || e.ia;
+    api.stage.querySelector('.qh').textContent = e.q;
+    api.stage.querySelectorAll('[data-a]').forEach(b => { b.textContent = e.b[+b.dataset.a]; b.addEventListener('click', () => {
+      if ($('efb').dataset.d) return; $('efb').dataset.d = 1;
+      const good = +b.dataset.a === e.ok; if (good) ac++;
+      $('efb').innerHTML = '<div class="fb ' + (good ? 'ok' : 'no') + '"><b>' + (good ? '¡Bien pensado!' : 'Mirá esto:') + '</b><span></span></div>';
+      $('efb').querySelector('span').textContent = e.why;
+      const n = el('button', 'btn', i < E.length - 1 ? 'Siguiente situación' : 'Ver mi resultado'); n.type = 'button'; n.style.marginTop = '12px'; $('efb').appendChild(n);
+      n.addEventListener('click', () => { if (i < E.length - 1){ i++; render(); window.scrollTo(0,0); } else { api.stage.innerHTML = '<div class="card center stack"><span style="font-size:56px">🧐</span><b style="font-size:22px">Acertaste ' + ac + ' de ' + E.length + '</b><p class="muted">' + (ac >= 3 ? '¡Usás la IA con muy buen criterio!' : 'Con práctica se aprende a saber cuándo confirmar. ¡Podés repetirlo cuando quieras!') + '</p></div>'; api.say('Acordate: la IA nos ayuda, nosotros decidimos. Salud, dinero y trámites, siempre se confirman.'); api.done(); } });
+      n.scrollIntoView({behavior:'smooth', block:'center'});
+    }); });
   };
   render();
 };
