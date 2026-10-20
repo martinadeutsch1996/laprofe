@@ -1,0 +1,329 @@
+{
+ "archivos": {
+  "1a-p1": {
+   "origen": "grabado",
+   "huella": "b26737adee6a",
+   "fecha": "2026-10-20"
+  },
+  "1a-p2": {
+   "origen": "grabado",
+   "huella": "596059390b18",
+   "fecha": "2026-10-20"
+  },
+  "1a-p3-android": {
+   "origen": "grabado",
+   "huella": "1e33c354223d",
+   "fecha": "2026-10-20"
+  },
+  "1a-p3-iphone": {
+   "origen": "grabado",
+   "huella": "3689b93761f0",
+   "fecha": "2026-10-20"
+  },
+  "1a-p7-android": {
+   "origen": "grabado",
+   "huella": "0cb9f1ad0b0d",
+   "fecha": "2026-10-20"
+  },
+  "1a-p7-iphone": {
+   "origen": "grabado",
+   "huella": "20e896548cd7",
+   "fecha": "2026-10-20"
+  },
+  "1b-p1": {
+   "origen": "grabado",
+   "huella": "59101af98b23",
+   "fecha": "2026-10-20"
+  },
+  "1b-p2": {
+   "origen": "grabado",
+   "huella": "b4c8085b7338",
+   "fecha": "2026-10-20"
+  },
+  "1b-p3": {
+   "origen": "grabado",
+   "huella": "813cb7b99a11",
+   "fecha": "2026-10-20"
+  },
+  "1b-p4": {
+   "origen": "grabado",
+   "huella": "676bab2f094f",
+   "fecha": "2026-10-20"
+  },
+  "1b-p9": {
+   "origen": "grabado",
+   "huella": "b37c47aa84fc",
+   "fecha": "2026-10-20"
+  },
+  "1c-p1": {
+   "origen": "grabado",
+   "huella": "83f49f02b1fc",
+   "fecha": "2026-10-20"
+  },
+  "1c-p2": {
+   "origen": "grabado",
+   "huella": "0d4248d7a1e5",
+   "fecha": "2026-10-20"
+  },
+  "1c-p6": {
+   "origen": "grabado",
+   "huella": "5471374c3738",
+   "fecha": "2026-10-20"
+  },
+  "1d-p1": {
+   "origen": "grabado",
+   "huella": "46748e038fcc",
+   "fecha": "2026-10-20"
+  },
+  "1d-p2": {
+   "origen": "grabado",
+   "huella": "1f2f8fcf3228",
+   "fecha": "2026-10-20"
+  },
+  "1d-p5": {
+   "origen": "grabado",
+   "huella": "233708492b44",
+   "fecha": "2026-10-20"
+  },
+  "1d-p7": {
+   "origen": "grabado",
+   "huella": "bf109c5a0152",
+   "fecha": "2026-10-20"
+  },
+  "2a-p1": {
+   "origen": "grabado",
+   "huella": "ebe05f77391b",
+   "fecha": "2026-10-20"
+  },
+  "2a-p5": {
+   "origen": "grabado",
+   "huella": "7085d8a4d009",
+   "fecha": "2026-10-20"
+  },
+  "2b-p1": {
+   "origen": "grabado",
+   "huella": "ae082d19fe84",
+   "fecha": "2026-10-20"
+  },
+  "2b-p2-android": {
+   "origen": "grabado",
+   "huella": "2d5fdaa216ec",
+   "fecha": "2026-10-20"
+  },
+  "2b-p2-iphone": {
+   "origen": "grabado",
+   "huella": "860ad0084ad5",
+   "fecha": "2026-10-20"
+  },
+  "2b-p6-android": {
+   "origen": "grabado",
+   "huella": "d93a32195ba4",
+   "fecha": "2026-10-20"
+  },
+  "2b-p6-iphone": {
+   "origen": "grabado",
+   "huella": "43ce32bb2ef7",
+   "fecha": "2026-10-20"
+  },
+  "2c-p1-android": {
+   "origen": "grabado",
+   "huella": "5c8377c2478d",
+   "fecha": "2026-10-20"
+  },
+  "2c-p1-iphone": {
+   "origen": "grabado",
+   "huella": "daf57d0978b8",
+   "fecha": "2026-10-20"
+  },
+  "2c-p2": {
+   "origen": "grabado",
+   "huella": "28f240f374c0",
+   "fecha": "2026-10-20"
+  },
+  "2c-p6-android": {
+   "origen": "grabado",
+   "huella": "80f2d11ef69c",
+   "fecha": "2026-10-20"
+  },
+  "2c-p6-iphone": {
+   "origen": "grabado",
+   "huella": "f22445066981",
+   "fecha": "2026-10-20"
+  },
+  "2d-p1": {
+   "origen": "grabado",
+   "huella": "347236bae8a5",
+   "fecha": "2026-10-20"
+  },
+  "2d-p2-android": {
+   "origen": "grabado",
+   "huella": "2db65ea6c7c3",
+   "fecha": "2026-10-20"
+  },
+  "2d-p2-iphone": {
+   "origen": "grabado",
+   "huella": "b69fa4795db9",
+   "fecha": "2026-10-20"
+  },
+  "2d-p6-android": {
+   "origen": "grabado",
+   "huella": "97e8c9008eff",
+   "fecha": "2026-10-20"
+  },
+  "2d-p6-iphone": {
+   "origen": "grabado",
+   "huella": "417ac7346dff",
+   "fecha": "2026-10-20"
+  },
+  "3a-p1": {
+   "origen": "grabado",
+   "huella": "5ef3692e6415",
+   "fecha": "2026-10-20"
+  },
+  "3a-p2": {
+   "origen": "grabado",
+   "huella": "3c83bc1ac8d8",
+   "fecha": "2026-10-20"
+  },
+  "3a-p6": {
+   "origen": "grabado",
+   "huella": "8860031430e3",
+   "fecha": "2026-10-20"
+  },
+  "3b-p1": {
+   "origen": "grabado",
+   "huella": "a952e7a945d3",
+   "fecha": "2026-10-20"
+  },
+  "3b-p4": {
+   "origen": "grabado",
+   "huella": "74f1276ba38c",
+   "fecha": "2026-10-20"
+  },
+  "3b-p6": {
+   "origen": "grabado",
+   "huella": "2ff7230f35d1",
+   "fecha": "2026-10-20"
+  },
+  "3c-p1": {
+   "origen": "grabado",
+   "huella": "1617ac710068",
+   "fecha": "2026-10-20"
+  },
+  "3c-p5": {
+   "origen": "grabado",
+   "huella": "84d1acb247ff",
+   "fecha": "2026-10-20"
+  },
+  "3d-p1-android": {
+   "origen": "grabado",
+   "huella": "6bb9124d78f7",
+   "fecha": "2026-10-20"
+  },
+  "3d-p1-iphone": {
+   "origen": "grabado",
+   "huella": "101796b09a52",
+   "fecha": "2026-10-20"
+  },
+  "3d-p5-android": {
+   "origen": "grabado",
+   "huella": "e80d48d43991",
+   "fecha": "2026-10-20"
+  },
+  "3d-p5-iphone": {
+   "origen": "grabado",
+   "huella": "e3e3c5cd2947",
+   "fecha": "2026-10-20"
+  },
+  "3e-p1": {
+   "origen": "grabado",
+   "huella": "79754abafdaf",
+   "fecha": "2026-10-20"
+  },
+  "3e-p2": {
+   "origen": "grabado",
+   "huella": "a1189098438c",
+   "fecha": "2026-10-20"
+  },
+  "3e-p5": {
+   "origen": "grabado",
+   "huella": "f23c57c7bd08",
+   "fecha": "2026-10-20"
+  },
+  "4a-p1": {
+   "origen": "ia",
+   "huella": "f8f4c67312ea",
+   "fecha": "2026-10-20"
+  },
+  "4a-p2-android": {
+   "origen": "ia",
+   "huella": "492f81a39a18",
+   "fecha": "2026-10-20"
+  },
+  "4a-p2-iphone": {
+   "origen": "ia",
+   "huella": "19f4ba3a9f6b",
+   "fecha": "2026-10-20"
+  },
+  "4a-p6-android": {
+   "origen": "ia",
+   "huella": "ff201f79f5b8",
+   "fecha": "2026-10-20"
+  },
+  "4a-p6-iphone": {
+   "origen": "ia",
+   "huella": "5f7ceea1050a",
+   "fecha": "2026-10-20"
+  },
+  "4b-p1": {
+   "origen": "ia",
+   "huella": "7b3b32df4f6f",
+   "fecha": "2026-10-20"
+  },
+  "4b-p2": {
+   "origen": "ia",
+   "huella": "04448d1019ab",
+   "fecha": "2026-10-20"
+  },
+  "4b-p6": {
+   "origen": "ia",
+   "huella": "72cc8ff29366",
+   "fecha": "2026-10-20"
+  },
+  "4c-p1": {
+   "origen": "ia",
+   "huella": "9e8c6c51d804",
+   "fecha": "2026-10-20"
+  },
+  "4c-p2": {
+   "origen": "ia",
+   "huella": "7466c4471ccd",
+   "fecha": "2026-10-20"
+  },
+  "4c-p6": {
+   "origen": "ia",
+   "huella": "261474b006c5",
+   "fecha": "2026-10-20"
+  },
+  "4d-p1": {
+   "origen": "ia",
+   "huella": "2ff02902189f",
+   "fecha": "2026-10-20"
+  },
+  "4d-p2": {
+   "origen": "ia",
+   "huella": "9c7d744fc7d2",
+   "fecha": "2026-10-20"
+  },
+  "4d-p6": {
+   "origen": "ia",
+   "huella": "e4be30d280e9",
+   "fecha": "2026-10-20"
+  },
+  "bienvenida": {
+   "origen": "grabado",
+   "huella": null,
+   "fecha": "2026-10-20"
+  }
+ }
+}

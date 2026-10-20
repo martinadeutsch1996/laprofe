@@ -1,0 +1,53 @@
+# Audios automáticos con la voz de Martina (ElevenLabs)
+# Se ejecuta solo cuando cambia index.html, y también a mano desde la pestaña "Actions".
+# Necesita el secreto ELEVENLABS_API_KEY (Settings → Secrets and variables → Actions).
+name: Audios con la voz de Martina
+
+on:
+  push:
+    branches: [main]
+    paths: ['index.html', 'audio/pronunciacion.json']
+  workflow_dispatch:
+    inputs:
+      solo_listar:
+        description: 'Solo mostrar qué audios faltan (no gasta créditos)'
+        type: boolean
+        default: false
+      max_caracteres:
+        description: 'Tope de caracteres a usar en esta vez'
+        default: '20000'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audios
+  cancel-in-progress: false
+
+jobs:
+  audios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generar los audios que faltan
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ vars.ELEVENLABS_VOICE_ID }}
+          ELEVENLABS_MODEL: ${{ vars.ELEVENLABS_MODEL }}
+          MAX_CARACTERES: ${{ github.event.inputs.max_caracteres || '20000' }}
+        run: |
+          if [ "${{ github.event.inputs.solo_listar }}" = "true" ]; then node tools/audios.mjs --listar; else node tools/audios.mjs; fi
+      - name: Subir los audios nuevos
+        run: |
+          git config user.name "LaProfe audios"
+          git config user.email "audios@users.noreply.github.com"
+          git add audio/
+          if git diff --cached --quiet; then echo "No hay audios nuevos."; exit 0; fi
+          git commit -m "Audios nuevos con la voz de Martina"
+          git pull --rebase -q origin main
+          git push

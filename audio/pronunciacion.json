@@ -1,0 +1,19 @@
+{
+ "nota": "Cómo se dicen en voz alta algunas palabras, siglas y números. Se puede agregar cualquier par \"como está escrito\": \"cómo se dice\".",
+ "reemplazos": {
+  "091 141 141": "cero noventa y uno, ciento cuarenta y uno, ciento cuarenta y uno",
+  "bps.gub.uy": "be pe ese punto gub punto uy",
+  "gub.uy": "gub punto uy",
+  "@gmail.com": "arroba gmail punto com",
+  "1.5x": "uno punto cinco equis",
+  "2x": "dos equis",
+  "1x": "uno equis",
+  "STM": "ese te eme",
+  "BPS": "be pe ese",
+  "BROU": "brou",
+  "DGI": "de ge i",
+  "\"+\"": "\"más\"",
+  " IA": " i a",
+  "(IA": "(i a"
+ }
+}
