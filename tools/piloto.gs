@@ -43,7 +43,8 @@ var PILOTO_COLUMNAS = [
   'Preguntas que ya recuerda (cajita 2 o más)',
   'Abre desde el ícono',
   'Días en que entró',
-  'Actualizado'
+  'Actualizado',
+  'Aceptó compartir datos'
 ];
 
 function guardarPiloto(uid, data) {
@@ -53,10 +54,10 @@ function guardarPiloto(uid, data) {
   try {
     var ss = SpreadsheetApp.openById(PILOTO_PLANILLA);
     var sh = ss.getSheetByName('Piloto') || ss.insertSheet('Piloto');
-    if (sh.getLastRow() === 0) {
-      sh.appendRow(PILOTO_COLUMNAS);
+    if (sh.getLastRow() === 0 || sh.getLastColumn() < PILOTO_COLUMNAS.length) {
+      // Primera vez, o se sumaron columnas nuevas: se escribe la fila de títulos completa
+      sh.getRange(1, 1, 1, PILOTO_COLUMNAS.length).setValues([PILOTO_COLUMNAS]).setFontWeight('bold');
       sh.setFrozenRows(1);
-      sh.getRange(1, 1, 1, PILOTO_COLUMNAS.length).setFontWeight('bold');
     }
     var fila = pilotoFila_(uid, data);
     var n = sh.getLastRow();
@@ -102,7 +103,8 @@ function pilotoFila_(uid, d) {
     recuerda,
     d.abreDesdeIcono || (d.instalada ? 'sí' : ''),
     dias.join(', '),
-    pilotoFecha_(new Date().toISOString())
+    pilotoFecha_(new Date().toISOString()),
+    d.datosOk || 'sin responder'
   ];
 }
 
