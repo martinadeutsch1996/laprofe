@@ -479,11 +479,18 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .stnav{display:flex;justify-content:space-around;background:var(--ph-bg);padding:6px 4px 8px;margin-top:auto}
 .stnav button{background:none;border:2px solid transparent;color:var(--ph-text);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;font-weight:700;min-width:58px;min-height:56px;padding:2px;border-radius:14px}
 .stnav button span{font-size:20px;display:grid;place-items:center;width:56px;height:30px;border-radius:999px}
-.stnav button.on span{background:color-mix(in srgb,var(--ph-green) 28%,var(--ph-bar))}
+.stnav button.on span{background:color-mix(in srgb,var(--tab-on,var(--ph-green)) 22%,var(--ph-bar))}
 .stnav.ios{margin:auto 10px 10px;border-radius:999px;background:color-mix(in srgb,var(--ph-bar) 78%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--ph-line);box-shadow:0 4px 16px rgba(0,0,0,.12);padding:4px}
 .stnav.ios button{min-width:0;flex:1;font-size:12px;border-radius:999px}
+.stl{font-style:normal;display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stnav.t5 button{font-size:10.5px;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;min-width:0}
 .stnav.ios button span{width:auto;height:26px;background:none}
-.stnav.ios button.on{background:var(--ph-line);color:#0A84FF}
+.stnav.ios button.on{background:var(--ph-line);color:var(--tab-on,#0A84FF)}
+.stfab{position:absolute;right:14px;bottom:86px;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:26px;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.stsearch{display:flex;align-items:center;gap:8px;margin:0 12px 8px;min-height:46px;padding:0 14px;border-radius:999px;background:var(--ph-bg);border:2px solid transparent;color:var(--ph-sub);font-size:17px;width:calc(100% - 24px);text-align:left}
+.stchips2{display:flex;gap:8px;padding:0 12px 8px;overflow:hidden}
+.stchips2 i{font-style:normal;border-radius:999px;padding:5px 12px;font-size:14px;background:var(--ph-bg);color:var(--ph-sub);white-space:nowrap}
+.stchips2 i.on{background:color-mix(in srgb,var(--ph-green) 22%,var(--ph-bar));color:var(--ph-text);font-weight:700}
 .stphone.ios .apbtn{background:#0A84FF}
 .stglass{background:color-mix(in srgb,var(--ph-bar) 78%,transparent);border:1px solid var(--ph-line)}
 /* manuales (19/10/2026) */
@@ -556,15 +563,16 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .bline > div{display:flex;flex-direction:column;font-size:16px}
 .bline small{color:var(--ph-sub)}
 .bnum{background:#00519E;color:#fff;border-radius:8px;padding:6px 10px;font-size:18px;min-width:56px;text-align:center}
-.gmrow{display:flex;gap:12px;align-items:flex-start;width:100%;padding:12px 14px;border:2px solid transparent;border-bottom:1px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);text-align:left;font-weight:400}
+.gmrow{display:flex;gap:12px;align-items:flex-start;width:calc(100% - 20px);margin:0 10px 6px;padding:12px 14px;border:2px solid transparent;border-radius:18px;background:var(--ph-bg);color:var(--ph-text);text-align:left;font-weight:400}
 .gmrow > div{display:flex;flex-direction:column;min-width:0;font-size:16px}
 .gmrow small{color:var(--ph-sub);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gmrow b{font-weight:500}
 .gmrow.unread b,.gmrow.unread > div > span{font-weight:900}
 .gmacts{display:flex;gap:6px;flex-wrap:wrap;padding:12px;border-top:1px solid var(--ph-line)}
 .gmacts span{border:1px solid var(--ph-line);border-radius:999px;padding:8px 12px;font-weight:700;font-size:14px}
+.gmacts .gmbig{flex:1;text-align:center;border:none;background:#C2E7FF;color:#001D35;padding:12px;font-size:16px}
 .gmdrawer{position:absolute;left:0;top:0;bottom:0;width:78%;background:var(--ph-bar);box-shadow:4px 0 16px rgba(0,0,0,.25);display:flex;flex-direction:column;z-index:4}
-.gmfab{position:absolute;right:14px;bottom:16px;min-height:56px;padding:0 20px;border-radius:18px;border:2px solid transparent;background:#C2E7FF;color:#001D35;font-weight:800;font-size:17px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.gmfab{position:absolute;right:14px;bottom:84px;min-height:56px;padding:0 20px;border-radius:18px;border:2px solid transparent;background:#C2E7FF;color:#001D35;font-weight:800;font-size:17px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
 .gmform{display:flex;flex-direction:column;gap:8px;padding:10px 14px;flex:1}
 .gmform label{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--ph-line);padding:4px 0}
 .gmform label span{color:var(--ph-sub);font-size:15px;min-width:56px}
@@ -919,7 +927,7 @@ const NIVELES = [
    {k:'ex', txt:'Al abrir WhatsApp ves la lista de chats: cada renglón es una conversación. Ves la foto, el nombre, un pedacito del último mensaje y la hora. Un número verde quiere decir mensajes sin leer.', art:'listart'},
    {k:'try', run:'chatList'},
    {k:'check', q:'Un chat tiene un circulito verde con un 3. ¿Qué significa?', o:['Que tengo 3 mensajes sin leer','Que hay 3 personas en el chat','Que me llamaron 3 veces'], a:0, why:'El número verde cuenta los mensajes que todavía no leíste.'},
-   {k:'rec', pts:['Necesitás internet y tener a la persona agendada.','Cada renglón es un chat.','Número verde = mensajes sin leer. La lupa busca por nombre.']}
+   {k:'rec', pts:['Necesitás internet y tener a la persona agendada.','Cada renglón es un chat.','Número verde = mensajes sin leer. "Buscar", arriba, encuentra por nombre.']}
   ]},
  {id:'3b', app:['whatsapp'], ic:'✉️', t:'Tu primer mensaje', min:5,
   des:'Mandale un mensaje a alguien de tu familia contándole que estás aprendiendo con LaProfe.',
@@ -1101,10 +1109,10 @@ NIVELES.push(
  {id:'or2', app:{android:['keep'], iphone:['notas']}, ic:'📝', t:'Escribí una nota', min:4, des:'Escribí en una nota la lista de las compras de esta semana.',
   steps:[
    {k:'ex', txt:{android:'En el celular podés anotar cosas, como en una libreta. Por ejemplo, la lista de las compras o un número de teléfono. En Android suele estar la app Google Keep o Notas.', iphone:'En el celular podés anotar cosas, como en una libreta. Por ejemplo, la lista de las compras o un número de teléfono. En iPhone está la app Notas, la amarilla.'}, art:'notart'},
-   {k:'ex', txt:{android:'Para escribir una nota:\n1. Abrí la app.\n2. Tocá el "+".\n3. Escribí.\nSe guarda sola. Para encontrarla después, usá la lupa.', iphone:'Para escribir una nota:\n1. Abrí Notas.\n2. Tocá el lápiz, abajo a la derecha.\n3. Escribí.\nSe guarda sola. Para encontrarla después, usá la lupa.'}},
+   {k:'ex', txt:{android:'Para escribir una nota:\n1. Abrí la app.\n2. Tocá el "+".\n3. Escribí.\nSe guarda sola. Para encontrarla después, usá la barra de búsqueda de arriba.', iphone:'Para escribir una nota:\n1. Abrí Notas.\n2. Tocá el lápiz, abajo a la derecha.\n3. Escribí.\nSe guarda sola. Para encontrarla después, usá la barra de "Buscar", abajo.'}},
    {k:'try', run:'orNota'},
    {k:'check', q:'Escribiste una nota y saliste de la app. ¿Qué pasó?', o:['Se guardó sola','Se borró'], a:0, why:'¡Bien! Las notas se guardan solas.'},
-   {k:'rec', pts:['Las notas son tu libreta en el celular.',{android:'Tocá el "+" para una nota nueva.', iphone:'Tocá el lápiz para una nota nueva.'},'Se guarda sola. La lupa la encuentra.']}
+   {k:'rec', pts:['Las notas son tu libreta en el celular.',{android:'Tocá el "+" para una nota nueva.', iphone:'Tocá el lápiz para una nota nueva.'},{android:'Se guarda sola. La barra de búsqueda de arriba la encuentra.', iphone:'Se guarda sola. La barra de "Buscar", abajo, la encuentra.'}]}
   ]},
  {id:'or3', app:{android:['googlefotos'], iphone:['fotos']}, ic:'📂', t:'Guardá tus papeles importantes', min:5, des:'Sacale una foto a la garantía de un aparato de tu casa y guardala en un álbum.',
   steps:[
@@ -1174,7 +1182,7 @@ NIVELES.push(
   ]},
  {id:'gm2', app:['gmail'], ic:'✍️', t:'Escribí y respondé un correo', min:6, des:'Mandale un correo a alguien de tu familia y contale que estás aprendiendo con LaProfe.',
   steps:[
-   {k:'ex', txt:'Para contestar un correo, lo abrís y tocás "Responder". Escribís y lo mandás. Ojo: "Responder a todos" le llega a varias personas.', art:'responder'},
+   {k:'ex', txt:'Para contestar un correo, lo abrís y tocás "Responder". Escribís y lo mandás. Ojo: "Responder a todos", que está en los tres puntitos, le llega a varias personas.', art:'responder'},
    {k:'ex', txt:'Para escribir un correo nuevo:\n1. Tocá "Redactar".\n2. En "Para", escribí la dirección de la persona.\n3. En "Asunto", poné de qué se trata.\n4. Escribí el mensaje y firmalo.\n5. Tocá el ícono de enviar.', art:'redactar'},
    {k:'try', run:'gmEscribir'},
    {k:'check', q:'¿Qué va en "Asunto"?', o:['De qué se trata el correo','La dirección de la persona'], a:0, why:'¡Exacto! La dirección va en "Para".'},
@@ -1288,11 +1296,11 @@ NIVELES.push(
   ]},
  {id:'ig3', app:['instagram'], ic:'✈️', t:'Mensajes privados', min:5, des:'Mandale un mensaje privado por Instagram a alguien de tu familia.',
   steps:[
-   {k:'ex', txt:'En Instagram también hay mensajes privados. Solo los ve la persona a la que se los mandás. Se abren con el avioncito de papel.', art:'avioncito'},
+   {k:'ex', txt:'En Instagram también hay mensajes privados. Solo los ve la persona a la que se los mandás. Se abren con el avioncito de papel, abajo en el medio.', art:'avioncito'},
    {k:'ex', txt:'Si te escribe alguien que no seguís, su mensaje queda en "Solicitudes". Si no conocés a esa persona, no respondas y eliminá el mensaje.', art:'solicitudes'},
    {k:'try', run:'igDM'},
    {k:'check', q:'Un desconocido te ofrece ganar plata fácil. ¿Qué hacés?', o:['No respondo y lo elimino','Le respondo para ver qué ofrece'], a:0, why:'¡Bien! La plata fácil de desconocidos es una estafa.'},
-   {k:'rec', pts:['El avioncito abre los mensajes privados.','Los desconocidos quedan en "Solicitudes".','Si no lo conocés, no respondas.']}
+   {k:'rec', pts:['El avioncito de abajo abre los mensajes privados.','Los desconocidos quedan en "Solicitudes".','Si no lo conocés, no respondas.']}
   ]},
  {id:'fb1', app:['facebook'], ic:'👍', t:'Conocé Facebook', min:5, des:'Entrá a Facebook y dejale un comentario lindo a alguien de tu familia.',
   steps:[
@@ -1329,7 +1337,7 @@ const REAL = {
  '2b':['Abrí la cámara.',{android:'Volvé al inicio con el botón del medio, abajo (o deslizando desde abajo hacia arriba).', iphone:'Volvé al inicio deslizando desde la rayita de abajo hacia arriba.'},{android:'Abrí Ajustes.', iphone:'Abrí Configuración.'},'Volvé al inicio otra vez.'],
  '2c':[{android:'Deslizá el dedo desde arriba de todo hacia abajo.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo.'},'Prendé la linterna.','Apagala.','Cerrá el panel.'],
  '2d':['Subí y bajá el volumen con los botones del costado.',{android:'Abrí Ajustes y entrá a Pantalla.', iphone:'Abrí Configuración y entrá a "Pantalla y brillo".'},{android:'Entrá a "Tamaño de fuente" (puede llamarse parecido según la marca).', iphone:'Entrá a "Tamaño del texto".'},'Mové la barrita hasta que leas cómodo.'],
- '3a':['Abrí WhatsApp.','Fijate si algún chat tiene el número verde.','Tocá la lupa de arriba y buscá a alguien por su nombre.'],
+ '3a':['Abrí WhatsApp.','Fijate si algún chat tiene el número verde.','Tocá la barra de "Buscar", arriba, y buscá a alguien por su nombre.'],
  '3b':['Abrí el chat de alguien de confianza.','Tocá donde dice "Mensaje" y escribí un saludo.','Tocá la flecha verde.','Mirá los tildes: ¿hay uno o dos?'],
  '3c':['Abrí el chat de alguien de confianza.','Mantené apretado el micrófono, decí "Hola, estoy aprendiendo" y soltá.','Tocá el triángulo para escuchar tu audio.'],
  '3d':['Abrí el chat de alguien de confianza.',{android:'Tocá el clip y después "Galería".', iphone:'Tocá el signo de más y después "Fotos".'},'Elegí una foto, escribile algo lindo y tocá enviar.'],
@@ -1345,7 +1353,7 @@ const REAL = {
  '5e':['Pensá en algo importante que le preguntarías a una IA.','Pensá dónde lo confirmarías: una página oficial, un llamado o un profesional.'],
  'ap1':[{android:'Abrí Play Store.', iphone:'Abrí el App Store.'},'Buscá una app que te interese.','Fijate quién la hizo y si es gratis.'],
 'rd1':['Pensá qué red social usa tu familia.','Si la tenés, abrila y mirá el inicio sin publicar nada.'],
- 'ig3':['En Instagram, tocá el avioncito de papel.','Abrí la conversación de alguien que conozcas y mandale un saludo.'],
+ 'ig3':['En Instagram, tocá el avioncito de papel, abajo en el medio.','Abrí la conversación de alguien que conozcas y mandale un saludo.'],
  'pr1':['En Instagram, andá a tu perfil y tocá las tres rayitas.','Entrá a "Configuración y privacidad" y después a "Privacidad de la cuenta".','Fijate si tu cuenta es privada y elegí cómo la querés.'],
  '5f':['Tocá "Martina IA", en el menú de abajo.','Pedile que te ayude a escribir un saludo para alguien que quieras.'],
  'go4':['Abrí Google.','Buscá el horario de un lugar al que tengas que ir.'],
@@ -1372,7 +1380,7 @@ const REAL = {
  'nf1':['Si tenés Netflix, abrilo y elegí tu perfil.','Fijate si hay algo en "Seguir viendo".','Mientras mirás, tocá la pantalla y buscá "Audio y subtítulos".'],
  'nf2':['Pensá con tu familia qué hacer si llega un aviso de pago raro.','Recordá: se revisa abriendo la app, sin tocar enlaces.'],
  'ig1':['Abrí Instagram.','Tocá un circulito de arriba para ver una historia.','Dale me gusta a una foto tocando el corazón.'],
- 'ig2':['En Instagram, tocá la lupa.','Escribí el nombre de alguien o de un tema que te guste.','Entrá al perfil y tocá "Seguir".'],
+ 'ig2':['En Instagram, tocá la lupa de abajo.','Escribí el nombre de alguien o de un tema que te guste.','Entrá al perfil y tocá "Seguir".'],
  'fb1':['Abrí Facebook.','Buscá una publicación de alguien de tu familia.','Tocá "Me gusta" o dejale un comentario.'],
  'rs1':['Mirá tus solicitudes de amistad o tus seguidores.','Si hay alguien que no conocés, no lo aceptes.']
 };
@@ -2723,15 +2731,18 @@ SIMS.chatList = function(api){
   let step = 0;
   const chats = [['Familia','Carlos: ¿Quién lleva el postre?','10:42','#7E57C2',5],['Ana Prueba','¡Hola! ¿Cómo andás?','09:15','#0F8F7E',0],['Club de lectura','Marta: El jueves nos vemos','Ayer','#E07A3F',0],['Carlos','📷 Foto','Ayer','#3F7FD8',0],['Rosa','Gracias por todo','Lunes','#D84B7A',0]];
   api.say('Paso 1: este chat tiene mensajes sin leer. Tocá el <b>número verde</b>.');
-  api.stage.innerHTML = '<div class="phone" style="min-height:0"><div class="bar" style="justify-content:space-between"><h3>WhatsApp</h3><button type="button" class="clip" id="cls" aria-label="Buscar" style="color:var(--ph-text)">' + I.search + '</button></div><div id="clq" hidden style="background:var(--ph-bar);padding:8px"><label class="field" style="border-color:var(--ph-line)" for="clin">' + I.search + '<input id="clin" placeholder="Buscar…" autocomplete="off"></label><div class="helpers" style="padding-top:8px"><button type="button" id="clh">Escribí por mí: Carlos</button></div></div><div id="cll" style="background:var(--ph-bar)"></div></div>';
+  /* WhatsApp hoy (guia-pantallas-reales): barra "Buscar" fija arriba de los chats, filtros, y pestañas abajo según el sistema. */
+  const ios = OS() === 'iphone';
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:0;background:var(--ph-bar);position:relative"><div class="bar" style="justify-content:space-between">' + (ios ? '<span aria-hidden="true" style="font-size:20px">⋯</span><span aria-hidden="true" style="display:flex;gap:14px;font-size:20px">📷<span style="background:var(--ph-green);color:#fff;border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:18px">＋</span></span></div><div style="padding:0 14px 6px"><b style="font-size:30px">Chats</b></div>' : '<b style="font-size:22px;color:var(--ph-green)">WhatsApp</b><span aria-hidden="true" style="display:flex;gap:16px;font-size:20px">📷<span>⋮</span></span></div>') + '<button type="button" class="stsearch" id="cls">' + I.search + '<span>Buscar</span></button><div id="clq" hidden style="padding:0 12px 8px"><label class="field" style="border-color:var(--ph-line);background:var(--ph-bg)" for="clin">' + I.search + '<input id="clin" placeholder="Buscar" autocomplete="off"></label><div class="helpers" style="padding-top:8px"><button type="button" id="clh">Escribí por mí: Carlos</button></div></div><div class="stchips2" aria-hidden="true"><i class="on">Todos</i><i>No leídos</i><i>Favoritos</i><i>Grupos</i></div><div id="cll" style="background:var(--ph-bar)"></div>' + (ios ? '' : '<span class="stfab" aria-hidden="true" style="background:var(--ph-green)">💬</span>') + barraTabs(WA_TABS(), 'Chats', ios, '#1DAA61') + '</div>';
+  $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => toast(b.dataset.st === 'Chats' ? 'Ya estás en "Chats".' : 'En esta práctica nos quedamos en "Chats".')));
   const draw = list => { $('cll').innerHTML = ''; list.forEach(c => { const r = el('button', 'crow bar', '<div class="who"><span class="pic" style="background:' + c[3] + '">' + c[0][0] + '</span><div style="min-width:0"><b></b><small></small></div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;font-size:13px;color:var(--ph-sub)">' + c[2] + (c[4] ? '<span class="badge' + (step === 0 ? ' pulse' : '') + '">' + c[4] + '</span>' : '') + '</div>'); r.type = 'button'; r.querySelector('b').textContent = c[0]; r.querySelector('small').textContent = c[1];
     r.addEventListener('click', e => {
-      if (step === 0){ if (c[4]){ step = 1; toast('¡Ese! El 5 verde dice que tenés 5 mensajes sin leer en el chat Familia.', 3500); api.say('Paso 2: ahora buscá a <b>Carlos</b> con la <b>lupa</b> de arriba.'); $('cls').classList.add('pulse'); draw(chats); } else toast('Ese chat no tiene número verde: ya leíste todo. Buscá el que tiene el 5.'); return; }
-      if (step === 2){ if (c[0] === 'Carlos'){ step = 3; api.say('¡Lo encontraste sin bajar y bajar! Con la lupa buscás a cualquiera por su nombre.'); api.done(); } else toast('Ese es ' + c[0] + '. Tocá Carlos.'); return; }
-      toast('Primero tocá la lupa de arriba.');
+      if (step === 0){ if (c[4]){ step = 1; toast('¡Ese! El 5 verde dice que tenés 5 mensajes sin leer en el chat Familia.', 3500); api.say('Paso 2: ahora buscá a <b>Carlos</b>. Tocá la barra de <b>Buscar</b>, arriba.'); $('cls').classList.add('pulse'); draw(chats); } else toast('Ese chat no tiene número verde: ya leíste todo. Buscá el que tiene el 5.'); return; }
+      if (step === 2){ if (c[0] === 'Carlos'){ step = 3; api.say('¡Lo encontraste sin bajar y bajar! Con la barra de "Buscar" encontrás a cualquiera por su nombre.'); api.done(); } else toast('Ese es ' + c[0] + '. Tocá Carlos.'); return; }
+      toast('Primero tocá la barra de "Buscar", arriba.');
     }); $('cll').appendChild(r); }); };
   draw(chats);
-  $('cls').addEventListener('click', () => { if (step !== 1) return; step = 2; $('cls').classList.remove('pulse'); $('clq').hidden = false; $('clin').focus(); api.say('Paso 3: escribí <b>Carlos</b> y tocalo en la lista.'); });
+  $('cls').addEventListener('click', () => { if (step !== 1) return; step = 2; $('cls').classList.remove('pulse'); $('cls').hidden = true; $('clq').hidden = false; $('clin').focus(); api.say('Paso 3: escribí <b>Carlos</b> y tocalo en la lista.'); });
   const filt = () => { const v = norm($('clin').value); draw(chats.filter(c => !v || norm(c[0]).includes(v))); };
   $('clin').addEventListener('input', filt);
   $('clh').addEventListener('click', () => { $('clin').value = 'Carlos'; filt(); });
@@ -2743,7 +2754,8 @@ SIMS.waMsg = function(api){
   const go = n => { paso = n; api.say(P[n] || '¡Mandado! Mirá lo que pasa con los tildes…'); };
   go(0);
   const chats = [['Familia','Carlos: ¿Quién lleva el postre?','10:42','#7E57C2',5],['Ana Prueba','¡Hola! ¿Cómo andás?','09:15','#0F8F7E',0,1],['Club de lectura','Marta: El jueves nos vemos','Ayer','#E07A3F',0]];
-  api.stage.innerHTML = '<div class="phone" id="ph"><div class="bar"><h3>Chats</h3></div><div id="list" style="background:var(--ph-bar);flex:1"></div></div>';
+  api.stage.innerHTML = '<div class="phone" id="ph" style="background:var(--ph-bar)"><div class="bar"><h3>Chats</h3></div><div id="list" style="background:var(--ph-bar);flex:1"></div>' + barraTabs(WA_TABS(), 'Chats', OS() === 'iphone', '#1DAA61') + '</div>';
+  $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => toast('Quedate en "Chats": entrá al chat de Ana Prueba.')));
   chats.forEach(c => { const r = el('button', 'crow bar' + (c[5] ? ' pulse' : ''), '<div class="who"><span class="pic" style="background:' + c[3] + '">' + c[0][0] + '</span><div style="min-width:0"><b></b><small></small></div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;font-size:13px;color:var(--ph-sub)">' + c[2] + (c[4] ? '<span class="badge">' + c[4] + '</span>' : '') + '</div>'); r.type = 'button'; r.querySelector('b').textContent = c[0]; r.querySelector('small').textContent = c[1]; r.addEventListener('click', () => c[5] ? openChat() : toast('Ese es el chat de ' + c[0] + '. Buscá el de Ana Prueba.')); $('list').appendChild(r); });
   function openChat(){
     go(1);
@@ -2872,9 +2884,10 @@ SIMS.waContact = function(api){
   api.say(ios ? 'Paso 1: tocá el <b>signo de más</b> verde, arriba a la derecha.' : 'Paso 1: tocá el <b>botón verde</b> de abajo a la derecha.');
   const nc = ios
     ? '<button type="button" class="round pulse" id="nc" aria-label="Chat nuevo" style="width:44px;height:44px">' + I4.plus + '</button>'
-    : '<button type="button" class="round pulse" id="nc" aria-label="Chat nuevo" style="position:absolute;right:14px;bottom:14px;width:60px;height:60px;border-radius:18px">' + I4.newchat + '</button>';
+    : '<button type="button" class="round pulse" id="nc" aria-label="Chat nuevo" style="position:absolute;right:14px;bottom:86px;width:60px;height:60px;border-radius:18px">' + I4.newchat + '</button>';
   const lista = () => crowSimple('Familia','Carlos: ¿Quién lleva el postre?','#7E57C2') + crowSimple('Ana Prueba','¡Hola! ¿Cómo andás?','#0F8F7E');
-  api.stage.innerHTML = '<div class="phone" id="ph"><div class="bar"><h3 style="flex:1">Chats</h3>' + (ios ? nc : '') + '</div><div id="list" style="background:var(--ph-bar);flex:1">' + lista() + '</div>' + (ios ? '' : nc) + '</div>';
+  api.stage.innerHTML = '<div class="phone" id="ph"><div class="bar"><h3 style="flex:1">Chats</h3>' + (ios ? nc : '') + '</div><div id="list" style="background:var(--ph-bar);flex:1">' + lista() + '</div>' + (ios ? '' : nc) + barraTabs(WA_TABS(), 'Chats', ios, '#1DAA61') + '</div>';
+  $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => toast('Para un contacto nuevo, ' + (ios ? 'tocá el signo de más, arriba.' : 'tocá el botón verde de abajo a la derecha.'))));
   $('list').addEventListener('click', () => toast('Primero vamos a guardar un contacto nuevo. ' + (ios ? 'Tocá el signo de más, arriba.' : 'Tocá el botón verde, abajo.')));
   $('nc').addEventListener('click', nuevoChat);
   function nuevoChat(){
@@ -3236,6 +3249,11 @@ function decidir(api, cfg){
 }
 const msgCard = (from, sub, color, txt) => chatHead(from, sub, color) + '<div class="msgs" style="min-height:120px"><div class="msg in">' + esc(txt) + '<div class="meta">11:05</div></div></div>';
 
+/* Barra de pestañas de abajo de cualquier app (ver guia-pantallas-reales). Usa data-st, nunca data-tab:
+   data-tab lo toma el menú de LaProfe y deja la app en blanco. */
+const barraTabs = (tabs, on, ios, color) => '<nav class="stnav' + (ios ? ' ios' : '') + (tabs.length > 4 && tabs.some(t => t[1].length > 9) ? ' t5' : '') + '" aria-label="Pestañas de la app"' + (color ? ' style="--tab-on:' + color + '"' : '') + '>' + tabs.map(t => '<button type="button" data-st="' + t[1] + '"' + (t[1] === on ? ' class="on" aria-current="page"' : '') + ' aria-label="' + t[1] + '"><span aria-hidden="true">' + t[0] + '</span><em class="stl" aria-hidden="true">' + t[1] + '</em></button>').join('') + '</nav>';
+const WA_TABS = () => OS() === 'iphone' ? [['🔄','Novedades'],['📞','Llamadas'],['👥','Comunidades'],['💬','Chats'],['⚙️','Configuración']] : [['💬','Chats'],['🔄','Novedades'],['👥','Comunidades'],['📞','Llamadas']];
+
 SIMS.apStore = function(api){
   /* Pantallas según guia-pantallas-reales (19/10/2026): en Play Store se busca con la pestaña "Buscar" de abajo;
      en el App Store (iOS 26.4 en adelante) "Buscar" es la última pestaña de la barra flotante y la búsqueda se escribe arriba. */
@@ -3327,10 +3345,9 @@ SIMS.igDM = function(api){
   let paso = 0;
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
   const feed = () => {
-    $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Instagram</b><button type="button" class="ibtn pulse" id="dmb" aria-label="Mensajes" style="font-size:24px">✈️</button></div><div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('');
-    api.say('Paso 1: tocá el <b>avioncito de papel</b>, arriba a la derecha, para ver tus mensajes.');
-    $('dmb').addEventListener('click', lista);
-    $('ph').querySelectorAll('.ignav button').forEach(b => b.addEventListener('click', () => toast('Los mensajes se abren con el avioncito de papel, arriba a la derecha.')));
+    $('ph').innerHTML = igTop() + '<div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('dm');
+    api.say('Paso 1: tocá el <b>avioncito de papel</b>, abajo en el medio, para ver tus mensajes.');
+    $('ph').querySelectorAll('.ignav button').forEach(b => b.addEventListener('click', () => { if (b.dataset.n === 'dm') lista(); else toast('Los mensajes se abren con el avioncito de papel, abajo en el medio.'); }));
   };
   const lista = () => {
     if (paso === 0) paso = 1; $('toast').hidden = true;
@@ -3373,7 +3390,7 @@ SIMS.igPriv = function(api){
   let paso = 0;
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
   const go = (html, say) => { $('toast').hidden = true; $('ph').innerHTML = html; api.say(say); };
-  go('<div class="bar"><b style="flex:1;font-size:20px">Instagram</b></div><div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('perfil'), 'Paso 1: tocá tu <b>perfil</b>, abajo a la derecha.');
+  go(igTop() + '<div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('perfil'), 'Paso 1: tocá tu <b>perfil</b>, abajo a la derecha.');
   $('ph').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     if (paso === 0){ if (b.dataset.n === 'perfil'){ paso = 1; go('<div class="bar"><b style="flex:1">' + esc(sinTilde(NOMBRE() || 'vos').replace(/\s+/g, '.')) + '</b><button type="button" class="ibtn pulse" id="pmenu" aria-label="Menú" style="font-size:24px">☰</button></div><div class="igprof"><span class="pic" style="width:80px;height:80px;font-size:40px;background:#E07A3F">🙂</span><div><b>' + esc(NOMBRE() || 'Vos') + '</b><small>3 publicaciones · 25 seguidores</small><span>🌍 Cuenta pública</span></div></div><div class="iggrid">' + ['🌻','🎂','🏖️'].map(x => '<span>' + x + '</span>').join('') + '</div>', 'Este es tu perfil. Ahora es pública: la ve cualquiera. Paso 2: tocá las <b>tres rayitas</b>, arriba a la derecha.'); } else toast('Tu perfil es el botón de abajo a la derecha.'); return; }
@@ -3410,7 +3427,7 @@ SIMS.orCal = function(api){
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
   const mes = ev => {
     const cells = []; for (let i = 0; i < 3; i++) cells.push('<span></span>'); for (let d = 1; d <= 31; d++) cells.push('<span class="' + (d === 19 ? 'hoy' : '') + (ev && d === 22 ? ' ev' : '') + '">' + d + '</span>');
-    return '<div class="bar"><b style="flex:1;font-size:19px">Octubre 2026</b>' + (ios ? '<button type="button" class="ibtn pulse" id="cadd" aria-label="Nuevo evento" style="font-size:26px">＋</button>' : '') + '</div><div class="calw">' + ['L','M','M','J','V','S','D'].map(x => '<b>' + x + '</b>').join('') + cells.join('') + '</div>'
+    return '<div class="bar"><b style="flex:1;font-size:19px">Octubre 2026</b>' + (ios ? '<button type="button" class="ibtn pulse" id="cadd" aria-label="Nuevo evento" style="font-size:26px">＋</button>' : '') + '</div><div class="calw">' + (ios ? ['L','M','M','J','V','S','D'] : ['lun','mar','mié','jue','vie','sáb','dom']).map(x => '<b>' + x + '</b>').join('') + cells.join('') + '</div>'
       + (ev ? '<div class="calev">🩺 <div><b>' + esc(ev.t) + '</b><small>Jueves 22 · ' + ev.h + ' · 🔔 ' + ev.a + '</small></div></div>' : '<p style="margin:8px 14px;color:var(--ph-sub)">No hay eventos esta semana.</p>')
       + (ios ? '' : '<button type="button" class="calfab' + (ev ? '' : ' pulse') + '" id="cadd" aria-label="Nuevo">＋</button>');
   };
@@ -3448,8 +3465,15 @@ SIMS.orNota = function(api){
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:460px;background:var(--ph-bar)"></div>';
   const lista = (f) => {
     const vis = notas.filter(n => !f || sinTilde(n[0] + ' ' + n[1]).includes(sinTilde(f)));
-    $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Notas</b></div><div class="gbar" id="nbar" style="margin:10px 12px"><span aria-hidden="true">🔎</span><input id="nq" placeholder="Buscar" autocomplete="off"' + (paso < 2 ? ' readonly' : '') + '></div><div id="nl" style="flex:1">' + vis.map(n => '<div class="nota"><b>' + esc(n[0]) + '</b><small>' + esc(n[1]) + '</small></div>').join('') + '</div><button type="button" class="calfab' + (paso === 0 ? ' pulse' : '') + '" id="nadd" aria-label="Nota nueva" style="' + (ios ? 'background:#F4B400' : '') + '">' + (ios ? '✏️' : '＋') + '</button>';
-    $('nadd').addEventListener('click', () => { if (paso === 0) editor(); else toast('Ya escribiste tu nota. Ahora probá buscarla con la lupa.'); });
+    /* guia-pantallas-reales: Keep tiene la barra "Buscar en Keep" arriba y el "+" abajo a la derecha;
+       Notas del iPhone (iOS 26) tiene la búsqueda abajo, al lado del lápiz. */
+    const buscador = '<div class="gbar" id="nbar" style="margin:0;flex:1;min-width:0"><span aria-hidden="true">🔎</span><input id="nq" style="min-width:0;width:100%" placeholder="' + (ios ? 'Buscar' : 'Buscar en Keep') + '" autocomplete="off"' + (paso < 2 ? ' readonly' : '') + '></div>';
+    const items = '<div id="nl" style="flex:1">' + vis.map(n => '<div class="nota"><b>' + esc(n[0]) + '</b><small>' + esc(n[1]) + '</small></div>').join('') + '</div>';
+    const boton = '<button type="button" class="calfab' + (paso === 0 ? ' pulse' : '') + '" id="nadd" aria-label="Nota nueva" style="' + (ios ? 'position:static;flex:none;width:54px;height:54px;border-radius:50%;background:#F4B400' : '') + '">' + (ios ? '✏️' : '＋') + '</button>';
+    $('ph').innerHTML = ios
+      ? '<div class="bar"><b style="flex:1;font-size:28px">Notas</b></div>' + items + '<div style="display:flex;gap:10px;align-items:center;padding:8px 12px 12px">' + buscador + boton + '</div>'
+      : '<div style="display:flex;align-items:center;gap:8px;padding:12px"><span aria-hidden="true" style="font-size:22px">☰</span>' + buscador + '<span class="stav" aria-hidden="true"></span></div>' + items + boton;
+    $('nadd').addEventListener('click', () => { if (paso === 0) editor(); else toast('Ya escribiste tu nota. Ahora probá buscarla con la barra de búsqueda.'); });
   };
   const editor = () => {
     paso = 1; $('toast').hidden = true;
@@ -3461,11 +3485,11 @@ SIMS.orNota = function(api){
     $('nok').addEventListener('click', () => {
       const v = t.value.trim(); if (!v){ toast('Primero escribí algo en la nota.'); return; }
       paso = 2; const [a, ...r] = v.split(':'); notas.unshift([a.trim(), r.join(':').trim() || v]); lista();
-      $('nbar').classList.add('pulse'); api.say('¡Tu nota quedó guardada, sola! Paso 3: buscala. Tocá la <b>lupa</b> y escribí <b>yerba</b>.');
+      $('nbar').classList.add('pulse'); api.say('¡Tu nota quedó guardada, sola! Paso 3: buscala. Tocá la <b>barra de búsqueda</b>, ' + (ios ? 'abajo' : 'arriba') + ', y escribí <b>yerba</b>.');
       const q = $('nq'); q.addEventListener('input', () => {
         const f = q.value.trim(); const vis = notas.filter(n => !f || sinTilde(n[0] + ' ' + n[1]).includes(sinTilde(f)));
         $('nl').innerHTML = vis.map(n => '<div class="nota"><b>' + esc(n[0]) + '</b><small>' + esc(n[1]) + '</small></div>').join('') || '<p style="margin:12px;color:var(--ph-sub)">No hay notas con esa palabra.</p>';
-        if (f.length >= 3 && vis.length === 1 && vis[0] === notas[0] && paso === 2){ paso = 3; $('nbar').classList.remove('pulse'); api.say('¡La encontraste! Con la lupa encontrás cualquier nota escribiendo una palabra que tenga.'); api.done(); }
+        if (f.length >= 3 && vis.length === 1 && vis[0] === notas[0] && paso === 2){ paso = 3; $('nbar').classList.remove('pulse'); api.say('¡La encontraste! Con la barra de búsqueda encontrás cualquier nota escribiendo una palabra que tenga.'); api.done(); }
       });
       $('ph').appendChild(el('div', 'helpers', '<button type="button" id="h2">Escribir por mí</button>')); $('h2').addEventListener('click', () => { q.value = 'yerba'; q.dispatchEvent(new Event('input')); });
     });
@@ -3496,7 +3520,8 @@ SIMS.orDoc = function(api){
 const mapaHtml = extra => '<div class="mapa" id="mapa"><span class="mcalle h" style="top:30%"></span><span class="mcalle h" style="top:68%"></span><span class="mcalle v" style="left:28%"></span><span class="mcalle v" style="left:70%"></span><span class="mverde" style="left:6%;top:40%"></span><span class="magua"></span>' + (extra || '') + '</div>';
 SIMS.mpBuscar = function(api){
   let paso = 0;
-  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px"><div class="gbar" id="mbar" style="margin:10px;position:relative;z-index:2"><span aria-hidden="true">🔎</span><input id="mq" placeholder="Buscá aquí" autocomplete="off" readonly></div><div id="mres"></div>' + mapaHtml('<div class="mban" id="mban"><span>📍 Para ver dónde estás, activá la ubicación.</span><button type="button" class="btn small pulse" id="mon">Activar</button></div>') + '<div id="mcard"></div></div>';
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px"><div class="gbar" id="mbar" style="margin:10px;position:relative;z-index:2"><span aria-hidden="true">🔎</span><input id="mq" placeholder="Buscá aquí" autocomplete="off" readonly></div><div id="mres"></div>' + mapaHtml('<div class="mban" id="mban"><span>📍 Para ver dónde estás, activá la ubicación.</span><button type="button" class="btn small pulse" id="mon">Activar</button></div>') + '<div id="mcard"></div>' + barraTabs([['📍','Explorar'],['🔖','Tú'],['➕','Contribuir']], 'Explorar', OS() === 'iphone', '#0B57D0') + '</div>';
+  $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => toast('Para buscar un lugar, usá la barra de arriba.')));
   api.say('El celular todavía no sabe dónde estás. Paso 1: tocá <b>Activar</b> para prender la ubicación.');
   $('mon').addEventListener('click', () => {
     if (paso !== 0) return; paso = 1; $('toast').hidden = true; $('mban').remove(); $('mapa').appendChild(el('span', 'mdot', '')); $('mapa').lastChild.style.cssText = 'left:46%;top:55%';
@@ -3518,14 +3543,14 @@ SIMS.mpBuscar = function(api){
   function lugar(){
     paso = 3; $('mres').innerHTML = ''; $('mq').blur(); $('mq').readOnly = true;
     $('mapa').appendChild(el('span', 'mpin', '📍')); $('mapa').lastChild.style.cssText = 'left:66%;top:22%';
-    $('mcard').innerHTML = '<div class="mplace"><b style="font-size:19px">Teatro Solís</b><small>★ 4,7 · Teatro · Abierto</small><div class="row" style="gap:8px"><span class="mbtn">🧭 Cómo llegar</span><span class="mbtn2">📞 Llamar</span></div></div>';
+    $('mcard').innerHTML = '<div class="mplace"><b style="font-size:19px">Teatro Solís</b><small>★ 4,7 · Teatro · Abierto</small><div class="row" style="gap:8px;flex-wrap:nowrap;overflow:hidden"><span class="mbtn" style="flex:none">🧭 Cómo llegar</span><span class="mbtn2" style="flex:none">📞 Llamar</span><span class="mbtn2" style="flex:none">🔖 Guardar</span><span class="mbtn2" style="flex:none">↗️ Compartir</span></div></div>';
     api.say('¡Lo encontraste! El pin rojo marca el teatro, y abajo ves su información y las reseñas. Cómo llegar lo vemos en la próxima lección.'); api.done();
   }
 };
 
 SIMS.mpLlegar = function(api){
   let paso = 0;
-  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px">' + mapaHtml('<span class="mdot" style="left:20%;top:72%"></span><span class="mpin" style="left:72%;top:20%">📍</span><svg class="mruta" id="mruta" viewBox="0 0 100 100" preserveAspectRatio="none" hidden><polyline points="22,74 28,74 28,30 70,30 72,24" fill="none" stroke="#1A73E8" stroke-width="2.6" stroke-linejoin="round" stroke-dasharray="1.6 1.6"/></svg>') + '<div id="mcard"><div class="mplace"><b style="font-size:19px">Mercado Agrícola de Montevideo</b><small>★ 4,6 · Mercado · Abierto</small><div class="row" style="gap:8px"><button type="button" class="mbtn pulse" id="mcl">🧭 Cómo llegar</button><span class="mbtn2">📞 Llamar</span></div></div></div></div>';
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px">' + mapaHtml('<span class="mdot" style="left:20%;top:72%"></span><span class="mpin" style="left:72%;top:20%">📍</span><svg class="mruta" id="mruta" viewBox="0 0 100 100" preserveAspectRatio="none" hidden><polyline points="22,74 28,74 28,30 70,30 72,24" fill="none" stroke="#1A73E8" stroke-width="2.6" stroke-linejoin="round" stroke-dasharray="1.6 1.6"/></svg>') + '<div id="mcard"><div class="mplace"><b style="font-size:19px">Mercado Agrícola de Montevideo</b><small>★ 4,6 · Mercado · Abierto</small><div class="row" style="gap:8px;flex-wrap:nowrap;overflow:hidden"><button type="button" class="mbtn pulse" id="mcl" style="flex:none">🧭 Cómo llegar</button><span class="mbtn2" style="flex:none">📞 Llamar</span><span class="mbtn2" style="flex:none">🔖 Guardar</span><span class="mbtn2" style="flex:none">↗️ Compartir</span></div></div></div></div>';
   api.say('Querés ir al Mercado Agrícola. Paso 1: tocá <b>Cómo llegar</b>.');
   $('mcl').addEventListener('click', () => {
     if (paso !== 0) return; paso = 1;
@@ -3648,14 +3673,16 @@ SIMS.trBus = function(api){
 
 /* ---- Gmail ---- */
 const gmCorreos = () => [['Club de jardinería','Taller del sábado','¡Hola! El sábado a las 10 hacemos el taller de plantines…',true],['Laura','Fotos del cumple','Te paso las fotos que sacamos el domingo.',false],['Farmacia del barrio','Tu pedido está listo','Podés pasar a retirarlo de 9 a 20.',false]];
-const gmLista = (pulseK) => '<div class="bar"><button type="button" class="ibtn" id="gmenu" aria-label="Menú" style="font-size:24px">☰</button><div class="gbar" style="flex:1;margin:0;min-height:44px"><span aria-hidden="true">🔎</span><span style="color:var(--ph-sub)">Buscar en el correo</span></div></div><small style="padding:8px 14px 0;color:var(--ph-sub);font-weight:700">Recibidos</small>' + gmCorreos().map((c, k) => '<button type="button" class="gmrow' + (c[3] ? ' unread' : '') + (k === pulseK ? ' pulse' : '') + '" data-k="' + k + '"><span class="pic" style="background:' + ['#43A047','#7E57C2','#3F7FD8'][k] + '">' + c[0][0] + '</span><div><b>' + esc(c[0]) + '</b><span>' + esc(c[1]) + '</span><small>' + esc(c[2]) + '</small></div></button>').join('');
+/* Gmail hoy (guia-pantallas-reales): tres rayitas y foto de perfil afuera de la barra, cada correo en su tarjeta, barra corta abajo. */
+const gmLista = (pulseK) => '<div class="bar" style="gap:8px"><button type="button" class="ibtn" id="gmenu" aria-label="Menú" style="font-size:24px">☰</button><div class="gbar" style="flex:1;margin:0;min-height:48px;min-width:0"><span aria-hidden="true">🔎</span><span style="color:var(--ph-sub)">Buscar en el correo</span></div><span class="stav" aria-hidden="true"></span></div><small style="padding:8px 14px 6px;color:var(--ph-sub);font-weight:700">Recibidos</small>' + gmCorreos().map((c, k) => '<button type="button" class="gmrow' + (c[3] ? ' unread' : '') + (k === pulseK ? ' pulse' : '') + '" data-k="' + k + '"><span class="pic" style="background:' + ['#43A047','#7E57C2','#3F7FD8'][k] + '">' + c[0][0] + '</span><div><b>' + esc(c[0]) + '</b><span>' + esc(c[1]) + '</span><small>' + esc(c[2]) + '</small></div></button>').join('') + '<div style="flex:1"></div>' + barraTabs([['✉️','Correo'],['🎥','Meet']], 'Correo', OS() === 'iphone', '#0B57D0');
 SIMS.gmLeer = function(api){
   let paso = 0;
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)">' + gmLista(0) + '</div>';
   api.say('Esta es tu bandeja de entrada. El de arriba está en negrita: no lo leíste. Paso 1: tocalo para abrirlo.');
   $('ph').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
-    if (paso === 0){ if (b.dataset.k === '0'){ paso = 1; $('toast').hidden = true; $('ph').innerHTML = '<div class="bar"><button type="button" class="ibtn pulse" id="gback" aria-label="Volver">' + I4.back + '</button><span style="flex:1"></span></div><div style="padding:14px;display:flex;flex-direction:column;gap:10px;flex:1"><b style="font-size:21px">Taller del sábado</b><div class="who"><span class="pic" style="background:#43A047">C</span><div><b>Club de jardinería</b><small>para mí</small></div></div><p style="margin:0;font-size:17px">¡Hola! El sábado a las 10 hacemos el taller de plantines. Traé una maceta chica. ¡Te esperamos!</p></div><div class="gmacts"><span>↩️ Responder</span><span>↩️👥 Responder a todos</span><span>↪️ Reenviar</span></div>'; api.say('¡Ya lo leíste! Abajo están "Responder" y "Reenviar". Paso 2: tocá la <b>flechita de arriba</b> para volver.'); } else toast('Ese ya lo leíste. Abrí el que está en negrita, arriba.'); return; }
+    if (b.dataset.st){ toast('Quedate en "Correo": ahí están tus correos.'); return; }
+    if (paso === 0){ if (b.dataset.k === '0'){ paso = 1; $('toast').hidden = true; $('ph').innerHTML = '<div class="bar"><button type="button" class="ibtn pulse" id="gback" aria-label="Volver">' + I4.back + '</button><span style="flex:1"></span></div><div style="padding:14px;display:flex;flex-direction:column;gap:10px;flex:1"><b style="font-size:21px">Taller del sábado</b><div class="who"><span class="pic" style="background:#43A047">C</span><div><b>Club de jardinería</b><small>para mí</small></div></div><p style="margin:0;font-size:17px">¡Hola! El sábado a las 10 hacemos el taller de plantines. Traé una maceta chica. ¡Te esperamos!</p></div><div class="gmacts"><span class="gmbig">↩️ Responder</span><span class="gmbig">↪️ Reenviar</span></div>'; api.say('¡Ya lo leíste! Abajo están "Responder" y "Reenviar". Paso 2: tocá la <b>flechita de arriba</b> para volver.'); } else toast('Ese ya lo leíste. Abrí el que está en negrita, arriba.'); return; }
     if (paso === 1 && b.id === 'gback'){ paso = 2; $('ph').innerHTML = gmLista(-1).replace('class="gmrow unread', 'class="gmrow'); $('gmenu').classList.add('pulse'); api.say('¿Viste? Ya no está en negrita. Paso 3: tocá las <b>tres rayitas</b> de arriba a la izquierda.'); return; }
     if (paso === 2){ if (b.id === 'gmenu'){ paso = 3; const d = el('div', 'gmdrawer', '<b style="padding:14px;font-size:19px">Gmail</b>' + filasMenu(['📥 Recibidos','📤 Enviados','📝 Borradores','🗑️ Papelera'], '📤 Enviados')); $('ph').appendChild(d); api.say('Paso 4: tocá <b>Enviados</b>.'); } else toast('Tocá las tres rayitas, arriba a la izquierda.'); return; }
     if (paso === 3 && b.dataset.row){ if (b.dataset.row !== '📤 Enviados'){ toast('Buscá "Enviados".'); return; } paso = 4; $('toast').hidden = true; $('ph').innerHTML = '<div class="bar"><b style="flex:1">Enviados</b></div><button type="button" class="gmrow"><span class="pic" style="background:#E07A3F">Yo</span><div><b>Para: Laura</b><span>Receta del flan</span><small>Te paso la receta que me pediste…</small></div></button>'; api.say('¡Lo lograste! En "Enviados" están los correos que mandaste. Si uno está ahí, salió.'); api.done(); }
@@ -3666,7 +3693,7 @@ SIMS.gmEscribir = function(api){
   let paso = 0;
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)">' + gmLista(-1) + '<button type="button" class="gmfab pulse" id="gred">✏️ Redactar</button></div>';
   api.say('Vamos a escribirle a Laura. Paso 1: tocá <b>Redactar</b>, abajo a la derecha.');
-  $('ph').querySelectorAll('.gmrow, #gmenu').forEach(b => b.addEventListener('click', () => toast('Hoy escribimos un correo nuevo: tocá "Redactar", abajo.')));
+  $('ph').querySelectorAll('.gmrow, #gmenu, [data-st]').forEach(b => b.addEventListener('click', () => toast('Hoy escribimos un correo nuevo: tocá "Redactar", abajo.')));
   $('gred').addEventListener('click', () => {
     if (paso !== 0) return; paso = 1;
     $('ph').innerHTML = '<div class="bar"><b style="flex:1">Redactar</b><button type="button" class="ibtn" id="gsend" aria-label="Enviar">' + I.send.replace('#fff', 'currentColor') + '</button></div><div class="gmform"><label><span>Para</span><input id="gpara" autocomplete="off" inputmode="email"></label><label><span>Asunto</span><input id="gas" autocomplete="off"></label><textarea id="gmsg" rows="5" placeholder="Redactar correo"></textarea><div class="helpers" style="padding:0;justify-content:flex-start"><button type="button" id="h1">Escribir por mí</button></div><p id="ghint" hidden style="margin:0;font-weight:700"></p></div>';
@@ -3682,7 +3709,7 @@ SIMS.gmEscribir = function(api){
       if (!para.includes('@') || !para.includes('.')){ h.hidden = false; h.textContent = '💡 Revisá la dirección: tiene que tener @ y un punto, como laura.gomez@gmail.com.'; return; }
       if (!$('gas').value.trim()){ h.hidden = false; h.textContent = '💡 Falta el asunto: una frase corta que diga de qué se trata.'; return; }
       if (!$('gmsg').value.trim()){ h.hidden = false; h.textContent = '💡 Falta el mensaje.'; return; }
-      paso = 2; $('ph').innerHTML = gmLista(-1) + '<div class="sysmsg" style="position:absolute;left:12px;right:12px;bottom:16px;text-align:center">✓ Enviado</div>';
+      paso = 2; $('ph').innerHTML = gmLista(-1) + '<div class="sysmsg" style="position:absolute;left:12px;right:12px;bottom:84px;text-align:center">✓ Enviado</div>';
       api.say('¡Lo mandaste! Abajo dice "Enviado". Y si después lo querés ver, está en "Enviados".'); api.done();
     });
   });
@@ -3911,7 +3938,8 @@ SIMS.gTrust = function(api){
 const ytCard = (e, t, d, k) => '<button type="button" class="ytc" data-v="' + k + '"><span class="ytth">' + e + '<small>' + d + '</small></span><b>' + esc(t) + '</b></button>';
 SIMS.ytSearch = function(api){
   let paso = 0;
-  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:460px;background:var(--ph-bar)"><div class="bar" id="ybar"><b style="flex:1;font-size:19px">YouTube</b><button type="button" class="ibtn pulse" id="ylupa" aria-label="Buscar">' + I.search + '</button></div><div id="yfeed" class="yfeed">' + ytCard('🎻', 'Tangos para escuchar en la tarde', '58:12', 'a') + ytCard('🧘', 'Gimnasia suave en una silla', '15:40', 'b') + '</div></div>';
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:460px;background:var(--ph-bar)"><div class="bar" id="ybar"><b style="flex:1;font-size:19px">YouTube</b><span aria-hidden="true" style="font-size:20px;margin-right:6px">🔔</span><button type="button" class="ibtn pulse" id="ylupa" aria-label="Buscar">' + I.search + '</button></div><div id="yfeed" class="yfeed">' + ytCard('🎻', 'Tangos para escuchar en la tarde', '58:12', 'a') + ytCard('🧘', 'Gimnasia suave en una silla', '15:40', 'b') + '</div>' + barraTabs([['🏠','Inicio'],['⚡','Shorts'],['＋','Crear'],['📺','Suscripciones'],['🙂','Tú']], 'Inicio', OS() === 'iphone', '#FF0000') + '</div>';
+  $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => toast('Para buscar un video, tocá la lupa de arriba.')));
   api.say('Paso 1: tocá la <b>lupa</b> de arriba.');
   $('yfeed').addEventListener('click', () => { if (paso === 0) toast('Esos videos te los recomienda YouTube. Hoy buscamos uno: tocá la lupa de arriba.'); });
   $('ylupa').addEventListener('click', () => {
@@ -4007,12 +4035,15 @@ SIMS.nfEstafa = function(api){
 };
 
 /* ---- Instagram ---- */
-const igNav = act => '<div class="ignav">' + [['home','🏠','Inicio'],['buscar','🔎','Buscar'],['crear','➕','Crear'],['reels','▶️','Reels'],['perfil','👤','Perfil']].map(b => '<button type="button" data-n="' + b[0] + '"' + (b[0] === act ? ' class="pulse"' : '') + '><span>' + b[1] + '</span>' + b[2] + '</button>').join('') + '</div>';
+/* Barra de Instagram desde 2026 (ver guia-pantallas-reales): Inicio, Reels, Mensajes en el centro, Buscar y Perfil.
+   El "+" para publicar pasó arriba a la izquierda. */
+const igTop = (extra) => '<div class="bar"><span aria-hidden="true" style="font-size:26px;width:36px;text-align:center">＋</span><b style="flex:1;font-size:20px">Instagram</b>' + (extra || '') + '<span aria-hidden="true" style="font-size:22px">♡</span></div>';
+const igNav = act => '<div class="ignav">' + [['home','🏠','Inicio'],['reels','▶️','Reels'],['dm','✈️','Mensajes'],['buscar','🔎','Buscar'],['perfil','👤','Perfil']].map(b => '<button type="button" data-n="' + b[0] + '"' + (b[0] === act ? ' class="pulse"' : '') + '><span>' + b[1] + '</span>' + b[2] + '</button>').join('') + '</div>';
 SIMS.igFeed = function(api){
   let paso = 0, visto = false, like = false;
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
   const feed = () => {
-    $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Instagram</b><span aria-hidden="true">♡</span></div><div class="igst">' + [['Tu historia','🙂',0,0],['Sofi','👧',1,1],['Club','🌱',1,0],['Pedro','👨',1,0]].map(s => '<button type="button" class="igs' + (s[2] && !(s[3] && visto) ? ' ring' : '') + (s[3] && paso === 0 ? ' pulse' : '') + '" data-s="' + s[3] + '"><span><span>' + s[1] + '</span></span>' + s[0] + '</button>').join('') + '</div>'
+    $('ph').innerHTML = igTop() + '<div class="igst">' + [['Tu historia','🙂',0,0],['Sofi','👧',1,1],['Club','🌱',1,0],['Pedro','👨',1,0]].map(s => '<button type="button" class="igs' + (s[2] && !(s[3] && visto) ? ' ring' : '') + (s[3] && paso === 0 ? ' pulse' : '') + '" data-s="' + s[3] + '"><span><span>' + s[1] + '</span></span>' + s[0] + '</button>').join('') + '</div>'
       + '<div class="igpost"><div class="who" style="padding:8px 12px"><span class="pic" style="background:#E91E63">S</span><b>sofi.gomez</b></div><div class="igimg" id="igimg">🎂</div><div class="igact"><button type="button" id="igheart" class="' + (paso === 2 ? 'pulse' : '') + '" aria-label="Me gusta">' + (like ? '❤️' : '♡') + '</button><button type="button" aria-label="Comentar" data-x="1">💬</button><button type="button" aria-label="Compartir" data-x="1">↗️</button></div><small style="padding:0 12px;font-weight:800" id="iglikes">' + (like ? '1 Me gusta' : '') + '</small><p style="margin:2px 12px 10px;font-size:16px"><b>sofi.gomez</b> ¡Gracias a todos por venir a mi cumple! 🎉</p></div>' + igNav('');
     $('ph').querySelectorAll('.igs').forEach(b => b.addEventListener('click', () => { if (b.dataset.s === '1' && paso === 0) historia(); else if (paso === 0) toast('Esa es otra historia. Tocá el circulito de Sofi.'); }));
     $('igheart').addEventListener('click', megusta);
@@ -4040,7 +4071,7 @@ SIMS.igFeed = function(api){
 SIMS.igFollow = function(api){
   let paso = 0;
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"></div>';
-  $('ph').innerHTML = '<div class="bar"><b style="flex:1;font-size:20px">Instagram</b></div><div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('buscar');
+  $('ph').innerHTML = igTop() + '<div class="igpost" style="flex:1"><div class="igimg">🌅</div></div>' + igNav('buscar');
   api.say('Paso 1: tocá la <b>lupa</b> de abajo para buscar.');
   $('ph').querySelectorAll('.ignav button').forEach(b => b.addEventListener('click', () => { if (b.dataset.n === 'buscar') buscar(); else toast('Para buscar, tocá la lupa.'); }));
   function buscar(){
@@ -4071,9 +4102,11 @@ SIMS.igFollow = function(api){
 /* ---- Facebook ---- */
 SIMS.fbPost = function(api){
   let paso = 0; const yo = NOMBRE() || 'Vos';
-  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:0;background:var(--ph-bar)"><div class="bar"><b style="flex:1;font-size:21px">Facebook</b></div>'
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:0;background:var(--ph-bar)"><div class="bar"><b style="flex:1;font-size:22px;color:#1877F2">facebook</b><span aria-hidden="true" style="display:flex;gap:14px;font-size:20px">＋<span>🔎</span><span>💬</span></span></div>'
     + '<div class="fbp"><div class="who" style="padding:10px 12px"><span class="pic" style="background:#7E57C2">L</span><div style="min-width:0"><b>Laura (tu prima)</b><small>Hace 2 horas</small></div></div><p style="margin:0 12px 8px">Atardecer en Piriápolis 🌅</p><div class="igimg" style="background:linear-gradient(#FFB74D,#F06292)">🌅</div><small class="fbn" id="fbn">👍 12 personas</small>'
-    + '<div class="fbacts"><button type="button" id="fbl" class="pulse">👍 Me gusta</button><button type="button" id="fbc">💬 Comentar</button><button type="button" id="fbs">↗️ Compartir</button></div><div id="fbcom"></div></div></div>';
+    + '<div class="fbacts"><button type="button" id="fbl" class="pulse">👍 Me gusta</button><button type="button" id="fbc">💬 Comentar</button><button type="button" id="fbs">↗️ Compartir</button></div><div id="fbcom"></div></div>'
+    + barraTabs([['🏠','Inicio'],['▶️','Reels'],['👥','Amigos'],['🏪','Marketplace'],['🔔','Notificaciones'],['👤','Perfil']], 'Inicio', OS() === 'iphone', '#1877F2') + '</div>';
+  $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => toast('Hoy nos quedamos en el inicio, con la foto de Laura.')));
   api.say('Laura publicó una foto. Paso 1: tocá <b>Me gusta</b>, abajo de la foto.');
   $('fbs').addEventListener('click', () => toast('Compartir la muestra en tu perfil. Hoy le damos me gusta y la comentamos.'));
   $('fbl').addEventListener('click', () => {
