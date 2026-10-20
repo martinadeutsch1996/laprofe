@@ -328,277 +328,332 @@
   "ap1-p1-android": {
    "origen": "ia",
    "huella": "8176ed0f4cef",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p1-iphone": {
    "origen": "ia",
    "huella": "feb1bd86549e",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p2-android": {
    "origen": "ia",
    "huella": "687e73460880",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p2-iphone": {
    "origen": "ia",
    "huella": "513f49a0135d",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p3-android": {
    "origen": "ia",
    "huella": "59aa3d7e4fac",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p3-iphone": {
    "origen": "ia",
    "huella": "8e655952c2c0",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p4-android": {
    "origen": "ia",
    "huella": "43234fc201e9",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p4-iphone": {
    "origen": "ia",
    "huella": "9b4bbee4492b",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p9-android": {
    "origen": "ia",
    "huella": "993482a168f7",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ap1-p9-iphone": {
    "origen": "ia",
    "huella": "dbae0c97cd46",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5a-p1": {
    "origen": "ia",
    "huella": "95794bf3b15c",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5a-p2": {
    "origen": "ia",
    "huella": "1588e0aa689f",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5a-p3": {
    "origen": "ia",
    "huella": "f4347737fbc2",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5a-p7": {
    "origen": "ia",
    "huella": "7da249b247bd",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5f-p1": {
    "origen": "ia",
    "huella": "c9d259e38236",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5f-p2": {
    "origen": "ia",
    "huella": "92d9cbd5bbbc",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5f-p6": {
    "origen": "ia",
    "huella": "aeb285536143",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5b-p1": {
    "origen": "ia",
    "huella": "9ccd37507ec0",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5b-p2": {
    "origen": "ia",
    "huella": "da6ca984ee05",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5b-p6": {
    "origen": "ia",
    "huella": "5b730e5583e0",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5c-p1": {
    "origen": "ia",
    "huella": "decb16e25583",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5c-p2": {
    "origen": "ia",
    "huella": "326964571191",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5c-p6": {
    "origen": "ia",
    "huella": "0738fbba2867",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5d-p1": {
    "origen": "ia",
    "huella": "6576da3ef081",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5d-p2": {
    "origen": "ia",
    "huella": "a346b9dced5a",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5d-p6": {
    "origen": "ia",
    "huella": "e1554539cf5a",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5e-p1": {
    "origen": "ia",
    "huella": "30756466be31",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5e-p2": {
    "origen": "ia",
    "huella": "96abc88302f1",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "5e-p7": {
    "origen": "ia",
    "huella": "ad8d5a6d5732",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo1-p1": {
    "origen": "ia",
    "huella": "6de9e929db22",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo1-p2": {
    "origen": "ia",
    "huella": "9b1491e56abf",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo1-p3": {
    "origen": "ia",
    "huella": "5fb542a2ed88",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo1-p7": {
    "origen": "ia",
    "huella": "32805363b89a",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo2-p1": {
    "origen": "ia",
    "huella": "08ebb432664f",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo2-p2": {
    "origen": "ia",
    "huella": "16e56983ba53",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo2-p6": {
    "origen": "ia",
    "huella": "bc1ba2056fec",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo3-p1-android": {
    "origen": "ia",
    "huella": "138c63f9191f",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo3-p1-iphone": {
    "origen": "ia",
    "huella": "d6db9b57c5f3",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo3-p2": {
    "origen": "ia",
    "huella": "e1ea25514348",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo3-p6-android": {
    "origen": "ia",
    "huella": "fb6720fff202",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo3-p6-iphone": {
    "origen": "ia",
    "huella": "6c8ac5c91509",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo4-p1": {
    "origen": "ia",
    "huella": "2effddc75f01",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo4-p2": {
    "origen": "ia",
    "huella": "c7279cc4f9ae",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fo4-p6": {
    "origen": "ia",
    "huella": "f9ad0eed026a",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or1-p1-android": {
    "origen": "ia",
    "huella": "78c179cdf9a3",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or1-p1-iphone": {
    "origen": "ia",
    "huella": "d51e75ffd8b1",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or1-p2-android": {
    "origen": "ia",
    "huella": "3c5d7a11ece1",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or1-p2-iphone": {
    "origen": "ia",
    "huella": "1db58b237d1c",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or1-p3": {
    "origen": "ia",
    "huella": "e504025ee3e2",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or1-p7-android": {
    "origen": "ia",
    "huella": "3978233f6905",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or1-p7-iphone": {
    "origen": "ia",
    "huella": "be46d33c5990",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or2-p1-android": {
    "origen": "ia",
    "huella": "dcc917a43db9",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or2-p1-iphone": {
    "origen": "ia",
    "huella": "fedff1463a4a",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or2-p2-android": {
    "origen": "ia",
    "huella": "22b510d75fde",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or2-p2-iphone": {
    "origen": "ia",
    "huella": "14633de5c028",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or2-p6": {
    "origen": "ia",
@@ -608,422 +663,506 @@
   "or3-p1": {
    "origen": "ia",
    "huella": "1d40bed2b9ec",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or3-p2": {
    "origen": "ia",
    "huella": "8eee93c86997",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or3-p3": {
    "origen": "ia",
    "huella": "1824aed6c919",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "or3-p7": {
    "origen": "ia",
    "huella": "ff709846ae19",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "mp1-p1": {
    "origen": "ia",
    "huella": "2f16491b179e",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "mp1-p2": {
    "origen": "ia",
    "huella": "dc24c6154e00",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "mp1-p3": {
    "origen": "ia",
    "huella": "b94a571cdaac",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "mp1-p7": {
    "origen": "ia",
    "huella": "6c67ea4a4f13",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "mp2-p1": {
    "origen": "ia",
    "huella": "95f497fe943c",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "mp2-p2": {
    "origen": "ia",
    "huella": "bc18f8e74cb5",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "mp2-p6": {
    "origen": "ia",
    "huella": "e5d70808f398",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr1-p1": {
    "origen": "ia",
    "huella": "e13ca41f1706",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr1-p2": {
    "origen": "ia",
    "huella": "78dbc251628b",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr1-p3": {
    "origen": "ia",
    "huella": "7b3cc8376b19",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr1-p7": {
    "origen": "ia",
    "huella": "3553f7f488e0",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr2-p1": {
    "origen": "ia",
    "huella": "f3aad409f581",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr2-p2": {
    "origen": "ia",
    "huella": "5b949da6e49d",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr2-p3": {
    "origen": "ia",
    "huella": "84e0b6758ffc",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr2-p7": {
    "origen": "ia",
    "huella": "97a729e3543a",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr3-p1": {
    "origen": "ia",
    "huella": "92b09e9ab553",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr3-p2": {
    "origen": "ia",
    "huella": "acef8860bff5",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr3-p3": {
    "origen": "ia",
    "huella": "bf3a7907e8da",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "tr3-p7": {
    "origen": "ia",
    "huella": "fece091cc49d",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm1-p1": {
    "origen": "ia",
    "huella": "9069b96fe3da",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm1-p2": {
    "origen": "ia",
    "huella": "a1cfb5635fad",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm1-p3": {
    "origen": "ia",
    "huella": "5c7fe7359263",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm1-p7": {
    "origen": "ia",
    "huella": "75b5098144a2",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm2-p1": {
    "origen": "ia",
    "huella": "f21a8e3bde2b",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm2-p2": {
    "origen": "ia",
    "huella": "f3fd3be49a30",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm2-p6": {
    "origen": "ia",
    "huella": "74cbbefadcb7",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm3-p1": {
    "origen": "ia",
    "huella": "e7c0b0cd9374",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm3-p2-android": {
    "origen": "ia",
    "huella": "89b6beda8354",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm3-p2-iphone": {
    "origen": "ia",
    "huella": "97104b4df0c0",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm3-p3": {
    "origen": "ia",
    "huella": "0ff5966fb524",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "gm3-p7": {
    "origen": "ia",
    "huella": "6152f791153b",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go1-p1": {
    "origen": "ia",
    "huella": "b7e3ab722586",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go1-p2": {
    "origen": "ia",
    "huella": "955e396ce266",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go1-p6": {
    "origen": "ia",
    "huella": "0779c646e95c",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go4-p1": {
    "origen": "ia",
    "huella": "aca0231efc18",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go4-p2": {
    "origen": "ia",
    "huella": "b12a1f72c423",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go4-p3": {
    "origen": "ia",
    "huella": "522779c381ed",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go4-p7": {
    "origen": "ia",
    "huella": "82c1c36e8679",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go2-p1": {
    "origen": "ia",
    "huella": "351530d22e3c",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go2-p2": {
    "origen": "ia",
    "huella": "31be76d7c40f",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go2-p6": {
    "origen": "ia",
    "huella": "73ac80854e77",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go3-p1": {
    "origen": "ia",
    "huella": "1eb54cab5622",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go3-p2": {
    "origen": "ia",
    "huella": "75d5605fdf95",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "go3-p6": {
    "origen": "ia",
    "huella": "8f54384cacb5",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "yt1-p1": {
    "origen": "ia",
    "huella": "a55466bde1fa",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "yt1-p2": {
    "origen": "ia",
    "huella": "bff0d5296d48",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "yt1-p6": {
    "origen": "ia",
    "huella": "b6d36f41124c",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "yt2-p1": {
    "origen": "ia",
    "huella": "d5e80519ddfd",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "yt2-p2": {
    "origen": "ia",
    "huella": "778706598eb6",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "yt2-p6": {
    "origen": "ia",
    "huella": "6b952963f93d",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "nf1-p1": {
    "origen": "ia",
    "huella": "05b299d293af",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "nf1-p2": {
    "origen": "ia",
    "huella": "d14a09b8bbc9",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "nf1-p3": {
    "origen": "ia",
    "huella": "def7b082c514",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "nf1-p7": {
    "origen": "ia",
    "huella": "e85656f2734b",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "nf2-p1": {
    "origen": "ia",
    "huella": "2127bac45035",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "nf2-p2": {
    "origen": "ia",
    "huella": "968cdd925cf9",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "nf2-p6": {
    "origen": "ia",
    "huella": "2ba16b6017f8",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "rd1-p1": {
    "origen": "ia",
    "huella": "80afb1b32d51",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "rd1-p2": {
    "origen": "ia",
    "huella": "479c70c4b496",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "rd1-p3": {
    "origen": "ia",
    "huella": "e87f680dbfbb",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "rd1-p7": {
    "origen": "ia",
    "huella": "481d0cce9cb6",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig1-p1": {
    "origen": "ia",
    "huella": "132dc3001535",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig1-p2": {
    "origen": "ia",
    "huella": "46831c19e9cb",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig1-p6": {
    "origen": "ia",
    "huella": "0d3aaa2dc75c",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig2-p1": {
    "origen": "ia",
    "huella": "26ac5dfc03f7",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig2-p2": {
    "origen": "ia",
    "huella": "35e21957aa1d",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig2-p6": {
    "origen": "ia",
    "huella": "35dc6ea815f0",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig3-p1": {
    "origen": "ia",
    "huella": "079845518d7d",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig3-p2": {
    "origen": "ia",
    "huella": "7a33c56882b3",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "ig3-p6": {
    "origen": "ia",
    "huella": "f0a498c5ac17",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fb1-p1": {
    "origen": "ia",
    "huella": "575e12d71e20",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fb1-p2": {
    "origen": "ia",
    "huella": "ae16fd5f12c4",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "fb1-p6": {
    "origen": "ia",
    "huella": "0b8195acc074",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "pr1-p1": {
    "origen": "ia",
    "huella": "810d84605a14",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "pr1-p2": {
    "origen": "ia",
    "huella": "ee3844f8ebdd",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "pr1-p3": {
    "origen": "ia",
    "huella": "90031c160a1e",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "pr1-p7": {
    "origen": "ia",
    "huella": "612c7cb1480b",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "rs1-p1": {
    "origen": "ia",
    "huella": "016fd1143261",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "rs1-p2": {
    "origen": "ia",
    "huella": "b354cf9c3184",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   },
   "rs1-p6": {
    "origen": "ia",
    "huella": "8cd842df1996",
-   "fecha": "2026-10-20"
+   "fecha": "2026-10-20",
+   "pendiente": true
   }
  }
 }

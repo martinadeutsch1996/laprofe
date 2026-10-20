@@ -94,7 +94,12 @@ const total = aHacer.reduce((n, e) => n + paraLeer(e.texto).length, 0);
 say(`### Audios de LaProfe\n- Audios que corresponden a las lecciones: ${esperados.length}\n- Ya están: ${esperados.length - faltan.length}\n- Faltan: ${faltan.length}\n- Hechos con IA cuyo texto cambió (se rehacen): ${cambiaronIA.length}\n- Caracteres a generar: ${total} (tope por vez: ${MAX})`);
 if (cambiaronGrabados.length) say(`\n**Grabaciones de Martina cuyo texto cambió** (no se tocan; conviene regrabarlas o borrarlas para que se hagan con IA):\n` + cambiaronGrabados.map(e => `- ${e.key} · ${e.leccion}`).join('\n'));
 
-function guardarManifiesto(){ fs.writeFileSync(MANIFIESTO, JSON.stringify(man, null, 1) + '\n'); }
+function guardarManifiesto(){
+  // Un audio hecho con IA cuyo texto cambió y todavía no se rehízo queda "pendiente": la app no lo usa (usa la voz del celular) para que no se escuche un texto viejo.
+  const pend = new Set(cambiaronIA.map(e => e.key));
+  for (const [k, m] of Object.entries(man.archivos)){ if (pend.has(k) && m.huella && esperados.find(x => x.key === k) && m.huella !== huella(esperados.find(x => x.key === k).texto)) m.pendiente = true; else delete m.pendiente; }
+  fs.writeFileSync(MANIFIESTO, JSON.stringify(man, null, 1) + '\n');
+}
 function terminar(){ if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, resumen.join('\n') + '\n'); }
 
 if (LISTAR || !aHacer.length){

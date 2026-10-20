@@ -57,7 +57,7 @@ a{color:var(--petroleo)}
 .bubble{background:var(--card);border-radius:6px 22px 22px 22px;padding:14px 16px;font-size:19px;line-height:1.45}
 .bubble.ai{border:2px dashed var(--violeta)}
 .say{display:flex;gap:12px;align-items:flex-start}
-.say .bubble{flex:1;min-width:0}
+.say .bubble{flex:1;min-width:0;white-space:pre-line}
 .pill{display:inline-block;font-size:15px;font-weight:800;letter-spacing:0;padding:4px 10px;border-radius:999px;background:var(--lima);color:var(--ink)}
 .pill.soft{background:var(--soft);color:var(--fg)}
 .pill.ai{background:var(--violeta);color:#fff}
@@ -872,17 +872,16 @@ const NIVELES = [
    {k:'check', q:'Te cuesta leer los mensajes. ¿Dónde lo arreglás?', o:[{android:'En Ajustes > Pantalla > Tamaño de fuente', iphone:'En Configuración > Pantalla y brillo > Tamaño del texto'},'Comprando un celular más grande'], a:0, why:'Con agrandar la letra alcanza, y se cambia en un minuto.'},
    {k:'rec', pts:['Botones del costado: volumen.',{android:'Ajustes > Pantalla > Tamaño de fuente.', iphone:'Configuración > Pantalla y brillo > Tamaño del texto.'},'El brillo también está en los atajos de arriba.']}
   ]},
- {id:'ap1', pub:'apps', app:{android:['playstore'], iphone:['appstore']}, ic:'⬇️', t:'Descargá una app', min:6,
-  des:'Buscá en la tienda de tu celular una app que te interese y fijate si es gratis. Si querés, instalala.',
+ {id:'ap1', pub:'apps', app:{android:['playstore'], iphone:['appstore']}, ic:'⬇️', t:'Descargá una app', min:6, des:'Abrí la tienda de tu celular y buscá una app que te interese. Fijate si es gratis.',
   steps:[
-   {k:'ex', txt:{android:'Las apps nuevas se descargan de una tienda que ya viene en tu celular: Play Store, también llamada Google Play. Su ícono es un triángulo de colores. Ahí hay apps gratis y apps pagas.', iphone:'Las apps nuevas se descargan de una tienda que ya viene en tu celular: el App Store. Su ícono es azul, con una letra A blanca. Ahí hay apps gratis y apps pagas.'}, art:'tienda'},
-   {k:'ex', txt:{android:'En la barra de arriba escribís el nombre de la app, por ejemplo "Instagram". Tocás la app y después el botón verde "Instalar". Cuando termina, el botón dice "Abrir".', iphone:'Tocás la lupa, "Buscar", y escribís el nombre de la app, por ejemplo "Instagram". Tocás la app y después "Obtener". Cuando termina, el botón dice "Abrir".'}, art:'instalar'},
-   {k:'ex', txt:{android:'Antes de instalar, mirá quién la hizo: aparece abajo del nombre de la app. Hay copias con nombres parecidos. Y si en lugar de "Instalar" aparece un precio, la app es paga.', iphone:'Antes de instalar, mirá quién la hizo: aparece abajo del nombre de la app. Hay copias con nombres parecidos. Y si en lugar de "Obtener" aparece un precio, la app es paga.'}, art:'quien'},
-   {k:'ex', txt:{android:'La app nueva aparece en tu pantalla de inicio o en la lista de todas tus apps, que se abre deslizando hacia arriba. Si no la encontrás, buscala por su nombre.', iphone:'Puede que el iPhone te pida tu cara, tu huella o la contraseña de tu cuenta de Apple. Es tu propio celular el que pregunta, y está bien. Esa contraseña no se le da nunca a otra persona.'}, art:'dondeapp'},
+   {k:'ex', txt:{android:'Las apps nuevas se bajan de una tienda que ya viene en tu celular. En Android se llama Play Store. Su ícono es un triángulo de colores.', iphone:'Las apps nuevas se bajan de una tienda que ya viene en tu celular. En iPhone se llama App Store. Su ícono es azul, con una A blanca.'}, art:'tienda'},
+   {k:'ex', txt:{android:'Para bajar una app:\n1. Tocá la barra de arriba y escribí su nombre.\n2. Tocá la app.\n3. Tocá el botón verde "Instalar".\nCuando termina, el botón dice "Abrir".', iphone:'Para bajar una app:\n1. Tocá la lupa, "Buscar", y escribí su nombre.\n2. Tocá la app.\n3. Tocá "Obtener".\nCuando termina, el botón dice "Abrir".'}},
+   {k:'ex', txt:{android:'Antes de instalar, mirá quién hizo la app. Aparece abajo de su nombre. Hay copias con nombres parecidos. Y si en vez de "Instalar" ves un precio, la app es paga.', iphone:'Antes de instalar, mirá quién hizo la app. Aparece abajo de su nombre. Hay copias con nombres parecidos. Y si en vez de "Obtener" ves un precio, la app es paga.'}, art:'quien'},
+   {k:'ex', txt:{android:'La app nueva aparece en tu pantalla de inicio. Si no la ves, deslizá el dedo hacia arriba: ahí están todas tus apps.', iphone:'Puede que el iPhone te pida tu cara, tu huella o tu contraseña de Apple. Eso lo pide tu propio celular, y está bien. Esa contraseña nunca se le da a otra persona.'}, art:'dondeapp'},
    {k:'try', run:'apStore'},
-   {k:'check', q:'¿Cómo sabés que es la app verdadera de WhatsApp?', o:['Me fijo que abajo del nombre diga que la hace WhatsApp','Elijo la primera que aparece, sin mirar'], a:0, why:'¡Eso! Las copias se parecen, pero las hace otra empresa. Mirar quién la hizo te cuida.'},
-   {k:'check', q:{android:'En lugar de "Instalar", la app dice "US$ 4,99". ¿Qué quiere decir?', iphone:'En lugar de "Obtener", la app dice "US$ 4,99". ¿Qué quiere decir?'}, o:['Que es paga: si la instalo, me cobran','Que es gratis'], a:0, why:'Exacto. Si aparece un precio, se paga. Las gratis dicen "Instalar" u "Obtener".'},
-   {k:'rec', pts:[{android:'Las apps se descargan de Play Store.', iphone:'Las apps se descargan del App Store.'},{android:'Buscás el nombre y tocás "Instalar".', iphone:'Buscás el nombre y tocás "Obtener".'},'Mirá quién la hizo: hay copias.','Si aparece un precio, la app es paga.']}
+   {k:'check', q:'¿Cómo sabés que es la app verdadera de WhatsApp?', o:['Miro que abajo del nombre diga "WhatsApp"','Elijo la primera que aparece'], a:0, why:'¡Eso! Las copias se parecen, pero las hace otra empresa.'},
+   {k:'check', q:{android:'En vez de "Instalar", la app dice "US$ 4,99". ¿Qué quiere decir?', iphone:'En vez de "Obtener", la app dice "US$ 4,99". ¿Qué quiere decir?'}, o:['Que es paga','Que es gratis'], a:0, why:'Exacto. Si ves un precio, te la cobran.'},
+   {k:'rec', pts:[{android:'Las apps se bajan de Play Store.', iphone:'Las apps se bajan del App Store.'},{android:'Escribís el nombre y tocás "Instalar".', iphone:'Escribís el nombre y tocás "Obtener".'},'Mirá quién hizo la app: hay copias.','Si ves un precio, la app es paga.']}
   ]}
 ]},
 {n:3, k:'whatsapp', em:'💬', t:'WhatsApp', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
@@ -974,360 +973,324 @@ if (MOSTRAR_NIVEL_4) NIVELES.push(
 /* Nivel: La inteligencia artificial (se publica con PUBLICAR.ia, más abajo) */
 NIVELES.push(
 {n:5, k:'ia', em:'✨', t:'La inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
- {id:'5a', ic:'✨', t:'¿Qué es la inteligencia artificial?', min:5,
-  des:'Pensá en tu día de hoy: ¿en qué momento el celular te sugirió, te corrigió o te recomendó algo? Ahí había IA.',
+ {id:'5a', ic:'✨', t:'¿Qué es la inteligencia artificial?', min:5, des:'Pensá en tu día. ¿El celular te sugirió o te recomendó algo? Ahí había inteligencia artificial.',
   steps:[
-   {k:'ex', txt:'La inteligencia artificial, o IA, es una tecnología que aprende de muchísimos ejemplos. Así puede reconocer cosas, entender lo que le decís, recomendarte y crear textos o imágenes.', art:'iaart'},
-   {k:'ex', txt:'Seguro ya la usaste sin darte cuenta. Cuando el teclado te sugiere una palabra, cuando YouTube te muestra un video parecido o cuando buscás "playa" en tus fotos y aparecen todas, hay IA.', art:'iayausas'},
-   {k:'ex', txt:'También hay asistentes de IA con los que se conversa, como ChatGPT o Gemini. Les escribís o les hablás como a una persona, y te responden. Martina IA, acá en la app, es uno de ellos.', art:'iaasist'},
+   {k:'ex', txt:'La inteligencia artificial, o IA, es una tecnología que aprende de muchísimos ejemplos. Por eso puede entender lo que le decís, recomendarte cosas y escribir textos.', art:'iaart'},
+   {k:'ex', txt:'Seguro ya la usaste sin darte cuenta. Hay IA cuando el teclado te sugiere una palabra. También cuando YouTube te recomienda un video.', art:'iayausas'},
+   {k:'ex', txt:'También hay IA con la que se conversa, como ChatGPT o Gemini. Le escribís o le hablás, y te responde. Martina IA, acá en la app, es una de ellas.', art:'iaasist'},
    {k:'try', run:'iaDonde'},
-   {k:'check', q:'¿Qué hace una IA?', o:['Aprende de muchos ejemplos para reconocer, recomendar o crear','Piensa y siente como una persona','Sabe todo y nunca se equivoca'], a:0, why:'¡Eso! Aprende de ejemplos, pero no es una persona y a veces se equivoca. De eso hablamos en la última lección del nivel.'},
-   {k:'rec', pts:['La IA aprende de muchísimos ejemplos.','Reconoce, entiende, recomienda y crea.','Ya la usás: en el teclado, en YouTube y en tus fotos.']}
+   {k:'check', q:'¿Qué es la inteligencia artificial?', o:['Una tecnología que aprende de muchos ejemplos','Una persona que te contesta','Algo que nunca se equivoca'], a:0, why:'¡Eso! Aprende de ejemplos. No es una persona, y a veces se equivoca.'},
+   {k:'rec', pts:['La IA aprende de muchísimos ejemplos.','Entiende, recomienda y escribe.','Ya la usás: en el teclado y en YouTube.']}
   ]},
- {id:'5f', ic:'🧺', t:'La IA en tu día a día', min:6,
-  des:'Pedile a Martina IA que te ayude a escribir un mensaje lindo para alguien que quieras.',
+ {id:'5f', ic:'🧺', t:'La IA en tu día a día', min:6, des:'Pedile a Martina IA que te ayude a escribir un saludo para alguien que quieras.',
   steps:[
-   {k:'ex', txt:'Una IA te puede ayudar con cosas de todos los días: hacer preguntas, escribir un mensaje, buscar ideas, aprender algo nuevo o resolver una duda. Es como tener a alguien que sabe mucho siempre disponible.', art:'iadia'},
-   {k:'ex', txt:'Por ejemplo: "Ayudame a escribir un saludo de cumpleaños para mi amiga", "Dame ideas para un almuerzo económico" o "Explicame en palabras simples qué es una transferencia". Y si la respuesta no te convence, le pedís que la cambie.', art:'iaejemplos'},
+   {k:'ex', txt:'La IA te puede ayudar con cosas de todos los días. Por ejemplo, a escribir un mensaje, a buscar ideas o a entender algo que no te quedó claro.', art:'iadia'},
+   {k:'ex', txt:'Le pedís lo que necesitás, como a una persona. Por ejemplo: "Ayudame a escribir un saludo de cumpleaños para mi amiga". Si no te gusta la respuesta, le pedís otra.', art:'iaejemplos'},
    {k:'try', run:'iaDia'},
-   {k:'check', q:'¿Para cuál de estas cosas te puede ayudar una IA?', o:['Para escribir un mensaje, buscar ideas o explicarte algo','Solo para cosas de computación'], a:0, why:'¡Eso! Sirve para muchísimas cosas de la vida diaria. Y lo importante, siempre lo decidís vos.'},
-   {k:'rec', pts:['La IA te ayuda a preguntar, escribir, buscar ideas y aprender.','Contale lo que necesitás, como a una persona.','Si no te convence, pedile que lo cambie.']}
+   {k:'check', q:'¿En qué te puede ayudar una IA?', o:['A escribir un mensaje o darte ideas','Solo en cosas de computación'], a:0, why:'¡Eso! Te ayuda con cosas de todos los días. Y lo que usás, lo decidís vos.'},
+   {k:'rec', pts:['La IA te ayuda a escribir, a buscar ideas y a entender.','Pedile lo que necesitás, como a una persona.','Si no te gusta, pedile otra respuesta.']}
   ]},
- {id:'5b', app:['chatgpt','gemini'], ic:'💬', t:'Conversá con una IA', min:5,
-  des:'Tocá "Martina IA", en el menú de abajo, y preguntale algo que siempre quisiste saber de tu celular.',
+ {id:'5b', app:['chatgpt','gemini'], ic:'💬', t:'Conversá con una IA', min:5, des:'Tocá "Martina IA", en el menú de abajo, y preguntale algo de tu celular.',
   steps:[
-   {k:'ex', txt:'Hablar con una IA es conversar. Le escribís una pregunta, la mandás y te responde. Si algo no te quedó claro, le volvés a preguntar, como a una persona.', art:'iachat'},
-   {k:'ex', txt:'Hay un botón mágico que siempre funciona: escribirle "No entendí, explicámelo más fácil". Y tranqui: con una IA no da vergüenza preguntar veinte veces lo mismo.', art:'iamagic'},
+   {k:'ex', txt:'Hablar con una IA es como conversar. Escribís tu pregunta y la mandás. La IA te responde. Si algo no te quedó claro, le volvés a preguntar.', art:'iachat'},
+   {k:'ex', txt:'Si no entendés la respuesta, escribile: "No entendí, explicámelo más fácil". Funciona siempre. Y no da vergüenza preguntar veinte veces lo mismo.', art:'iamagic'},
    {k:'try', run:'iaConversa'},
-   {k:'check', q:'La IA te respondió con palabras que no entendés. ¿Qué hacés?', o:['Le escribo "No entendí, explicámelo más fácil"','Cierro la app: no es para mí'], a:0, why:'¡Eso! La IA se adapta a vos. Le podés pedir que lo explique más fácil, más corto o con un ejemplo.'},
-   {k:'rec', pts:['Hablar con una IA es conversar: preguntás y repreguntás.','El botón mágico: "No entendí, explicámelo más fácil".','No existen las preguntas tontas.']}
+   {k:'check', q:'La IA te respondió con palabras difíciles. ¿Qué hacés?', o:['Le escribo "No entendí, explicámelo más fácil"','Cierro la app'], a:0, why:'¡Eso! La IA te lo vuelve a explicar, más fácil.'},
+   {k:'rec', pts:['Con una IA se conversa: preguntás y volvés a preguntar.','Si no entendés, escribí: "No entendí, explicámelo más fácil".','No existen las preguntas tontas.']}
   ]},
- {id:'5c', ic:'✍️', t:'Pedile bien las cosas', min:6,
-  des:'Pedile a Martina IA una idea para la cena con lo que tenés en la heladera. Contale para cuántos es y cómo querés la respuesta.',
+ {id:'5c', ic:'✍️', t:'Pedile bien las cosas', min:6, des:'Pedile a Martina IA una idea para la cena. Contale qué tenés en la heladera y para cuántos es.',
   steps:[
-   {k:'ex', txt:'Cuanto mejor le contás lo que necesitás, mejor te responde. Un buen pedido tiene tres partes: qué querés, para qué o para quién, y cómo te gustaría la respuesta.', art:'prompt3'},
-   {k:'ex', txt:'Por ejemplo, en lugar de escribir solo "receta", escribís: "Una receta de cena para dos, con arroz, huevos y zapallitos. Explicala en pasos cortos". No es una regla obligatoria: es una ayuda.', art:'promptej'},
+   {k:'ex', txt:'Cuanto más le contás a la IA, mejor te responde. Un buen pedido dice tres cosas:\n1. Qué querés.\n2. Para quién o para qué.\n3. Cómo querés la respuesta.'},
+   {k:'ex', txt:'Por ejemplo, en vez de escribir "receta", escribís: "Una receta de cena para dos, con arroz y huevos. En pasos cortos".', art:'promptej'},
    {k:'try', run:'iaPedido'},
-   {k:'check', q:'¿Cuál de estos pedidos va a tener una mejor respuesta?', o:['"Receta"','"Una receta de cena para dos, con arroz y huevos, en pasos cortos"'], a:1, why:'Le dijiste qué querés, para cuántos y cómo. Con eso la IA te entiende mucho mejor.'},
-   {k:'rec', pts:['Qué querés + para qué o para quién + cómo lo querés.','No es una regla obligatoria: es una ayuda.','Si la respuesta no te sirve, pedile cambios.']}
+   {k:'check', q:'¿Con cuál de estos pedidos la IA te va a ayudar mejor?', o:['"Receta"','"Una receta de cena para dos, con arroz y huevos"'], a:1, why:'¡Eso! Le contaste qué querés y para cuántos.'},
+   {k:'rec', pts:['Contale qué querés, para quién y cómo lo querés.','Cuanto más le contás, mejor te responde.','Si no te sirve, pedile que lo cambie.']}
   ]},
- {id:'5d', ic:'📷', t:'Mostrale una foto', min:5,
-  des:'Si tenés una app de IA en el celular, sacale una foto a una planta de tu casa y preguntale qué planta es y cómo cuidarla.',
+ {id:'5d', ic:'📷', t:'Mostrale una foto', min:5, des:'Si tenés una app de IA, sacale una foto a una planta y preguntale qué planta es.',
   steps:[
-   {k:'ex', txt:'Muchas IA también pueden mirar. Le mandás una foto y le preguntás "¿Qué es esto?". Sirve para una planta, un cartel en otro idioma o un aparato que no sabés usar.', art:'iafoto'},
-   {k:'ex', txt:'Se hace parecido a WhatsApp: en el chat de la IA tocás el signo de más o el clip, elegís la foto y escribís tu pregunta. Según la app, el botón puede cambiar un poquito de lugar.', art:'iaclip'},
+   {k:'ex', txt:'Algunas IA también pueden ver fotos. Le mandás una foto y le preguntás: "¿Qué es esto?". Sirve para una planta, un cartel o un aparato.', art:'iafoto'},
+   {k:'ex', txt:'Se hace igual que en WhatsApp:\n1. Tocá el clip o el signo de más.\n2. Elegí la foto.\n3. Escribí tu pregunta y mandala.'},
    {k:'try', run:'iaFoto'},
-   {k:'check', q:'Te dieron un remedio nuevo y la letra de la caja es muy chica. ¿Cómo te ayuda la IA?', o:['Le mando una foto para que me lea lo que dice, y cómo tomarlo lo confirmo con mi médico','Le pregunto cuánto tomar y le hago caso sin consultar'], a:0, why:'La IA te ayuda a leer, pero en temas de salud la última palabra la tiene tu médico o tu farmacéutico.'},
-   {k:'rec', pts:['La IA también mira fotos: "¿Qué es esto?".','Signo de más o clip, elegís la foto y escribís tu pregunta.','En salud, la última palabra la tiene tu médico.']}
+   {k:'check', q:'La letra de la caja de un remedio es muy chica. ¿Cómo te ayuda la IA?', o:['Me lee lo que dice, y la dosis la confirmo con mi médico','Me dice cuánto tomar y le hago caso'], a:0, why:'Eso es. La IA te ayuda a leer. En salud, decide tu médico.'},
+   {k:'rec', pts:['La IA también ve fotos.','Clip o signo de más, elegís la foto y preguntás.','En salud, decide tu médico.']}
   ]},
- {id:'5e', ic:'🧐', t:'La IA también se equivoca', min:6,
-  des:'La próxima vez que una IA te dé un dato importante, confirmalo en la página oficial o llamando antes de usarlo.',
+ {id:'5e', ic:'🧐', t:'La IA también se equivoca', min:6, des:'La próxima vez que una IA te dé un dato importante, confirmalo antes de usarlo.',
   steps:[
-   {k:'ex', txt:'La IA a veces se equivoca, y lo dice muy segura. Puede inventar un dato, una fecha o un horario. Por eso, lo importante se confirma en una fuente oficial.', art:'iaerror'},
-   {k:'ex', txt:'Y hay cosas que nunca se le escriben: contraseñas, códigos, números de tarjeta ni datos del banco. Contarle tu situación ayuda; tus datos privados no hacen falta.', art:'iaprivado'},
+   {k:'ex', txt:'La IA a veces se equivoca. Y cuando se equivoca, lo dice muy segura. Por eso, lo importante se confirma en la página oficial o llamando.', art:'iaerror'},
+   {k:'ex', txt:'Nunca le escribas contraseñas, códigos ni datos del banco. No hacen falta. Para ayudarte, alcanza con que le cuentes qué te pasa.', art:'iaprivado'},
    {k:'try', run:'iaConfio'},
-   {k:'check', q:'Una IA te dice en qué horario atiende una oficina para un trámite. ¿Qué hacés?', o:['Lo confirmo en la página oficial o llamando antes de ir','Voy directo: la IA nunca se equivoca'], a:0, why:'¡Bien! La IA ayuda mucho, pero lo importante siempre se confirma.'},
-   {k:'check', q:'¿Qué no se le escribe nunca a una IA?', o:['Lo que tengo en la heladera','Contraseñas, códigos y datos del banco'], a:1, why:'Exacto. Para ayudarte, a la IA le alcanza con que le cuentes tu situación. Tus claves no hacen falta.'},
-   {k:'rec', pts:['La IA puede equivocarse, aunque suene segura.','Salud, dinero y trámites: se confirman en la fuente oficial.','Contraseñas, códigos y datos del banco: nunca.','La IA nos ayuda, nosotros decidimos.']}
+   {k:'check', q:'Una IA te dice el horario de una oficina. ¿Qué hacés?', o:['Lo confirmo en la página oficial o llamando','Voy directo'], a:0, why:'¡Bien! Los horarios cambian, y la IA se puede equivocar.'},
+   {k:'check', q:'¿Qué no se le escribe nunca a una IA?', o:['Lo que tengo en la heladera','Contraseñas, códigos y datos del banco'], a:1, why:'Exacto. Tus claves son solo tuyas.'},
+   {k:'rec', pts:['La IA se puede equivocar, aunque suene segura.','Lo importante se confirma en la página oficial.','Nunca le escribas contraseñas ni datos del banco.','La IA nos ayuda, nosotros decidimos.']}
   ]}
 ]});
 /* ============ NIVELES NUEVOS (19/10/2026) ============ */
 NIVELES.push(
 {n:0, k:'camara', em:'📷', t:'Cámara y fotos', d:'Sacar fotos, selfies y videos, y encontrarlos después', ls:[
- {id:'fo1', ic:'📸', t:'Sacá tu primera foto', min:4,
-  des:'Sacale una foto a algo lindo de tu casa: una planta, un cuadro o tu mascota.',
+ {id:'fo1', ic:'📸', t:'Sacá tu primera foto', min:4, des:'Sacale una foto a algo lindo de tu casa: una planta, un cuadro o tu mascota.',
   steps:[
-   {k:'ex', txt:'La cámara viene en todos los celulares. Para abrirla, tocás el ícono que tiene dibujada una cámara de fotos. Lo que ves en la pantalla es lo que va a salir en la foto.', art:'camicon'},
-   {k:'ex', txt:'Para sacar la foto, tocás el botón redondo grande de abajo. Una sola vez, sin apretar fuerte. Si querés que algo salga nítido, primero lo tocás en la pantalla: así el celular enfoca ahí.', art:'shutter'},
-   {k:'ex', txt:'Un truco para que no salga movida: sostené el celular con las dos manos, con los codos pegados al cuerpo, y no te muevas por un segundito después de tocar.', art:'manos'},
+   {k:'ex', txt:'Para abrir la cámara, tocás el ícono que tiene dibujada una cámara de fotos. Lo que ves en la pantalla es lo que va a salir en la foto.', art:'camicon'},
+   {k:'ex', txt:'Para sacar la foto:\n1. Tocá en la pantalla lo que querés que salga nítido.\n2. Tocá una vez el botón redondo grande, abajo.'},
+   {k:'ex', txt:'Para que la foto no salga movida, sostené el celular con las dos manos. Y no te muevas por un segundito después de tocar.', art:'manos'},
    {k:'try', run:'camShoot'},
-   {k:'check', q:'¿Cómo sacás la foto?', o:['Tocando una vez el botón redondo grande de abajo','Apretando el botón del costado durante un rato'], a:0, why:'¡Eso! Un toque al botón redondo grande, y listo.'},
-   {k:'rec', pts:['La cámara se abre con su ícono.','Tocá lo que querés enfocar y después el botón redondo grande.','Dos manos y quietito: la foto no sale movida.']}
+   {k:'check', q:'¿Cómo sacás la foto?', o:['Con un toque al botón redondo grande','Apretando el botón del costado'], a:0, why:'¡Eso! Un toque, y listo.'},
+   {k:'rec', pts:['La cámara se abre con su ícono.','Tocá lo que querés enfocar y después el botón redondo grande.','Con las dos manos, la foto no sale movida.']}
   ]},
- {id:'fo2', ic:'🤳', t:'Selfie y zoom', min:5,
-  des:'Sacate una selfie y mandásela a alguien que quieras.',
+ {id:'fo2', ic:'🤳', t:'Selfie y zoom', min:5, des:'Sacate una selfie y mandásela a alguien que quieras.',
   steps:[
-   {k:'ex', txt:'Una selfie es una foto tuya, que te sacás vos. Para eso se usa la cámara de adelante: tocás el botón de las flechitas que dan vuelta y la cámara se da vuelta.', art:'flip'},
-   {k:'ex', txt:'Para acercar algo que está lejos, tocás el número que dice 2x, o separás dos dedos sobre la pantalla. Si podés acercarte caminando, mejor: la foto sale más nítida.', art:'zoom'},
+   {k:'ex', txt:'Una selfie es una foto tuya, sacada por vos. Para sacarla, tocás el botón de las flechitas. Así la cámara te muestra a vos.', art:'flip'},
+   {k:'ex', txt:'Para acercar algo que está lejos, tocás "2x". También podés separar dos dedos sobre la pantalla. Si podés acercarte caminando, mejor: sale más nítida.', art:'zoom'},
    {k:'try', run:'camSelfie'},
-   {k:'check', q:'Querés sacarte una selfie. ¿Qué tocás primero?', o:['El botón de las flechitas, para dar vuelta la cámara','El botón de la fotito, abajo'], a:0, why:'Las flechitas cambian a la cámara de adelante. La fotito es para ver las fotos que ya sacaste.'},
-   {k:'rec', pts:['Flechitas: cambia a la cámara de adelante para la selfie.','2x o separar dos dedos: acerca.','Si podés, acercate caminando: sale más nítida.']}
+   {k:'check', q:'Querés sacarte una selfie. ¿Qué tocás primero?', o:['El botón de las flechitas','La fotito de abajo'], a:0, why:'¡Eso! Las flechitas dan vuelta la cámara. La fotito muestra las fotos que ya sacaste.'},
+   {k:'rec', pts:['Las flechitas dan vuelta la cámara para la selfie.','"2x" acerca lo que está lejos.','Si podés, acercate caminando: sale más nítida.']}
   ]},
- {id:'fo3', app:{android:['googlefotos'], iphone:['fotos']}, ic:'🖼️', t:'Mirá y borrá tus fotos', min:5,
-  des:'Buscá en tu galería una foto que salió movida y borrala.',
+ {id:'fo3', app:{android:['googlefotos'], iphone:['fotos']}, ic:'🖼️', t:'Mirá y borrá tus fotos', min:5, des:'Buscá una foto que salió movida y borrala.',
   steps:[
-   {k:'ex', txt:{android:'Todas tus fotos quedan guardadas en la galería. Desde la cámara, la fotito de abajo te muestra la última que sacaste. También podés abrir la app Galería o Google Fotos.', iphone:'Todas tus fotos quedan guardadas en la app Fotos. Desde la cámara, la fotito de abajo a la izquierda te muestra la última que sacaste.'}, art:'galeria'},
-   {k:'ex', txt:'Para pasar de una foto a otra, deslizás el dedo hacia un costado. Para borrar una, tocás el tachito. No te asustes: queda unos días en la papelera, por si te arrepentís.', art:'tacho'},
+   {k:'ex', txt:{android:'Tus fotos se guardan en la app Galería o en Google Fotos. Desde la cámara, la fotito de abajo te muestra la última que sacaste.', iphone:'Tus fotos se guardan en la app Fotos. Desde la cámara, la fotito de abajo a la izquierda te muestra la última que sacaste.'}, art:'galeria'},
+   {k:'ex', txt:'Para ver otra foto, deslizás el dedo hacia un costado. Para borrarla, tocás el tachito. Tranqui: queda unos días en la papelera, por si te arrepentís.', art:'tacho'},
    {k:'try', run:'camGallery'},
-   {k:'check', q:'Borraste una foto sin querer. ¿Qué pasó con ella?', o:['Se perdió para siempre','Está en la papelera unos días y la podés recuperar'], a:1, why:'¡Bien! Por unos días la podés recuperar desde la papelera. Después se borra del todo.'},
-   {k:'rec', pts:[{android:'Tus fotos están en la galería o en Google Fotos.', iphone:'Tus fotos están en la app Fotos.'},'Deslizá hacia un costado para pasar de foto.','El tachito borra, y la foto queda unos días en la papelera.']}
+   {k:'check', q:'Borraste una foto sin querer. ¿Qué pasó?', o:['Se perdió para siempre','Está unos días en la papelera'], a:1, why:'¡Bien! Desde la papelera la podés recuperar.'},
+   {k:'rec', pts:[{android:'Tus fotos están en Galería o en Google Fotos.', iphone:'Tus fotos están en la app Fotos.'},'Deslizá hacia un costado para ver otra foto.','El tachito borra. La foto queda unos días en la papelera.']}
   ]},
- {id:'fo4', ic:'🎥', t:'Grabá un video', min:4,
-  des:'Grabá un video cortito de algo que se mueva: tu mascota, la calle o el mar.',
+ {id:'fo4', ic:'🎥', t:'Grabá un video', min:4, des:'Grabá un video cortito de algo que se mueva: tu mascota, la calle o el mar.',
   steps:[
-   {k:'ex', txt:'La misma cámara también graba videos. Abajo hay palabras como "Foto" y "Video": tocás "Video" y el botón redondo se pone rojo.', art:'modos'},
-   {k:'ex', txt:'Tocás el botón rojo y empieza a grabar: arriba vas viendo cuánto tiempo lleva. Para terminar, tocás el mismo botón, que ahora tiene un cuadradito.', art:'grabar'},
+   {k:'ex', txt:'La cámara también graba videos. Abajo dice "Foto" y "Video". Tocás "Video" y el botón redondo se pone rojo.', art:'modos'},
+   {k:'ex', txt:'Para grabar:\n1. Tocá el botón rojo. Arriba ves cuánto tiempo lleva.\n2. Para terminar, tocá el mismo botón. Ahora tiene un cuadradito.'},
    {k:'try', run:'camVideo'},
-   {k:'check', q:'Querés grabar a tu nieto cantando. ¿Qué hacés primero?', o:['Toco "Video" y después el botón rojo','Saco muchas fotos seguidas'], a:0, why:'¡Exacto! "Video" primero, y después el botón rojo para empezar a grabar.'},
-   {k:'rec', pts:['Tocá "Video" y el botón se pone rojo.','Botón rojo: empieza a grabar. Cuadradito: termina.','Arriba ves cuánto tiempo lleva grabando.']}
+   {k:'check', q:'Querés grabar a tu nieto cantando. ¿Qué hacés primero?', o:['Toco "Video"','Saco muchas fotos seguidas'], a:0, why:'¡Exacto! Primero "Video", y después el botón rojo.'},
+   {k:'rec', pts:['Tocá "Video": el botón se pone rojo.','Botón rojo: empieza a grabar.','Botón con cuadradito: termina.']}
   ]}
 ]},
 {n:0, k:'orga', em:'🗓️', t:'Organizate con el celular', d:'Calendario, notas y tus papeles importantes, siempre a mano', ls:[
- {id:'or1', app:{android:['googlecalendar'], iphone:['calendario']}, ic:'🗓️', t:'Anotá en el calendario', min:6,
-  des:'Anotá en el calendario tu próximo turno médico o un cumpleaños, con un aviso.',
+ {id:'or1', app:{android:['googlecalendar'], iphone:['calendario']}, ic:'🗓️', t:'Anotá en el calendario', min:6, des:'Anotá en el calendario tu próximo turno médico o un cumpleaños, con un aviso.',
   steps:[
-   {k:'ex', txt:{android:'El calendario del celular es como una agenda que te avisa. En Android suele estar la app Google Calendar, o Calendario. Ahí anotás turnos, cumpleaños o reuniones.', iphone:'El calendario del celular es como una agenda que te avisa. En iPhone es la app Calendario. Ahí anotás turnos, cumpleaños o reuniones.'}, art:'calart'},
-   {k:'ex', txt:{android:'Para anotar algo, tocás el botón "+" de abajo y elegís "Evento". Escribís qué es, elegís el día y la hora, y tocás "Guardar".', iphone:'Para anotar algo, tocás el "+" de arriba a la derecha. Escribís qué es, elegís el día y la hora, y tocás "Agregar".'}, art:'calpasos'},
-   {k:'ex', txt:'Lo mejor es el aviso: el celular te recuerda el turno antes, por ejemplo un día antes. Así no se te pasa nunca más.', art:'calaviso'},
+   {k:'ex', txt:{android:'El calendario del celular es una agenda que te avisa. En Android suele llamarse Google Calendar o Calendario. Ahí anotás turnos, cumpleaños o reuniones.', iphone:'El calendario del celular es una agenda que te avisa. En iPhone se llama Calendario. Ahí anotás turnos, cumpleaños o reuniones.'}, art:'calart'},
+   {k:'ex', txt:{android:'Para anotar algo:\n1. Tocá el "+" de abajo y elegí "Evento".\n2. Escribí qué es.\n3. Elegí el día y la hora.\n4. Tocá "Guardar".', iphone:'Para anotar algo:\n1. Tocá el "+" de arriba a la derecha.\n2. Escribí qué es.\n3. Elegí el día y la hora.\n4. Tocá "Agregar".'}},
+   {k:'ex', txt:'Lo mejor es el aviso. Por ejemplo, un día antes, el celular te recuerda el turno. Así no se te pasa.', art:'calaviso'},
    {k:'try', run:'orCal'},
-   {k:'check', q:'Tenés turno con la doctora el jueves. ¿Cómo hacés para no olvidarte?', o:['Lo anoto en el calendario con un aviso un día antes','Confío en que me voy a acordar'], a:0, why:'¡Eso! El aviso te lo recuerda solo, aunque tengas mil cosas en la cabeza.'},
-   {k:'rec', pts:[{android:'"+", "Evento", qué es, día y hora, "Guardar".', iphone:'"+", qué es, día y hora, "Agregar".'},'Poné un aviso para que el celular te lo recuerde.','Sirve para turnos, cumpleaños y reuniones.']}
+   {k:'check', q:'Tenés turno con la doctora el jueves. ¿Cómo no te olvidás?', o:['Lo anoto en el calendario con un aviso','Confío en que me voy a acordar'], a:0, why:'¡Eso! El celular te lo recuerda solo.'},
+   {k:'rec', pts:[{android:'Para anotar: "+", "Evento", qué es, día y hora.', iphone:'Para anotar: "+", qué es, día y hora.'},'Poné un aviso: el celular te lo recuerda.',{android:'Al final, tocá "Guardar".', iphone:'Al final, tocá "Agregar".'}]}
   ]},
- {id:'or2', app:{android:['keep'], iphone:['notas']}, ic:'📝', t:'Escribí una nota', min:4,
-  des:'Escribí en una nota la lista de las compras de esta semana.',
+ {id:'or2', app:{android:['keep'], iphone:['notas']}, ic:'📝', t:'Escribí una nota', min:4, des:'Escribí en una nota la lista de las compras de esta semana.',
   steps:[
-   {k:'ex', txt:{android:'En el celular podés anotar cosas como en una libreta: la lista de las compras, una receta o un número. En Android suele estar la app Google Keep o Notas.', iphone:'En el celular podés anotar cosas como en una libreta: la lista de las compras, una receta o un número. En iPhone es la app Notas, la amarilla.'}, art:'notart'},
-   {k:'ex', txt:{android:'Abrís la app, tocás el "+" para una nota nueva y escribís. Se guarda sola. Para volver a encontrarla, buscala con la lupa.', iphone:'Abrís Notas, tocás el lápiz con el cuadradito, abajo a la derecha, y escribís. Se guarda sola. Para volver a encontrarla, buscala con la lupa.'}, art:'notpasos'},
+   {k:'ex', txt:{android:'En el celular podés anotar cosas, como en una libreta. Por ejemplo, la lista de las compras o un número de teléfono. En Android suele estar la app Google Keep o Notas.', iphone:'En el celular podés anotar cosas, como en una libreta. Por ejemplo, la lista de las compras o un número de teléfono. En iPhone está la app Notas, la amarilla.'}, art:'notart'},
+   {k:'ex', txt:{android:'Para escribir una nota:\n1. Abrí la app.\n2. Tocá el "+".\n3. Escribí.\nSe guarda sola. Para encontrarla después, usá la lupa.', iphone:'Para escribir una nota:\n1. Abrí Notas.\n2. Tocá el lápiz, abajo a la derecha.\n3. Escribí.\nSe guarda sola. Para encontrarla después, usá la lupa.'}},
    {k:'try', run:'orNota'},
-   {k:'check', q:'Escribiste una nota y saliste de la app. ¿Qué pasó con lo que escribiste?', o:['Se guardó sola','Se borró porque no toqué guardar'], a:0, why:'¡Bien! Las notas se guardan solas mientras escribís.'},
-   {k:'rec', pts:['Las notas son tu libreta en el celular.','"+" o el lápiz: nota nueva. Se guarda sola.','La lupa la vuelve a encontrar.']}
+   {k:'check', q:'Escribiste una nota y saliste de la app. ¿Qué pasó?', o:['Se guardó sola','Se borró'], a:0, why:'¡Bien! Las notas se guardan solas.'},
+   {k:'rec', pts:['Las notas son tu libreta en el celular.',{android:'Tocá el "+" para una nota nueva.', iphone:'Tocá el lápiz para una nota nueva.'},'Se guarda sola. La lupa la encuentra.']}
   ]},
- {id:'or3', app:{android:['googlefotos'], iphone:['fotos']}, ic:'📂', t:'Guardá tus papeles importantes', min:5,
-  des:'Sacale una foto a la garantía de algún aparato de tu casa y guardala en un álbum.',
+ {id:'or3', app:{android:['googlefotos'], iphone:['fotos']}, ic:'📂', t:'Guardá tus papeles importantes', min:5, des:'Sacale una foto a la garantía de un aparato de tu casa y guardala en un álbum.',
   steps:[
-   {k:'ex', txt:'Podés sacarle una foto a un papel importante para tenerlo siempre a mano: una receta médica, la garantía de la heladera o un comprobante. Apoyá la hoja, buscá buena luz y fijate que se lea bien.', art:'papelfoto'},
-   {k:'ex', txt:'Para no perderla entre las demás fotos, guardala en un álbum, por ejemplo "Papeles importantes". Abrís la foto, tocás "Más" o los tres puntitos, y elegís "Agregar a álbum".', art:'album'},
-   {k:'ex', txt:'Ojo: no guardes fotos de tus tarjetas ni de tus contraseñas. Si alguien entra a tu celular, las vería.', art:'nopapel'},
+   {k:'ex', txt:'Podés sacarle una foto a un papel importante, como una receta médica o una garantía. Para que se lea bien, apoyá la hoja y buscá buena luz.', art:'papelfoto'},
+   {k:'ex', txt:'Para tenerla junto a tus otros papeles, guardala en un álbum:\n1. Abrí la foto.\n2. Tocá "Más" o los tres puntitos.\n3. Elegí "Agregar a álbum".'},
+   {k:'ex', txt:'Ojo: no guardes fotos de tus tarjetas ni de tus contraseñas. Si alguien entra a tu celular, las podría ver.', art:'nopapel'},
    {k:'try', run:'orDoc'},
-   {k:'check', q:'¿Cuál de estas fotos no conviene guardar en el celular?', o:['La foto de la tarjeta de crédito, con sus números','La foto de la garantía de la heladera'], a:0, why:'¡Exacto! Los datos de la tarjeta no se guardan en fotos.'},
-   {k:'rec', pts:['Foto del papel: apoyado, con buena luz y que se lea.','"Agregar a álbum" para tenerlos juntos.','Tarjetas y contraseñas: nunca en fotos.']}
+   {k:'check', q:'¿Cuál de estas fotos no conviene guardar?', o:['La de la tarjeta de crédito','La de la garantía de la heladera'], a:0, why:'¡Exacto! Los datos de la tarjeta no se guardan en fotos.'},
+   {k:'rec', pts:['Apoyá la hoja y buscá buena luz.','Guardá la foto con "Agregar a álbum".','Nunca guardes fotos de tarjetas ni contraseñas.']}
   ]}
 ]},
 {n:0, k:'ciudad', em:'🗺️', t:'Moverme por la ciudad', d:'Google Maps, taxi, Uber y ómnibus desde el celular', ls:[
- {id:'mp1', app:['googlemaps'], ic:'📍', t:'Conocé Google Maps', min:6,
-  des:'Abrí Google Maps, fijate dónde está tu puntito azul y buscá una farmacia cerca.',
+ {id:'mp1', app:['googlemaps'], ic:'📍', t:'Conocé Google Maps', min:6, des:'Abrí Google Maps, buscá tu puntito azul y buscá una farmacia cerca.',
   steps:[
-   {k:'ex', txt:'Google Maps es un mapa en el celular. Te muestra dónde estás, te ayuda a buscar lugares y te dice cómo llegar. Es como tener un mapa y un guía en el bolsillo.', art:'mapart'},
-   {k:'ex', txt:'Para que sepa dónde estás, el celular usa el GPS, que se prende con la ubicación. La activás en los atajos de arriba: buscás "Ubicación" y la tocás.', art:'gps'},
-   {k:'ex', txt:'En la pantalla vas a ver el puntito azul, que sos vos, y arriba la barra para buscar. Escribís el lugar, por ejemplo "Teatro Solís" o "farmacia", y el mapa te lleva ahí.', art:'puntito'},
+   {k:'ex', txt:'Google Maps es un mapa en el celular. Te muestra dónde estás, te ayuda a buscar lugares y te dice cómo llegar. Es como tener un guía en el bolsillo.', art:'mapart'},
+   {k:'ex', txt:'Para saber dónde estás, el celular usa el GPS. Se prende con la ubicación. Deslizá desde arriba, en los atajos, y tocá "Ubicación".', art:'gps'},
+   {k:'ex', txt:'En el mapa, el puntito azul sos vos. Arriba está la barra para buscar. Escribís un lugar, como "farmacia", y el mapa te lo muestra.', art:'puntito'},
    {k:'try', run:'mpBuscar'},
-   {k:'check', q:'¿Qué quiere decir el puntito azul en el mapa?', o:['Que ahí estás vos','Que ahí hay una farmacia'], a:0, why:'¡Eso! El puntito azul sos vos, y se mueve cuando caminás.'},
-   {k:'rec', pts:['Google Maps: dónde estás, buscar lugares y cómo llegar.','La ubicación tiene que estar prendida.','El puntito azul sos vos. Arriba, la barra para buscar.']}
+   {k:'check', q:'¿Qué es el puntito azul del mapa?', o:['Sos vos','Una farmacia'], a:0, why:'¡Eso! El puntito azul sos vos. Se mueve cuando caminás.'},
+   {k:'rec', pts:['Google Maps te muestra dónde estás y cómo llegar.','La ubicación tiene que estar prendida.','El puntito azul sos vos. Arriba, la barra para buscar.']}
   ]},
- {id:'mp2', app:['googlemaps'], ic:'🧭', t:'Cómo llegar', min:5,
-  des:'Elegí la casa de alguien que quieras y mirá en Google Maps cuánto tardás caminando.',
+ {id:'mp2', app:['googlemaps'], ic:'🧭', t:'Cómo llegar', min:5, des:'Buscá en Google Maps la casa de alguien que quieras y fijate cuánto tardás caminando.',
   steps:[
-   {k:'ex', txt:'Cuando encontrás el lugar, tocás "Cómo llegar". Elegís si vas caminando o en auto, y el mapa te muestra el camino y cuánto vas a tardar.', art:'comollegar'},
-   {k:'ex', txt:'Sirve para ir a la clínica, al súper, a la casa de un familiar o para volver a casa si te desorientaste. Y si el camino está en rojo, quiere decir que hay demoras.', art:'mapusos'},
+   {k:'ex', txt:'Para ir a un lugar:\n1. Buscalo en el mapa.\n2. Tocá "Cómo llegar".\n3. Elegí si vas caminando o en auto.\nEl mapa te muestra el camino y cuánto vas a tardar.', art:'comollegar'},
+   {k:'ex', txt:'Sirve para ir a la clínica, al súper o a lo de un familiar. Y si te desorientás, te ayuda a volver a casa.', art:'mapusos'},
    {k:'try', run:'mpLlegar'},
-   {k:'check', q:'Querés ir caminando a la clínica. ¿Qué hacés en Google Maps?', o:['Busco la clínica, toco "Cómo llegar" y elijo caminando','Miro el mapa hasta encontrar la calle'], a:0, why:'¡Bien! Maps te marca el camino y el tiempo, sin tener que adivinar.'},
-   {k:'rec', pts:['Buscás el lugar y tocás "Cómo llegar".','Elegís caminando o en auto.','Te muestra el camino y cuánto vas a tardar.']}
+   {k:'check', q:'Querés ir caminando a la clínica. ¿Qué hacés?', o:['La busco, toco "Cómo llegar" y elijo caminando','Miro el mapa hasta encontrar la calle'], a:0, why:'¡Bien! El mapa te marca el camino.'},
+   {k:'rec', pts:['Buscá el lugar y tocá "Cómo llegar".','Elegí caminando o en auto.','El mapa te muestra el camino y el tiempo.']}
   ]},
- {id:'tr1', app:['whatsapp'], ic:'🚕', t:'Pedí un taxi por WhatsApp', min:5,
-  des:'Guardá el número del taxi, 091 141 141, como TAXI en tu celular. ¡Así lo tenés para cuando lo necesites!',
+ {id:'tr1', app:['whatsapp'], ic:'🚕', t:'Pedí un taxi por WhatsApp', min:5, des:'Guardá en tu celular el número del taxi, 091 141 141, con el nombre TAXI.',
   steps:[
-   {k:'ex', txt:'En Montevideo podés pedir un taxi mandando un WhatsApp, sin llamar. Primero, una sola vez, guardás el número 091 141 141 con el nombre TAXI, como aprendimos en "Guardá un contacto".', art:'taxiart'},
-   {k:'ex', txt:'Cuando necesites un taxi, abrís el chat de TAXI y mandás "Hola". Te van a preguntar dónde estás: tocás el clip, elegís "Ubicación" y mandás tu ubicación actual. También podés escribir la dirección.', art:'taxipasos'},
-   {k:'ex', txt:'Después te responden con el taxi asignado, el número del móvil y cuánto tarda. Cuando llegue, fijate que el número del móvil sea el mismo.', art:'taximovil'},
+   {k:'ex', txt:'En Montevideo podés pedir un taxi por WhatsApp, sin llamar. Primero, una sola vez, guardás el número 091 141 141 con el nombre TAXI.', art:'taxiart'},
+   {k:'ex', txt:'Para pedir un taxi:\n1. Abrí el chat de TAXI y mandá "Hola".\n2. Te preguntan dónde estás.\n3. Tocá el clip, elegí "Ubicación" y mandá tu ubicación actual.'},
+   {k:'ex', txt:'Te contestan con el número del móvil y cuánto tarda. Cuando llegue, fijate que sea ese número.', art:'taximovil'},
    {k:'try', run:'trTaxi'},
-   {k:'check', q:'Pediste un taxi y te dicen que llega el móvil 1234. ¿Qué hacés cuando llega un taxi?', o:['Me fijo que sea el móvil 1234 antes de subir','Me subo al primero que pare'], a:0, why:'¡Eso! Así sabés que es el que pediste.'},
-   {k:'rec', pts:['Guardá el 091 141 141 como TAXI (una sola vez).','Mandá "Hola" y tu ubicación con el clip.','Antes de subir, fijate el número del móvil.']}
+   {k:'check', q:'Te dicen que llega el móvil 1234. ¿Qué hacés cuando para un taxi?', o:['Me fijo que sea el 1234','Me subo al primero que pare'], a:0, why:'¡Eso! Así sabés que es el que pediste.'},
+   {k:'rec', pts:['Guardá el 091 141 141 como TAXI.','Mandá "Hola" y tu ubicación con el clip.','Antes de subir, fijate el número del móvil.']}
   ]},
- {id:'tr2', app:['uber'], ic:'🚗', t:'Viajá en Uber', min:6,
-  des:'Si tenés Uber, abrilo y escribí a dónde querrías ir para ver el precio, sin confirmar el viaje.',
+ {id:'tr2', app:['uber'], ic:'🚗', t:'Viajá en Uber', min:6, des:'Si tenés Uber, abrilo y escribí a dónde querrías ir. Mirá el precio sin confirmar.',
   steps:[
-   {k:'ex', txt:'Uber es una app para pedir un auto con chofer. Al abrirla te pregunta "¿A dónde vas?". Escribís la calle y el número, una esquina o el nombre del lugar, como "Tres Cruces".', art:'uberart'},
-   {k:'ex', txt:'Antes de confirmar, te muestra el precio, cuánto demora y la forma de pago. Si estás de acuerdo, tocás "Elegir" y la app busca un chofer.', art:'uberprecio'},
-   {k:'ex', txt:'Antes de subir, mirá la foto y el nombre del chofer, el modelo, el color y sobre todo la matrícula del auto. Nunca subas a un auto distinto al que muestra la app. Durante el viaje, podés compartir el recorrido con alguien de tu familia.', art:'ubermatricula'},
+   {k:'ex', txt:'Uber es una app para pedir un auto con chofer. Al abrirla te pregunta "¿A dónde vas?". Escribís la dirección o el nombre del lugar.', art:'uberart'},
+   {k:'ex', txt:'Antes de pedir el auto, la app te muestra el precio y cuánto tarda. Si estás de acuerdo, tocás "Elegir".', art:'uberprecio'},
+   {k:'ex', txt:'Antes de subir, mirá la matrícula del auto. Tiene que ser la misma que muestra la app. Si no es igual, no subas.', art:'ubermatricula'},
    {k:'try', run:'trUber'},
-   {k:'check', q:'Llega un auto del mismo color, pero con otra matrícula. ¿Qué hacés?', o:['No subo: espero el auto con la matrícula de la app','Subo igual, total es parecido'], a:0, why:'¡Muy bien! La matrícula es la prueba de que es tu viaje.'},
-   {k:'rec', pts:['"¿A dónde vas?": calle, esquina o lugar.','Mirá el precio y el tiempo antes de tocar "Elegir".','Antes de subir, revisá la matrícula. Podés compartir el recorrido.']}
+   {k:'check', q:'Llega un auto parecido, pero con otra matrícula. ¿Qué hacés?', o:['No subo y espero el mío','Subo igual'], a:0, why:'¡Muy bien! La matrícula te dice que es tu auto.'},
+   {k:'rec', pts:['Escribí a dónde vas.','Mirá el precio y tocá "Elegir".','Antes de subir, revisá la matrícula.']}
   ]},
- {id:'tr3', app:['stm'], ic:'🚌', t:'El ómnibus con STM', min:6,
-  des:'Abrí la app STM y fijate qué ómnibus pasan por la parada más cerca de tu casa.',
+ {id:'tr3', app:['stm'], ic:'🚌', t:'El ómnibus con STM', min:6, des:'Abrí la app STM y fijate qué ómnibus pasan por la parada más cerca de tu casa.',
   steps:[
-   {k:'ex', txt:'La app STM Montevideo te ayuda con el ómnibus: ves las paradas cerca tuyo, qué líneas pasan y cuánto falta para que llegue cada una.', art:'stmart'},
-   {k:'ex', txt:'Para saber qué ómnibus tomar: tocás la lupa azul, escribís la calle y la elegís, escribís la esquina y la elegís, y tocás "Destino". La app te dice qué líneas te sirven y en qué parada tomarlas.', art:'stmpasos'},
-   {k:'ex', txt:'El puntito azul del mapa sos vos, en tiempo real. Mirándolo durante el viaje, sabés cuándo te tenés que bajar.', art:'stmbajar'},
+   {k:'ex', txt:'La app STM te ayuda con el ómnibus. Te muestra las paradas cerca tuyo, qué líneas pasan y cuánto falta para que lleguen.', art:'stmart'},
+   {k:'ex', txt:'Para saber qué ómnibus tomar:\n1. Tocá la lupa azul.\n2. Escribí la calle y elegila.\n3. Escribí la esquina y elegila.\n4. Tocá "Destino".\nLa app te dice qué líneas te sirven.'},
+   {k:'ex', txt:'En el mapa, el puntito azul sos vos. Mirándolo durante el viaje, sabés cuándo bajarte.', art:'stmbajar'},
    {k:'try', run:'trBus'},
-   {k:'check', q:'¿Cómo sabés cuándo bajarte del ómnibus?', o:['Miro el puntito azul en el mapa de la app','Cuento las paradas de memoria'], a:0, why:'¡Eso! El puntito azul te muestra dónde vas, en todo momento.'},
-   {k:'rec', pts:['STM: paradas, líneas y cuánto falta.','Lupa azul, calle, esquina y "Destino".','El puntito azul te ayuda a saber cuándo bajar.']}
+   {k:'check', q:'¿Cómo sabés cuándo bajarte del ómnibus?', o:['Miro el puntito azul en la app','Cuento las paradas'], a:0, why:'¡Eso! El puntito azul te muestra por dónde vas.'},
+   {k:'rec', pts:['STM te muestra paradas, líneas y cuánto falta.','Lupa azul, calle, esquina y "Destino".','El puntito azul te avisa cuándo bajar.']}
   ]}
 ]},
 {n:0, k:'gmail', em:'📧', t:'Correo electrónico', d:'Leer, escribir y mandar archivos por Gmail', ls:[
- {id:'gm1', app:['gmail'], ic:'📬', t:'Conocé tu correo', min:5,
-  des:'Abrí Gmail y fijate cuántos correos sin leer tenés.',
+ {id:'gm1', app:['gmail'], ic:'📬', t:'Conocé tu correo', min:5, des:'Abrí Gmail y fijate cuántos correos sin leer tenés.',
   steps:[
-   {k:'ex', txt:'El correo electrónico, o mail, es como una carta que llega por internet. Gmail es la app de correo de Google. Tu dirección de correo es como tu domicilio: termina en @gmail.com.', art:'mailart'},
-   {k:'ex', txt:'Al abrir Gmail ves la bandeja de entrada: los correos que te llegaron. Los que están en negrita todavía no los leíste. Tocás uno para abrirlo y la flechita para volver.', art:'bandeja'},
-   {k:'ex', txt:'Con las tres rayitas de arriba abrís el menú. Ahí está "Enviados", con los correos que mandaste, y "Borradores", con los que empezaste y no terminaste.', art:'mailmenu'},
+   {k:'ex', txt:'El correo electrónico, o mail, es como una carta que llega por internet. Gmail es la app de correo de Google. Tu dirección termina en @gmail.com.', art:'mailart'},
+   {k:'ex', txt:'Al abrir Gmail ves los correos que te llegaron. Los que están en negrita todavía no los leíste. Tocás uno para abrirlo.', art:'bandeja'},
+   {k:'ex', txt:'Con las tres rayitas de arriba abrís el menú. En "Enviados" están los correos que mandaste.', art:'mailmenu'},
    {k:'try', run:'gmLeer'},
-   {k:'check', q:'En tu bandeja hay un correo en negrita. ¿Qué quiere decir?', o:['Que todavía no lo leí','Que es muy importante'], a:0, why:'¡Bien! La negrita marca los correos sin leer.'},
-   {k:'rec', pts:['Tu dirección termina en @gmail.com.','En negrita: sin leer. Tocás para abrir.','Tres rayitas: "Enviados" y "Borradores".']}
+   {k:'check', q:'Un correo está en negrita. ¿Qué quiere decir?', o:['Que todavía no lo leí','Que es muy importante'], a:0, why:'¡Bien! La negrita marca los correos sin leer.'},
+   {k:'rec', pts:['Tu dirección termina en @gmail.com.','En negrita: sin leer.','Tres rayitas, "Enviados": lo que mandaste.']}
   ]},
- {id:'gm2', app:['gmail'], ic:'✍️', t:'Escribí y respondé un correo', min:6,
-  des:'Mandale un correo a alguien de tu familia contándole que estás aprendiendo con LaProfe.',
+ {id:'gm2', app:['gmail'], ic:'✍️', t:'Escribí y respondé un correo', min:6, des:'Mandale un correo a alguien de tu familia y contale que estás aprendiendo con LaProfe.',
   steps:[
-   {k:'ex', txt:'Para responder un correo, lo abrís y tocás "Responder", abajo. Escribís tu mensaje, revisás a quién le llega y tocás el ícono de enviar. Ojo con "Responder a todos": le llega a varias personas.', art:'responder'},
-   {k:'ex', txt:'Para escribir uno nuevo, tocás "Redactar". En "Para" va la dirección completa de la persona. En "Asunto", de qué se trata, por ejemplo "Consulta sobre el taller". Después escribís el mensaje: saludás, contás qué necesitás y firmás.', art:'redactar'},
+   {k:'ex', txt:'Para contestar un correo, lo abrís y tocás "Responder". Escribís y lo mandás. Ojo: "Responder a todos" le llega a varias personas.', art:'responder'},
+   {k:'ex', txt:'Para escribir un correo nuevo:\n1. Tocá "Redactar".\n2. En "Para", escribí la dirección de la persona.\n3. En "Asunto", poné de qué se trata.\n4. Escribí el mensaje y firmalo.\n5. Tocá el ícono de enviar.', art:'redactar'},
    {k:'try', run:'gmEscribir'},
-   {k:'check', q:'¿Qué va en "Asunto"?', o:['Una frase corta que diga de qué se trata el correo','La dirección de la persona'], a:0, why:'¡Exacto! La dirección va en "Para", y el asunto cuenta de qué trata.'},
-   {k:'rec', pts:['"Responder" sigue una conversación. Ojo con "Responder a todos".','"Redactar": correo nuevo.','"Para": la dirección. "Asunto": de qué se trata. Saludá y firmá.']}
+   {k:'check', q:'¿Qué va en "Asunto"?', o:['De qué se trata el correo','La dirección de la persona'], a:0, why:'¡Exacto! La dirección va en "Para".'},
+   {k:'rec', pts:['"Responder" contesta un correo.','"Redactar" empieza uno nuevo.','"Para": la dirección. "Asunto": de qué se trata.']}
   ]},
- {id:'gm3', app:['gmail'], ic:'📎', t:'Adjuntá una foto o documento', min:6,
-  des:'Sacale una foto a una hoja sin datos personales y agregala a un correo como prueba, sin mandarlo.',
+ {id:'gm3', app:['gmail'], ic:'📎', t:'Adjuntá una foto o documento', min:6, des:'Sacale una foto a una hoja sin datos personales y agregala a un correo, sin mandarlo.',
   steps:[
-   {k:'ex', txt:'A veces te piden "mandame una foto del comprobante por correo". Primero sacás la foto: hoja apoyada, buena luz y que se lea completa.', art:'comprobante'},
-   {k:'ex', txt:{android:'En el correo tocás el clip, arriba. Elegís "Fotos" para una imagen o "Archivos" para un documento, y seleccionás lo que querés mandar.', iphone:'En el correo tocás el clip. Elegís "Fotos" para una imagen o "Archivos" para un documento. Si la foto queda dentro del texto, tocala y elegí "Enviar como archivo adjunto".'}, art:'adjuntar'},
-   {k:'ex', txt:'Antes de enviar, revisá: ¿la dirección es correcta?, ¿el asunto explica de qué se trata?, ¿está el archivo? Después de enviar, en "Enviados" lo ves. Eso quiere decir que salió, no que ya lo leyeron.', art:'revisar'},
+   {k:'ex', txt:'A veces te piden una foto de un comprobante por correo. Primero sacás la foto. Apoyá la hoja y fijate que se lea bien.', art:'comprobante'},
+   {k:'ex', txt:{android:'Para agregar la foto al correo:\n1. Tocá el clip, arriba.\n2. Elegí "Fotos".\n3. Tocá la foto.\nPara un documento, elegí "Archivos".', iphone:'Para agregar la foto al correo:\n1. Tocá el clip.\n2. Elegí "Fotos".\n3. Tocá la foto.\nPara un documento, elegí "Archivos".'}},
+   {k:'ex', txt:'Antes de enviar, revisá la dirección y que esté el archivo. Después, en "Enviados", ves que salió.', art:'revisar'},
    {k:'try', run:'gmAdjuntar'},
-   {k:'check', q:'Mandaste un correo. ¿Dónde te fijás si salió?', o:['En "Enviados", desde las tres rayitas','En la bandeja de entrada'], a:0, why:'¡Bien! Si está en "Enviados", salió. Si no, fijate en "Borradores" y en tu conexión a internet.'},
-   {k:'rec', pts:['Foto del papel: apoyado, con luz y que se lea.','Clip, "Fotos" o "Archivos", y elegís.','Revisá dirección, asunto y adjunto. Después, mirá "Enviados".']}
+   {k:'check', q:'Mandaste un correo. ¿Dónde te fijás si salió?', o:['En "Enviados"','En los correos que me llegaron'], a:0, why:'¡Bien! Si está en "Enviados", salió.'},
+   {k:'rec', pts:['Foto del papel: apoyado y que se lea.','Clip, "Fotos" y elegís la foto.','Después, fijate en "Enviados".']}
   ]}
 ]},
 {n:0, k:'google', em:'🔎', t:'Google y búsquedas', d:'Encontrar lo que buscás y saber en qué páginas confiar', ls:[
- {id:'go1', app:['google'], ic:'🔎', t:'Buscá en Google', min:5,
-  des:'Buscá en Google una receta que te guste y abrí una de las páginas.',
+ {id:'go1', app:['google'], ic:'🔎', t:'Buscá en Google', min:5, des:'Buscá en Google una receta que te guste y abrí una de las páginas.',
   steps:[
-   {k:'ex', txt:'Google es un buscador: escribís lo que querés saber y te muestra páginas de internet que hablan de eso. Viene en casi todos los celulares y también se usa desde Chrome o Safari.', art:'buscador'},
-   {k:'ex', txt:'Tocás la barra de búsqueda, escribís y tocás la lupa. Podés escribir como hablás ("¿cómo se hacen los buñuelos?") o solo las palabras importantes ("receta buñuelos de acelga").', art:'barra'},
+   {k:'ex', txt:'Google es un buscador. Escribís lo que querés saber, y te muestra páginas de internet que hablan de eso.', art:'buscador'},
+   {k:'ex', txt:'Para buscar:\n1. Tocá la barra de búsqueda.\n2. Escribí lo que buscás.\n3. Tocá la lupa.\nPodés escribir como hablás: "¿Cómo se hacen los buñuelos?".', art:'barra'},
    {k:'try', run:'gSearch'},
-   {k:'check', q:'Querés saber qué farmacia está de turno cerca de tu casa. ¿Qué escribís?', o:['"farmacia de turno" y el nombre de tu barrio','"hola google"'], a:0, why:'¡Bien! Con las palabras importantes y tu barrio, Google entiende qué buscás.'},
-   {k:'rec', pts:['Google es un buscador de páginas.','Barra de búsqueda, escribís y tocás la lupa.','Podés escribir como hablás o solo las palabras importantes.']}
+   {k:'check', q:'Querés saber qué farmacia está de turno. ¿Qué escribís?', o:['"Farmacia de turno" y tu barrio','"Hola Google"'], a:0, why:'¡Bien! Con lo que buscás y dónde, Google entiende.'},
+   {k:'rec', pts:['Google busca páginas de internet.','Barra, escribís y tocás la lupa.','Podés escribir como hablás.']}
   ]},
- {id:'go4', app:['google'], ic:'💡', t:'¿Qué podés buscar?', min:5,
-  des:'Buscá en Google el horario de un lugar al que tengas que ir esta semana.',
+ {id:'go4', app:['google'], ic:'💡', t:'¿Qué podés buscar?', min:5, des:'Buscá en Google el horario de un lugar al que tengas que ir esta semana.',
   steps:[
-   {k:'ex', txt:'En Google podés buscar casi todo: noticias del día, recetas, direcciones, horarios de un comercio, cómo hacer un trámite o información de salud.', art:'gideas'},
-   {k:'ex', txt:'El truco es escribir qué buscás y dónde: "farmacia de turno Pocitos", "horario BPS Colonia", "noticias Uruguay hoy". Para trámites, entrá a la página oficial, la que termina en gub.uy.', art:'gtruco'},
-   {k:'ex', txt:'En temas de salud, lo que encontrás te sirve para entender, pero no reemplaza a tu médico. Mejor buscá en páginas de hospitales o del Ministerio de Salud Pública, y consultá antes de tomar algo.', art:'gsalud'},
+   {k:'ex', txt:'En Google podés buscar casi todo: noticias, recetas, direcciones, horarios, trámites y salud.', art:'gideas'},
+   {k:'ex', txt:'El truco es escribir qué buscás y dónde. Por ejemplo: "farmacia de turno Pocitos". Para trámites, usá la página oficial, la que termina en gub.uy.', art:'gtruco'},
+   {k:'ex', txt:'En salud, lo que leas en internet te ayuda a entender. Pero no reemplaza a tu médico. Consultalo antes de tomar algo.', art:'gsalud'},
    {k:'try', run:'goIdeas'},
-   {k:'check', q:'Querés saber a qué hora abre el supermercado de tu barrio. ¿Qué buscás?', o:['El nombre del supermercado, el barrio y "horario"','"supermercado"'], a:0, why:'¡Bien! Con el nombre, el lugar y lo que querés saber, Google te da la respuesta justa.'},
-   {k:'rec', pts:['Noticias, recetas, direcciones, horarios, trámites y salud.','Escribí qué buscás y dónde.','Trámites en gub.uy. Salud: siempre consultá a tu médico.']}
+   {k:'check', q:'Querés saber a qué hora abre el súper de tu barrio. ¿Qué buscás?', o:['El nombre del súper, el barrio y "horario"','"Supermercado"'], a:0, why:'¡Bien! Así Google te da la respuesta justa.'},
+   {k:'rec', pts:['Escribí qué buscás y dónde.','Para trámites, la página que termina en gub.uy.','En salud, consultá a tu médico.']}
   ]},
- {id:'go2', app:['google'], ic:'🎙️', t:'Buscá hablando', min:4,
-  des:'Preguntale a Google en voz alta qué tiempo va a hacer mañana.',
+ {id:'go2', app:['google'], ic:'🎙️', t:'Buscá hablando', min:4, des:'Preguntale a Google en voz alta qué tiempo va a hacer mañana.',
   steps:[
-   {k:'ex', txt:'Si no tenés ganas de escribir, le podés hablar. En la barra de búsqueda hay un micrófono: lo tocás, decís lo que buscás y Google lo escribe por vos.', art:'micgoogle'},
-   {k:'ex', txt:'Hablá normal, como si le preguntaras a una persona. Si escribió algo mal, no pasa nada: lo corregís con el teclado o lo volvés a decir.', art:'hablale'},
+   {k:'ex', txt:'Si no querés escribir, le podés hablar a Google. Tocás el micrófono de la barra, decís lo que buscás, y Google lo escribe por vos.', art:'micgoogle'},
+   {k:'ex', txt:'Hablá normal, como con una persona. Si escribió algo mal, no pasa nada. Lo decís de nuevo o lo corregís con el teclado.', art:'hablale'},
    {k:'try', run:'gVoice'},
-   {k:'check', q:'Tocaste el micrófono y Google escribió otra cosa. ¿Qué hacés?', o:['Lo vuelvo a decir o lo corrijo con el teclado','Dejo de usar Google'], a:0, why:'Nos pasa a todos. Se vuelve a decir más despacito, o se corrige con el teclado.'},
-   {k:'rec', pts:['El micrófono de la barra busca hablando.','Hablá normal, como a una persona.','Si escribió mal, lo decís de nuevo o lo corregís.']}
+   {k:'check', q:'Google escribió otra cosa. ¿Qué hacés?', o:['Lo digo de nuevo o lo corrijo','Dejo de usar Google'], a:0, why:'Nos pasa a todos. Se vuelve a decir más despacito.'},
+   {k:'rec', pts:['El micrófono busca hablando.','Hablá normal, como con una persona.','Si escribió mal, decilo de nuevo.']}
   ]},
- {id:'go3', app:['google'], ic:'✅', t:'¿En qué página confiar?', min:6,
-  des:'Buscá "BPS" en Google y fijate que la página oficial termine en gub.uy.',
+ {id:'go3', app:['google'], ic:'✅', t:'¿En qué página confiar?', min:6, des:'Buscá "BPS" en Google y fijate cuál es la página que termina en gub.uy.',
   steps:[
-   {k:'ex', txt:'Algunos de los primeros resultados dicen "Patrocinado". Son anuncios: alguien pagó para aparecer arriba. No siempre son malos, pero no son la respuesta más confiable.', art:'patrocinado'},
-   {k:'ex', txt:'Para trámites, usá las páginas oficiales. En Uruguay, las del Estado terminan en gub.uy, como bps.gub.uy. Desconfiá de ofertas increíbles y de páginas que te piden la tarjeta para algo gratis.', art:'gubuy'},
+   {k:'ex', txt:'Algunos resultados dicen "Patrocinado". Son anuncios: alguien pagó para aparecer primero. No siempre son la mejor respuesta.', art:'patrocinado'},
+   {k:'ex', txt:'Para trámites, usá la página oficial. En Uruguay, las páginas del Estado terminan en gub.uy, como bps.gub.uy. Desconfiá de las ofertas increíbles.', art:'gubuy'},
    {k:'try', run:'gTrust'},
-   {k:'check', q:'Buscás cómo hacer un trámite del BPS. ¿Qué página elegís?', o:['La que termina en bps.gub.uy','La primera que dice "Patrocinado" y te cobra por ayudarte'], a:0, why:'¡Eso! La página oficial termina en gub.uy, y los trámites ahí no te cobran de más.'},
-   {k:'rec', pts:['"Patrocinado" quiere decir anuncio.','Las páginas del Estado terminan en gub.uy.','Ofertas increíbles o pedidos de tarjeta: desconfiá.']}
+   {k:'check', q:'Buscás un trámite del BPS. ¿Qué página elegís?', o:['La que termina en bps.gub.uy','Un anuncio que te cobra por ayudarte'], a:0, why:'¡Eso! La página oficial termina en gub.uy.'},
+   {k:'rec', pts:['"Patrocinado" quiere decir anuncio.','Las páginas del Estado terminan en gub.uy.','Desconfiá de las ofertas increíbles.']}
   ]}
 ]},
 {n:0, k:'videos', em:'🎬', t:'YouTube y Netflix', d:'Videos, películas y series para disfrutar', ls:[
- {id:'yt1', app:['youtube'], ic:'▶️', t:'Buscá un video en YouTube', min:5,
-  des:'Buscá en YouTube una canción que te guste mucho y escuchala.',
+ {id:'yt1', app:['youtube'], ic:'▶️', t:'Buscá un video en YouTube', min:5, des:'Buscá en YouTube una canción que te guste mucho y escuchala.',
   steps:[
-   {k:'ex', txt:'YouTube es una app con videos de todo, gratis: recetas, música, gimnasia, cómo arreglar cosas o noticias. Su ícono es rojo, con un triangulito blanco.', art:'ytart'},
-   {k:'ex', txt:'Para encontrar un video, tocás la lupa de arriba, escribís lo que buscás y tocás el video que quieras ver. La imagen de cada video te muestra de qué se trata.', art:'ytbusca'},
+   {k:'ex', txt:'YouTube es una app con videos de todo y gratis. Hay recetas, música, gimnasia y mucho más. Su ícono es rojo, con un triangulito blanco.', art:'ytart'},
+   {k:'ex', txt:'Para buscar un video:\n1. Tocá la lupa de arriba.\n2. Escribí lo que buscás.\n3. Tocá el video que quieras ver.'},
    {k:'try', run:'ytSearch'},
-   {k:'check', q:'Querés aprender a hacer tortas fritas. ¿Qué hacés en YouTube?', o:['Toco la lupa y escribo "tortas fritas"','Miro los videos que aparecen hasta que salga uno'], a:0, why:'¡Bien! Con la lupa vas directo a lo que buscás.'},
-   {k:'rec', pts:['YouTube: videos de todo, gratis.','La lupa de arriba busca.','La imagen de cada video te muestra de qué se trata.']}
+   {k:'check', q:'Querés aprender a hacer tortas fritas. ¿Qué hacés?', o:['Toco la lupa y escribo "tortas fritas"','Miro videos hasta que aparezca uno'], a:0, why:'¡Bien! Con la lupa vas directo a lo que buscás.'},
+   {k:'rec', pts:['YouTube tiene videos de todo, gratis.','La lupa de arriba busca.','Tocá el video para verlo.']}
   ]},
- {id:'yt2', app:['youtube'], ic:'⏯️', t:'Mirá cómodo', min:5,
-  des:'Mirá un video de YouTube en pantalla completa, con el celular acostado.',
+ {id:'yt2', app:['youtube'], ic:'⏯️', t:'Mirá cómodo', min:5, des:'Mirá un video de YouTube en pantalla completa, con el celular acostado.',
   steps:[
-   {k:'ex', txt:'Antes de algunos videos aparece un anuncio. A los pocos segundos, abajo a la derecha, aparece "Omitir": lo tocás y empieza tu video.', art:'omitir'},
-   {k:'ex', txt:'Si tocás el video una vez, aparecen los botones: en el medio, pausa; en la esquina, el cuadradito de pantalla completa. Con el celular acostado se ve más grande.', art:'controles'},
+   {k:'ex', txt:'Antes de algunos videos hay un anuncio. A los pocos segundos aparece "Omitir", abajo a la derecha. Lo tocás y empieza tu video.', art:'omitir'},
+   {k:'ex', txt:'Si tocás el video una vez, aparecen los botones. En el medio está la pausa. En la esquina, el cuadradito para verlo en pantalla completa.', art:'controles'},
    {k:'try', run:'ytControls'},
-   {k:'check', q:'Te sonó el timbre en la mitad del video. ¿Qué hacés?', o:['Toco el video y después la pausa','Cierro YouTube y lo busco de nuevo después'], a:0, why:'¡Eso! Con la pausa queda esperándote donde lo dejaste.'},
-   {k:'rec', pts:['"Omitir" saltea el anuncio.','Un toque al video muestra los botones.','Pausa en el medio; pantalla completa en la esquina.']}
+   {k:'check', q:'Te tocan el timbre en la mitad del video. ¿Qué hacés?', o:['Toco el video y después la pausa','Cierro YouTube'], a:0, why:'¡Eso! El video te espera donde lo dejaste.'},
+   {k:'rec', pts:['"Omitir" saltea el anuncio.','Tocá el video para ver los botones.','Pausa en el medio. Pantalla completa en la esquina.']}
   ]},
- {id:'nf1', app:['netflix'], ic:'🍿', t:'Conocé Netflix', min:5,
-  des:'Si tenés Netflix, buscá una película que hayas visto hace mucho y fijate si está.',
+ {id:'nf1', app:['netflix'], ic:'🍿', t:'Conocé Netflix', min:5, des:'Si tenés Netflix, buscá una película que te guste y fijate si está.',
   steps:[
-   {k:'ex', txt:'Netflix es una app para mirar películas y series. Es paga: se paga todos los meses. Una cuenta puede tener varios perfiles, uno para cada persona de la casa.', art:'nfart'},
-   {k:'ex', txt:'Al abrirla, elegís tu perfil. En "Seguir viendo" retomás una serie justo donde la dejaste. Con la lupa buscás una película o una serie por su nombre.', art:'perfiles'},
-   {k:'ex', txt:'Si no escuchás bien, ponele subtítulos: tocás la pantalla mientras mirás y elegís "Audio y subtítulos". Según la versión de la app, puede estar en otro lugar.', art:'subt'},
+   {k:'ex', txt:'Netflix es una app para mirar películas y series. Es paga: se paga todos los meses. Cada persona de la casa puede tener su perfil.', art:'nfart'},
+   {k:'ex', txt:'Al abrir Netflix, elegís tu perfil. En "Seguir viendo" retomás una serie donde la dejaste. Con la lupa buscás una película por su nombre.', art:'perfiles'},
+   {k:'ex', txt:'Para poner subtítulos, tocá la pantalla mientras mirás. Después tocá "Audio y subtítulos" y elegí "Español".', art:'subt'},
    {k:'try', run:'nfBrowse'},
-   {k:'check', q:'Ayer dejaste una serie por la mitad. ¿Dónde la encontrás?', o:['En "Seguir viendo"','Tengo que empezarla de nuevo'], a:0, why:'¡Exacto! Netflix se acuerda de dónde la dejaste, en tu perfil.'},
-   {k:'rec', pts:['Netflix es pago y tiene un perfil para cada persona.','"Seguir viendo": retomás donde dejaste.','"Audio y subtítulos": para poner subtítulos.']}
+   {k:'check', q:'Ayer dejaste una serie por la mitad. ¿Dónde la encontrás?', o:['En "Seguir viendo"','La tengo que empezar de nuevo'], a:0, why:'¡Exacto! Netflix se acuerda de dónde la dejaste.'},
+   {k:'rec', pts:['Elegí tu perfil al abrir Netflix.','"Seguir viendo": retomás donde dejaste.','"Audio y subtítulos": para poner subtítulos.']}
   ]},
- {id:'nf2', app:['netflix'], ic:'🛡️', t:'Cuidá tu cuenta de Netflix', min:5,
-  des:'Si alguna vez te llega un aviso de pago de Netflix, entrá directo a la app para revisarlo, sin tocar el enlace.',
+ {id:'nf2', app:['netflix'], ic:'🛡️', t:'Cuidá tu cuenta de Netflix', min:5, des:'Si te llega un aviso de pago de Netflix, no toques el enlace. Abrí la app para revisarlo.',
   steps:[
-   {k:'ex', txt:'Hay mensajes falsos que se hacen pasar por Netflix: "Tu cuenta fue suspendida, actualizá tu pago". Traen un enlace a una página que copia a la de Netflix para robarte la tarjeta.', art:'nffalso'},
-   {k:'ex', txt:'La regla: no toques el enlace. Si tenés dudas, abrí la app de Netflix como siempre. Si hay un problema con el pago de verdad, te lo va a avisar ahí adentro.', art:'nfapp'},
+   {k:'ex', txt:'Hay mensajes falsos que dicen ser de Netflix. Por ejemplo: "Tu cuenta fue suspendida, actualizá tu pago". Traen un enlace para robarte los datos de la tarjeta.', art:'nffalso'},
+   {k:'ex', txt:'La regla es no tocar el enlace. Abrí la app de Netflix como siempre. Si de verdad hay un problema con el pago, te lo avisa ahí.', art:'nfapp'},
    {k:'try', run:'nfEstafa'},
-   {k:'check', q:'Te llega un mensaje: "Netflix: tu cuenta se suspende hoy. Pagá acá". ¿Qué hacés?', o:['Toco el enlace y pago rápido','No toco el enlace y abro la app de Netflix para revisar'], a:1, why:'¡Bien! Desde la app ves si de verdad hay algo para pagar.'},
-   {k:'rec', pts:['Netflix no te pide la tarjeta por mensaje.','No toques enlaces de avisos de pago.','Ante la duda, abrí la app como siempre.']}
+   {k:'check', q:'Te llega un mensaje: "Netflix: tu cuenta se suspende hoy. Pagá acá". ¿Qué hacés?', o:['Toco el enlace y pago','No toco el enlace y abro la app'], a:1, why:'¡Bien! En la app ves si de verdad hay algo para pagar.'},
+   {k:'rec', pts:['Netflix no te pide la tarjeta por mensaje.','No toques enlaces de avisos de pago.','Ante la duda, abrí la app.']}
   ]}
 ]},
 {n:0, k:'redes', em:'❤️', t:'Redes sociales', d:'Instagram y Facebook: mirar, seguir, conversar y cuidarte', ls:[
- {id:'rd1', app:['instagram','facebook'], ic:'🌐', t:'¿Qué son las redes sociales?', min:5,
-  des:'Pensá a qué persona, club o tema te gustaría seguir en una red social.',
+ {id:'rd1', app:['instagram','facebook'], ic:'🌐', t:'¿Qué son las redes sociales?', min:5, des:'Pensá a quién o qué tema te gustaría seguir en una red social.',
   steps:[
-   {k:'ex', txt:'Las redes sociales son apps donde las personas comparten fotos, videos y mensajes de su vida. Las más usadas son Instagram y Facebook. Es como un álbum de fotos compartido: cada uno muestra pedacitos de su vida.', art:'redesart'},
-   {k:'ex', txt:'Te sirven para ver fotos de tu familia aunque viva lejos, seguir temas que te gustan como cocina o jardinería, y estar en contacto con amigos. No hace falta publicar nada: mucha gente entra solo a mirar.', art:'redespara'},
-   {k:'ex', txt:'Vas a ver estas palabras: una publicación queda en el perfil; una historia dura 24 horas; un reel es un video corto; y un mensaje directo es privado, solo lo ve la persona a la que se lo mandás.', art:'redespal'},
+   {k:'ex', txt:'Las redes sociales son apps para compartir fotos, videos y mensajes. Las más usadas son Instagram y Facebook. Son como un álbum de fotos compartido.', art:'redesart'},
+   {k:'ex', txt:'Te sirven para ver fotos de tu familia, aunque viva lejos. También para seguir temas que te gustan, como cocina o jardinería. No hace falta publicar nada: se puede solo mirar.', art:'redespara'},
+   {k:'ex', txt:'Algunas palabras que vas a ver:\n• Historia: una foto que dura 24 horas.\n• Reel: un video corto.\n• Mensaje directo: un mensaje privado.'},
    {k:'try', run:'rdPalabras'},
-   {k:'check', q:'¿Hace falta publicar fotos para usar una red social?', o:['No: se puede entrar solo a mirar','Sí: si no publicás, no podés usarla'], a:0, why:'¡Eso! Muchísima gente solo mira. Publicar es opcional.'},
-   {k:'rec', pts:['Las redes sociales sirven para compartir y mirar fotos, videos y mensajes.','No hace falta publicar: se puede solo mirar.','Publicación queda; historia dura 24 horas; reel es un video corto; mensaje directo es privado.']}
+   {k:'check', q:'¿Hay que publicar fotos para usar una red social?', o:['No, se puede solo mirar','Sí, es obligatorio'], a:0, why:'¡Eso! Mucha gente solo mira.'},
+   {k:'rec', pts:['Las redes sociales sirven para compartir y mirar fotos y videos.','No hace falta publicar: se puede solo mirar.','Historia: dura 24 horas. Mensaje directo: es privado.']}
   ]},
- {id:'ig1', app:['instagram'], ic:'📸', t:'Conocé Instagram', min:5,
-  des:'Entrá a Instagram, mirá las historias de alguien que quieras y dale me gusta a una foto.',
+ {id:'ig1', app:['instagram'], ic:'📸', t:'Conocé Instagram', min:5, des:'Entrá a Instagram, mirá la historia de alguien que quieras y dale me gusta a una foto.',
   steps:[
-   {k:'ex', txt:'Instagram es una app para compartir fotos y videos. Abajo están los botones: la casita es el inicio, donde ves lo que publican las personas que seguís. Según la versión, los botones pueden cambiar un poco de lugar.', art:'igart'},
-   {k:'ex', txt:'Arriba hay circulitos con fotos: son las historias, fotos y videos que duran 24 horas. Para darle me gusta a una publicación, tocás el corazón que está abajo de la foto.', art:'historias'},
+   {k:'ex', txt:'Instagram es una app para compartir fotos y videos. Abajo están los botones. La casita es el inicio: ahí ves lo que publican las cuentas que seguís.', art:'igart'},
+   {k:'ex', txt:'Arriba hay circulitos con fotos. Son las historias: duran 24 horas. Para decir que algo te gustó, tocás el corazón que está abajo de la foto.', art:'historias'},
    {k:'try', run:'igFeed'},
-   {k:'check', q:'¿Cuánto dura una historia de Instagram?', o:['24 horas','Para siempre'], a:0, why:'¡Eso! Las historias se borran solas después de un día.'},
-   {k:'rec', pts:['La casita es el inicio.','Los circulitos de arriba son historias: duran 24 horas.','El corazón es "me gusta".']}
+   {k:'check', q:'¿Cuánto dura una historia?', o:['24 horas','Para siempre'], a:0, why:'¡Eso! Las historias se borran solas después de un día.'},
+   {k:'rec', pts:['La casita es el inicio.','Los circulitos de arriba son historias.','El corazón es "me gusta".']}
   ]},
- {id:'ig2', app:['instagram'], ic:'➕', t:'Seguí a alguien', min:4,
-  des:'Buscá en Instagram a alguien de tu familia o un tema que te guste y seguilo.',
+ {id:'ig2', app:['instagram'], ic:'➕', t:'Seguí a alguien', min:4, des:'Buscá en Instagram a alguien de tu familia o un tema que te guste, y seguilo.',
   steps:[
-   {k:'ex', txt:'Para ver lo que publica una persona o un lugar, lo tenés que "seguir". Seguir es gratis, y lo podés dejar de hacer cuando quieras.', art:'seguir'},
-   {k:'ex', txt:'Tocás la lupa, escribís el nombre y entrás a su perfil. Ahí tocás "Seguir". Desde ese momento, lo que publique te aparece en el inicio.', art:'perfilig'},
+   {k:'ex', txt:'Para ver lo que publica una persona, la tenés que "seguir". Es gratis, y la podés dejar de seguir cuando quieras.', art:'seguir'},
+   {k:'ex', txt:'Para seguir a alguien:\n1. Tocá la lupa.\n2. Escribí el nombre.\n3. Entrá a su perfil.\n4. Tocá "Seguir".'},
    {k:'try', run:'igFollow'},
-   {k:'check', q:'Te gusta la jardinería. ¿Cómo ves más publicaciones de eso?', o:['Busco una cuenta de jardinería y toco "Seguir"','Le doy me gusta a todo lo que veo'], a:0, why:'¡Bien! Al seguir una cuenta, sus publicaciones te aparecen en el inicio.'},
-   {k:'rec', pts:['Seguir es gratis y se puede dejar cuando quieras.','Lupa, nombre, perfil y "Seguir".','Lo que publiquen te aparece en el inicio.']}
+   {k:'check', q:'Te gusta la jardinería. ¿Cómo ves más fotos de eso?', o:['Sigo una cuenta de jardinería','Le doy me gusta a todo'], a:0, why:'¡Bien! Lo que publique esa cuenta te va a aparecer en el inicio.'},
+   {k:'rec', pts:['Seguir es gratis.','Lupa, nombre, perfil y "Seguir".','Lo que publique te aparece en el inicio.']}
   ]},
- {id:'ig3', app:['instagram'], ic:'✈️', t:'Mensajes privados', min:5,
-  des:'Mandale un mensaje privado por Instagram a alguien de tu familia.',
+ {id:'ig3', app:['instagram'], ic:'✈️', t:'Mensajes privados', min:5, des:'Mandale un mensaje privado por Instagram a alguien de tu familia.',
   steps:[
-   {k:'ex', txt:'En Instagram también se mandan mensajes privados: los ve solo la persona a la que se los mandás. Se abren con el avioncito de papel. Según la versión, está arriba a la derecha o abajo.', art:'avioncito'},
-   {k:'ex', txt:'Si te escribe alguien que no seguís, su mensaje queda aparte, en "Solicitudes". Lo podés leer sin contestar. Si no conocés a esa persona, no aceptes y no respondas.', art:'solicitudes'},
+   {k:'ex', txt:'En Instagram también hay mensajes privados. Solo los ve la persona a la que se los mandás. Se abren con el avioncito de papel.', art:'avioncito'},
+   {k:'ex', txt:'Si te escribe alguien que no seguís, su mensaje queda en "Solicitudes". Si no conocés a esa persona, no respondas y eliminá el mensaje.', art:'solicitudes'},
    {k:'try', run:'igDM'},
-   {k:'check', q:'Te llega una solicitud de mensaje de alguien que no conocés, ofreciendo ganar plata fácil. ¿Qué hacés?', o:['No la acepto y no respondo','La acepto para ver qué ofrece'], a:0, why:'¡Bien! Las ofertas de plata fácil de desconocidos son estafas. Ante la duda, no respondas.'},
-   {k:'rec', pts:['El avioncito de papel abre los mensajes privados.','Los desconocidos quedan en "Solicitudes".','Si no conocés a la persona: no aceptes y no respondas.']}
+   {k:'check', q:'Un desconocido te ofrece ganar plata fácil. ¿Qué hacés?', o:['No respondo y lo elimino','Le respondo para ver qué ofrece'], a:0, why:'¡Bien! La plata fácil de desconocidos es una estafa.'},
+   {k:'rec', pts:['El avioncito abre los mensajes privados.','Los desconocidos quedan en "Solicitudes".','Si no lo conocés, no respondas.']}
   ]},
- {id:'fb1', app:['facebook'], ic:'👍', t:'Conocé Facebook', min:5,
-  des:'Entrá a Facebook y dejale un comentario lindo a alguien de tu familia.',
+ {id:'fb1', app:['facebook'], ic:'👍', t:'Conocé Facebook', min:5, des:'Entrá a Facebook y dejale un comentario lindo a alguien de tu familia.',
   steps:[
-   {k:'ex', txt:'Facebook sirve para estar en contacto con amigos y familia, y para sumarte a grupos de lo que te gusta. En el inicio ves lo que publican tus amigos y tus grupos.', art:'fbart'},
-   {k:'ex', txt:'Abajo de cada publicación hay tres botones: "Me gusta", "Comentar" y "Compartir". Ojo: lo que comentás lo pueden leer otras personas, no solo quien publicó.', art:'fbbtns'},
+   {k:'ex', txt:'Facebook sirve para estar en contacto con amigos y familia. También para sumarte a grupos de temas que te gustan.', art:'fbart'},
+   {k:'ex', txt:'Abajo de cada publicación hay tres botones: "Me gusta", "Comentar" y "Compartir". Ojo: tus comentarios los pueden leer otras personas.', art:'fbbtns'},
    {k:'try', run:'fbPost'},
-   {k:'check', q:'Comentaste una foto de tu prima. ¿Quién puede leer tu comentario?', o:['Solo mi prima','Mi prima y otras personas que vean la foto'], a:1, why:'Exacto: los comentarios se ven. Para algo privado, mejor un mensaje por WhatsApp.'},
-   {k:'rec', pts:['Facebook: amigos, familia y grupos.','"Me gusta", "Comentar" y "Compartir".','Lo que comentás lo pueden leer otras personas.']}
+   {k:'check', q:'Comentaste una foto de tu prima. ¿Quién lo puede leer?', o:['Solo mi prima','Mi prima y otras personas'], a:1, why:'Exacto. Para algo privado, mejor un WhatsApp.'},
+   {k:'rec', pts:['Facebook: amigos, familia y grupos.','"Me gusta", "Comentar" y "Compartir".','Los comentarios los leen otras personas.']}
   ]},
- {id:'pr1', app:['instagram'], ic:'🔒', t:'Configurá tu privacidad', min:6,
-  des:'Revisá con calma si tu cuenta de Instagram es pública o privada, y elegí cómo la querés.',
+ {id:'pr1', app:['instagram'], ic:'🔒', t:'Configurá tu privacidad', min:6, des:'Fijate si tu cuenta de Instagram es pública o privada, y elegí cómo la querés.',
   steps:[
-   {k:'ex', txt:'Tu cuenta puede ser pública, y la ve cualquiera, o privada: solo la ve la gente que vos aceptás. Para empezar, la cuenta privada es la más tranquila.', art:'privada'},
-   {k:'ex', txt:'Para cambiarla: andá a tu perfil, tocá las tres rayitas de arriba a la derecha, después "Configuración y privacidad", "Privacidad de la cuenta" y activá "Cuenta privada".', art:'privpasos'},
-   {k:'ex', txt:'Y algunas reglas de oro: tu contraseña no se comparte nunca. Ni el BPS, ni el BROU, ni ningún banco te la van a pedir por mensaje. Anotala en un cuaderno, en un lugar seguro de tu casa.', art:'privreglas'},
+   {k:'ex', txt:'Tu cuenta puede ser pública o privada. Si es pública, la ve cualquiera. Si es privada, solo la ven las personas que vos aceptás.', art:'privada'},
+   {k:'ex', txt:'Para hacerla privada:\n1. Andá a tu perfil.\n2. Tocá las tres rayitas, arriba a la derecha.\n3. Tocá "Configuración y privacidad".\n4. Tocá "Privacidad de la cuenta".\n5. Activá "Cuenta privada".'},
+   {k:'ex', txt:'Tu contraseña no se comparte nunca. Ningún banco ni el BPS te la van a pedir por mensaje. Anotala en un cuaderno y guardalo en tu casa.', art:'privreglas'},
    {k:'try', run:'igPriv'},
-   {k:'check', q:'Tenés la cuenta privada. ¿Quién ve tus fotos?', o:['Solo las personas que vos aceptaste','Cualquier persona que te busque'], a:0, why:'Exacto. Con la cuenta privada, vos decidís quién ve lo que publicás.'},
-   {k:'rec', pts:['Pública: la ve cualquiera. Privada: solo quien vos aceptás.','Perfil, tres rayitas, "Configuración y privacidad", "Privacidad de la cuenta".','Tu contraseña no se comparte nunca, con nadie.']}
+   {k:'check', q:'Tu cuenta es privada. ¿Quién ve tus fotos?', o:['Las personas que yo acepté','Cualquier persona'], a:0, why:'Exacto. Vos decidís quién ve lo que publicás.'},
+   {k:'rec', pts:['Privada: solo la ven las personas que aceptás.','Perfil, tres rayitas, "Configuración y privacidad".','Tu contraseña no se comparte nunca.']}
   ]},
- {id:'rs1', app:['facebook','instagram'], ic:'🛡️', t:'Cuidarte en las redes', min:6,
-  des:'Revisá tus solicitudes de amistad o seguidores y fijate si hay alguien que no conocés.',
+ {id:'rs1', app:['facebook','instagram'], ic:'🛡️', t:'Cuidarte en las redes', min:6, des:'Revisá tus solicitudes de amistad y fijate si hay alguien que no conocés.',
   steps:[
-   {k:'ex', txt:'En las redes hay perfiles falsos. Una señal: alguien que ya es tu amigo te manda una solicitud otra vez. Puede ser una copia de su perfil para pedirles plata a sus conocidos.', art:'clon'},
-   {k:'ex', txt:'Desconfiá de premios, ofertas o desconocidos muy amables que al poco tiempo piden plata o datos. Y pensá antes de publicar: mejor contar el viaje cuando volviste, no mientras la casa está sola.', art:'pensa'},
+   {k:'ex', txt:'En las redes hay perfiles falsos. Una señal: alguien que ya es tu amigo te manda una solicitud otra vez. Puede ser una copia de su perfil.', art:'clon'},
+   {k:'ex', txt:'Desconfiá de premios, ofertas o desconocidos que te piden plata o datos. Y no cuentes que te vas de viaje: mejor contalo cuando vuelvas.', art:'pensa'},
    {k:'try', run:'rsCuida'},
-   {k:'check', q:'Te llega una solicitud de amistad de tu vecina Marta, que ya es tu amiga en Facebook. ¿Qué hacés?', o:['La acepto, total es Marta','No la acepto y le aviso a Marta por otro lado'], a:1, why:'¡Bien pensado! Puede ser un perfil copiado. Avisale por WhatsApp o llamándola.'},
-   {k:'rec', pts:['Una solicitud repetida puede ser un perfil copiado.','Premios, ofertas o desconocidos que piden plata: frenamos.','Los viajes se cuentan a la vuelta.']}
+   {k:'check', q:'Marta ya es tu amiga en Facebook y te manda otra solicitud. ¿Qué hacés?', o:['La acepto','No la acepto y le aviso a Marta'], a:1, why:'¡Bien pensado! Puede ser un perfil copiado. Avisale por WhatsApp.'},
+   {k:'rec', pts:['Una solicitud repetida puede ser un perfil falso.','Si te piden plata o datos, no respondas.','Los viajes, contalos a la vuelta.']}
   ]}
 ]});
 const REAL = {
@@ -1624,7 +1587,7 @@ function toast(txt, ms){ $('toast-txt').textContent = txt; $('toast').hidden = f
    Si un paso no tiene audio, se usa la voz automática del celular. */
 const VOZ = new Set(['bienvenida','1a-p1','1a-p2','1a-p3-android','1a-p3-iphone','1a-p7-android','1a-p7-iphone','1b-p1','1b-p2','1b-p3','1b-p4','1b-p9','1c-p1','1c-p2','1c-p6','1d-p1','1d-p2','1d-p5','1d-p7','2a-p1','3a-p1','3a-p2','3a-p6','3b-p1','3b-p4','3b-p6','3c-p1','3c-p5','3d-p1-android','3d-p1-iphone','3d-p5-android','3d-p5-iphone','3e-p1','3e-p2','3e-p5','2a-p5','2b-p1','2b-p2-android','2b-p2-iphone','2b-p6-android','2b-p6-iphone','2c-p1-android','2c-p1-iphone','2c-p2','2c-p6-android','2c-p6-iphone','2d-p1','2d-p2-android','2d-p2-iphone','2d-p6-android','2d-p6-iphone','4a-p1','4a-p2-android','4a-p2-iphone','4a-p6-android','4a-p6-iphone','4b-p1','4b-p2','4c-p6','4d-p1','4d-p2','4d-p6','4b-p6','4c-p1','4c-p2']);
 /* La lista completa de audios está en audio/voz.json: la arma sola la tarea "Audios con la voz de Martina" de GitHub */
-try { fetch('audio/voz.json', {cache:'no-cache'}).then(r => r.ok ? r.json() : null).then(j => { if (j && j.archivos) Object.keys(j.archivos).forEach(k => VOZ.add(k)); }).catch(() => {}); } catch(e){}
+try { fetch('audio/voz.json', {cache:'no-cache'}).then(r => r.ok ? r.json() : null).then(j => { if (j && j.archivos) Object.entries(j.archivos).forEach(([k, v]) => { if (v && v.pendiente) VOZ.delete(k); else VOZ.add(k); }); }).catch(() => {}); } catch(e){}
 function vozPaso(){
   const t = curL.steps.findIndex(x => x.k === 'try');
   const oculto = !MOSTRAR_PRACTICA_REAL && REAL[curL.id] && t >= 0 && si > t ? 1 : 0;
