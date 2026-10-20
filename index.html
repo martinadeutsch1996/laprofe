@@ -908,7 +908,7 @@ NIVELES.push(
   steps:[
    {k:'ex', txt:'La cámara viene en todos los celulares. Para abrirla, tocás el ícono que tiene dibujada una cámara de fotos. Lo que ves en la pantalla es lo que va a salir en la foto.', art:'camicon'},
    {k:'ex', txt:'Para sacar la foto, tocás el botón redondo grande de abajo. Una sola vez, sin apretar fuerte. Si querés que algo salga nítido, primero lo tocás en la pantalla: así el celular enfoca ahí.', art:'shutter'},
-   {k:'ex', txt:'Un truco para que no salga movida: sostené el celular con las dos manos, con los codos pegados al cuerpo, y quedate quieto un segundito después de tocar.', art:'manos'},
+   {k:'ex', txt:'Un truco para que no salga movida: sostené el celular con las dos manos, con los codos pegados al cuerpo, y no te muevas por un segundito después de tocar.', art:'manos'},
    {k:'try', run:'camShoot'},
    {k:'check', q:'¿Cómo sacás la foto?', o:['Tocando una vez el botón redondo grande de abajo','Apretando el botón del costado durante un rato'], a:0, why:'¡Eso! Un toque al botón redondo grande, y listo.'},
    {k:'rec', pts:['La cámara se abre con su ícono.','Tocá lo que querés enfocar y después el botón redondo grande.','Dos manos y quietito: la foto no sale movida.']}
@@ -916,7 +916,7 @@ NIVELES.push(
  {id:'fo2', ic:'🤳', t:'Selfie y zoom', min:5,
   des:'Sacate una selfie y mandásela a alguien que quieras.',
   steps:[
-   {k:'ex', txt:'Una selfie es una foto que te sacás a vos mismo. Para eso se usa la cámara de adelante: tocás el botón de las flechitas que dan vuelta y la cámara se da vuelta.', art:'flip'},
+   {k:'ex', txt:'Una selfie es una foto tuya, que te sacás vos. Para eso se usa la cámara de adelante: tocás el botón de las flechitas que dan vuelta y la cámara se da vuelta.', art:'flip'},
    {k:'ex', txt:'Para acercar algo que está lejos, tocás el número que dice 2x, o separás dos dedos sobre la pantalla. Si podés acercarte caminando, mejor: la foto sale más nítida.', art:'zoom'},
    {k:'try', run:'camSelfie'},
    {k:'check', q:'Querés sacarte una selfie. ¿Qué tocás primero?', o:['El botón de las flechitas, para dar vuelta la cámara','El botón de la fotito, abajo'], a:0, why:'Las flechitas cambian a la cámara de adelante. La fotito es para ver las fotos que ya sacaste.'},
@@ -2866,7 +2866,7 @@ SIMS.camGallery = function(api){
     if (paso !== 2) return;
     $('gdel').classList.remove('pulse');
     const s = el('div', 'sheet ov', '<div><b style="font-size:18px">' + (ios ? 'Eliminar foto' : '¿Mover a la papelera?') + '</b><small style="color:var(--ph-sub)">Queda unos días en la papelera, por si te arrepentís.</small><button type="button" class="pgreen pulse" id="gok" style="background:#E5484D">' + (ios ? 'Eliminar foto' : 'Mover a la papelera') + '</button><button type="button" class="prow" id="gno" style="justify-content:center;border:none">Cancelar</button></div>');
-    $('ph').appendChild(s); api.say('Te pregunta si estás seguro. Paso 4: tocá <b>' + (ios ? 'Eliminar foto' : 'Mover a la papelera') + '</b>.');
+    $('ph').appendChild(s); api.say('Te pide que lo confirmes. Paso 4: tocá <b>' + (ios ? 'Eliminar foto' : 'Mover a la papelera') + '</b>.');
     $('gno').addEventListener('click', () => { s.remove(); $('gdel').classList.add('pulse'); api.say('No pasa nada: cancelaste. Si querés borrarla, tocá el tachito otra vez.'); });
     $('gok').addEventListener('click', () => {
       s.remove(); paso = 3; F.splice(1, 1); idx = 0; pinta();
