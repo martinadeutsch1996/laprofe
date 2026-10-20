@@ -1604,6 +1604,10 @@ async function flushData(){
   }
   dataBusy = false; if (dataDirty) { clearTimeout(dataTimer); dataTimer = setTimeout(flushData, 1500); }
 }
+/* Al salir de la app (por ejemplo, al abrir WhatsApp) se manda enseguida lo pendiente, para no perder el último toque */
+function flushYa(){ if (dataDirty){ clearTimeout(dataTimer); flushData(); } }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushYa(); });
+window.addEventListener('pagehide', flushYa);
 const L = (d, id) => { d.lec = d.lec || {}; return d.lec[id] = d.lec[id] || {}; };
 const addIdx = (arr, i) => { arr = Array.isArray(arr) ? arr : []; arr.push(i); return arr.slice(-50); };
 /* Piloto: de dónde llegó la persona (?src=pauta) y qué visitas vienen de un recordatorio (?r=1).
