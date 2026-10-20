@@ -592,12 +592,12 @@
   },
   "or2-p2-android": {
    "origen": "ia",
-   "huella": "7778209b50e4",
+   "huella": "7a2c3133889a",
    "fecha": "2026-10-20"
   },
   "or2-p2-iphone": {
    "origen": "ia",
-   "huella": "2088bab008c9",
+   "huella": "ba9b01619cf6",
    "fecha": "2026-10-20"
   },
   "or2-p6": {
@@ -742,7 +742,7 @@
   },
   "gm2-p1": {
    "origen": "ia",
-   "huella": "75a4d361a7b0",
+   "huella": "ec2b65d64ec3",
    "fecha": "2026-10-20"
   },
   "gm2-p2": {
@@ -962,7 +962,7 @@
   },
   "ig3-p1": {
    "origen": "ia",
-   "huella": "3aceb35034a6",
+   "huella": "6144b6de18a2",
    "fecha": "2026-10-20"
   },
   "ig3-p2": {
@@ -972,7 +972,7 @@
   },
   "ig3-p6": {
    "origen": "ia",
-   "huella": "f77e3400f6e0",
+   "huella": "a1f6f920d4db",
    "fecha": "2026-10-20"
   },
   "fb1-p1": {
@@ -1027,12 +1027,12 @@
   },
   "or2-p6-android": {
    "origen": "ia",
-   "huella": "2cd73d123f0c",
+   "huella": "2774c669d4f5",
    "fecha": "2026-10-20"
   },
   "or2-p6-iphone": {
    "origen": "ia",
-   "huella": "f8dadaff436d",
+   "huella": "42c0b2322dd4",
    "fecha": "2026-10-20"
   }
  }
