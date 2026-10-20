@@ -563,6 +563,18 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .bline > div{display:flex;flex-direction:column;font-size:16px}
 .bline small{color:var(--ph-sub)}
 .bnum{background:#00519E;color:#fff;border-radius:8px;padding:6px 10px;font-size:18px;min-width:56px;text-align:center}
+.gbl{display:inline-block;border:2px solid var(--ph-line);border-radius:6px;padding:0 8px;font-weight:800;color:var(--ph-text)}
+.gbtop{display:flex;flex-direction:column;gap:4px;padding:14px;background:var(--ph-bar);border-bottom:1px solid var(--ph-line)}
+.gbtop small{color:var(--ph-sub);font-size:16px}
+.gbdet{display:flex;flex-direction:column;gap:10px;padding:12px 14px;background:var(--ph-bar);flex:1;overflow:auto}
+.gbst{display:flex;align-items:center;gap:10px;font-size:17px}
+.gbic{width:34px;text-align:center;font-size:22px;flex:none}
+.gbin{display:flex;flex-direction:column;gap:6px;margin-left:16px;padding-left:28px;border-left:6px solid var(--ph-sub);font-size:16px}
+.gbin small{color:var(--ph-sub);font-size:16px}
+.gbrow{display:flex;align-items:center;gap:8px;font-size:18px}
+.gbpar{min-height:48px;text-align:left;border-radius:12px;border:2px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);font-size:16px;font-weight:700;padding:8px 12px}
+.gbmid{display:block;color:var(--ph-sub);font-size:16px}
+.gbcart{background:#222;color:#FFB300;font-family:monospace;letter-spacing:.06em;width:100%}
 .gmrow{display:flex;gap:12px;align-items:flex-start;width:calc(100% - 20px);margin:0 10px 6px;padding:12px 14px;border:2px solid transparent;border-radius:18px;background:var(--ph-bg);color:var(--ph-text);text-align:left;font-weight:400}
 .gmrow > div{display:flex;flex-direction:column;min-width:0;font-size:16px}
 .gmrow small{color:var(--ph-sub);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1160,14 +1172,16 @@ NIVELES.push(
    {k:'check', q:'Llega un auto parecido, pero con otra matrícula. ¿Qué hacés?', o:['No subo y espero el mío','Subo igual'], a:0, why:'¡Muy bien! La matrícula te dice que es tu auto.'},
    {k:'rec', pts:['Escribí a dónde vas.','Mirá el precio y tocá "Elegir".','Antes de subir, revisá la matrícula.']}
   ]},
- {id:'tr3', app:['stm'], ic:'🚌', t:'El ómnibus con STM', min:6, des:'Abrí la app STM y fijate qué ómnibus pasan por la parada más cerca de tu casa.',
+ {id:'tr3', app:['googlemaps'], ic:'🚌', t:'Tomá el ómnibus con Google Maps', min:6, des:'En Google Maps, buscá un lugar al que vayas seguido y fijate qué ómnibus te llevan.',
   steps:[
-   {k:'ex', txt:'La app STM te ayuda con el ómnibus. Te muestra las paradas cerca tuyo, qué líneas pasan y cuánto falta para que lleguen.', art:'stmart'},
-   {k:'ex', txt:'Para saber qué ómnibus tomar:\n1. Tocá la lupa azul.\n2. Escribí la calle y elegila.\n3. Escribí la esquina y elegila.\n4. Tocá "Destino".\nLa app te dice qué líneas te sirven.'},
-   {k:'ex', txt:'En el mapa, el puntito azul sos vos. Mirándolo durante el viaje, sabés cuándo bajarte.', art:'stmbajar'},
+   {k:'ex', txt:'Google Maps también te ayuda con el ómnibus. Te dice qué línea tomar, a qué hora pasa y dónde bajarte.', art:'busart'},
+   {k:'ex', txt:'Para ver qué ómnibus te sirven:\n1. Buscá el lugar al que vas.\n2. Tocá "Cómo llegar".\n3. Tocá el dibujito del ómnibus.'},
+   {k:'ex', txt:'Arriba ves cuánto tardás, a qué hora llegás y qué líneas te sirven. Más abajo está la parada donde subís. Al lado del número de la línea dice hacia dónde va: es lo mismo que dice el cartel del ómnibus.', art:'buscartel'},
+   {k:'ex', txt:'Al lado ves a qué hora pasa. Si dice "Programada", es el horario previsto y puede variar un poco. Abajo te dice cuándo pasan los siguientes, por si perdés ese.', art:'bushora'},
+   {k:'ex', txt:'"7 paradas" te dice cuántas viajás: si lo tocás, ves todas. El circulito blanco es la parada donde te bajás. Tocá "Iniciar" y el puntito azul te acompaña en el viaje.', art:'busbajar'},
    {k:'try', run:'trBus'},
-   {k:'check', q:'¿Cómo sabés cuándo bajarte del ómnibus?', o:['Miro el puntito azul en la app','Cuento las paradas'], a:0, why:'¡Eso! El puntito azul te muestra por dónde vas.'},
-   {k:'rec', pts:['STM te muestra paradas, líneas y cuánto falta.','Lupa azul, calle, esquina y "Destino".','El puntito azul te avisa cuándo bajar.']}
+   {k:'check', q:'¿Cómo sabés que subís al ómnibus correcto?', o:['Miro que el número y el cartel coincidan con la app','Subo al primero que pasa'], a:0, why:'¡Eso! El número y hacia dónde va tienen que ser los mismos que en la app.'},
+   {k:'rec', pts:['Buscá el lugar, tocá "Cómo llegar" y después el ómnibus.','Al lado del número de la línea dice hacia dónde va: fijate que el cartel del ómnibus diga lo mismo.','"Programada" es un horario previsto: conviene llegar unos minutos antes.','El circulito blanco marca dónde bajarte.']}
   ]}
 ]},
 {n:0, k:'gmail', em:'📧', t:'Correo electrónico', d:'Leer, escribir y mandar archivos por Gmail', ls:[
@@ -1364,7 +1378,7 @@ const REAL = {
  'mp2':['En Google Maps, buscá un lugar conocido.','Tocá "Cómo llegar" y elegí caminando.'],
  'tr1':['Guardá el 091 141 141 como TAXI.','Abrí el chat de TAXI en WhatsApp para tenerlo a mano.'],
  'tr2':['Si tenés Uber, abrilo.','Escribí a dónde querrías ir y mirá el precio, sin tocar "Elegir".'],
- 'tr3':['Abrí la app STM Montevideo.','Tocá una parada cerca tuyo y mirá qué líneas pasan.'],
+ 'tr3':['En Google Maps, buscá un lugar al que vayas seguido.','Tocá "Cómo llegar" y después el ómnibus.','Tocá una opción y fijate dónde te bajás.'],
  'gm1':['Abrí Gmail.','Abrí un correo sin leer y volvé a la bandeja.'],
  'gm2':['En Gmail, tocá "Redactar".','Escribile a alguien de tu familia, con asunto y firma.'],
  'gm3':['En un correo nuevo, tocá el clip.','Elegí una foto sin datos personales y fijate que aparezca. No hace falta mandarlo.'],
@@ -1422,7 +1436,7 @@ const LOGRO = {
   'mp2':'Ya sabés ver cómo llegar a un lugar y cuánto vas a tardar.',
   'tr1':'Ya sabés pedir un taxi por WhatsApp.',
   'tr2':'Ya sabés pedir un Uber y revisar la matrícula antes de subir.',
-  'tr3':'Ya sabés qué ómnibus tomar, con la app STM.',
+  'tr3':'Ya sabés qué ómnibus tomar, a qué hora pasa y dónde bajarte.',
   'gm1':'Ya sabés leer tus correos y encontrar los enviados.',
   'gm2':'Ya sabés escribir y responder un correo.',
   'gm3':'Ya sabés adjuntar una foto a un correo y comprobar que salió.',
@@ -1491,7 +1505,7 @@ Básicos: smartphone = computadora de bolsillo; Android (Samsung, Motorola, Xiao
 Gestos: tocar, mantener apretado, deslizar, pellizcar (separar dos dedos agranda). Atajos: Android, deslizar desde arriba; iPhone, desde la esquina superior derecha (Centro de control). Color = prendido, gris = apagado. Modo avión corta todas las conexiones. Letra: Android Ajustes > Pantalla > Tamaño de fuente; iPhone Configuración > Pantalla y brillo > Tamaño del texto.
 WhatsApp: necesitás internet y tener a la persona agendada; si te piden tu WhatsApp, das tu número. Abrir: ícono verde. Chat: tocar el nombre o buscar con la lupa. Mensaje: tocar "Mensaje", escribir, flecha verde. Tildes: uno gris salió, dos grises llegó, dos azules leyó (algunos desactivan los azules). Audio: el micrófono se MANTIENE apretado, se suelta para mandar; deslizar a la izquierda cancela; el candadito (deslizar arriba) graba sin apretar y permite escuchar antes de mandar; 1x/1.5x/2x para escuchar más rápido. Fotos: clip (Android) o + (iPhone) > Galería/Fotos > elegir > escribir comentario > enviar; la camarita saca una en el momento. Mantener apretado un mensaje: responder, reaccionar, reenviar, borrar ("Eliminar para todos" vs "para mí"). "Reenviado muchas veces" = desconfiar. Grupos: tocar el nombre > Silenciar notificaciones (nadie se entera); salir: solo se enteran los administradores. Videollamada: camarita arriba a la derecha del chat. Seguridad: el código de 6 números NUNCA se comparte; verificación en dos pasos en Ajustes > Cuenta; bloquear y reportar tocando el nombre. Estafa típica: "Hola mamá, cambié de número, transferime urgente" → llamar al número de siempre; palabra clave familiar.
 Google Fotos: Fotos (todas por fecha), Colecciones (álbumes, favoritos, papelera), Crear (collage, álbum, video), Buscar (por personas, mascotas, lugares, cosas: escribís "playa"). Estrella = favorita. Copia de seguridad = fotos en la nube.
-Google Maps: el GPS/ubicación tiene que estar activado; puntito azul = vos; buscar arriba; "Cómo llegar" > caminando o en auto. Taxi en Montevideo por WhatsApp: agendar 091 141 141 como TAXI, mandar "Hola", mandar la ubicación con el clip, te confirman móvil y demora. Uber: "¿A dónde vas?", ver precio y tiempo, "Elegir"; antes de subir verificar matrícula, modelo y nombre; nunca subir a otro auto; compartir el recorrido. STM: paradas cercanas, qué ómnibus tomar (lupa, calle y esquina, Destino).
+Google Maps: el GPS/ubicación tiene que estar activado; puntito azul = vos; buscar arriba; "Cómo llegar" > caminando o en auto. Taxi en Montevideo por WhatsApp: agendar 091 141 141 como TAXI, mandar "Hola", mandar la ubicación con el clip, te confirman móvil y demora. Uber: "¿A dónde vas?", ver precio y tiempo, "Elegir"; antes de subir verificar matrícula, modelo y nombre; nunca subir a otro auto; compartir el recorrido. Ómnibus con Google Maps: buscar el lugar, "Cómo llegar", tocar el ómnibus; ver líneas, parada para subir, hacia dónde va (igual al cartel del ómnibus), hora ("Programada" = horario previsto, puede variar), los siguientes, cantidad de paradas y el circulito blanco donde bajarse; "Iniciar" acompaña el viaje.
 Redes: Instagram (casita inicio, reels, mensajes, lupita, perfil, + para publicar; corazón = me gusta; historias duran 24 horas). YouTube (lupa para buscar, canal, suscribirse, Shorts = videos cortos, miniatura). X/Twitter: noticias al instante; la tilde azul se puede comprar, no es garantía; buscar otras fuentes antes de compartir; ningún organismo (banco, BPS) pide contraseñas por mensaje.
 Cámara: ícono de cámara; lo que se ve en pantalla es la foto; tocar en la pantalla enfoca; botón redondo grande saca la foto; dos manos y quieto para que no salga movida. Flechitas = dar vuelta la cámara (selfie). Zoom: 1x/2x o separar dos dedos; acercarse caminando sale más nítido. Fotito de abajo = última foto; galería/Google Fotos (Android) o Fotos (iPhone); deslizar pasa de foto; tachito borra y queda unos días en la papelera. "Video" + botón rojo graba; cuadradito termina.
 Google: buscador; barra, escribir, lupa; se puede escribir como se habla o con palabras clave; micrófono para buscar hablando. "Patrocinado" = anuncio. Páginas del Estado uruguayo terminan en gub.uy (bps.gub.uy). Desconfiar de ofertas increíbles y de páginas que piden tarjeta para algo gratis.
@@ -2171,7 +2185,7 @@ const KW = {
   'mp2':['como llegar','llegar a','caminando','indicaciones','perdido','desorientado'],
   'tr1':['taxi','141','pedir un taxi'],
   'tr2':['uber','auto con chofer','matricula'],
-  'tr3':['omnibus','bus','stm','parada','paradas','linea','transporte'],
+  'tr3':['omnibus','bus','bondi','colectivo','stm','parada','paradas','linea','transporte'],
   'gm1':['gmail','correo','mail','email','correo electronico','bandeja'],
   'gm2':['mandar un correo','mandar un mail','enviar un mail','enviar un correo','escribir un correo','escribir un mail','responder un correo','redactar','asunto'],
   'gm3':['adjuntar','por correo','comprobante por correo','foto por correo','adjunto','mandar un archivo','mandar un comprobante','archivo por correo'],
@@ -2498,9 +2512,10 @@ const ART = {
   uberart: () => '<div style="background:var(--soft);border-radius:14px;padding:12px 18px;font-weight:800;font-size:18px;min-width:220px">📍 ¿A dónde vas?</div>',
   uberprecio: () => big('💲','Precio') + big('⏱️','Demora') + big('💳','Forma de pago'),
   ubermatricula: () => '<div style="border:3px solid #111;border-radius:8px;padding:6px 14px;font-weight:900;font-size:24px;letter-spacing:.1em;background:#fff;color:#111">SBX 1234</div><b style="width:100%;text-align:center">Revisá la matrícula antes de subir</b>',
-  stmart: () => big('🚏','Paradas') + big('🚌','Líneas') + big('⏱️','Cuánto falta'),
-  stmpasos: () => big('🔎','Lupa azul') + big('🛣️','Calle y esquina') + big('🎯','"Destino"'),
-  stmbajar: () => big('🔵','El puntito azul sos vos') + big('🛎️','Sabés cuándo bajar'),
+  busart: () => big('🚌','Qué línea') + big('🕘','A qué hora') + big('⚪','Dónde bajarte'),
+  buscartel: () => '<div style="display:flex;align-items:center;gap:10px;font-size:20px"><span style="border:2px solid currentColor;border-radius:8px;padding:2px 10px;font-weight:800">25</span><b>Centro</b></div><b style="width:100%;text-align:center">Lo mismo que dice el cartel del ómnibus</b>',
+  bushora: () => '<div style="display:flex;flex-direction:column;gap:4px;text-align:left;font-size:17px"><b style="font-size:24px">10:08</b><span>Programada · en 4 min</span><span class="muted">También en 12 min y 20 min</span></div>',
+  busbajar: () => big('🚏','6 paradas') + big('⚪','Acá te bajás') + big('🔵','Te acompaña'),
   mailart: () => big('✉️','Una carta por internet') + '<b style="font-size:17px">nombre@gmail.com</b>',
   bandeja: () => '<div class="stack" style="gap:6px;min-width:240px;max-width:300px;text-align:left"><div style="background:var(--soft);border-radius:10px;padding:8px 12px"><b>Club de jardinería</b><br><b style="font-size:14px">Taller del sábado</b></div><div style="background:var(--soft);border-radius:10px;padding:8px 12px;color:var(--muted)">Laura<br><span style="font-size:14px">Fotos del cumple</span></div><small class="muted">En negrita: sin leer</small></div>',
   mailmenu: () => big('☰','Tres rayitas') + big('📤','"Enviados"') + big('📝','"Borradores"'),
@@ -3641,32 +3656,46 @@ SIMS.trUber = function(api){
 };
 
 SIMS.trBus = function(api){
+  /* Ómnibus en Google Maps (captura real de Martina, 20/10/2026). Calles y líneas inventadas: no se atan a ninguna ciudad. */
   let paso = 0;
-  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:500px"></div>';
+  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:520px"></div>';
   const P = h => { $('toast').hidden = true; $('ph').innerHTML = h; };
-  P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">STM</b><button type="button" class="ibtn pulse" id="blupa" aria-label="Buscar" style="background:#1E88E5;color:#fff">' + I.search + '</button></div>' + mapaHtml('<span class="mdot" style="left:46%;top:56%"></span><span class="mstop" style="left:36%;top:30%">🚏</span><span class="mstop" style="left:66%;top:66%">🚏</span>'));
-  api.say('Estas son las paradas cerca tuyo. Querés ir a 18 de Julio y Ejido. Paso 1: tocá la <b>lupa azul</b>.');
-  const etapa = (lbl, ph, val, opc, sig) => {
-    P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">' + lbl + '</b></div><div class="pform">' + campo('bq', ph) + '<div class="helpers" style="padding:0;justify-content:flex-start"><button type="button" id="h1">Escribir por mí</button></div><div id="bres"></div></div>');
-    const q = $('bq'); q.focus(); $('bqf').classList.add('pulse');
-    const f = () => { $('bqf').classList.toggle('pulse', !q.value.trim()); const ok = q.value.trim().length >= 3 && sinTilde(opc).includes(sinTilde(q.value.trim()).slice(0, 4)); $('bres').innerHTML = ok ? '<button type="button" class="prow pulse" id="bop" style="border:2px solid var(--coral);border-radius:12px">📍 ' + esc(opc) + '</button>' : ''; if (ok) $('bop').addEventListener('click', sig); };
-    q.addEventListener('input', f); $('h1').addEventListener('click', () => { q.value = val; f(); });
-  };
+  const ln = (n, extra) => '<span class="gbl' + (extra || '') + '">' + n + '</span>';
+  P(mapaHtml('<span class="mdot" style="left:24%;top:72%"></span><span class="mpin" style="left:70%;top:22%">📍</span>') + '<div class="mplace"><b style="font-size:19px">Plaza del Sol</b><small>Plaza · Abierto</small><div class="row" style="gap:8px;flex-wrap:nowrap;overflow:hidden"><button type="button" class="mbtn pulse" id="bcl" style="flex:none">🧭 Cómo llegar</button><span class="mbtn2" style="flex:none">📞 Llamar</span><span class="mbtn2" style="flex:none">🔖 Guardar</span></div></div>');
+  api.say('Querés ir a la Plaza del Sol en ómnibus. Paso 1: tocá <b>Cómo llegar</b>.');
   $('ph').addEventListener('click', e => {
-    if (paso === 0 && e.target.closest('#blupa')){
-      paso = 1; api.say('Paso 2: escribí la calle, <b>18 de Julio</b>, y elegila de la lista.');
-      etapa('Calle', 'Escribí la calle', '18 de Julio', 'Av. 18 de Julio', () => {
-        paso = 2; api.say('Paso 3: ahora la esquina. Escribí <b>Ejido</b> y elegila.');
-        etapa('Esquina', 'Escribí la esquina', 'Ejido', 'Ejido', () => {
-          paso = 3; P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">Av. 18 de Julio y Ejido</b></div>' + mapaHtml('<span class="mpin" style="left:60%;top:30%">📍</span>') + '<div class="mplace"><b>Av. 18 de Julio y Ejido</b><div class="row" style="gap:8px"><span class="mbtn2">Origen</span><button type="button" class="mbtn pulse" id="bdest">🎯 Destino</button></div></div>');
-          api.say('Paso 4: como es a donde querés ir, tocá <b>Destino</b>.');
-          $('bdest').addEventListener('click', () => {
-            paso = 4; P('<div class="bar" style="background:#00519E;color:#fff;border:none"><b style="flex:1">Para llegar a 18 de Julio y Ejido</b></div><div style="display:flex;flex-direction:column;gap:8px;padding:12px;background:var(--ph-bar);flex:1"><button type="button" class="bline pulse" id="bl1"><b class="bnum">121</b><div><b>Parada a 2 cuadras</b><small>Llega en 4 min · Viaje de 18 min</small></div></button><button type="button" class="bline"><b class="bnum">180</b><div><b>Parada a 3 cuadras</b><small>Llega en 11 min · Viaje de 20 min</small></div></button><small style="color:var(--ph-sub)">Ejemplo para practicar: las líneas reales pueden ser otras.</small></div>');
-            api.say('La app te dice qué líneas te sirven, en qué parada y cuánto falta. Paso 5: tocá la que llega antes, la <b>121</b>.');
-            $('bl1').addEventListener('click', () => { paso = 5; P(mapaHtml('<span class="mdot" style="left:30%;top:66%"></span><span class="mpin" style="left:66%;top:24%">📍</span><svg class="mruta" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="30,68 30,30 66,30 66,26" fill="none" stroke="#00519E" stroke-width="2.6"/></svg>') + '<div class="mplace"><b>🚌 Línea 121</b><small>Bajate en Av. 18 de Julio y Ejido. Mirá el puntito azul para saber cuándo.</small></div>'); api.say('¡Lo lograste! Sabés qué ómnibus tomar, dónde, y con el puntito azul vas a saber cuándo bajarte.'); api.done(); });
-          });
-        });
-      });
+    const b = e.target.closest('button'); if (!b) return;
+    if (paso === 0 && b.id === 'bcl'){
+      paso = 1; P(mapaHtml('<span class="mdot" style="left:24%;top:72%"></span><span class="mpin" style="left:70%;top:22%">📍</span>') + '<div class="mplace"><b>Desde: tu ubicación</b><small>Hasta: Plaza del Sol</small><div class="mmodos"><button type="button" data-m="auto">🚗<span>9 min</span></button><button type="button" data-m="bus" class="pulse">🚌<span>18 min</span></button><button type="button" data-m="pie">🚶<span>45 min</span></button></div><p id="bhint" hidden style="margin:0;font-weight:700"></p></div>');
+      api.say('Paso 2: tocá el <b>dibujito del ómnibus</b>.'); return;
+    }
+    if (paso === 1 && b.dataset.m){
+      if (b.dataset.m !== 'bus'){ $('bhint').hidden = false; $('bhint').textContent = '💡 Ese no es el ómnibus. Buscá el dibujito del ómnibus.'; return; }
+      paso = 2; P('<div class="mplace" style="flex:1;gap:10px"><b>En ómnibus hasta Plaza del Sol</b><button type="button" class="bline pulse" id="bo1"><div><b style="font-size:19px">18 min · Llegada 10:24</b><small>🚶 4 › 🚌 ' + ln('25') + ' ' + ln('40') + '</small><small>Pasa a las 10:08</small></div></button><button type="button" class="bline" id="bo2"><div><b style="font-size:19px">27 min · Llegada 10:33</b><small>🚶 6 › 🚌 ' + ln('112') + '</small><small>Pasa a las 10:12</small></div></button><small style="color:var(--ph-sub)">Calles y líneas de ejemplo, para practicar.</small></div>');
+      api.say('Cada opción te dice cuánto tardás, a qué hora llegás y qué líneas te sirven. Paso 3: tocá la que llega antes, a las <b>10:24</b>.'); return;
+    }
+    if (paso === 2 && (b.id === 'bo1' || b.id === 'bo2')){
+      if (b.id === 'bo2'){ toast('Esa llega más tarde. Tocá la que llega a las 10:24.'); return; }
+      paso = 3; P('<div class="gbtop"><b style="font-size:22px">🚌 18 min</b><small>Llegada: 10:24</small><small>🚶 4 › 🚌 ' + ln('25') + ' ' + ln('40') + '</small></div><div class="gbdet"><div class="gbst"><span class="gbic">🚌</span><b>Av. del Parque y Rosales</b></div><div class="gbin"><div class="gbrow">' + ln('25') + ' <span>Centro</span><b style="margin-left:auto;font-size:20px">10:08</b></div><small>Programada · en 4 min</small><small>También en 12 min y 20 min</small><button type="button" class="gbpar pulse" id="bpar">⌄ 6 paradas (12 min)</button><div id="blist"></div></div><div class="gbst"><span class="gbic gbw">⚪</span><b>Calle Mayo y Sol</b><small style="margin-left:auto">10:20</small></div><div class="gbst"><span class="gbic">🚶</span><span>Caminá 2 min</span></div><div class="gbst"><span class="gbic">📍</span><b>Plaza del Sol</b><small style="margin-left:auto">10:24</small></div></div>');
+      api.say('Subís en <b>Av. del Parque y Rosales</b>. La línea 25 va hacia <b>Centro</b> y pasa a las 10:08. Paso 4: tocá <b>6 paradas</b> para verlas todas.'); return;
+    }
+    if (paso === 3 && b.id === 'bpar'){
+      paso = 4; b.classList.remove('pulse'); b.textContent = '⌃ 6 paradas (12 min)';
+      $('blist').innerHTML = ['Rosales y Lima','Lima y Ombú','Ombú y Faro','Faro y Ceibo','Ceibo y Mayo'].map(x => '<small class="gbmid">· ' + x + '</small>').join('') + '<button type="button" class="gbpar pulse" id="bbaj">⚪ Calle Mayo y Sol: acá te bajás</button>';
+      api.say('Esas son las paradas que vas a pasar. Paso 5: tocá la del <b>circulito blanco</b>, donde te bajás.'); return;
+    }
+    if (paso === 4 && b.id === 'bbaj'){
+      paso = 5; P('<div class="mplace" style="flex:1"><b style="font-size:19px">Llegan dos ómnibus de la línea 25. ¿Cuál tomás?</b><button type="button" class="bline" data-c="no"><b class="bnum gbcart">25 · PUERTO</b></button><button type="button" class="bline" data-c="si"><b class="bnum gbcart">25 · CENTRO</b></button><p id="bhint" hidden style="margin:0;font-weight:700"></p></div>');
+      api.say('Paso 6: mirá el <b>cartel</b> de cada ómnibus. En la app decía que va hacia <b>Centro</b>.'); return;
+    }
+    if (paso === 5 && b.dataset.c){
+      if (b.dataset.c === 'no'){ $('bhint').hidden = false; $('bhint').textContent = '💡 Ese va hacia el otro lado. En la app decía "Centro".'; b.classList.add('wrong'); return; }
+      paso = 6; P(mapaHtml('<span class="mdot" style="left:30%;top:66%"></span><span class="mpin" style="left:66%;top:24%">📍</span><svg class="mruta" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="30,68 30,30 66,30 66,26" fill="none" stroke="#1A73E8" stroke-width="2.6"/></svg>') + '<div class="mplace"><b>🚌 Línea 25 · Centro</b><small>Te bajás en Calle Mayo y Sol, a las 10:20</small><button type="button" class="mbtn pulse" id="bgo" style="width:100%">▶ Iniciar</button></div>');
+      api.say('¡Ese es! Paso 7: tocá <b>Iniciar</b> para que el mapa te acompañe en el viaje.'); return;
+    }
+    if (paso === 6 && b.id === 'bgo'){
+      paso = 7; b.remove(); $('ph').querySelector('.mplace').appendChild(el('div', 'mnav', '🚏 <div><b>Faltan 3 paradas</b><small>Te bajás en Calle Mayo y Sol</small></div>'));
+      api.say('¡Lo lograste! Sabés qué ómnibus tomar, a qué hora pasa y dónde bajarte.'); api.done();
     }
   });
 };
