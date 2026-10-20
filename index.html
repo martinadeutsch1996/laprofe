@@ -1411,7 +1411,7 @@ const LOGRO = {
    Cada nivel tiene una clave fija (k). El número que ve el alumno ("Nivel 3") sale del orden.
    PUBLICAR: true = lo ven todos los alumnos; false = oculto.
    Para ver todo lo oculto sin publicarlo, abrí la app con ?prueba al final del link. */
-const PUBLICAR = {camara:false, orga:false, ciudad:false, google:false, gmail:false, videos:false, redes:false, ia:false, apps:false}; // apps = lección "Descargá una app"
+const PUBLICAR = {camara:true, orga:true, ciudad:true, google:true, gmail:true, videos:true, redes:true, ia:true, apps:true}; // publicados el 19/10/2026 // apps = lección "Descargá una app"
 const PRUEBA = /[?&](prueba|nivel5)\b/.test(location.search);
 const ORDEN = ['basico','pantalla','camara','whatsapp','maswa','orga','ciudad','google','gmail','videos','redes','ia'];
 NIVELES.sort((a, b) => ORDEN.indexOf(a.k) - ORDEN.indexOf(b.k));
