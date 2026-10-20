@@ -464,6 +464,28 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .apbtn{width:100%;min-height:50px;border-radius:999px;border:2px solid transparent;background:var(--ph-green);color:#fff;font-weight:800;font-size:18px}
 .approg{height:12px;border-radius:999px;background:var(--ph-line);overflow:hidden}
 .approg i{display:block;height:100%;width:0;background:var(--ph-green);transition:width .25s}
+/* tienda de apps con pantallas reales (19/10/2026, ver guia-pantallas-reales) */
+.stphone{background:var(--ph-bar)}
+.stbody{flex:1;display:flex;flex-direction:column;min-height:0;padding-bottom:6px}
+.sttop{display:flex;align-items:center;gap:10px;padding:12px 14px 10px;min-height:56px}
+.stav{width:34px;height:34px;border-radius:50%;background:var(--ph-line);flex:none}
+.stchips{display:flex;gap:8px;padding:0 14px 10px;overflow:hidden}
+.stchips i{font-style:normal;border:1px solid var(--ph-line);border-radius:10px;padding:6px 12px;font-size:14px;color:var(--ph-sub);white-space:nowrap}
+.stcard{display:flex;gap:12px;align-items:center;margin:0 14px 10px;padding:10px;border-radius:18px;background:var(--ph-bg);opacity:.7}
+.stcard > i{width:56px;height:56px;border-radius:14px;background:var(--ph-line);flex:none}
+.stcard > div{flex:1;display:flex;flex-direction:column;gap:8px}
+.stcard > div i{display:block;height:10px;border-radius:5px;background:var(--ph-line)}
+.stcard > div i + i{width:60%}
+.stnav{display:flex;justify-content:space-around;background:var(--ph-bg);padding:6px 4px 8px;margin-top:auto}
+.stnav button{background:none;border:2px solid transparent;color:var(--ph-text);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;font-weight:700;min-width:58px;min-height:56px;padding:2px;border-radius:14px}
+.stnav button span{font-size:20px;display:grid;place-items:center;width:56px;height:30px;border-radius:999px}
+.stnav button.on span{background:color-mix(in srgb,var(--ph-green) 28%,var(--ph-bar))}
+.stnav.ios{margin:auto 10px 10px;border-radius:999px;background:color-mix(in srgb,var(--ph-bar) 78%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--ph-line);box-shadow:0 4px 16px rgba(0,0,0,.12);padding:4px}
+.stnav.ios button{min-width:0;flex:1;font-size:12px;border-radius:999px}
+.stnav.ios button span{width:auto;height:26px;background:none}
+.stnav.ios button.on{background:var(--ph-line);color:#0A84FF}
+.stphone.ios .apbtn{background:#0A84FF}
+.stglass{background:color-mix(in srgb,var(--ph-bar) 78%,transparent);border:1px solid var(--ph-line)}
 /* manuales (19/10/2026) */
 .tgl{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:58px;padding:10px 14px;border-radius:14px;border:2px solid var(--ph-line);background:var(--ph-bar);color:var(--ph-text);font-size:18px;font-weight:700}
 .tgl i{width:54px;height:32px;border-radius:999px;background:#C7CCD1;position:relative;flex:none;transition:background .2s}
@@ -880,13 +902,13 @@ const NIVELES = [
  {id:'ap1', pub:'apps', app:{android:['playstore'], iphone:['appstore']}, ic:'⬇️', t:'Descargá una app', min:6, des:'Abrí la tienda de tu celular y buscá una app que te interese. Fijate si es gratis.',
   steps:[
    {k:'ex', txt:{android:'Las apps nuevas se bajan de una tienda que ya viene en tu celular. En Android se llama Play Store. Su ícono es un triángulo de colores.', iphone:'Las apps nuevas se bajan de una tienda que ya viene en tu celular. En iPhone se llama App Store. Su ícono es azul, con una A blanca.'}, art:'tienda'},
-   {k:'ex', txt:{android:'Para bajar una app:\n1. Tocá la barra de arriba y escribí su nombre.\n2. Tocá la app.\n3. Tocá el botón verde "Instalar".\nCuando termina, el botón dice "Abrir".', iphone:'Para bajar una app:\n1. Tocá la lupa, "Buscar", y escribí su nombre.\n2. Tocá la app.\n3. Tocá "Obtener".\nCuando termina, el botón dice "Abrir".'}},
+   {k:'ex', txt:{android:'Para bajar una app:\n1. Tocá "Buscar", abajo.\n2. Tocá la barra de arriba y escribí su nombre.\n3. Tocá la app.\n4. Tocá el botón verde "Instalar".\nCuando termina, el botón dice "Abrir".', iphone:'Para bajar una app:\n1. Tocá "Buscar", abajo a la derecha.\n2. Tocá la barra de arriba y escribí su nombre.\n3. Tocá la app.\n4. Tocá "Obtener".\nCuando termina, el botón dice "Abrir".'}},
    {k:'ex', txt:{android:'Antes de instalar, mirá quién hizo la app. Aparece abajo de su nombre. Hay copias con nombres parecidos. Y si en vez de "Instalar" ves un precio, la app es paga.', iphone:'Antes de instalar, mirá quién hizo la app. Aparece abajo de su nombre. Hay copias con nombres parecidos. Y si en vez de "Obtener" ves un precio, la app es paga.'}, art:'quien'},
    {k:'ex', txt:{android:'La app nueva aparece en tu pantalla de inicio. Si no la ves, deslizá el dedo hacia arriba: ahí están todas tus apps.', iphone:'Puede que el iPhone te pida tu cara, tu huella o tu contraseña de Apple. Eso lo pide tu propio celular, y está bien. Esa contraseña nunca se le da a otra persona.'}, art:'dondeapp'},
    {k:'try', run:'apStore'},
    {k:'check', q:'¿Cómo sabés que es la app verdadera de WhatsApp?', o:['Miro que abajo del nombre diga "WhatsApp"','Elijo la primera que aparece'], a:0, why:'¡Eso! Las copias se parecen, pero las hace otra empresa.'},
    {k:'check', q:{android:'En vez de "Instalar", la app dice "US$ 4,99". ¿Qué quiere decir?', iphone:'En vez de "Obtener", la app dice "US$ 4,99". ¿Qué quiere decir?'}, o:['Que es paga','Que es gratis'], a:0, why:'Exacto. Si ves un precio, te la cobran.'},
-   {k:'rec', pts:[{android:'Las apps se bajan de Play Store.', iphone:'Las apps se bajan del App Store.'},{android:'Escribís el nombre y tocás "Instalar".', iphone:'Escribís el nombre y tocás "Obtener".'},'Mirá quién hizo la app: hay copias.','Si ves un precio, la app es paga.']}
+   {k:'rec', pts:[{android:'Las apps se bajan de Play Store.', iphone:'Las apps se bajan del App Store.'},{android:'Tocás "Buscar", escribís el nombre y tocás "Instalar".', iphone:'Tocás "Buscar", escribís el nombre y tocás "Obtener".'},'Mirá quién hizo la app: hay copias.','Si ves un precio, la app es paga.']}
   ]}
 ]},
 {n:3, k:'whatsapp', em:'💬', t:'WhatsApp', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
@@ -3215,49 +3237,74 @@ function decidir(api, cfg){
 const msgCard = (from, sub, color, txt) => chatHead(from, sub, color) + '<div class="msgs" style="min-height:120px"><div class="msg in">' + esc(txt) + '<div class="meta">11:05</div></div></div>';
 
 SIMS.apStore = function(api){
+  /* Pantallas según guia-pantallas-reales (19/10/2026): en Play Store se busca con la pestaña "Buscar" de abajo;
+     en el App Store (iOS 26.4 en adelante) "Buscar" es la última pestaña de la barra flotante y la búsqueda se escribe arriba. */
   const ios = OS() === 'iphone', BTN = ios ? 'Obtener' : 'Instalar';
-  let paso = 0;
-  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:460px;background:var(--ph-bar)"><div class="bar"><b style="flex:1;font-size:19px">' + (ios ? 'App Store' : 'Google Play') + '</b></div><div class="gbar pulse" id="abar" style="margin-top:10px"><span aria-hidden="true">🔎</span><input id="aq" placeholder="' + (ios ? 'Buscar' : 'Buscar apps y juegos') + '" autocomplete="off" readonly><button type="button" class="gico" id="ago" aria-label="Buscar">🔎</button></div><div class="helpers" id="help" hidden><button type="button" id="h1">Escribir por mí</button></div><div id="ares" style="display:flex;flex-direction:column;gap:8px;padding:0 12px 12px"></div><p id="ahint" hidden style="margin:0 12px 12px;font-weight:700"></p></div>';
-  api.say('Paso 1: tocá la <b>barra de búsqueda</b>.');
-  const q = $('aq');
-  $('abar').addEventListener('click', e => { if (paso !== 0 || e.target === $('ago')) return; paso = 1; $('abar').classList.remove('pulse'); q.readOnly = false; q.focus(); $('help').hidden = false; api.say('Paso 2: escribí <b>Instagram</b> y tocá la lupa de la derecha. Si te cuesta, tocá "Escribir por mí".'); });
-  $('h1').addEventListener('click', () => { q.value = 'Instagram'; q.dispatchEvent(new Event('input')); });
-  q.addEventListener('input', () => $('ago').classList.toggle('pulse', q.value.trim().length > 0 && paso === 1));
-  q.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); $('ago').click(); } });
+  const TABS = ios ? [['☀️','Hoy'],['🎮','Juegos'],['🧩','Apps'],['🕹️','Arcade'],['🔎','Buscar']] : [['🎮','Juegos'],['🧩','Apps'],['🔎','Buscar'],['📚','Libros']];
+  const N = ios ? {buscar:1, barra:2, escribir:3, elegir:4, boton:5, confirmar:6, abrir:7} : {buscar:1, barra:2, escribir:3, elegir:4, boton:5, abrir:6};
+  let paso = 0, tab = ios ? 'Hoy' : 'Apps';
+  const nav = () => '<nav class="stnav' + (ios ? ' ios' : '') + '" aria-label="Pestañas de la tienda">' + TABS.map(t => '<button type="button" data-tab="' + t[1] + '"' + (t[1] === tab ? ' class="on" aria-current="page"' : '') + '><span aria-hidden="true">' + t[0] + '</span>' + t[1] + '</button>').join('') + '</nav>';
+  const gris = n => Array.from({length:n}, () => '<div class="stcard" aria-hidden="true"><i></i><div><i></i><i></i></div></div>').join('');
+  api.stage.innerHTML = '<div class="phone stphone' + (ios ? ' ios' : '') + '" id="ph" style="min-height:480px"></div><p class="muted" style="margin:6px 0 0;font-size:15px">Es solo un dibujo de la tienda. En tu celular puede verse un poco distinto.</p>';
+  const pintar = (html) => { $('ph').innerHTML = '<div class="stbody">' + html + '</div>' + nav(); $('ph').querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => tocarTab(b.dataset.tab))); };
+  function inicio(){
+    pintar(ios
+      ? '<div class="sttop"><b style="font-size:30px;flex:1">Hoy</b><span class="stav" aria-hidden="true"></span></div>' + gris(3)
+      : '<div class="sttop"><b style="font-size:20px;flex:1">Google Play</b><span aria-hidden="true" style="font-size:22px">🔔</span><span class="stav" aria-hidden="true"></span></div><div class="stchips" aria-hidden="true"><i>Para vos</i><i>Populares</i><i>Categorías</i></div>' + gris(3));
+    $('ph').querySelector('[data-tab="Buscar"]').classList.add('pulse');
+    $('ph').querySelector('.sttop').addEventListener('click', () => toast(ios ? 'La búsqueda está en "Buscar", abajo a la derecha.' : 'Arriba ya no hay barra para buscar. Está abajo: tocá "Buscar".'));
+    api.say('Paso ' + N.buscar + ': tocá <b>Buscar</b>, ' + (ios ? 'abajo a la derecha' : 'abajo') + '. Ahí está la lupa.');
+  }
+  function tocarTab(t){
+    if (paso === 0 && t === 'Buscar'){ paso = 1; tab = 'Buscar'; buscar(); return; }
+    if (paso === 0){ toast('Esa pestaña muestra otras cosas. Para buscar, tocá "Buscar".'); return; }
+    if (t !== 'Buscar') toast('Seguimos en "Buscar" para encontrar la app.');
+  }
+  function buscar(){
+    $('toast').hidden = true;
+    pintar('<div class="sttop"><b style="font-size:' + (ios ? 30 : 22) + 'px;flex:1">Buscar</b></div><div class="gbar pulse" id="abar"><span aria-hidden="true">🔎</span><input id="aq" placeholder="' + (ios ? 'Juegos, apps y más' : 'Buscar apps y juegos') + '" autocomplete="off" readonly><button type="button" class="gico" id="ago" aria-label="Buscar">🔎</button></div><div class="helpers" id="help" hidden><button type="button" id="h1">Escribir por mí</button></div><div id="ares" style="display:flex;flex-direction:column;gap:8px;padding:0 12px 12px">' + gris(2) + '</div><p id="ahint" hidden style="margin:0 12px 12px;font-weight:700"></p>');
+    api.say('¡Eso! Paso ' + N.barra + ': tocá la <b>barra de búsqueda</b>, arriba.');
+    const q = $('aq');
+    $('abar').addEventListener('click', e => { if (paso !== 1 || e.target === $('ago')) return; paso = 2; $('abar').classList.remove('pulse'); q.readOnly = false; q.focus(); $('help').hidden = false; api.say('Paso ' + N.escribir + ': escribí <b>Instagram</b> y tocá la lupa de la derecha. Si te cuesta, tocá "Escribir por mí".'); });
+    $('h1').addEventListener('click', () => { q.value = 'Instagram'; q.dispatchEvent(new Event('input')); });
+    q.addEventListener('input', () => $('ago').classList.toggle('pulse', q.value.trim().length > 0 && paso === 2));
+    q.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); $('ago').click(); } });
+    $('ago').addEventListener('click', () => {
+      if (paso === 1){ toast('Primero tocá la barra y escribí el nombre de la app.'); return; }
+      if (paso !== 2) return; if (!q.value.trim()){ toast('Primero escribí el nombre de la app.'); return; }
+      paso = 3; $('ago').classList.remove('pulse'); q.readOnly = true; q.blur(); $('help').hidden = true;
+      $('ares').innerHTML = fila('copia', 'Insta Fotos Pro', 'FotoApps Studio', '★ 3,1 · Con anuncios', '#9C27B0', '📷') + fila('ok', 'Instagram', 'Instagram', '★ 4,5 · Más de mil millones de descargas', '#5C6BC0', '📸');
+      api.say('Aparecieron dos apps parecidas. Paso ' + N.elegir + ': mirá abajo de cada nombre <b>quién la hizo</b>, y tocá la verdadera.');
+      $('ares').querySelectorAll('.aprow').forEach(b => b.addEventListener('click', () => {
+        if (b.dataset.k !== 'ok'){ b.classList.add('wrong'); $('ahint').hidden = false; $('ahint').textContent = '💡 Mirá quién la hizo: "FotoApps Studio". Es una copia, no la verdadera.'; return; }
+        ficha();
+      }));
+    });
+  }
   const fila = (k, nom, quien, est, bg, fb) => '<button type="button" class="aprow" data-k="' + k + '">' + appIco(k === 'ok' ? 'instagram' : null, fb, bg) + '<div><b>' + nom + '</b><small>' + quien + '</small><small>' + est + '</small></div></button>';
-  $('ago').addEventListener('click', () => {
-    if (paso === 0){ toast('Primero tocá la barra y escribí el nombre de la app.'); return; }
-    if (paso !== 1) return; if (!q.value.trim()){ toast('Primero escribí el nombre de la app.'); return; }
-    paso = 2; $('ago').classList.remove('pulse'); q.readOnly = true; q.blur(); $('help').hidden = true;
-    $('ares').innerHTML = fila('copia', 'Insta Fotos Pro', 'FotoApps Studio', '★ 3,1 · Con anuncios', '#9C27B0', '📷') + fila('ok', 'Instagram', 'Instagram', '★ 4,5 · Más de mil millones de descargas', '#5C6BC0', '📸');
-    api.say('Aparecieron dos apps parecidas. Paso 3: mirá abajo de cada nombre <b>quién la hizo</b>, y tocá la verdadera.');
-    $('ares').querySelectorAll('.aprow').forEach(b => b.addEventListener('click', () => {
-      if (b.dataset.k !== 'ok'){ b.classList.add('wrong'); $('ahint').hidden = false; $('ahint').textContent = '💡 Mirá quién la hizo: "FotoApps Studio". Es una copia, no la verdadera.'; return; }
-      ficha();
-    }));
-  });
   function ficha(){
-    paso = 3; $('toast').hidden = true;
-    $('ph').innerHTML = '<div class="bar"><button type="button" class="ibtn" aria-label="Volver">' + I4.back + '</button><span style="flex:1"></span></div><div class="apfi">' + appIco('instagram', '📸', '#5C6BC0') + '<div><b style="font-size:21px">Instagram</b><small>Instagram</small><small>★ 4,5 · Gratis</small></div></div><div style="padding:0 14px 14px"><button type="button" class="apbtn pulse" id="ain">' + BTN + '</button><div class="approg" id="apr" hidden><i id="apri"></i></div></div><div id="aphow" style="padding:0 14px 14px;color:var(--ph-sub);font-size:15px">Para compartir fotos y videos con amigos y familia.</div>';
-    api.say('¡Esa es la verdadera! Dice "Instagram" abajo del nombre. Paso 4: tocá <b>' + BTN + '</b>.');
+    paso = 4; $('toast').hidden = true;
+    pintar('<div class="sttop"><button type="button" class="ibtn' + (ios ? ' stglass' : '') + '" aria-label="Volver">' + I4.back + '</button><span style="flex:1"></span></div><div class="apfi">' + appIco('instagram', '📸', '#5C6BC0') + '<div><b style="font-size:21px">Instagram</b><small>Instagram</small><small>★ 4,5 · Gratis</small></div></div><div style="padding:0 14px 14px"><button type="button" class="apbtn pulse" id="ain">' + BTN + '</button><div class="approg" id="apr" hidden><i id="apri"></i></div></div><div id="aphow" style="padding:0 14px 14px;color:var(--ph-sub);font-size:15px">Para compartir fotos y videos con amigos y familia.</div>');
+    api.say('¡Esa es la verdadera! Dice "Instagram" abajo del nombre. Paso ' + N.boton + ': tocá <b>' + BTN + '</b>.');
     $('ain').addEventListener('click', instalar);
   }
   function instalar(){
-    if (paso === 3){
+    if (paso === 4){
       if (ios){
-        paso = 4; $('ain').classList.remove('pulse');
-        const sh = el('div', 'sheet ov', '<div><b style="font-size:18px">¿Instalar Instagram?</b><small style="color:var(--ph-sub)">Tu iPhone te pide tu cara, tu huella o tu código. Es tu propio celular el que pregunta.</small><button type="button" class="pgreen pulse" id="aok" style="background:#1E88E5">Confirmar con mi cara</button></div>');
-        $('ph').appendChild(sh); api.say('Paso 5: el iPhone te pide confirmar. Tocá <b>Confirmar con mi cara</b>.');
+        paso = 5; $('ain').classList.remove('pulse');
+        const sh = el('div', 'sheet ov', '<div><b style="font-size:18px">¿Instalar Instagram?</b><small style="color:var(--ph-sub)">Tu iPhone te pide tu cara, tu huella o tu código. Es tu propio celular el que pregunta.</small><button type="button" class="pgreen pulse" id="aok" style="background:#0A84FF">Confirmar con mi cara</button></div>');
+        $('ph').appendChild(sh); api.say('Paso ' + N.confirmar + ': el iPhone te pide confirmar. Tocá <b>Confirmar con mi cara</b>.');
         $('aok').addEventListener('click', () => { sh.remove(); bajar(); });
-      } else { paso = 4; bajar(); }
+      } else { paso = 5; bajar(); }
       return;
     }
-    if (paso === 6){ paso = 7; $('ain').classList.remove('pulse'); $('aphow').innerHTML = '<b style="color:var(--ph-text)">📸 Instagram se abrió.</b> Ya está también en tu pantalla de inicio.'; api.say('¡Lo lograste! Buscaste la app, elegiste la verdadera, la instalaste y la abriste.'); api.done(); }
+    if (paso === 7){ paso = 8; $('ain').classList.remove('pulse'); $('aphow').innerHTML = '<b style="color:var(--ph-text)">📸 Instagram se abrió.</b> Ya está también en tu pantalla de inicio.'; api.say('¡Lo lograste! Buscaste la app, elegiste la verdadera, la instalaste y la abriste.'); api.done(); }
   }
   function bajar(){
-    paso = 5; $('ain').hidden = true; $('apr').hidden = false; api.say('Se está descargando. Esperá un momentito…');
-    let p = 0; const av = () => { p = Math.min(100, p + 10); const i = $('apri'); if (i) i.style.width = p + '%'; if (p < 100) later(av, 250); else { paso = 6; $('apr').hidden = true; const b = $('ain'); b.hidden = false; b.textContent = 'Abrir'; b.classList.add('pulse'); api.say('¡Instalada! Paso ' + (ios ? 6 : 5) + ': tocá <b>Abrir</b>.'); } }; av();
+    paso = 6; $('ain').hidden = true; $('apr').hidden = false; api.say('Se está descargando. Esperá un momentito…');
+    let p = 0; const av = () => { p = Math.min(100, p + 10); const i = $('apri'); if (i) i.style.width = p + '%'; if (p < 100) later(av, 250); else { paso = 7; $('apr').hidden = true; const b = $('ain'); b.hidden = false; b.textContent = 'Abrir'; b.classList.add('pulse'); api.say('¡Instalada! Paso ' + N.abrir + ': tocá <b>Abrir</b>.'); } }; av();
   }
+  inicio();
 };
 
 /* ============ PRÁCTICAS A PARTIR DE LOS MANUALES (19/10/2026) ============ */
