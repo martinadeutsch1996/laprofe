@@ -915,14 +915,19 @@ const NIVELES = [
    {k:'check', q:'Querés agrandar una foto para ver un detalle. ¿Qué gesto usás?', o:['Mantener apretado','Separar dos dedos sobre la foto','Deslizar hacia la izquierda'], a:1, why:'Separando dos dedos la agrandás. Juntándolos, vuelve a su tamaño.'},
    {k:'rec', pts:['Tocar: un toque corto, para abrir.','Mantener apretado: dejar el dedo un segundo, para ver más opciones.','Deslizar: arrastrar el dedo, para pasar o mover.','Pellizcar: separar o juntar dos dedos, para agrandar o achicar.']}
   ]},
- {id:'2b', ic:'🏠', t:'La pantalla de inicio', min:5,
-  des:'En tu celular, abrí la cámara y volvé a la pantalla de inicio. Repetilo con dos apps más.',
+ {id:'2b', ic:'🏠', t:'La pantalla de inicio', min:8,
+  des:'En tu celular, abrí la cámara y volvé a la pantalla de inicio. Después mové un ícono al lugar que más te guste.',
   steps:[
    {k:'ex', txt:'La pantalla de inicio es como la mesa de trabajo de tu celular: ahí están los íconos de tus apps. Para abrir una, la tocás una vez.', art:'homeart'},
    {k:'ex', txt:{android:'Para volver a la pantalla de inicio desde cualquier app, tocás el botón del medio, abajo de todo. En algunos Android se desliza el dedo desde abajo hacia arriba.', iphone:'Para volver a la pantalla de inicio desde cualquier app, deslizás el dedo desde la rayita de abajo hacia arriba.'}, art:'backhome'},
    {k:'try', run:'homeScreen'},
    {k:'check', q:{android:'Estás dentro de una app y querés volver al inicio. ¿Qué hacés?', iphone:'Estás dentro de una app y querés volver al inicio. ¿Qué hacés?'}, o:{android:['Apago el celular','Toco el botón del medio, abajo'], iphone:['Apago el celular','Deslizo desde la rayita de abajo hacia arriba']}, a:1, why:'No hace falta cerrar nada ni apagar: volvés al inicio y la app queda en pausa.'},
-   {k:'rec', pts:['La pantalla de inicio tiene tus apps.','Un toque abre una app.',{android:'El botón del medio, abajo, te devuelve al inicio.', iphone:'Deslizar desde abajo hacia arriba te devuelve al inicio.'}]}
+   {k:'ex', txt:{android:'Los íconos se pueden ordenar como vos quieras. Por ejemplo, dejar arriba los que más usás.\nPara mover uno:\n1. Mantené apretado el ícono.\n2. Sin soltar, arrastralo hasta donde lo quieras.\n3. Soltalo.\nSi lo llevás hasta el borde, pasa a la otra pantalla.', iphone:'Los íconos se pueden ordenar como vos quieras. Por ejemplo, dejar arriba los que más usás.\nPara mover uno:\n1. Mantené apretado el ícono.\n2. Tocá "Editar pantalla de inicio". Los íconos empiezan a moverse.\n3. Arrastrá el ícono hasta donde lo quieras y soltalo.\n4. Tocá "OK", arriba a la derecha.\nSi lo llevás hasta el borde, pasa a la otra pantalla.'}},
+   {k:'ex', txt:{android:'En la pantalla de inicio no tienen por qué estar todas tus apps. Todas están en la lista de apps, que se abre deslizando el dedo desde abajo hacia arriba.\nPara traer una a la pantalla de inicio:\n1. Mantené apretada la app en la lista.\n2. Tocá "Agregar a Inicio".\nEn algunos celulares, en lugar de tocar, la arrastrás hacia arriba.', iphone:'En la pantalla de inicio no tienen por qué estar todas tus apps. Todas están en la Biblioteca de apps: es la última pantalla, deslizando hacia la izquierda.\nPara traer una a la pantalla de inicio:\n1. Mantené apretada la app en la Biblioteca.\n2. Tocá "Agregar a pantalla de inicio".\nSi esa opción no aparece, es porque la app ya está en tu pantalla de inicio.'}, art:'cajon'},
+   {k:'ex', txt:{android:'Si un ícono te sobra, mantenelo apretado y tocá "Eliminar" o "Quitar". El ícono sale de la pantalla de inicio, pero la app no se borra: sigue en la lista de apps. La que borra la app es "Desinstalar".', iphone:'Si un ícono te sobra, mantenelo apretado y tocá "Eliminar app". Después elegí "Quitar de la pantalla de inicio". La app no se borra: sigue en la Biblioteca de apps.'}, art:'quitar'},
+   {k:'try', run:'homeOrder'},
+   {k:'check', q:'Sacaste el ícono de una app de la pantalla de inicio. ¿Qué pasó con la app?', o:{android:['Se borró para siempre','Sigue en el celular, en la lista de apps'], iphone:['Se borró para siempre','Sigue en el celular, en la Biblioteca de apps']}, a:1, why:'Quitar el ícono no borra la app. Para borrarla hay que desinstalarla.'},
+   {k:'rec', pts:['La pantalla de inicio tiene tus apps.','Un toque abre una app.',{android:'El botón del medio, abajo, te devuelve al inicio.', iphone:'Deslizar desde abajo hacia arriba te devuelve al inicio.'},'Para mover un ícono, lo mantenés apretado y lo arrastrás.',{android:'Todas tus apps están en la lista, deslizando hacia arriba. Desde ahí las traés con "Agregar a Inicio".', iphone:'Todas tus apps están en la Biblioteca de apps. Desde ahí las traés con "Agregar a pantalla de inicio".'},'Quitar un ícono de la pantalla de inicio no borra la app.']}
   ]},
  {id:'2c', ic:'🔦', t:'Los atajos de arriba', min:5,
   des:'Abrí los atajos en tu celular y prendé la linterna. ¡Ya nunca más a oscuras!',
@@ -1372,7 +1377,7 @@ const REAL = {
  'ic1':['Abrí WhatsApp y encontrá la lupa.',{android:'Entrá a un chat y encontrá el clip, en la barra de escribir.', iphone:'Entrá a un chat y encontrá el signo de más, al lado de la barra de escribir.'},{android:'Tocá los tres puntitos de arriba y mirá las opciones. Buscá "Silenciar".', iphone:'Tocá el nombre del chat, arriba, y buscá "Silenciar".'}],
  '1d':['Mirá arriba cuánta batería tenés. ¿Más o menos de 20 %?','Bloqueá la pantalla apretando una vez el botón del costado.','Desbloqueala con tu PIN, tu huella o tu cara.',{android:'Abrí Ajustes, tocá la lupa y escribí: bloqueo de pantalla. Fijate qué tipo de bloqueo tenés.', iphone:'Abrí Configuración y entrá a "Face ID y código" (o "Touch ID y código"). Fijate qué tenés.'}],
  '2a':['Tocá una app para abrirla, y volvé al inicio.','Abrí tu galería de fotos.','Deslizá el dedo hacia la izquierda para pasar de foto.','Separá dos dedos sobre una foto para agrandarla.'],
- '2b':['Abrí la cámara.',{android:'Volvé al inicio con el botón del medio, abajo (o deslizando desde abajo hacia arriba).', iphone:'Volvé al inicio deslizando desde la rayita de abajo hacia arriba.'},{android:'Abrí Ajustes.', iphone:'Abrí Configuración.'},'Volvé al inicio otra vez.'],
+ '2b':['Abrí la cámara.',{android:'Volvé al inicio con el botón del medio, abajo (o deslizando desde abajo hacia arriba).', iphone:'Volvé al inicio deslizando desde la rayita de abajo hacia arriba.'},{android:'Abrí Ajustes.', iphone:'Abrí Configuración.'},'Volvé al inicio otra vez.','Mantené apretado un ícono y movelo a otro lugar.'],
  '2c':[{android:'Deslizá el dedo desde arriba de todo hacia abajo.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo.'},'Prendé la linterna.','Apagala.','Cerrá el panel.'],
  '2d':['Subí y bajá el volumen con los botones del costado.',{android:'Abrí Ajustes y entrá a Pantalla.', iphone:'Abrí Configuración y entrá a "Pantalla y brillo".'},{android:'Entrá a "Tamaño de fuente" (puede llamarse parecido según la marca).', iphone:'Entrá a "Tamaño del texto".'},'Mové la barrita hasta que leas cómodo.'],
  '3a':['Abrí WhatsApp.','Fijate si algún chat tiene el número verde.','Tocá la barra de "Buscar", arriba, y buscá a alguien por su nombre.'],
@@ -1431,7 +1436,7 @@ const LOGRO = {
   'ic1':'Ya reconocés los íconos que se repiten en casi todas las apps.',
   '1d':'Ya sabés cómo proteger tu celular con un bloqueo de pantalla.',
   '2a':'Ya sabés tocar, mantener apretado, deslizar y pellizcar.',
-  '2b':'Ya sabés abrir una app y volver a la pantalla de inicio.',
+  '2b':'Ya sabés volver a la pantalla de inicio y ordenar tus íconos como te gusta.',
   '2c':'Ya sabés usar los atajos para prender la linterna y más.',
   '2d':'Ya sabés agrandar la letra y ajustar el volumen y el brillo.',
   '3a':'Ya sabés encontrar un chat y ver qué mensajes no leíste.',
@@ -2210,7 +2215,7 @@ function renderFeed(){
 const KW = {
   'ic1':['icono','iconos','iconito','dibujito','dibujitos','simbolo','simbolos','tres puntitos','tres rayitas','campanita','engranaje','compartir','notificaciones','que significa este dibujo'],
   '1a':['app','aplicacion','smartphone','celular inteligente'], '1b':['wifi','wi-fi','datos moviles','internet','sin internet'], '1c':['nube','copia de seguridad','respaldo','backup'], '1d':['bateria','bloqueo','pin','actualizacion','actualizar el celular'],
-  '2a':['gestos','tocar','deslizar','pellizcar','mantener apretado'], '2b':['pantalla de inicio','volver al inicio','inicio'], '2c':['atajos','linterna','modo avion','centro de control'], '2d':['letra','letra grande','volumen','brillo','fuente','tamano'],
+  '2a':['gestos','tocar','deslizar','pellizcar','mantener apretado'], '2b':['pantalla de inicio','volver al inicio','inicio','mover iconos','mover un icono','ordenar la pantalla','ordenar iconos','ordenar las apps','acomodar','agregar a inicio','biblioteca de apps','desaparecio una app','no encuentro una app','se me borro un icono'], '2c':['atajos','linterna','modo avion','centro de control'], '2d':['letra','letra grande','volumen','brillo','fuente','tamano'],
   'ap1':['descargar','instalar','bajar una app','bajar apps','play store','google play','app store','tienda','aplicaciones nuevas'],
   '3a':['whatsapp','wasap','guasap','chats'], '3b':['mensaje','mandar un mensaje','tildes','tilde azul'], '3c':['audio','audios','nota de voz','grabar audio'], '3d':['mandar una foto','foto por whatsapp','enviar foto'], '3e':['estafa','estafas','codigo','me robaron','cuento del tio','fraude','pidiendo plata','piden plata','mensaje raro','sospechoso','transferir','transferencia'],
   '4a':['contacto','agendar','guardar un numero','numero nuevo'], '4b':['videollamada','video llamada','llamada con video'], '4c':['grupo','grupos','silenciar'], '4d':['reenviar','cadena','cadenas','noticias falsas','reenviado'],
@@ -2481,6 +2486,8 @@ const ICO_D = {
 const icoSvg = (k, z) => '<svg width="' + (z || 34) + '" height="' + (z || 34) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICO_D[k] + '</svg>';
 const icTiles = list => '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px">' + list.map(x => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px;text-align:center"><span style="width:64px;height:64px;border-radius:18px;background:var(--soft);color:var(--petroleo);display:grid;place-items:center">' + icoSvg(x[0]) + '</span><b style="font-size:16px;line-height:1.2">' + x[1] + '</b></div>').join('') + '</div>';
 const ART = {
+  cajon: () => OS() === 'iphone' ? big('👈','Deslizá hasta la Biblioteca de apps') : big('☝️','Deslizá hacia arriba: todas tus apps'),
+  quitar: () => big('🏠','Sale de la pantalla de inicio') + big('📱','La app sigue en tu celular'),
   icIntro: () => icTiles([['lupa','Buscar'],['clip','Adjuntar'],['campana','Avisos']]),
   icConex: () => icTiles([['wifi','WiFi'],['senal','Datos móviles'],['avion','Modo avión']]),
   icMover: () => icTiles([['lupa','Buscar'],[OS() === 'iphone' ? 'atrasI' : 'atras','Volver'],['cruz','Cerrar'],['rayitas','Menú'],[OS() === 'iphone' ? 'puntosH' : 'puntos','Más opciones']]),
@@ -2825,6 +2832,85 @@ SIMS.homeScreen = function(api){
   } else {
     $('hp').querySelectorAll('.navbar button').forEach(b => b.addEventListener('click', () => { if (b.dataset.n === 'home') goHome(); else if (b.dataset.n === 'back'){ goHome(); toast('La flechita también vuelve atrás. El botón del medio te lleva directo al inicio.', 3000); } else toast('Ese botón muestra las apps que tenés abiertas. Para el inicio, el del medio.'); }));
   }
+};
+
+SIMS.homeOrder = function(api){
+  const ios = OS() === 'iphone';
+  if (!$('hoSt')){ const st = document.createElement('style'); st.id = 'hoSt'; st.textContent = '@keyframes hoJig{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}.hojig .app-ic .sq{animation:hoJig .35s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.hojig .app-ic .sq{animation:none;outline:2px solid var(--ph-sub)}}.homenu{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(280px,88%);background:var(--ph-bar);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:5;overflow:hidden}.homenu button{display:block;width:100%;min-height:54px;border:none;border-bottom:1px solid var(--ph-line);background:none;text-align:left;padding:0 18px;font-size:17px;color:var(--ph-text)}.homenu button:last-child{border-bottom:none}'; document.head.appendChild(st); }
+  let apps = HOME_APPS.filter(a => a[0] !== 'msg').concat(HOME_APPS.filter(a => a[0] === 'msg'));
+  const MAS = [['calc','🧮','#FF9800','Calculadora'],['cal','📅','#1E88E5','Calendario'],['notas','📝','#FBC02D','Notas'],['clima','⛅','#29B6F6','Clima'],['radio','📻','#8D6E63','Radio'],['cont','👥','#26A69A','Contactos'],['arch','📁','#5C6BC0','Archivos'],['tienda','🛍️','#00897B','Tienda']];
+  let fase = 'mover', editando = false;
+  const hold = (b, ms, cb) => { let t = 0; const ini = e => { e.preventDefault(); clearTimeout(t); t = setTimeout(() => { t = 0; cb(e); }, ms); };
+    b.addEventListener('pointerdown', ini); b.addEventListener('contextmenu', e => e.preventDefault());
+    ['pointerup','pointerleave','pointercancel'].forEach(n => b.addEventListener(n, () => { if (t){ clearTimeout(t); t = 0; if (n === 'pointerup') toast('Dejá el dedo apoyado un segundo, sin soltar.'); } })); };
+  function home(){
+    api.stage.innerHTML = '<div class="phone" id="hop" style="min-height:400px">' + sbar() + '<div class="home' + (editando ? ' hojig' : '') + '" id="hoh">' + (editando ? '<div style="display:flex;justify-content:flex-end;padding:8px 10px 0"><button type="button" class="btn small" id="hook" style="min-height:44px;padding:0 18px">OK</button></div>' : '') + '<div class="icons" id="hoi">' + apps.map((a, i) => appIcon(a).replace('class="app-ic"', 'class="app-ic" data-slot="' + i + '"')).join('') + '</div>'
+      + (ios ? '<div style="text-align:center;color:var(--ph-sub);font-size:20px;letter-spacing:4px;padding-bottom:4px">● ○</div><div class="indicator"><i></i></div>' : '<div id="houp" style="margin:6px 12px 10px;min-height:56px;border-radius:16px;background:rgba(0,0,0,.07);display:grid;place-items:center;touch-action:none;color:var(--ph-text);font-weight:700;font-size:16px">︿ Todas las apps</div>') + '</div></div>';
+    if (fase === 'mover'){ const t = api.stage.querySelector('[data-slot="0"] .sq'); t.style.outline = '3px dashed var(--coral)'; t.style.outlineOffset = '4px'; }
+  }
+  function lift(b){
+    const x = b.querySelector('.sq'); const g = x.cloneNode(true); g.style.cssText += ';position:fixed;z-index:50;pointer-events:none;transform:scale(1.15);box-shadow:0 8px 20px rgba(0,0,0,.3)'; document.body.appendChild(g); x.style.opacity = '.3';
+    let armado = false, mov = 0;
+    const pos = e => { g.style.left = (e.clientX - 27) + 'px'; g.style.top = (e.clientY - 27) + 'px'; };
+    const r = x.getBoundingClientRect(); g.style.left = r.left + 'px'; g.style.top = r.top + 'px';
+    const move = e => { mov++; pos(e); };
+    const soltar = e => { document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', soltar); g.remove(); x.style.opacity = '';
+      const d = document.elementFromPoint(e.clientX, e.clientY); const c = d && d.closest('[data-slot]');
+      if (c && c.dataset.slot === '0') return llego();
+      if (mov < 3){ armado = true; toast('Ahora arrastralo hasta el lugar marcado, arriba a la izquierda. También podés tocar ese lugar.'); api.stage.querySelector('[data-slot="0"]').addEventListener('click', () => { if (armado) llego(); }, {once:true}); return; }
+      toast('Casi. Soltalo justo en el lugar marcado, arriba a la izquierda.'); };
+    document.addEventListener('pointermove', move); document.addEventListener('pointerup', soltar);
+  }
+  function llego(){
+    apps = apps.filter(a => a[0] !== 'msg'); apps.unshift(HOME_APPS.find(a => a[0] === 'msg')); fase = ios ? 'ok' : 'lista'; home();
+    api.stage.querySelector('[data-slot="0"] .sq').style.outline = '4px solid var(--lima)';
+    if (ios){ api.say('¡Quedó arriba! Paso 3: tocá <b>"OK"</b>, arriba a la derecha, para terminar.'); $('hook').classList.add('pulse'); $('hook').addEventListener('click', () => { editando = false; fase = 'lista'; home(); api.stage.querySelector('[data-slot="0"] .sq').style.outline = '4px solid var(--lima)'; paso2(); }); }
+    else paso2();
+  }
+  function cablearMover(){
+    const m = api.stage.querySelector('[data-a="msg"]'); m.style.touchAction = 'none';
+    api.stage.querySelectorAll('.app-ic').forEach(b => { if (b !== m) b.addEventListener('click', () => toast('Hoy movemos Mensajes, el globito verde. Está al final.')); });
+    if (ios && !editando){ hold(m, 550, () => menu([['Editar pantalla de inicio', () => { editando = true; home(); cablearMover(); api.say('Paso 2: los íconos se mueven. Ahora arrastrá <b>Mensajes</b> al lugar marcado, arriba a la izquierda.'); }], ['Eliminar app', () => toast('Esa saca la app. Hoy solo la movemos: tocá "Editar pantalla de inicio".'), true]], 'Editar pantalla de inicio')); return; }
+    if (ios) m.addEventListener('pointerdown', e => { e.preventDefault(); lift(m); });
+    else hold(m, 550, () => { toast('¡Eso! Ahora, sin soltar, arrastralo.', 2500); lift(m); });
+  }
+  function menu(ops, buena){
+    const w = el('div', 'homenu', ops.map((o, i) => '<button type="button" data-i="' + i + '"' + (o[0] === buena ? ' class="pulse"' : '') + '>' + o[0] + '</button>').join(''));
+    $('hop').appendChild(w); w.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const o = ops[+b.dataset.i]; if (!o[2]) w.remove(); o[1](); }));
+  }
+  function paso2(){
+    $('toast').hidden = true;
+    if (ios){
+      api.say('Paso 4: todas tus apps están en la <b>Biblioteca de apps</b>, la última pantalla. Deslizá el dedo hacia la izquierda.');
+      deslizar($('hoh'), 'x', biblioteca, 'Apoyá el dedo en la pantalla y movelo hacia la izquierda, sin soltar.');
+    } else {
+      api.say('¡Quedó arriba! Paso 2: ahora vamos a ver todas tus apps. Deslizá el dedo hacia arriba desde <b>"Todas las apps"</b>, abajo.');
+      $('houp').classList.add('pulse'); deslizar($('houp'), 'y', biblioteca, 'Apoyá el dedo en "Todas las apps" y subilo, sin soltar.');
+    }
+  }
+  function deslizar(z, eje, cb, ayuda){
+    let p0 = null, toques = 0, listo = false; z.style.touchAction = 'none'; const fin = () => { listo = true; $('toast').hidden = true; cb(); };
+    z.addEventListener('pointerdown', e => { p0 = {x:e.clientX, y:e.clientY}; try { z.setPointerCapture(e.pointerId); } catch(_){} });
+    z.addEventListener('pointerup', e => { if (!p0 || listo) return; const d = eje === 'x' ? e.clientX - p0.x : e.clientY - p0.y; p0 = null;
+      if (d < -40) return fin(); toques++; if (toques >= 3){ fin(); toast('En tu celular se hace deslizando. Esta vez lo hago yo.'); return; } toast(ayuda); });
+  }
+  function biblioteca(){
+    const titulo = ios ? 'Biblioteca de apps' : 'Todas las apps';
+    const lista = MAS.concat(HOME_APPS).sort((a, b) => a[3].localeCompare(b[3]));
+    const s = el('div', 'appscreen', '<div class="bar" style="background:var(--ph-home)"><h3>' + titulo + '</h3></div><div class="icons" style="background:var(--ph-home);flex:1">' + lista.map(appIcon).join('') + '</div>');
+    $('hoh').appendChild(s);
+    api.say('Acá están todas. Paso ' + (ios ? 5 : 3) + ': mantené apretada la <b>Calculadora</b>.');
+    s.querySelectorAll('.app-ic').forEach(b => { if (b.dataset.a !== 'calc') b.addEventListener('click', () => toast('Buscá la Calculadora: es la naranja.')); });
+    const c = s.querySelector('[data-a="calc"]'); c.classList.add('pulse'); c.style.touchAction = 'none';
+    const agregar = ios ? 'Agregar a pantalla de inicio' : 'Agregar a Inicio';
+    hold(c, 550, () => { c.classList.remove('pulse'); api.say('Paso ' + (ios ? 6 : 4) + ': tocá <b>"' + agregar + '"</b>.');
+      menu([[agregar, () => { s.remove(); apps.push(MAS[0]); fase = 'fin'; home(); api.stage.querySelector('[data-a="calc"] .sq').style.outline = '4px solid var(--lima)';
+        api.say('¡Listo! La Calculadora ya está en tu pantalla de inicio. Ya sabés ordenar tu celular como te gusta.'); api.done(); }],
+        [ios ? 'Eliminar app' : 'Desinstalar', () => toast('¡Esa no! Esa borra la app. Buscá "' + agregar + '".'), true],
+        [ios ? 'Compartir app' : 'Información de la app', () => toast('Esa sirve para otra cosa. Buscá "' + agregar + '".'), true]], agregar); });
+  }
+  home(); cablearMover();
+  api.say(ios ? 'Paso 1: vamos a llevar <b>Mensajes</b> arriba de todo. Mantené apretado su ícono, el globito verde que está al final.' : 'Paso 1: vamos a llevar <b>Mensajes</b> arriba de todo. Mantené apretado su ícono, el globito verde que está al final, y sin soltar arrastralo al lugar marcado.');
 };
 
 SIMS.quickPanel = function(api){
