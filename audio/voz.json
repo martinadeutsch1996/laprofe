@@ -1089,6 +1089,46 @@
    "origen": "ia",
    "huella": "db3966f35194",
    "fecha": "2026-10-21"
+  },
+  "2b-p6-android": {
+   "origen": "ia",
+   "huella": "5882845a2106",
+   "fecha": "2026-10-21"
+  },
+  "2b-p6-iphone": {
+   "origen": "ia",
+   "huella": "3d515bbfa4d8",
+   "fecha": "2026-10-21"
+  },
+  "2b-p7-android": {
+   "origen": "ia",
+   "huella": "c9542c6176a2",
+   "fecha": "2026-10-21"
+  },
+  "2b-p7-iphone": {
+   "origen": "ia",
+   "huella": "6750bc79ffec",
+   "fecha": "2026-10-21"
+  },
+  "2b-p8-android": {
+   "origen": "ia",
+   "huella": "474ebc41bf39",
+   "fecha": "2026-10-21"
+  },
+  "2b-p8-iphone": {
+   "origen": "ia",
+   "huella": "8864c23c06ab",
+   "fecha": "2026-10-21"
+  },
+  "2b-p11-android": {
+   "origen": "ia",
+   "huella": "aeac09df2355",
+   "fecha": "2026-10-21"
+  },
+  "2b-p11-iphone": {
+   "origen": "ia",
+   "huella": "b73de22d6832",
+   "fecha": "2026-10-21"
   }
  }
 }
