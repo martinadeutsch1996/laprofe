@@ -888,6 +888,22 @@ const NIVELES = [
    {k:'ex', txt:'Cada tanto el celular te avisa que hay una actualización. Es una mejora: arregla cosas y lo hace más seguro. Conviene hacerla con WiFi y con batería.', art:'update'},
    {k:'check', q:'¿Cuál es el mejor PIN?', o:['1234','Mi fecha de nacimiento','Unos números que no tengan que ver conmigo'], a:2, why:'1234 y tu fecha de nacimiento son lo primero que alguien probaría.'},
    {k:'rec', pts:['Cargá el celular cuando baje de 20 %.','El bloqueo de pantalla protege lo tuyo. Tu PIN no se comparte.','Las actualizaciones son mejoras: hacelas con WiFi.']}
+  ]},
+ {id:'ic1', pub:'iconos', ic:'🔣', t:'Los íconos que más vas a ver', min:7,
+  des:'Abrí WhatsApp y buscá tres íconos de esta lección: la lupa, el clip y los tres puntitos.',
+  steps:[
+   {k:'ex', txt:'Un ícono es un dibujito que reemplaza una palabra. Los mismos íconos se repiten en casi todas las apps. Si los conocés, te vas a manejar mejor hasta en una app que nunca abriste.', art:'icIntro'},
+   {k:'ex', txt:'Arriba de todo, en la pantalla, el abanico es el WiFi. Las rayitas son la señal de tu compañía, para los datos móviles. Si ves un avioncito, está prendido el modo avión y no te llegan mensajes.', art:'icConex'},
+   {k:'ex', txt:'Estos te ayudan a moverte dentro de una app. La lupa sirve para buscar. La flecha te lleva para atrás. La cruz cierra. Las tres rayitas abren el menú. Los tres puntitos muestran más opciones.', art:'icMover'},
+   {k:'ex', txt:'Estos son para comunicarte. El globito es para escribir un mensaje o un comentario. El clip sirve para adjuntar, o sea, mandar una foto o un documento. El micrófono es para hablar o grabar un audio. El avioncito envía.', art:'icComu'},
+   {k:'ex', txt:{android:'El ícono de compartir son tres puntitos unidos por rayitas. Sirve para mandarle a otra persona una foto, un video o una página. Al tocarlo, elegís a quién y por dónde, por ejemplo por WhatsApp.', iphone:'El ícono de compartir es un cuadradito con una flecha hacia arriba. Sirve para mandarle a otra persona una foto, un video o una página. Al tocarlo, elegís a quién y por dónde, por ejemplo por WhatsApp.'}, art:'icShare'},
+   {k:'ex', txt:'La campanita son las notificaciones: los avisos que te mandan las apps. Si la campanita está tachada, está silenciado. Los mensajes llegan igual, pero sin sonar. El corazón quiere decir "me gusta".', art:'icAvisos'},
+   {k:'ex', txt:'Y para cambiar cosas: el lápiz sirve para escribir o editar. El tachito borra. El engranaje abre los ajustes. El signo de más crea algo nuevo, como un chat o una nota.', art:'icCambiar'},
+   {k:'try', run:'icFind'},
+   {k:'check', q:'Te piden que mandes un comprobante por correo. ¿Qué ícono buscás?', o:['La campanita','El clip','El tachito'], a:1, why:'El clip sirve para adjuntar: mandar una foto o un documento.'},
+   {k:'check', q:'El grupo de la familia suena todo el día. ¿Qué buscás?', o:['La campanita tachada: silenciar','El tachito: borrar el grupo'], a:0, why:'Silenciado, los mensajes siguen llegando, pero sin sonar. Y nadie se entera.'},
+   {k:'check', q:'No encontrás una opción en una app. ¿Dónde te conviene mirar?', o:['En los tres puntitos o las tres rayitas','En el corazón'], a:0, why:'Ahí se guardan las opciones que no entran en la pantalla.'},
+   {k:'rec', pts:['Los íconos se repiten en casi todas las apps.','La lupa busca, la flecha vuelve y la cruz cierra.','Los tres puntitos y las tres rayitas guardan más opciones.',{android:'El clip adjunta. Los tres puntitos unidos sirven para compartir.', iphone:'El clip adjunta. El cuadradito con la flecha sirve para compartir.'},'La campanita son los avisos. Si está tachada, está silenciado.']}
   ]}
 ]},
 {n:2, k:'pantalla', em:'👆', t:'La pantalla de mi celular', d:'Gestos, pantalla de inicio, atajos y letra grande', ls:[
@@ -1353,6 +1369,7 @@ const REAL = {
  '1a':['Desbloqueá tu celular y mirá la pantalla de inicio.','Encontrá el ícono de WhatsApp: es verde, con un globito.','Encontrá la cámara.','Contá cuántas apps tenés en la primera pantalla.'],
  '1b':[{android:'Deslizá el dedo desde arriba de todo hacia abajo.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo.'},'Fijate si el abanico del WiFi está de color (prendido) o gris (apagado).','Fijate si los datos móviles están prendidos.',{android:'Cerrá el panel deslizando hacia arriba.', iphone:'Cerrá el panel deslizando hacia arriba o tocando afuera.'}],
  '1c':[{android:'Abrí Ajustes: es el engranaje.', iphone:'Abrí Configuración: es el engranaje.'},{android:'Tocá la lupa de arriba y escribí: copia de seguridad.', iphone:'Tocá tu nombre, arriba de todo, y después iCloud.'},{android:'Fijate si dice que está activada. Si no, pedile ayuda a alguien de confianza para activarla.', iphone:'Entrá a "Copia en iCloud" y fijate si está activada. Si no, pedile ayuda a alguien de confianza.'}],
+ 'ic1':['Abrí WhatsApp y encontrá la lupa.',{android:'Entrá a un chat y encontrá el clip, en la barra de escribir.', iphone:'Entrá a un chat y encontrá el signo de más, al lado de la barra de escribir.'},{android:'Tocá los tres puntitos de arriba y mirá las opciones. Buscá "Silenciar".', iphone:'Tocá el nombre del chat, arriba, y buscá "Silenciar".'}],
  '1d':['Mirá arriba cuánta batería tenés. ¿Más o menos de 20 %?','Bloqueá la pantalla apretando una vez el botón del costado.','Desbloqueala con tu PIN, tu huella o tu cara.',{android:'Abrí Ajustes, tocá la lupa y escribí: bloqueo de pantalla. Fijate qué tipo de bloqueo tenés.', iphone:'Abrí Configuración y entrá a "Face ID y código" (o "Touch ID y código"). Fijate qué tenés.'}],
  '2a':['Tocá una app para abrirla, y volvé al inicio.','Abrí tu galería de fotos.','Deslizá el dedo hacia la izquierda para pasar de foto.','Separá dos dedos sobre una foto para agrandarla.'],
  '2b':['Abrí la cámara.',{android:'Volvé al inicio con el botón del medio, abajo (o deslizando desde abajo hacia arriba).', iphone:'Volvé al inicio deslizando desde la rayita de abajo hacia arriba.'},{android:'Abrí Ajustes.', iphone:'Abrí Configuración.'},'Volvé al inicio otra vez.'],
@@ -1411,6 +1428,7 @@ const LOGRO = {
   '1a':'Ya sabés qué es una app y para qué sirve cada una.',
   '1b':'Ya sabés diferenciar el WiFi de los datos móviles.',
   '1c':'Ya sabés qué es la nube y cómo no perder tus fotos.',
+  'ic1':'Ya reconocés los íconos que se repiten en casi todas las apps.',
   '1d':'Ya sabés cómo proteger tu celular con un bloqueo de pantalla.',
   '2a':'Ya sabés tocar, mantener apretado, deslizar y pellizcar.',
   '2b':'Ya sabés abrir una app y volver a la pantalla de inicio.',
@@ -1467,7 +1485,7 @@ const LOGRO = {
    Cada nivel tiene una clave fija (k). El número que ve el alumno ("Nivel 3") sale del orden.
    PUBLICAR: true = lo ven todos los alumnos; false = oculto.
    Para ver todo lo oculto sin publicarlo, abrí la app con ?prueba al final del link. */
-const PUBLICAR = {camara:true, orga:true, ciudad:true, google:true, gmail:true, videos:true, redes:true, ia:true, apps:true}; // publicados el 19/10/2026 // apps = lección "Descargá una app"
+const PUBLICAR = {camara:true, orga:true, ciudad:true, google:true, gmail:true, videos:true, redes:true, ia:true, apps:true, iconos:true}; // publicados el 19/10/2026 // apps = lección "Descargá una app"
 const PRUEBA = /[?&](prueba|nivel5)\b/.test(location.search);
 const ORDEN = ['basico','pantalla','camara','whatsapp','maswa','orga','ciudad','google','gmail','videos','redes','ia'];
 NIVELES.sort((a, b) => ORDEN.indexOf(a.k) - ORDEN.indexOf(b.k));
@@ -2190,6 +2208,7 @@ function renderFeed(){
 /* ============ MARTINA IA RECOMIENDA LECCIONES ============
    Palabras que llevan a cada lección cuando alguien se las escribe a Martina IA (sin tildes, en minúscula). */
 const KW = {
+  'ic1':['icono','iconos','iconito','dibujito','dibujitos','simbolo','simbolos','tres puntitos','tres rayitas','campanita','engranaje','compartir','notificaciones','que significa este dibujo'],
   '1a':['app','aplicacion','smartphone','celular inteligente'], '1b':['wifi','wi-fi','datos moviles','internet','sin internet'], '1c':['nube','copia de seguridad','respaldo','backup'], '1d':['bateria','bloqueo','pin','actualizacion','actualizar el celular'],
   '2a':['gestos','tocar','deslizar','pellizcar','mantener apretado'], '2b':['pantalla de inicio','volver al inicio','inicio'], '2c':['atajos','linterna','modo avion','centro de control'], '2d':['letra','letra grande','volumen','brillo','fuente','tamano'],
   'ap1':['descargar','instalar','bajar una app','bajar apps','play store','google play','app store','tienda','aplicaciones nuevas'],
@@ -2432,7 +2451,43 @@ const ic = (e, bg, lb) => '<div style="display:flex;flex-direction:column;align-
 const big = (e, lb) => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="font-size:64px;line-height:1">' + e + '</span><b style="font-size:16px">' + lb + '</b></div>';
 const WIFI = '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1.3" fill="currentColor"/></svg>';
 const BARS = '<svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="15" width="3.5" height="6" rx="1"/><rect x="8.5" y="11" width="3.5" height="10" rx="1"/><rect x="14" y="7" width="3.5" height="14" rx="1"/><rect x="19.5" y="3" width="3" height="18" rx="1" opacity=".35"/></svg>';
+/* Íconos de la lección ic1: dibujos simples, sin marca, con la forma que se repite en las apps */
+const gearD = (() => { let d = ''; for (let k = 0; k < 16; k++){ const a = k * Math.PI / 8 - Math.PI / 16, r = k % 2 ? 7.2 : 9.6; const x1 = 12 + r * Math.cos(a), y1 = 12 + r * Math.sin(a), x2 = 12 + r * Math.cos(a + Math.PI / 8), y2 = 12 + r * Math.sin(a + Math.PI / 8); d += (k ? 'L' : 'M') + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'L' + x2.toFixed(1) + ' ' + y2.toFixed(1); } return d + 'Z'; })();
+const ICO_D = {
+  lupa:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5.5 5.5"/>',
+  clip:'<path d="m20 11.5-8.3 8.3a5 5 0 0 1-7.1-7.1l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8"/>',
+  campana:'<path d="M6 16v-5a6 6 0 0 1 12 0v5l1.8 2H4.2z"/><path d="M10 21a2 2 0 0 0 4 0"/>',
+  silencio:'<path d="M6 16v-5a6 6 0 0 1 12 0v5l1.8 2H4.2z"/><path d="M10 21a2 2 0 0 0 4 0"/><path d="M3 3l18 18" stroke-width="2.6"/>',
+  wifi:'<path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1.3" fill="currentColor"/>',
+  senal:'<path d="M4.5 20v-4M9.5 20v-8M14.5 20v-12M19.5 20V4" stroke-width="3"/>',
+  avion:'<path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0v5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="currentColor" stroke="none"/>',
+  atras:'<path d="M20 12H5M11 5l-7 7 7 7"/>',
+  atrasI:'<path d="M15 4l-8 8 8 8"/>',
+  cruz:'<path d="M6 6l12 12M18 6 6 18"/>',
+  rayitas:'<path d="M4 7h16M4 12h16M4 17h16"/>',
+  puntos:'<circle cx="12" cy="5" r="2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="2" fill="currentColor" stroke="none"/>',
+  puntosH:'<circle cx="12" cy="12" r="10"/><circle cx="7.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="16.5" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  globo:'<path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.6-5A8.5 8.5 0 1 1 21 11.5z"/>',
+  micro:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+  enviar:'<path d="M21.5 2.5 10.5 13.5M21.5 2.5l-7 19-4-8-8-4z"/>',
+  compartir:'<circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 10.8 7.4-4.4M8.3 13.2l7.4 4.4"/>',
+  compartirI:'<path d="M12 3v12M8 7l4-4 4 4M8 10.5H5.5v10.5h13V10.5H16"/>',
+  corazon:'<path d="M12 20.5S3.5 15.5 3.5 9.3A4.6 4.6 0 0 1 12 6.8a4.6 4.6 0 0 1 8.5 2.5c0 6.2-8.5 11.2-8.5 11.2z"/>',
+  lapiz:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+  tacho:'<path d="M4 7h16M9.5 7V4h5v3M6 7l1 13h10l1-13M10 11v5.5M14 11v5.5"/>',
+  engranaje:'<path d="' + gearD + '"/><circle cx="12" cy="12" r="3"/>',
+  mas:'<path d="M12 5v14M5 12h14"/>'
+};
+const icoSvg = (k, z) => '<svg width="' + (z || 34) + '" height="' + (z || 34) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICO_D[k] + '</svg>';
+const icTiles = list => '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px">' + list.map(x => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px;text-align:center"><span style="width:64px;height:64px;border-radius:18px;background:var(--soft);color:var(--petroleo);display:grid;place-items:center">' + icoSvg(x[0]) + '</span><b style="font-size:16px;line-height:1.2">' + x[1] + '</b></div>').join('') + '</div>';
 const ART = {
+  icIntro: () => icTiles([['lupa','Buscar'],['clip','Adjuntar'],['campana','Avisos']]),
+  icConex: () => icTiles([['wifi','WiFi'],['senal','Datos móviles'],['avion','Modo avión']]),
+  icMover: () => icTiles([['lupa','Buscar'],[OS() === 'iphone' ? 'atrasI' : 'atras','Volver'],['cruz','Cerrar'],['rayitas','Menú'],[OS() === 'iphone' ? 'puntosH' : 'puntos','Más opciones']]),
+  icComu: () => icTiles([['globo','Mensaje o comentario'],['clip','Adjuntar'],['micro','Hablar o grabar'],['enviar','Enviar']]),
+  icShare: () => icTiles([[OS() === 'iphone' ? 'compartirI' : 'compartir','Compartir']]) + '<span style="font-size:30px">➜</span>' + big('💬','Elegís a quién'),
+  icAvisos: () => icTiles([['campana','Notificaciones'],['silencio','Silenciado'],['corazon','Me gusta']]),
+  icCambiar: () => icTiles([['lapiz','Escribir o editar'],['tacho','Borrar'],['engranaje','Ajustes'],['mas','Crear algo nuevo']]),
   apps: () => ic('💬','#25D366','Mensajes') + ic('📷','#9AA4B2','Cámara') + ic('🗺️','#4CAF50','Mapas') + ic('▶️','#E53935','Videos'),
   tools: () => big('🧰','Una herramienta para cada cosa'),
   two: () => big('🤖','Android') + big('🍎','iPhone'),
@@ -2608,6 +2663,53 @@ SIMS.tapIcon = function(api){
     b.querySelector('.sq').style.outline = '4px solid var(--lima)'; k++;
     if (k < seq.length) api.say(seq[k][1]); else { api.say('¡Perfecto! Cada app es una herramienta para algo distinto.'); api.done(); }
   }));
+};
+
+SIMS.icFind = function(api){
+  const ios = OS() === 'iphone';
+  const NOM = {lupa:['la lupa','buscar'], campana:['la campanita','ver los avisos'], globo:['el globito','escribir un comentario'], compartir:['el ícono de compartir','mandarle la foto a alguien'], corazon:['el corazón','decir "me gusta"'], atras:['la flecha','volver atrás'], clip:['el clip','adjuntar una foto o un documento'], micro:['el micrófono','grabar un audio'], puntos:['los tres puntitos','ver más opciones'], cam:['la camarita','sacar una foto en el momento']};
+  const T1 = [['campana','Tocá el ícono de las <b>notificaciones</b>, donde ves los avisos.','¡Esa! La campanita te muestra los avisos.'],['globo','Ahora tocá el ícono para <b>comentar</b> la foto.','¡Bien! El globito es para escribir.'],['compartir','Ahora el de <b>compartir</b>, para mandarle la foto a alguien.','¡Eso! Con ese elegís a quién mandársela.'],['atras','Última de esta pantalla: tocá el ícono para <b>volver atrás</b>.','']];
+  const T2 = [['clip','Estás en un chat. Tocá el ícono para <b>adjuntar</b> una foto.','¡Muy bien! El clip adjunta. Hoy no mandamos nada: seguimos.'],['puntos','Este grupo suena mucho. Tocá los <b>tres puntitos</b> para ver más opciones.','']];
+  let scr = 1, k = 0;
+  const btn = (t, svg, extra) => '<button type="button" class="clip" data-t="' + t + '" aria-label="' + NOM[t][0] + '" style="color:var(--ph-text);width:48px;height:48px' + (extra || '') + '">' + svg + '</button>';
+  const back = () => btn('atras', icoSvg(ios ? 'atrasI' : 'atras', 26));
+  const tasks = () => scr === 1 ? T1 : T2;
+  const wire = () => api.stage.querySelectorAll('[data-t]').forEach(b => b.addEventListener('click', () => tap(b)));
+  function tap(b){
+    const list = tasks(); if (k >= list.length) return;
+    const t = b.dataset.t, want = list[k][0];
+    if (t !== want){ toast('Ese es ' + NOM[t][0] + ': sirve para ' + NOM[t][1] + '. Buscá ' + NOM[want][0] + '.', 4500); return; }
+    b.style.background = 'var(--lima)'; b.style.color = 'var(--ink)';
+    if (list[k][2]) toast(list[k][2], 3000);
+    k++;
+    if (scr === 1 && k === T1.length){ later(() => { scr = 2; k = 0; chat(); }, 500); return; }
+    if (scr === 2 && k === T2.length){ menu(); return; }
+    api.say(list[k][1]);
+  }
+  function post(){
+    api.stage.innerHTML = '<div class="phone" style="min-height:0;background:var(--ph-bar)">' + sbar() + '<div class="bar">' + back() + '<h3 style="flex:1">Fotos de Laura</h3>' + btn('lupa', icoSvg('lupa', 26)) + btn('campana', icoSvg('campana', 26)) + '</div>'
+      + '<div style="height:190px;background:linear-gradient(#FFB74D,#F06292);display:grid;place-items:center;font-size:90px">🌅</div>'
+      + '<div style="display:flex;gap:4px;padding:6px 8px">' + btn('corazon', icoSvg('corazon', 28)) + btn('globo', icoSvg('globo', 28)) + btn('compartir', icoSvg(ios ? 'compartirI' : 'compartir', 28)) + '</div>'
+      + '<p style="margin:0 14px 14px">Atardecer en la playa 🌅</p></div><p class="muted small" style="margin-top:10px;text-align:center">Es una app inventada: los íconos son los mismos que vas a ver en las de verdad.</p>';
+    wire(); api.say(T1[0][1]);
+  }
+  function chat(){
+    api.stage.innerHTML = '<div class="phone" id="icp">' + sbar() + '<div class="bar">' + back() + '<div class="who" style="flex:1"><span class="pic" style="background:#7E57C2">F</span><div style="min-width:0"><b>Familia</b><small>Carlos, Ana, Vos</small></div></div>' + btn('puntos', icoSvg(ios ? 'puntosH' : 'puntos', 26)) + '</div>'
+      + '<div class="msgs" id="icm" style="flex:1"></div><div class="inrow"><label class="field"><input placeholder="Mensaje" readonly>' + btn('clip', icoSvg('clip', 24), ';color:var(--ph-sub)') + btn('cam', I.cam, ';color:var(--ph-sub)') + '</label><button class="round" type="button" data-t="micro" aria-label="el micrófono">' + I.mic + '</button></div></div>';
+    addMsg($('icm'), '¿Quién lleva el postre el domingo? 🍰', false, '10:40'); addMsg($('icm'), '¡Yo llevo! 🙋', false, '10:41'); addMsg($('icm'), 'Y yo el helado 🍨', false, '10:41');
+    wire(); api.say(T2[0][1]);
+  }
+  function menu(){
+    const m = el('div', 'sheet', [['buscar','lupa','Buscar'],['silenciar','silencio','Silenciar notificaciones'],['vaciar','tacho','Vaciar chat']].map(o => '<button type="button" data-o="' + o[0] + '"' + (o[0] === 'silenciar' ? ' class="pulse"' : '') + '><span class="si" style="background:var(--ph-line);color:var(--ph-text)">' + icoSvg(o[1], 24) + '</span>' + o[2] + '</button>').join(''));
+    $('toast').hidden = true; $('icp').appendChild(m); api.say('Se abrieron más opciones. Tocá la de la <b>campanita tachada</b>, para silenciar.');
+    m.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.o === 'buscar'){ toast('La lupa busca dentro del chat. Buscá la campanita tachada.'); return; }
+      if (b.dataset.o === 'vaciar'){ toast('El tachito borra. ¡Mejor no! Buscá la campanita tachada.'); return; }
+      m.remove(); $('icp').querySelector('.who small').textContent = '🔕 Silenciado';
+      api.say('¡Silenciado! Los mensajes siguen llegando, pero sin sonar. ¡Ya reconocés los íconos más importantes!'); api.done();
+    }));
+  }
+  post();
 };
 
 SIMS.statusBar = function(api){
