@@ -858,6 +858,18 @@ const NIVELES = [
    {k:'check', q:'¿Qué es una app?', o:['Un programa del celular que sirve para algo específico','Un tipo de cable','La batería del celular'], a:0, why:'Exacto: WhatsApp, la cámara o YouTube son apps. Cada una sirve para algo.'},
    {k:'rec', pts:['El smartphone es una computadora de bolsillo.','Las apps son herramientas: una para cada cosa.','Tu celular es {os}: lo que aprendas acá es para él.']}
   ]},
+ {id:'ll1', pub:'llamadas', ic:'📞', t:'Atendé y hacé llamadas', min:6,
+  des:'Pedile a alguien de confianza que te llame. Atendé y probá poner el altavoz.',
+  steps:[
+   {k:'ex', txt:{android:'Cuando te llaman, en la pantalla aparece el nombre o el número y un teléfono verde. Para atender, deslizás el teléfono verde. Para no atender, deslizás el rojo. Según el celular, se desliza hacia arriba o hacia un costado.', iphone:'Cuando te llaman, en la pantalla aparece el nombre o el número. Si el celular está bloqueado, deslizás el botón verde hacia la derecha para atender. Si lo estabas usando, tocás el botón verde "Aceptar" o el rojo "Rechazar".'}, art:'llamEntra'},
+   {k:'ex', txt:'Durante la llamada aparecen botones grandes. El altavoz te deja escuchar sin pegarte el celular a la oreja. El micrófono tachado silencia tu voz: la otra persona no te escucha. Para cortar, tocás el botón rojo.', art:'llamBotones'},
+   {k:'ex', txt:{android:'Para llamar a alguien:\n1. Abrí la app Teléfono, la del tubo verde.\n2. Tocá "Contactos" y buscá a la persona.\n3. Tocá su nombre y después el tubo verde.\nSi tenés el número anotado, lo marcás en "Teclado".', iphone:'Para llamar a alguien:\n1. Abrí la app Teléfono, la del tubo verde.\n2. Tocá "Contactos" y buscá a la persona.\n3. Tocá su nombre y después "llamar".\nSi tenés el número anotado, lo marcás en "Teclado".'}},
+   {k:'ex', txt:{android:'Si no llegaste a atender, queda una llamada perdida. La ves en la app Teléfono, en "Recientes": aparece en rojo. Para devolverla, tocás esa llamada.', iphone:'Si no llegaste a atender, queda una llamada perdida. La ves en la app Teléfono, en "Llamadas": aparece en rojo. Para devolverla, tocás esa llamada.'}, art:'llamPerdida'},
+   {k:'try', run:'llamada'},
+   {k:'check', q:'Estás cocinando y te llama tu hermana. ¿Qué te sirve para hablar sin tener el celular en la mano?', o:['El altavoz','El micrófono tachado'], a:0, why:'Con el altavoz escuchás y hablás con el celular apoyado en la mesada.'},
+   {k:'check', q:'Te llaman de un número que no conocés: "Somos del banco, decinos el código que te llegó". ¿Qué hacés?', o:['Le paso el código','Corto: el banco nunca pide códigos por teléfono'], a:1, why:'Ningún banco te pide códigos ni claves por teléfono. Cortar no es de mala educación: es cuidarte.'},
+   {k:'rec', pts:['El verde atiende y el rojo corta.','El altavoz te deja hablar sin el celular en la oreja.','Las llamadas perdidas aparecen en rojo, en la app Teléfono.','Nadie de verdad te pide códigos ni claves por teléfono.']}
+  ]},
  {id:'1b', ic:'📶', t:'Internet: WiFi y datos móviles', min:5,
   des:'Deslizá desde arriba en tu celular y fijate si estás con WiFi o con datos móviles.',
   steps:[
@@ -915,6 +927,19 @@ const NIVELES = [
    {k:'check', q:'Querés agrandar una foto para ver un detalle. ¿Qué gesto usás?', o:['Mantener apretado','Separar dos dedos sobre la foto','Deslizar hacia la izquierda'], a:1, why:'Separando dos dedos la agrandás. Juntándolos, vuelve a su tamaño.'},
    {k:'rec', pts:['Tocar: un toque corto, para abrir.','Mantener apretado: dejar el dedo un segundo, para ver más opciones.','Deslizar: arrastrar el dedo, para pasar o mover.','Pellizcar: separar o juntar dos dedos, para agrandar o achicar.']}
   ]},
+ {id:'tb1', pub:'teclado', ic:'⌨️', t:'Escribí con el teclado', min:7,
+  des:'Abrí un chat de confianza y escribí un saludo con una mayúscula, una palabra con tilde y un emoji.',
+  steps:[
+   {k:'ex', txt:'Para escribir, primero tocá el lugar donde va el texto, por ejemplo donde dice "Mensaje". Ahí aparece el teclado. Al empezar, la primera letra sale en mayúscula sola.', art:'tecArt'},
+   {k:'ex', txt:'La flecha hacia arriba sirve para la mayúscula: la tocás una vez y la próxima letra sale grande. La tecla de borrar, la de la cruz, borra la última letra. Si la mantenés apretada, borra más rápido.', art:'tecTeclas'},
+   {k:'ex', txt:'Para poner una tilde, mantené apretada la letra un segundo. Aparecen opciones, como "á". Tocá la que querés. La ñ tiene su propia tecla, al lado de la l.', art:'tecTilde'},
+   {k:'ex', txt:{android:'Para los números, tocá "?123", abajo a la izquierda. Para volver a las letras, tocá "ABC". Los emojis están en la carita, cerca de la barra larga del espacio. Según el teclado, la carita puede estar en otro lugar.', iphone:'Para los números, tocá "123", abajo a la izquierda. Para volver a las letras, tocá "ABC". Los emojis están en la carita, abajo a la izquierda.'}},
+   {k:'ex', txt:'Si no tenés ganas de escribir, tocá el micrófono del teclado y hablá. El celular escribe lo que decís. Después revisá el texto antes de mandarlo.', art:'tecMicro'},
+   {k:'try', run:'teclado'},
+   {k:'check', q:'Querés escribir "Inés" con la I grande. ¿Qué tocás antes de la I?', o:['La flecha hacia arriba','La tecla de borrar'], a:0, why:'La flecha hacia arriba hace que la próxima letra salga en mayúscula.'},
+   {k:'check', q:'Querés escribir "café". ¿Cómo ponés la tilde?', o:['Mantengo apretada la e y elijo la é','No se puede poner tilde en el celular'], a:0, why:'Manteniendo apretada la letra aparecen sus tildes.'},
+   {k:'rec', pts:['Tocá donde va el texto y aparece el teclado.','La flecha hacia arriba hace la mayúscula. La tecla de la cruz borra.','Para la tilde, mantené apretada la letra.','La carita tiene los emojis y el micrófono escribe lo que decís.']}
+  ]},
  {id:'2b', ic:'🏠', t:'La pantalla de inicio', min:8,
   des:'En tu celular, abrí la cámara y volvé a la pantalla de inicio. Después mové un ícono al lugar que más te guste.',
   steps:[
@@ -938,6 +963,18 @@ const NIVELES = [
    {k:'check', q:'Sin querer prendiste el modo avión y no te llegan los mensajes. ¿Qué hacés?', o:['Llevo el celular a arreglar','Abro los atajos y toco el avión para apagarlo'], a:1, why:'El modo avión corta todas las conexiones. Se apaga igual que se prende: un toque.'},
    {k:'rec', pts:[{android:'Deslizá desde arriba para abrir los atajos.', iphone:'Deslizá desde la esquina de arriba a la derecha para abrir el Centro de control.'},'Color = prendido. Gris = apagado.','La ubicación la necesitan Google Maps y el taxi.']}
   ]},
+ {id:'nt1', pub:'avisos', ic:'🔕', t:'Avisos, silencio y "No molestar"', min:7,
+  des:'Poné tu celular en silencio y volvé a sacarlo. Si querés, prendé el "No molestar" a la noche.',
+  steps:[
+   {k:'ex', txt:{android:'Las notificaciones son los avisos de las apps: un mensaje nuevo, una llamada perdida o un recordatorio. Para verlas, deslizá el dedo desde arriba de todo hacia abajo. Si tocás un aviso, se abre la app. Si lo deslizás hacia un costado, desaparece.', iphone:'Las notificaciones son los avisos de las apps: un mensaje nuevo, una llamada perdida o un recordatorio. Para verlas, deslizá el dedo desde el centro de arriba hacia abajo. Si tocás un aviso, se abre la app. Si lo deslizás hacia la izquierda, lo podés borrar.'}, art:'notifArt'},
+   {k:'ex', txt:{android:'Para poner el celular en silencio, apretá un botón de volumen. En la pantalla aparece una barrita con una campanita. Tocala hasta que quede tachada o en vibración. También está en los atajos de arriba, como "Sonido".', iphone:'Para poner el iPhone en silencio, usá el botoncito del costado, arriba de los de volumen. Según el modelo, se mueve o se mantiene apretado. En la pantalla aparece "Modo silencio" con la campanita tachada.'}, art:'silArt'},
+   {k:'ex', txt:{android:'El "No molestar" calla los avisos y las llamadas, por ejemplo de noche. Lo prendés en los atajos de arriba: es la lunita. Para apagarlo, tocás la lunita de nuevo.', iphone:'El "No molestar" calla los avisos y las llamadas, por ejemplo de noche. Lo prendés en el Centro de control: tocás "Concentración" y después "No molestar". Aparece una lunita. Para apagarlo, tocás de nuevo.'}, art:'lunaArt'},
+   {k:'ex', txt:{android:'Podés dejar que algunas personas sí te llamen, como tu familia.\nPara elegirlas:\n1. Abrí Ajustes y buscá "No molestar".\n2. Entrá a la parte de llamadas o personas.\n3. Elegí tus contactos favoritos.\nLos nombres cambian un poco según la marca.', iphone:'Podés dejar que algunas personas sí te llamen, como tu familia.\nPara elegirlas:\n1. Abrí Configuración y tocá "Concentración".\n2. Tocá "No molestar" y después "Personas".\n3. Agregá a quienes sí pueden llamarte.\nAdemás, si alguien te llama dos veces en tres minutos, la segunda llamada suena.'}},
+   {k:'try', run:'noMolestar'},
+   {k:'check', q:'Vas al cine y no querés que suene el celular, pero sí ver los mensajes después. ¿Qué hacés?', o:['Lo pongo en silencio','Lo apago y lo dejo en casa'], a:0, why:'En silencio los mensajes llegan igual: los ves cuando salís.'},
+   {k:'check', q:'Prendiste el "No molestar" para dormir. ¿Tu familia te puede llamar si es urgente?', o:['Nunca, nadie','Sí, si los elegís como personas permitidas'], a:1, why:'Podés elegir quiénes sí te llaman, aunque esté prendido el "No molestar".'},
+   {k:'rec', pts:[{android:'Los avisos se ven deslizando desde arriba. Deslizando un aviso hacia el costado, se va.', iphone:'Los avisos se ven deslizando desde el centro de arriba. Deslizando un aviso hacia la izquierda, se borra.'},'En silencio, los mensajes llegan igual, pero sin sonar.','La lunita es el "No molestar": calla avisos y llamadas.','Podés elegir quiénes sí te llaman aunque esté prendido.']}
+  ]},
  {id:'2d', ic:'🔠', t:'Volumen, brillo y letra grande', min:5,
   des:'Agrandá la letra de tu celular hasta que leas cómodo, sin anteojos si es posible.',
   steps:[
@@ -946,6 +983,18 @@ const NIVELES = [
    {k:'try', run:'fontSize'},
    {k:'check', q:'Te cuesta leer los mensajes. ¿Dónde lo arreglás?', o:[{android:'En Ajustes > Pantalla > Tamaño de fuente', iphone:'En Configuración > Pantalla y brillo > Tamaño del texto'},'Comprando un celular más grande'], a:0, why:'Con agrandar la letra alcanza, y se cambia en un minuto.'},
    {k:'rec', pts:['Botones del costado: volumen.',{android:'Ajustes > Pantalla > Tamaño de fuente.', iphone:'Configuración > Pantalla y brillo > Tamaño del texto.'},'El brillo también está en los atajos de arriba.']}
+  ]},
+ {id:'cp1', pub:'captura', ic:'📸', t:'Sacá una captura de pantalla', min:5,
+  des:'Sacale una captura a la pantalla de inicio de tu celular y buscala en tus fotos.',
+  steps:[
+   {k:'ex', txt:'Una captura de pantalla es una foto de lo que se ve en tu pantalla. Sirve para guardar algo, como una dirección. También sirve para pedir ayuda: mandás la captura y la otra persona ve lo mismo que vos.', art:'captArt'},
+   {k:'ex', txt:{android:'Para sacarla:\n1. Apretá al mismo tiempo el botón de encendido y el de bajar el volumen.\n2. Soltalos enseguida.\nLa pantalla hace un destello, como una foto.', iphone:'Para sacarla:\n1. Apretá al mismo tiempo el botón del costado derecho y el de subir el volumen.\n2. Soltalos enseguida.\nLa pantalla hace un destello, como una foto. Si tu iPhone tiene el botón redondo abajo, apretá ese y el del costado.'}, art:'captBotones'},
+   {k:'ex', txt:{android:'La captura aparece un momento en chiquito, abajo. Si no hacés nada, se guarda sola con tus fotos. La encontrás en la Galería o en Google Fotos, primera de todas.', iphone:'La captura aparece un momento en chiquito, abajo a la izquierda. Si no hacés nada, se guarda sola. La encontrás en la app Fotos, al final, porque es la más nueva.'}},
+   {k:'ex', txt:{android:'Para mandarla por WhatsApp, hacés como con cualquier foto: en el chat tocás el clip, después "Galería", y elegís la captura.', iphone:'Para mandarla por WhatsApp, hacés como con cualquier foto: en el chat tocás el signo de más, después "Fotos", y elegís la captura.'}},
+   {k:'try', run:'captura'},
+   {k:'check', q:'Te aparece un mensaje raro en el celular y querés mostrárselo a alguien de tu familia. ¿Qué hacés?', o:['Le saco una captura y se la mando','Se lo copio a mano en un papel'], a:0, why:'La captura muestra exactamente lo que ves. Y no hay que copiar nada.'},
+   {k:'check', q:'¿Dónde queda guardada la captura?', o:['Con tus fotos','En ningún lado: se borra sola'], a:0, why:'Se guarda como cualquier foto, y la podés mandar o borrar cuando quieras.'},
+   {k:'rec', pts:['Una captura es una foto de tu pantalla.',{android:'Encendido y bajar volumen, al mismo tiempo.', iphone:'Botón del costado y subir volumen, al mismo tiempo.'},'Se guarda sola con tus fotos.','Se manda como cualquier foto. Sirve mucho para pedir ayuda.']}
   ]},
  {id:'ap1', pub:'apps', app:{android:['playstore'], iphone:['appstore']}, ic:'⬇️', t:'Descargá una app', min:6, des:'Abrí la tienda de tu celular y buscá una app que te interese. Fijate si es gratis.',
   steps:[
@@ -1374,6 +1423,10 @@ const REAL = {
  '1a':['Desbloqueá tu celular y mirá la pantalla de inicio.','Encontrá el ícono de WhatsApp: es verde, con un globito.','Encontrá la cámara.','Contá cuántas apps tenés en la primera pantalla.'],
  '1b':[{android:'Deslizá el dedo desde arriba de todo hacia abajo.', iphone:'Deslizá el dedo desde la esquina de arriba a la derecha hacia abajo.'},'Fijate si el abanico del WiFi está de color (prendido) o gris (apagado).','Fijate si los datos móviles están prendidos.',{android:'Cerrá el panel deslizando hacia arriba.', iphone:'Cerrá el panel deslizando hacia arriba o tocando afuera.'}],
  '1c':[{android:'Abrí Ajustes: es el engranaje.', iphone:'Abrí Configuración: es el engranaje.'},{android:'Tocá la lupa de arriba y escribí: copia de seguridad.', iphone:'Tocá tu nombre, arriba de todo, y después iCloud.'},{android:'Fijate si dice que está activada. Si no, pedile ayuda a alguien de confianza para activarla.', iphone:'Entrá a "Copia en iCloud" y fijate si está activada. Si no, pedile ayuda a alguien de confianza.'}],
+ 'll1':['Pedile a alguien de confianza que te llame y atendé.','Durante la llamada, tocá "Altavoz".','Cortá con el botón rojo.',{android:'Abrí la app Teléfono y mirá tus llamadas en "Recientes".', iphone:'Abrí la app Teléfono y mirá tus llamadas en "Llamadas".'}],
+ 'tb1':['Abrí un chat de confianza y tocá donde dice "Mensaje".','Escribí un saludo con una palabra con tilde.','Agregá un emoji con la carita.','Mandalo.'],
+ 'nt1':[{android:'Apretá un botón de volumen y tocá la campanita hasta que quede en silencio.', iphone:'Poné el iPhone en silencio con el botoncito del costado.'},'Volvé a ponerle sonido.',{android:'Deslizá desde arriba y buscá la lunita del "No molestar".', iphone:'Abrí el Centro de control y buscá "Concentración".'}],
+ 'cp1':[{android:'Apretá a la vez el botón de encendido y el de bajar volumen.', iphone:'Apretá a la vez el botón del costado y el de subir volumen.'},{android:'Abrí la Galería o Google Fotos y buscá la captura.', iphone:'Abrí Fotos y buscá la captura.'},'Si no la querés, borrala con el tachito.'],
  'ic1':['Abrí WhatsApp y encontrá la lupa.',{android:'Entrá a un chat y encontrá el clip, en la barra de escribir.', iphone:'Entrá a un chat y encontrá el signo de más, al lado de la barra de escribir.'},{android:'Tocá los tres puntitos de arriba y mirá las opciones. Buscá "Silenciar".', iphone:'Tocá el nombre del chat, arriba, y buscá "Silenciar".'}],
  '1d':['Mirá arriba cuánta batería tenés. ¿Más o menos de 20 %?','Bloqueá la pantalla apretando una vez el botón del costado.','Desbloqueala con tu PIN, tu huella o tu cara.',{android:'Abrí Ajustes, tocá la lupa y escribí: bloqueo de pantalla. Fijate qué tipo de bloqueo tenés.', iphone:'Abrí Configuración y entrá a "Face ID y código" (o "Touch ID y código"). Fijate qué tenés.'}],
  '2a':['Tocá una app para abrirla, y volvé al inicio.','Abrí tu galería de fotos.','Deslizá el dedo hacia la izquierda para pasar de foto.','Separá dos dedos sobre una foto para agrandarla.'],
@@ -1434,6 +1487,10 @@ const LOGRO = {
   '1b':'Ya sabés diferenciar el WiFi de los datos móviles.',
   '1c':'Ya sabés qué es la nube y cómo no perder tus fotos.',
   'ic1':'Ya reconocés los íconos que se repiten en casi todas las apps.',
+  'll1':'Ya sabés atender, cortar, poner el altavoz y devolver una llamada perdida.',
+  'tb1':'Ya sabés escribir con mayúsculas, tildes y emojis.',
+  'nt1':'Ya sabés ver tus avisos, poner el celular en silencio y usar el "No molestar".',
+  'cp1':'Ya sabés sacar una captura de pantalla y encontrarla en tus fotos.',
   '1d':'Ya sabés cómo proteger tu celular con un bloqueo de pantalla.',
   '2a':'Ya sabés tocar, mantener apretado, deslizar y pellizcar.',
   '2b':'Ya sabés volver a la pantalla de inicio y ordenar tus íconos como te gusta.',
@@ -1490,7 +1547,7 @@ const LOGRO = {
    Cada nivel tiene una clave fija (k). El número que ve el alumno ("Nivel 3") sale del orden.
    PUBLICAR: true = lo ven todos los alumnos; false = oculto.
    Para ver todo lo oculto sin publicarlo, abrí la app con ?prueba al final del link. */
-const PUBLICAR = {camara:true, orga:true, ciudad:true, google:true, gmail:true, videos:true, redes:true, ia:true, apps:true, iconos:true}; // publicados el 19/10/2026 // apps = lección "Descargá una app"
+const PUBLICAR = {camara:true, orga:true, ciudad:true, google:true, gmail:true, videos:true, redes:true, ia:true, apps:true, iconos:true, llamadas:true, teclado:true, avisos:true, captura:true}; // publicados el 19/10/2026 // apps = lección "Descargá una app"
 const PRUEBA = /[?&](prueba|nivel5)\b/.test(location.search);
 const ORDEN = ['basico','pantalla','camara','whatsapp','maswa','orga','ciudad','google','gmail','videos','redes','ia'];
 NIVELES.sort((a, b) => ORDEN.indexOf(a.k) - ORDEN.indexOf(b.k));
@@ -2213,6 +2270,10 @@ function renderFeed(){
 /* ============ MARTINA IA RECOMIENDA LECCIONES ============
    Palabras que llevan a cada lección cuando alguien se las escribe a Martina IA (sin tildes, en minúscula). */
 const KW = {
+  'll1':['llamada','llamadas','atender','cortar','altavoz','llamada perdida','llamadas perdidas','llamar','me llaman','no puedo atender','devolver la llamada'],
+  'tb1':['teclado','escribir','mayuscula','mayusculas','tilde','tildes','acento','borrar letras','emoji','emojis','dictar','escribir con la voz','la enie'],
+  'nt1':['no molestar','silencio','modo silencio','silenciar el celular','vibrar','vibracion','de noche','suena mucho','notificacion','notificaciones','avisos','sonido'],
+  'cp1':['captura','captura de pantalla','pantallazo','screenshot','foto de la pantalla','sacarle foto a la pantalla'],
   'ic1':['icono','iconos','iconito','dibujito','dibujitos','simbolo','simbolos','tres puntitos','tres rayitas','campanita','engranaje','compartir','notificaciones','que significa este dibujo'],
   '1a':['app','aplicacion','smartphone','celular inteligente'], '1b':['wifi','wi-fi','datos moviles','internet','sin internet'], '1c':['nube','copia de seguridad','respaldo','backup'], '1d':['bateria','bloqueo','pin','actualizacion','actualizar el celular'],
   '2a':['gestos','tocar','deslizar','pellizcar','mantener apretado'], '2b':['pantalla de inicio','volver al inicio','inicio','mover iconos','mover un icono','ordenar la pantalla','ordenar iconos','ordenar las apps','acomodar','agregar a inicio','biblioteca de apps','desaparecio una app','no encuentro una app','se me borro un icono'], '2c':['atajos','linterna','modo avion','centro de control'], '2d':['letra','letra grande','volumen','brillo','fuente','tamano'],
@@ -2459,6 +2520,12 @@ const BARS = '<svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor
 /* Íconos de la lección ic1: dibujos simples, sin marca, con la forma que se repite en las apps */
 const gearD = (() => { let d = ''; for (let k = 0; k < 16; k++){ const a = k * Math.PI / 8 - Math.PI / 16, r = k % 2 ? 7.2 : 9.6; const x1 = 12 + r * Math.cos(a), y1 = 12 + r * Math.sin(a), x2 = 12 + r * Math.cos(a + Math.PI / 8), y2 = 12 + r * Math.sin(a + Math.PI / 8); d += (k ? 'L' : 'M') + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'L' + x2.toFixed(1) + ' ' + y2.toFixed(1); } return d + 'Z'; })();
 const ICO_D = {
+  tel:'<path d="M5 3.5h3.5l2 5-2.6 1.6a11 11 0 0 0 6 6l1.6-2.6 5 2V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5.5a2 2 0 0 1 2-2z"/>',
+  altavoz:'<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>',
+  microT:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/><path d="M3 3l18 18" stroke-width="2.6"/>',
+  luna:'<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/>',
+  shift:'<path d="M12 4 4 12.5h4.5V20h7v-7.5H20z"/>',
+  borrar:'<path d="M8 5h12v14H8l-6-7z"/><path d="m11 9.5 5 5M16 9.5l-5 5"/>',
   lupa:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5.5 5.5"/>',
   clip:'<path d="m20 11.5-8.3 8.3a5 5 0 0 1-7.1-7.1l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8"/>',
   campana:'<path d="M6 16v-5a6 6 0 0 1 12 0v5l1.8 2H4.2z"/><path d="M10 21a2 2 0 0 0 4 0"/>',
@@ -2484,8 +2551,21 @@ const ICO_D = {
   mas:'<path d="M12 5v14M5 12h14"/>'
 };
 const icoSvg = (k, z) => '<svg width="' + (z || 34) + '" height="' + (z || 34) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICO_D[k] + '</svg>';
+const rnd = (bg, lb, cortar) => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:104px;text-align:center"><span style="width:64px;height:64px;border-radius:50%;background:' + bg + ';color:#fff;display:grid;place-items:center' + (cortar ? ';transform:rotate(135deg)' : '') + '">' + icoSvg('tel', 30) + '</span><b style="font-size:16px;line-height:1.2">' + lb + '</b></div>';
 const icTiles = list => '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px">' + list.map(x => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px;text-align:center"><span style="width:64px;height:64px;border-radius:18px;background:var(--soft);color:var(--petroleo);display:grid;place-items:center">' + icoSvg(x[0]) + '</span><b style="font-size:16px;line-height:1.2">' + x[1] + '</b></div>').join('') + '</div>';
 const ART = {
+  llamEntra: () => '<div style="display:flex;gap:26px">' + rnd('#E5484D', 'Rojo: no atender', true) + rnd('#1DAA61', 'Verde: atender') + '</div>',
+  llamBotones: () => icTiles([['altavoz','Altavoz'],['microT','Silenciar tu voz']]) + rnd('#E5484D', 'Cortar', true),
+  llamPerdida: () => '<div style="width:100%;max-width:300px;background:var(--soft);border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center"><span><b style="color:#D93025">Dr. Pérez</b><br><span class="muted small">Perdida</span></span><span class="muted">10:15</span></div>',
+  tecArt: () => '<div style="width:100%;max-width:300px;background:var(--soft);border-radius:999px;padding:12px 18px;color:var(--muted);font-size:17px">Mensaje</div><span style="font-size:30px">➜</span>' + big('⌨️','Aparece el teclado'),
+  tecTeclas: () => icTiles([['shift','Mayúscula'],['borrar','Borrar']]),
+  tecTilde: () => '<div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="display:flex;gap:6px;background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.15);border-radius:12px;padding:6px">' + ['é','è','ê'].map((c, i) => '<span style="width:44px;height:48px;border-radius:9px;display:grid;place-items:center;font-size:24px;font-weight:700;' + (i ? '' : 'background:var(--petroleo);color:#fff') + '">' + c + '</span>').join('') + '</div><span style="width:44px;height:48px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font-size:24px;font-weight:700">e</span><b style="font-size:16px">Mantené apretada la e</b></div>',
+  tecMicro: () => icTiles([['micro','Hablás']]) + '<span style="font-size:30px">➜</span>' + big('✍️','El celular escribe'),
+  notifArt: () => '<div style="width:100%;max-width:300px;display:flex;flex-direction:column;gap:8px"><div style="background:var(--soft);border-radius:14px;padding:10px 14px"><b>💬 Mensajes</b> · ahora<br>Ana: ¿Venís el domingo?</div><div style="background:var(--soft);border-radius:14px;padding:10px 14px"><b>📅 Calendario</b> · 9:00<br>Turno con el médico</div></div>',
+  silArt: () => icTiles([['campana','Con sonido'],['silencio','En silencio']]),
+  lunaArt: () => icTiles([['luna','No molestar']]),
+  captArt: () => big('📱','Lo que ves en la pantalla') + '<span style="font-size:30px">➜</span>' + big('🖼️','Queda como una foto'),
+  captBotones: () => OS() === 'iphone' ? big('🔘','Costado') + '<b style="font-size:26px">+</b>' + big('🔊','Subir volumen') : big('⏻','Encendido') + '<b style="font-size:26px">+</b>' + big('🔉','Bajar volumen'),
   cajon: () => OS() === 'iphone' ? big('👈','Deslizá hasta la Biblioteca de apps') : big('☝️','Deslizá hacia arriba: todas tus apps'),
   quitar: () => big('🏠','Sale de la pantalla de inicio') + big('📱','La app sigue en tu celular'),
   icIntro: () => icTiles([['lupa','Buscar'],['clip','Adjuntar'],['campana','Avisos']]),
@@ -2719,6 +2799,246 @@ SIMS.icFind = function(api){
   post();
 };
 
+/* Deslizar con ayuda: acepta el gesto en la dirección pedida; a la tercera vez sin lograrlo, lo hace la práctica */
+function gestoDeslizar(z, dir, cb, ayuda){
+  let p0 = null, toques = 0, listo = false; z.style.touchAction = 'none';
+  const fin = () => { if (listo) return; listo = true; $('toast').hidden = true; cb(); };
+  z.addEventListener('pointerdown', e => { if (listo) return; p0 = {x:e.clientX, y:e.clientY}; try { z.setPointerCapture(e.pointerId); } catch(_){} });
+  z.addEventListener('pointermove', e => { if (!p0 || listo || dir !== 'izq') return; const dx = Math.min(0, e.clientX - p0.x); z.style.transform = 'translateX(' + dx + 'px)'; });
+  z.addEventListener('pointerup', e => { if (!p0 || listo) return; const dx = e.clientX - p0.x, dy = e.clientY - p0.y; p0 = null; z.style.transform = '';
+    const ok = dir === 'arriba' ? dy < -40 : dir === 'abajo' ? dy > 30 : dir === 'der' ? dx > 60 : dir === 'lado' ? Math.abs(dx) > 60 : dx < -60;
+    if (ok) return fin(); toques++; if (toques >= 3){ fin(); toast('En tu celular se hace deslizando. Esta vez lo hago yo.'); return; } toast(ayuda); });
+}
+
+SIMS.llamada = function(api){
+  const ios = OS() === 'iphone';
+  const verde = '<span style="width:70px;height:70px;border-radius:50%;background:#1DAA61;color:#fff;display:grid;place-items:center">' + icoSvg('tel', 32) + '</span>';
+  const rojo = '<span style="width:70px;height:70px;border-radius:50%;background:#E5484D;color:#fff;display:grid;place-items:center;transform:rotate(135deg)">' + icoSvg('tel', 32) + '</span>';
+  const quien = (sub) => '<div style="text-align:center"><span class="pic" style="background:#E07A3F;width:84px;height:84px;font-size:38px;margin:0 auto">C</span><div style="font-size:26px;font-weight:700;margin-top:12px">Carla</div><div style="opacity:.85" id="llsub">' + sub + '</div></div>';
+  api.stage.innerHTML = '<div class="phone" id="llp" style="min-height:460px">' + sbar() + '<div id="llz" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:30px 16px 26px;background:linear-gradient(170deg,#2B3A67,#1B1B2F);color:#fff">' + quien('Celular · Te está llamando')
+    + (ios ? '<div style="width:100%;max-width:290px;position:relative;height:72px;border-radius:999px;background:rgba(255,255,255,.18);display:flex;align-items:center"><span style="position:absolute;left:0;right:0;text-align:center;font-weight:700;opacity:.9;padding-left:60px">deslizá para responder</span><span id="llk" style="position:relative;margin-left:4px;transition:transform .2s">' + verde + '</span></div>'
+           : '<div style="display:flex;justify-content:space-between;width:100%;max-width:280px"><button type="button" id="llr" style="background:none;border:none;padding:0" aria-label="No atender">' + rojo + '</button><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="font-size:13px;font-weight:700;opacity:.85">⬆ deslizá</span><span id="llk" class="pulse" style="border-radius:50%">' + verde + '</span></div></div>')
+    + '</div></div>';
+  api.say(ios ? 'Te está llamando Carla. Paso 1: deslizá el <b>botón verde hacia la derecha</b> para atender.' : 'Te está llamando Carla. Paso 1: apoyá el dedo en el <b>teléfono verde</b> y deslizalo hacia arriba para atender.');
+  if (!ios) $('llr').addEventListener('click', () => toast('Ese no atiende: la llamada se cortaría. Deslizá el teléfono verde hacia arriba.'));
+  gestoDeslizar($('llk'), ios ? 'der' : 'arriba', enLlamada, ios ? 'Apoyá el dedo en el botón verde y llevalo hacia la derecha, sin soltar.' : 'Apoyá el dedo en el teléfono verde y llevalo hacia arriba, sin soltar.');
+  let seg = 0, enCurso = false;
+  const reloj = () => { if (!enCurso || !$('llsub')) return; seg++; $('llsub').textContent = '0' + Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0'); later(reloj, 1000); };
+  function enLlamada(){
+    enCurso = true; let fase = 0, alta = false, mudo = false;
+    const b = (k, ico, lb) => '<button type="button" data-ll="' + k + '" style="background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:15px;font-weight:700"><span class="llb" style="width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center">' + ico + '</span>' + lb + '</button>';
+    $('llz').innerHTML = quien('00:00') + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px 18px">' + b('mudo', icoSvg('microT', 30), 'Silenciar') + b('tec', '<span style="font-size:26px">⌨️</span>', 'Teclado') + b('alta', icoSvg('altavoz', 30), 'Altavoz') + '</div><button type="button" id="llc" style="background:none;border:none;padding:0" aria-label="Cortar">' + rojo + '</button>';
+    later(reloj, 1000);
+    api.say('¡Atendiste! Paso 2: estás cocinando. Tocá <b>Altavoz</b> para hablar sin tener el celular en la oreja.');
+    api.stage.querySelectorAll('[data-ll]').forEach(x => x.addEventListener('click', () => {
+      const k = x.dataset.ll, sq = x.querySelector('.llb');
+      if (k === 'tec'){ toast('El teclado sirve cuando una grabación te pide marcar un número, por ejemplo "marque 1".'); return; }
+      if (k === 'mudo'){ mudo = !mudo; sq.style.background = mudo ? '#fff' : 'rgba(255,255,255,.18)'; sq.style.color = mudo ? '#1B1B2F' : '#fff'; toast(mudo ? 'Silenciaste tu voz: Carla no te escucha. Tocalo de nuevo para que te escuche.' : 'Listo, Carla ya te escucha otra vez.'); return; }
+      alta = !alta; sq.style.background = alta ? '#fff' : 'rgba(255,255,255,.18)'; sq.style.color = alta ? '#1B1B2F' : '#fff';
+      if (alta && fase === 0){ fase = 1; toast('Carla: ¡Hola! ¿Me escuchás bien? Te llamaba para saludarte 😊', 4500); later(() => { api.say('¡Con altavoz! Paso 3: cuando terminen de hablar, tocá el <b>botón rojo</b> para cortar.'); $('llc').classList.add('pulse'); }, 1800); }
+    }));
+    $('llc').addEventListener('click', () => { if (fase === 0){ toast('Antes, probá el altavoz.'); return; } enCurso = false; recientes(); });
+  }
+  function recientes(){
+    $('toast').hidden = true;
+    const filas = [['Carla','Entrante · ahora',false],['Dr. Pérez','Perdida · 10:15',true],['Ana','Saliente · ayer',false]];
+    $('llp').innerHTML = sbar() + '<div class="bar"><h3>' + (ios ? 'Llamadas' : 'Recientes') + '</h3></div><div style="flex:1;background:var(--ph-bar)">' + filas.map((f, i) => '<button type="button" class="crow" data-f="' + i + '" style="display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:64px"><span class="pic" style="background:' + (f[2] ? '#D93025' : '#7E57C2') + '">' + f[0][0] + '</span><span style="flex:1;min-width:0"><b style="' + (f[2] ? 'color:#D93025' : '') + '">' + f[0] + '</b><br><small style="color:var(--ph-sub)">' + f[1] + '</small></span><span style="color:var(--ph-sub)">' + icoSvg('tel', 22) + '</span></button>').join('') + '</div>'
+      + barraTabs(ios ? [['📞','Llamadas'],['👥','Contactos'],['⌨️','Teclado']] : [['⭐','Favoritos'],['🕘','Recientes'],['👥','Contactos'],['⌨️','Teclado']], ios ? 'Llamadas' : 'Recientes', ios, '#1DAA61');
+    api.say('Ya cortaste. Mientras hablabas, te llamó otra persona. Paso 4: tocá la <b>llamada perdida</b>, la que está en rojo, para devolverla.');
+    $('llp').querySelectorAll('[data-st]').forEach(x => x.addEventListener('click', () => toast('Hoy nos quedamos acá, en tus llamadas.')));
+    $('llp').querySelectorAll('[data-f]').forEach(x => x.addEventListener('click', () => {
+      if (x.dataset.f !== '1'){ toast('Esa llamada sí la atendiste. Buscá la que está en rojo.'); return; }
+      $('llp').innerHTML = sbar() + '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(170deg,#2B3A67,#1B1B2F);color:#fff"><span class="pic" style="background:#D93025;width:84px;height:84px;font-size:38px">D</span><b style="font-size:24px">Dr. Pérez</b><span>Llamando…</span></div>';
+      api.say('¡Muy bien! Estás devolviendo la llamada. Ya sabés atender, usar el altavoz, cortar y devolver una llamada perdida.'); api.done();
+    }));
+  }
+};
+
+SIMS.teclado = function(api){
+  const ios = OS() === 'iphone';
+  const ACC = {a:'áàâ', e:'éèê', i:'íìî', o:'óòô', u:'úüù'};
+  let txt = '', shift = true, modo = 'abc', paso = 0, aviso = '';
+  const norm = t => t.normalize('NFD').replace(/[̀-ͯ]/g, '');
+  api.stage.innerHTML = '<div class="phone" id="tkp" style="min-height:0">' + chatHead('Inés','en línea','#26A69A') + '<div class="msgs" id="tkm" style="min-height:70px"></div><div class="inrow"><label class="field" id="tkf" style="min-height:52px"><span id="tkt" style="flex:1;font-size:19px;color:var(--ph-text);min-height:24px;word-break:break-word"></span></label><button class="round" type="button" id="tks" aria-label="Enviar">' + I.send + '</button></div><div id="tkk" style="position:relative;background:var(--ph-line);padding:6px 3px 8px;display:flex;flex-direction:column;gap:7px;touch-action:none;user-select:none;-webkit-user-select:none"></div></div>';
+  addMsg($('tkm'), '¡Hola! ¿Cómo andás? 🌼', false, '11:02');
+  const kst = 'flex:1;min-width:0;height:48px;border:none;border-radius:8px;background:var(--ph-bar);color:var(--ph-text);font-size:20px;font-weight:600;box-shadow:0 1px 0 rgba(0,0,0,.2);display:grid;place-items:center;padding:0';
+  const esp = 'flex:1.4;min-width:0;height:48px;border:none;border-radius:8px;background:rgba(0,0,0,.12);color:var(--ph-text);font-size:16px;font-weight:700;display:grid;place-items:center;padding:0';
+  function teclas(){
+    const k = $('tkk'); const fila = h => '<div style="display:flex;gap:5px">' + h + '</div>';
+    const L = c => '<button type="button" data-c="' + c + '" style="' + kst + '">' + (shift && modo === 'abc' ? c.toUpperCase() : c) + '</button>';
+    const pie = '<div style="display:flex;gap:5px"><button type="button" data-x="modo" style="' + esp + '">' + (modo === 'abc' ? (ios ? '123' : '?123') : 'ABC') + '</button><button type="button" data-x="emo" style="' + esp + ';font-size:22px" aria-label="Emojis">😊</button><button type="button" data-c=" " style="' + kst + ';flex:4.5;font-size:15px;color:var(--ph-sub)">espacio</button><button type="button" data-x="mic" style="' + esp + '" aria-label="Micrófono">' + icoSvg('micro', 22) + '</button></div>';
+    if (modo === 'emo') k.innerHTML = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:4px">' + ['😊','😂','❤️','👍','🙏','🌸','🎂','☕'].map(e => '<button type="button" data-e="' + e + '" style="' + kst + ';font-size:28px;height:54px">' + e + '</button>').join('') + '</div>' + pie;
+    else if (modo === 'num') k.innerHTML = fila('1234567890'.split('').map(L).join('')) + fila('@#$%&-+()'.split('').map(L).join('')) + fila('*"\'.:;!?,'.split('').map(L).join('') + '<button type="button" data-x="del" style="' + esp + '" aria-label="Borrar">' + icoSvg('borrar', 22) + '</button>') + pie;
+    else k.innerHTML = fila('qwertyuiop'.split('').map(L).join('')) + fila('asdfghjklñ'.split('').map(L).join('')) + fila('<button type="button" data-x="shift" style="' + esp + (shift ? ';background:var(--ph-bar);color:var(--petroleo)' : '') + '" aria-label="Mayúscula">' + icoSvg('shift', 22) + '</button>' + 'zxcvbnm'.split('').map(L).join('') + '<button type="button" data-x="del" style="' + esp + '" aria-label="Borrar">' + icoSvg('borrar', 22) + '</button>') + pie;
+  }
+  const pinta = () => { $('tkt').innerHTML = esc(txt) + '<span style="display:inline-block;width:2px;height:22px;background:var(--ph-green);vertical-align:-4px;margin-left:1px"></span>'; };
+  const meta = () => paso === 0 ? 'Hola' : 'Hola Inés';
+  function revisa(){
+    pinta();
+    if (paso === 0 && txt === 'Hola'){ paso = 1; aviso = ''; api.say('¡Muy bien! Paso 2: tocá <b>espacio</b>, la barra larga. Después escribí <b>Inés</b>. Para la I grande, tocá primero la flecha hacia arriba. Para la é, mantené apretada la e.'); return; }
+    if (paso === 1 && txt === 'Hola Inés'){ paso = 2; aviso = ''; modo = 'abc'; teclas(); api.say('¡Perfecto, con tilde y todo! Paso 3: tocá la <b>carita</b> y elegí un emoji.'); api.stage.querySelector('[data-x="emo"]').classList.add('pulse'); return; }
+    if (paso > 1) return;
+    const m = meta(); if (m.startsWith(txt)) { aviso = ''; return; }
+    let msg = 'Se coló una letra. Tocá la tecla de borrar, la de la cruz, hasta que quede bien.';
+    if (m.toLowerCase().startsWith(txt.toLowerCase())) msg = 'Esa letra iba en mayúscula. Borrala con la tecla de la cruz, tocá la flecha hacia arriba y escribila de nuevo.';
+    else if (norm(m).startsWith(norm(txt))) msg = 'Casi: esa va con tilde. Borrala y mantené apretada la e para elegir la é.';
+    if (msg !== aviso){ aviso = msg; toast(msg, 4500); }
+  }
+  function pone(c){ if (paso > 2) return; txt += (shift && modo === 'abc' && c !== ' ') ? c.toUpperCase() : c; if (shift && c !== ' '){ shift = false; teclas(); } revisa(); }
+  let hT = 0, pop = null;
+  const cierraPop = () => { if (pop){ pop.remove(); pop = null; } };
+  const kb = $('tkk');
+  kb.addEventListener('pointerdown', e => {
+    const b = e.target.closest('[data-c]'); if (!b || pop) return; e.preventDefault();
+    const c = b.dataset.c; clearTimeout(hT);
+    if (ACC[c]) hT = setTimeout(() => { hT = 0;
+      const r = b.getBoundingClientRect(), rk = kb.getBoundingClientRect();
+      pop = el('div', '', ACC[c].split('').map(a => '<button type="button" data-a="' + a + '" style="width:44px;height:50px;border:none;border-radius:9px;background:var(--ph-bar);color:var(--ph-text);font-size:22px;font-weight:700">' + (shift ? a.toUpperCase() : a) + '</button>').join(''));
+      pop.style.cssText = 'position:absolute;z-index:4;display:flex;gap:4px;padding:5px;border-radius:12px;background:var(--ph-line);box-shadow:0 6px 18px rgba(0,0,0,.3);top:' + Math.max(0, r.top - rk.top - 60) + 'px;left:' + Math.max(0, Math.min(rk.width - 150, r.left - rk.left - 10)) + 'px';
+      kb.appendChild(pop); pop.firstChild.style.background = 'var(--petroleo)'; pop.firstChild.style.color = '#fff';
+      pop.querySelectorAll('[data-a]').forEach(x => x.addEventListener('click', () => { cierraPop(); pone(x.dataset.a); }));
+    }, 500);
+    b.dataset.down = '1';
+  });
+  kb.addEventListener('pointerup', e => {
+    if (pop){ const d = document.elementFromPoint(e.clientX, e.clientY); const a = d && d.closest('[data-a]'); if (a){ const v = a.dataset.a; cierraPop(); pone(v); } return; }
+    const b = e.target.closest('[data-c]'); if (!b || !b.dataset.down) return; delete b.dataset.down;
+    if (hT){ clearTimeout(hT); hT = 0; } pone(b.dataset.c);
+  });
+  kb.addEventListener('contextmenu', e => e.preventDefault());
+  kb.addEventListener('click', e => {
+    const x = e.target.closest('[data-x],[data-e]'); if (!x) return;
+    if (x.dataset.e){ if (paso !== 2) return; txt += ' ' + x.dataset.e; paso = 3; pinta(); modo = 'abc'; teclas(); api.say('¡Qué lindo! Paso 4: tocá la <b>flecha verde</b> para mandarlo.'); $('tks').classList.add('pulse'); return; }
+    const k = x.dataset.x;
+    if (k === 'shift'){ shift = !shift; teclas(); }
+    else if (k === 'del'){ txt = txt.slice(0, -1); if (!txt) shift = true; teclas(); pinta(); aviso = ''; }
+    else if (k === 'modo'){ modo = modo === 'abc' ? 'num' : 'abc'; teclas(); if (modo === 'num') toast('Estos son los números y signos. Para volver a las letras, tocá "ABC".'); }
+    else if (k === 'emo'){ if (paso < 2){ toast('Los emojis los ponemos al final. Primero escribí el saludo.'); return; } modo = modo === 'emo' ? 'abc' : 'emo'; teclas(); }
+    else if (k === 'mic') toast('El micrófono escribe lo que decís. Hoy practicamos con las teclas.');
+  });
+  $('tks').addEventListener('click', () => {
+    if (paso < 3){ toast('Antes de mandarlo, terminá el saludo.'); return; } if (paso > 3) return; paso = 4;
+    addMsg($('tkm'), esc(txt), true, '11:03 ' + tick2(true)); txt = ''; pinta(); $('tks').classList.remove('pulse');
+    later(() => { addMsg($('tkm'), '¡Qué alegría tu mensaje! 💛', false, '11:03'); api.say('¡Lo mandaste! Mayúscula, tilde y emoji: ya te manejás con el teclado.'); api.done(); }, 1400);
+  });
+  teclas(); pinta();
+  api.say('Paso 1: escribí <b>Hola</b>. Fijate que la primera letra ya sale en mayúscula sola.');
+};
+
+SIMS.noMolestar = function(api){
+  const ios = OS() === 'iphone'; hoCSS();
+  let sonido = 'son', luna = false;
+  const AV = [['msg','💬','Mensajes','Ana: ¿Venís el domingo?'],['tienda','🛍️','Tienda','¡Ofertas imperdibles! Entrá ya']];
+  const barra = () => '<div class="sbar"><span>23:10' + (luna ? ' 🌙' : '') + (sonido === 'sil' ? ' 🔕' : sonido === 'vib' ? ' 📳' : '') + '</span><span>📶 🔋72%</span></div>';
+  const aviso = a => '<div class="nfa" data-n="' + a[0] + '" style="background:var(--ph-bar);border-radius:16px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.12);touch-action:none;transition:transform .2s"><b>' + a[1] + ' ' + a[2] + '</b> <small style="color:var(--ph-sub)">· ahora</small><br>' + a[3] + '</div>';
+  function home(zona, hint){
+    api.stage.innerHTML = '<div class="phone" id="nmp" style="min-height:440px">' + barra() + '<div class="home" id="nmh"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div><div class="pullzone" id="nmz" style="' + zona + '"><span>' + hint + '</span></div></div></div>';
+    api.stage.querySelectorAll('.app-ic').forEach(b => b.addEventListener('click', () => toast('Hoy no abrimos apps: vamos a los avisos y al silencio.')));
+  }
+  function borrar(lado, sig){
+    const t = api.stage.querySelector('[data-n="tienda"]'); t.classList.add('pulse');
+    api.stage.querySelector('[data-n="msg"]').addEventListener('click', () => toast('Si tocás este aviso, se abre el chat con Ana. Hoy borramos el de la Tienda.'));
+    gestoDeslizar(t, lado, () => { t.style.transform = 'translateX(' + (lado === 'izq' ? '-' : '') + '120%)'; later(() => { t.remove(); sig(); }, 250); }, lado === 'izq' ? 'Apoyá el dedo en el aviso de la Tienda y llevalo hacia la izquierda.' : 'Apoyá el dedo en el aviso de la Tienda y llevalo hacia un costado.');
+  }
+  const tile = (k, e, lb, on) => '<button type="button" class="qt" data-q="' + k + '" aria-pressed="' + !!on + '"><span class="e">' + e + '</span>' + lb + '</button>';
+  if (!ios){
+    home('left:0;right:0', '⬇ deslizá desde acá');
+    api.say('Te llegaron dos avisos. Paso 1: apoyá el dedo <b>arriba de todo</b> y deslizalo hacia abajo para verlos.');
+    gestoDeslizar($('nmz'), 'abajo', () => {
+      const pn = el('div', 'panel', '<div class="tiles" id="nmt"></div><div style="display:flex;flex-direction:column;gap:8px" id="nma">' + AV.map(aviso).join('') + '</div>');
+      $('nmh').appendChild(pn);
+      const tiles = () => { $('nmt').innerHTML = tile('wifi','📶','WiFi',true) + tile('son', sonido === 'son' ? '🔔' : sonido === 'vib' ? '📳' : '🔕', sonido === 'son' ? 'Sonido' : sonido === 'vib' ? 'Vibrar' : 'Silencio', sonido !== 'son') + tile('luna','🌙','No molestar',luna);
+        $('nmt').querySelectorAll('.qt').forEach(b => b.addEventListener('click', () => toca(b.dataset.q))); };
+      let fase = 0; tiles();
+      api.say('¡Ahí están tus avisos! Paso 2: el de la Tienda no te interesa. Deslizalo hacia un <b>costado</b> para borrarlo.');
+      borrar('lado', () => { fase = 1; api.say('¡Chau, publicidad! Paso 3: vas al cine. Tocá <b>Sonido</b> hasta que diga <b>Silencio</b>.'); $('nmt').querySelector('[data-q="son"]').classList.add('pulse'); });
+      function toca(q){
+        if (q === 'wifi'){ toast('Hoy dejamos el WiFi como está.'); return; }
+        if (q === 'son'){ if (fase < 1){ toast('Primero borrá el aviso de la Tienda.'); return; } sonido = sonido === 'son' ? 'vib' : sonido === 'vib' ? 'sil' : 'son'; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra();
+          if (sonido === 'vib') toast('Vibrar: no suena, pero se mueve. Tocá una vez más para el silencio total.');
+          if (sonido === 'sil' && fase === 1){ fase = 2; api.say('¡En silencio! Los mensajes llegan igual, sin sonar. Paso 4: ya es de noche. Tocá la <b>lunita</b> para prender el "No molestar".'); $('nmt').querySelector('[data-q="luna"]').classList.add('pulse'); }
+          else if (fase === 2) $('nmt').querySelector('[data-q="luna"]').classList.add('pulse');
+          return; }
+        if (fase < 2){ toast('La lunita la usamos al final. Seguí el paso de arriba.'); return; }
+        luna = !luna; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra();
+        if (luna){ api.say('¡Listo! Arriba apareció la lunita: el celular no te va a molestar hasta que la apagues. Tus favoritos igual te pueden llamar, si los elegís en los ajustes.'); api.done(); }
+      }
+    }, 'Apoyá el dedo arriba de todo y bajalo, sin soltar, como bajando una persiana.');
+    return;
+  }
+  home('left:27%;width:46%', '⬇ deslizá desde acá');
+  api.say('Te llegaron dos avisos. Paso 1: apoyá el dedo en el <b>centro de arriba</b> y deslizalo hacia abajo para verlos.');
+  gestoDeslizar($('nmz'), 'abajo', () => {
+    const pn = el('div', 'appscreen', '<div style="flex:1;background:linear-gradient(170deg,#3A4A7A,#1B1B2F);padding:18px 12px;display:flex;flex-direction:column;gap:10px"><div style="color:#fff;text-align:center;font-size:44px;font-weight:300">23:10</div>' + AV.map(aviso).join('') + '<button type="button" class="btn small dark" id="nmx" style="align-self:center;margin-top:auto" hidden>Cerrar los avisos</button></div>');
+    $('nmh').appendChild(pn);
+    api.say('¡Ahí están tus avisos! Paso 2: el de la Tienda no te interesa. Deslizalo hacia la <b>izquierda</b> para borrarlo.');
+    borrar('izq', () => { $('nmx').hidden = false; $('nmx').classList.add('pulse'); api.say('¡Chau, publicidad! Paso 3: tocá <b>"Cerrar los avisos"</b>. En tu celular se cierran deslizando hacia arriba.');
+      $('nmx').addEventListener('click', () => { pn.remove(); centro(); }); });
+  }, 'Apoyá el dedo en el centro de arriba y bajalo, sin soltar.');
+  function centro(){
+    home('right:0;width:45%', '⬇ deslizá desde acá');
+    api.say('Paso 4: ahora abrí el <b>Centro de control</b>: deslizá el dedo desde la <b>esquina de arriba a la derecha</b> hacia abajo.');
+    gestoDeslizar($('nmz'), 'abajo', () => {
+      let fase = 0;
+      const pn = el('div', 'panel', '<div class="tiles" id="nmt"></div>'); $('nmh').appendChild(pn);
+      const tiles = () => { $('nmt').innerHTML = tile('wifi','📶','WiFi',true) + tile('son', sonido === 'sil' ? '🔕' : '🔔', 'Modo silencio', sonido === 'sil') + tile('luna','🌙', luna ? 'No molestar' : 'Concentración', luna);
+        $('nmt').querySelectorAll('.qt').forEach(b => b.addEventListener('click', () => toca(b.dataset.q))); };
+      tiles(); api.say('Paso 5: vas al cine. Tocá la <b>campanita</b>, "Modo silencio".'); $('nmt').querySelector('[data-q="son"]').classList.add('pulse');
+      function toca(q){
+        if (q === 'wifi'){ toast('Hoy dejamos el WiFi como está.'); return; }
+        if (q === 'son'){ sonido = sonido === 'sil' ? 'son' : 'sil'; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra();
+          if (sonido === 'sil' && fase === 0){ fase = 1; api.say('¡En silencio! Los mensajes llegan igual, sin sonar. Paso 6: ya es de noche. Tocá <b>"Concentración"</b>, la de la lunita.'); }
+          if (fase === 1) $('nmt').querySelector('[data-q="luna"]').classList.add('pulse'); return; }
+        if (fase < 1){ toast('Primero poné el modo silencio, con la campanita.'); return; }
+        if (luna){ luna = false; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra(); return; }
+        const m = el('div', 'homenu', ['No molestar','Personal','Dormir'].map(o => '<button type="button" data-m="' + o + '"' + (o === 'No molestar' ? ' class="pulse"' : '') + '>🌙 ' + o + '</button>').join(''));
+        $('nmp').appendChild(m); api.say('Paso 7: elegí <b>"No molestar"</b>.');
+        m.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.m !== 'No molestar'){ toast('Esa es otra forma de concentración. Hoy elegimos "No molestar".'); return; }
+          m.remove(); luna = true; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra();
+          api.say('¡Listo! Arriba apareció la lunita: el celular no te va a molestar hasta que la apagues. Las personas que elijas igual te pueden llamar.'); api.done(); }));
+      }
+    }, 'Apoyá el dedo en la esquina de arriba a la derecha y bajalo, sin soltar.');
+  }
+};
+
+SIMS.captura = function(api){
+  const ios = OS() === 'iphone';
+  const par = ios ? ['lat','up'] : ['pow','down'];
+  const NOMB = {pow:'encendido', up:'subir volumen', down:'bajar volumen', lat:'del costado', acc:'de acción'};
+  const bt = (k, lado, top, alto, lb) => '<button type="button" data-b="' + k + '" aria-label="Botón ' + NOMB[k] + '" style="position:absolute;' + lado + ':-6px;top:' + top + 'px;width:26px;height:' + alto + 'px;border:none;border-radius:6px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;touch-action:none;padding:0;z-index:2">' + lb + '</button>';
+  const lados = ios ? bt('acc','left',90,34,'') + bt('up','left',140,56,'＋') + bt('down','left',206,56,'－') + bt('lat','right',160,84,'')
+                    : bt('up','right',100,56,'＋') + bt('down','right',160,56,'－') + bt('pow','right',236,62,'⏻');
+  api.stage.innerHTML = '<div style="position:relative;padding:0 22px"><div class="phone" id="cpp" style="min-height:440px">' + sbar() + '<div class="home" id="cph"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div></div></div>' + lados + '</div><p class="muted small" style="margin-top:10px;text-align:center">Los botones están dibujados al costado del celular.</p>';
+  api.say(ios ? 'Paso 1: apretá al mismo tiempo el <b>botón del costado derecho</b> y el de <b>subir volumen</b> (＋), a la izquierda.' : 'Paso 1: apretá al mismo tiempo el botón de <b>encendido</b> (⏻) y el de <b>bajar volumen</b> (－). <small>Con un dedo, tocá uno y enseguida el otro.</small>');
+  const t = {}; let hecho = false, avisoT = 0;
+  api.stage.querySelectorAll('[data-b]').forEach(b => b.addEventListener('pointerdown', e => {
+    e.preventDefault(); if (hecho) return; const k = b.dataset.b; t[k] = Date.now(); b.style.background = 'var(--coral)'; later(() => { b.style.background = 'var(--ink)'; }, 700);
+    const otro = par[0] === k ? par[1] : par[1] === k ? par[0] : null;
+    if (otro && t[otro] && Date.now() - t[otro] < 1400) return foto();
+    clearTimeout(avisoT);
+    avisoT = setTimeout(() => { if (hecho) return;
+      if (!otro) toast(k === 'acc' ? 'Ese es el botón de acción. Para la captura, usá el del costado derecho y el de subir volumen.' : 'Ese cambia el volumen, pero hoy usamos el otro. Mirá el paso de arriba.');
+      else toast((k === 'pow' || k === 'lat') ? 'Ese solo apaga la pantalla. Hay que apretarlo junto con el de ' + (ios ? 'subir' : 'bajar') + ' volumen.' : 'Ese solo cambia el volumen. Hay que apretarlo junto con el ' + (ios ? 'del costado.' : 'de encendido.'));
+    }, 1500);
+  }));
+  function foto(){
+    hecho = true; clearTimeout(avisoT); $('toast').hidden = true;
+    const fl = el('div', ''); fl.style.cssText = 'position:absolute;inset:0;background:#fff;opacity:.95;z-index:6;transition:opacity .5s'; $('cpp').appendChild(fl); later(() => { fl.style.opacity = '0'; }, 80); later(() => fl.remove(), 650);
+    const mini = el('div', ''); mini.style.cssText = 'position:absolute;bottom:14px;' + (ios ? 'left:14px' : 'left:50%;transform:translateX(-50%)') + ';width:78px;height:130px;border-radius:10px;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.35);background:var(--ph-home);z-index:5;display:grid;place-items:center;font-size:22px'; mini.textContent = '📱';
+    $('cpp').appendChild(mini); later(() => mini.remove(), 3200);
+    api.say('¡Clic! Sacaste la captura: abajo apareció en chiquito y se guardó sola. Paso 2: abrí <b>Fotos</b> para encontrarla.');
+    later(() => { const f = api.stage.querySelector('[data-a="fotos"]'); f.classList.add('pulse');
+      api.stage.querySelectorAll('.app-ic').forEach(b => b.addEventListener('click', () => {
+        if (b.dataset.a !== 'fotos'){ toast('Buscá la app de Fotos, la amarilla.'); return; }
+        const g = el('div', 'appscreen', '<div class="bar"><h3>' + (ios ? 'Fotos' : 'Galería') + '</h3></div><div class="pgrid" style="background:var(--ph-bar);flex:1;align-content:start">' + '<button type="button" class="tile pulse" id="cpc" style="background:var(--ph-home);font-size:30px;position:relative">📱<small style="position:absolute;bottom:4px;left:0;right:0;font-size:11px;font-weight:700">Captura</small></button>' + [['🌷','#F2D0E8'],['🏖️','#9FD7EE'],['🎂','#F6C3D0'],['🐶','#E9D3A8'],['🌳','#BFE3B4']].map(p => '<span class="tile" style="background:' + p[1] + '">' + p[0] + '</span>').join('') + '</div>');
+        $('cph').appendChild(g); api.say('Paso 3: ahí está, primera de todas porque es la más nueva. Tocala para verla.');
+        $('cpc').addEventListener('click', () => { g.innerHTML = '<div style="flex:1;background:#000;display:grid;place-items:center;padding:16px"><div style="width:60%;aspect-ratio:9/16;background:var(--ph-home);border-radius:10px;display:grid;place-items:center;font-size:40px">📱</div></div>';
+          api.say('¡Ahí está tu captura! Es una foto de tu pantalla: la podés mandar por WhatsApp como cualquier foto. Ideal para pedir ayuda.'); api.done(); });
+      }));
+    }, 900);
+  }
+};
+
 SIMS.statusBar = function(api){
   const seq = [['wifi','Tocá el dibujito del <b>WiFi</b>: parece un abanico.','¡Ese! El abanico dice que estás conectado a un WiFi.'],['bars','Ahora tocá las <b>rayitas de la señal</b>.','Esas rayitas son la señal de tu compañía: los datos móviles.'],['bat','Por último, tocá la <b>batería</b>.','72 %: te queda bastante. Cuando baje de 20 %, a cargarlo.']];
   let k = 0; api.say(seq[0][1]);
@@ -2834,9 +3154,12 @@ SIMS.homeScreen = function(api){
   }
 };
 
+function hoCSS(){
+  if (!$('hoSt')){ const st = document.createElement('style'); st.id = 'hoSt'; st.textContent = '@keyframes hoJig{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}.hojig .app-ic .sq{animation:hoJig .35s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.hojig .app-ic .sq{animation:none;outline:2px solid var(--ph-sub)}}.homenu{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(280px,88%);background:var(--ph-bar);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:5;overflow:hidden}.homenu button{display:block;width:100%;min-height:54px;border:none;border-bottom:1px solid var(--ph-line);background:none;text-align:left;padding:0 18px;font-size:17px;color:var(--ph-text)}.homenu button:last-child{border-bottom:none}'; document.head.appendChild(st); }
+}
 SIMS.homeOrder = function(api){
   const ios = OS() === 'iphone';
-  if (!$('hoSt')){ const st = document.createElement('style'); st.id = 'hoSt'; st.textContent = '@keyframes hoJig{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}.hojig .app-ic .sq{animation:hoJig .35s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.hojig .app-ic .sq{animation:none;outline:2px solid var(--ph-sub)}}.homenu{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(280px,88%);background:var(--ph-bar);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:5;overflow:hidden}.homenu button{display:block;width:100%;min-height:54px;border:none;border-bottom:1px solid var(--ph-line);background:none;text-align:left;padding:0 18px;font-size:17px;color:var(--ph-text)}.homenu button:last-child{border-bottom:none}'; document.head.appendChild(st); }
+  hoCSS();
   let apps = HOME_APPS.filter(a => a[0] !== 'msg').concat(HOME_APPS.filter(a => a[0] === 'msg'));
   const MAS = [['calc','🧮','#FF9800','Calculadora'],['cal','📅','#1E88E5','Calendario'],['notas','📝','#FBC02D','Notas'],['clima','⛅','#29B6F6','Clima'],['radio','📻','#8D6E63','Radio'],['cont','👥','#26A69A','Contactos'],['arch','📁','#5C6BC0','Archivos'],['tienda','🛍️','#00897B','Tienda']];
   let fase = 'mover', editando = false;
