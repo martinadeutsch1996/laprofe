@@ -1049,6 +1049,56 @@
    "origen": "ia",
    "huella": "352414e32f4c",
    "fecha": "2026-10-20"
+  },
+  "ic1-p1": {
+   "origen": "ia",
+   "huella": "ff20c4491f28",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p2": {
+   "origen": "ia",
+   "huella": "d8e5582ef1b8",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p3": {
+   "origen": "ia",
+   "huella": "7d9a621cb6c8",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p4": {
+   "origen": "ia",
+   "huella": "3885546baab8",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p5-android": {
+   "origen": "ia",
+   "huella": "b65295f0bda6",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p5-iphone": {
+   "origen": "ia",
+   "huella": "8d556dc64949",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p6": {
+   "origen": "ia",
+   "huella": "c4612c095a2a",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p7": {
+   "origen": "ia",
+   "huella": "a346c6362db5",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p13-android": {
+   "origen": "ia",
+   "huella": "f0f0e2c82bd5",
+   "fecha": "2026-10-21"
+  },
+  "ic1-p13-iphone": {
+   "origen": "ia",
+   "huella": "db3966f35194",
+   "fecha": "2026-10-21"
   }
  }
 }
