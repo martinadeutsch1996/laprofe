@@ -1129,6 +1129,176 @@
    "origen": "ia",
    "huella": "b73de22d6832",
    "fecha": "2026-10-21"
+  },
+  "ll1-p1-android": {
+   "origen": "ia",
+   "huella": "c061a55379f5",
+   "fecha": "2026-10-21"
+  },
+  "ll1-p1-iphone": {
+   "origen": "ia",
+   "huella": "65f429d20b8d",
+   "fecha": "2026-10-21"
+  },
+  "ll1-p2": {
+   "origen": "ia",
+   "huella": "3098fb3ae803",
+   "fecha": "2026-10-21"
+  },
+  "ll1-p3-android": {
+   "origen": "ia",
+   "huella": "e62a571bd564",
+   "fecha": "2026-10-21"
+  },
+  "ll1-p3-iphone": {
+   "origen": "ia",
+   "huella": "e193c9255210",
+   "fecha": "2026-10-21"
+  },
+  "ll1-p4-android": {
+   "origen": "ia",
+   "huella": "8bebd4be0816",
+   "fecha": "2026-10-21"
+  },
+  "ll1-p4-iphone": {
+   "origen": "ia",
+   "huella": "9335715039bc",
+   "fecha": "2026-10-21"
+  },
+  "ll1-p9": {
+   "origen": "ia",
+   "huella": "3a520e7007e9",
+   "fecha": "2026-10-21"
+  },
+  "tb1-p1": {
+   "origen": "ia",
+   "huella": "2abb92264286",
+   "fecha": "2026-10-21"
+  },
+  "tb1-p2": {
+   "origen": "ia",
+   "huella": "8e7897064d62",
+   "fecha": "2026-10-21"
+  },
+  "tb1-p3": {
+   "origen": "ia",
+   "huella": "95c5e1a8a6e2",
+   "fecha": "2026-10-21"
+  },
+  "tb1-p4-android": {
+   "origen": "ia",
+   "huella": "7b69468734b3",
+   "fecha": "2026-10-21"
+  },
+  "tb1-p4-iphone": {
+   "origen": "ia",
+   "huella": "63fc7bdd4444",
+   "fecha": "2026-10-21"
+  },
+  "tb1-p5": {
+   "origen": "ia",
+   "huella": "d3f9fd574a92",
+   "fecha": "2026-10-21"
+  },
+  "tb1-p10": {
+   "origen": "ia",
+   "huella": "113fa2f4ae86",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p1-android": {
+   "origen": "ia",
+   "huella": "c4dd0c61ee34",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p1-iphone": {
+   "origen": "ia",
+   "huella": "555ab50aa4c3",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p2-android": {
+   "origen": "ia",
+   "huella": "9fc1db125036",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p2-iphone": {
+   "origen": "ia",
+   "huella": "9e30f83f190c",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p3-android": {
+   "origen": "ia",
+   "huella": "e480ef35af43",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p3-iphone": {
+   "origen": "ia",
+   "huella": "f1858156e19c",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p4-android": {
+   "origen": "ia",
+   "huella": "929376a84d39",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p4-iphone": {
+   "origen": "ia",
+   "huella": "dda1b9055c72",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p9-android": {
+   "origen": "ia",
+   "huella": "4289e5f4635d",
+   "fecha": "2026-10-21"
+  },
+  "nt1-p9-iphone": {
+   "origen": "ia",
+   "huella": "9ecce017c7a7",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p1": {
+   "origen": "ia",
+   "huella": "cd18c88eaf4a",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p2-android": {
+   "origen": "ia",
+   "huella": "2ff49927360e",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p2-iphone": {
+   "origen": "ia",
+   "huella": "bc7250beb543",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p3-android": {
+   "origen": "ia",
+   "huella": "df5e6035ddbd",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p3-iphone": {
+   "origen": "ia",
+   "huella": "33dfe1fab721",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p4-android": {
+   "origen": "ia",
+   "huella": "028662799591",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p4-iphone": {
+   "origen": "ia",
+   "huella": "6ac04b5452cf",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p9-android": {
+   "origen": "ia",
+   "huella": "13cbe5891b08",
+   "fecha": "2026-10-21"
+  },
+  "cp1-p9-iphone": {
+   "origen": "ia",
+   "huella": "ec5076952da7",
+   "fecha": "2026-10-21"
   }
  }
 }
