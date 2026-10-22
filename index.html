@@ -2050,10 +2050,10 @@ function renderInicio(){
     c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Hecha! 🎉</h2><p>Mañana te espera otra. Si tenés ganas, elegí un tema de abajo.</p>');
   } else if (d.t === 'rep'){
     const v = NIVELES.find(x => x.k === d.k);
-    tarjeta(v.t, '3 preguntas para que no se te olvide lo que aprendiste. 1 minuto.', () => startRep(d.k), 'Tocá para empezar');
+    tarjeta(v.t, '3 preguntas para que no se te olvide lo que aprendiste. 1 minuto.', () => startRep(d.k), 'Empezar');
   } else if (nueva){
     const enCurso = S.prog && S.prog[nueva.id];
-    tarjeta(nueva.niv.t, 'Hoy: ' + nueva.t + '. ' + (enCurso ? 'Vas por el paso ' + (S.prog[nueva.id] + 1) + ' de ' + nueva.steps.length + '.' : nueva.min + ' minutos.'), () => startLesson(nueva), enCurso ? 'Tocá para seguir' : 'Tocá para empezar');
+    tarjeta(nueva.niv.t, 'Hoy: ' + nueva.t + '. ' + (enCurso ? 'Vas por el paso ' + (S.prog[nueva.id] + 1) + ' de ' + nueva.steps.length + '.' : nueva.min + ' minutos.'), () => startLesson(nueva), enCurso ? 'Seguir' : 'Empezar');
   } else {
     c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Terminaste todas las lecciones! 🏆</h2><p>Estoy muy orgullosa. Podés repetir cualquier tema de abajo.</p>');
   }
@@ -2103,8 +2103,9 @@ $('exitm-stay').addEventListener('click', () => $('exitm').hidden = true);
 $('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; show('inicio'); });
 $('l-back').addEventListener('click', () => { if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } });
 function stepDots(){ $('l-paso').textContent = 'Paso ' + (si + 1) + ' de ' + curL.steps.length; /* arriba solo va el paso y Salir */ const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
-const QUE_SIGUE = {ex:'Siguiente', try:'Ahora probalo vos', check:'Veamos si te acordás', rec:'Ver el resumen', real:'Hacerlo en mi celular', mano:'Hacerlo en mi celular'};
-function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Siguiente') : 'Terminar lección'; }
+/* Botones: verbo primero, 1 a 3 palabras, que digan qué pasa al tocarlos */
+const QUE_SIGUE = {ex:'Seguir', try:'Probar', check:'Contestar una pregunta', rec:'Ver resumen', real:'Probar en mi celular', mano:'Agregar el ícono'};
+function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Seguir') : 'Terminar lección'; }
   const b = el('button', 'btn main', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
 const fillOS = s => String(T(s)).replace('{os}', OS() === 'iphone' ? 'iPhone' : 'Android');
 function renderStep(){
@@ -2143,7 +2144,7 @@ function renderStep(){
     say.querySelector('.bubble').textContent = 'Ahora lo hacemos en tu celular de verdad. Leé cada paso, andá a hacerlo y volvé acá a marcarlo. ¡Yo te espero!';
     z.append(say);
     const list = el('div', 'rl'); z.append(list);
-    const nb = nextBtn('Siguiente'); nb.disabled = true; nb.id = 'real-next';
+    const nb = nextBtn('Terminar lección'); nb.disabled = true; nb.id = 'real-next';
     const later2 = el('button', 'btn ghost', 'No tengo el celular a mano: lo hago después'); later2.type = 'button'; later2.id = 'real-later';
     const okSet = new Set(), id = curL.id, k0 = si;
     T(st.pasos).forEach((ps, i) => {
@@ -2161,7 +2162,7 @@ function renderStep(){
     z.append(nb, later2);
   }
   if (st.k === 'mano'){
-    z.append(el('div', 'kind', '<span class="pill" style="background:var(--petroleo);color:#fff">Ahora en tu celular</span>'));
+    z.append(el('div', 'kind', '<span class="pill" style="background:var(--petroleo);color:#fff">Ahora de verdad</span>'));
     const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div>'); z.append(say);
     const bub = say.querySelector('.bubble'), id = curL.id;
     const listo = () => { S.instOk = true; save(); track(d => { d.instDijo = true; L(d, id).real = 'todo'; }); };
@@ -2271,7 +2272,7 @@ function renderRep(){
     if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; if (ok) rok++;
     { const it = RQ[ri], box = ok ? Math.min((it.m.box || 0) + 1, INTERVALO.length - 1) : 0; S.mem = Object.assign({}, S.mem, {[it.key]: {box, next: hoy(INTERVALO[box])}}); save(); track((d, now) => { d.memoria = Object.assign({}, d.memoria, {[it.key]: box}); }); } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
     fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Te acordaste!','¡Eso!','¡Perfecto!']) : pick(['¡Casi! Ahora ya no se te olvida.','Tranqui: para eso repasamos.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = fillOS(st.why);
-    const nb = el('button', 'btn', ri < RQ.length - 1 ? 'Siguiente pregunta' : 'Ver resultado'); nb.type = 'button'; nb.style.marginTop = '12px'; nb.addEventListener('click', () => { ri++; renderRep(); window.scrollTo(0,0); }); fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
+    const nb = el('button', 'btn', ri < RQ.length - 1 ? 'Seguir' : 'Ver resultado'); nb.type = 'button'; nb.style.marginTop = '12px'; nb.addEventListener('click', () => { ri++; renderRep(); window.scrollTo(0,0); }); fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
   }); opts.appendChild(b); });
   z.append(opts, fb);
 }
