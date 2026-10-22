@@ -599,6 +599,9 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 /* Ayudas (Escuchar, No entendí, Me trabé): chips chicos, para que el único botón fuerte sea el coral */
 .voz{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:12px;border:none;background:var(--soft);color:var(--fg);font-weight:700;font-size:16px;width:auto;text-align:left}
 .voz:disabled{opacity:.5}
+.pista{margin:8px 0 0 52px;background:#E3EEEE;color:var(--petroleo);border-radius:14px;padding:10px 14px;font-size:17px;font-weight:600;line-height:1.35}
+.big .pista{margin-left:0}
+.toast.arriba{bottom:auto;top:calc(12px + env(safe-area-inset-top,0px));background:var(--card);color:var(--fg);border:2px solid var(--petroleo)}
 /* Escuchar va dentro del globito de Martina, chiquito y abajo a la derecha: es parte de su mensaje, no un paso más */
 .voz-in{display:flex;align-items:center;gap:6px;margin:8px 0 -6px auto;background:none;border:none;color:var(--petroleo);font-weight:700;font-size:16px;min-height:44px;padding:0 2px;white-space:nowrap}
 .ayudas{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
@@ -1796,7 +1799,12 @@ $('scrollhint').addEventListener('click', () => window.scrollBy({top: Math.round
 window.addEventListener('scroll', checkScroll, {passive:true});
 window.addEventListener('resize', checkScroll);
 new MutationObserver(() => requestAnimationFrame(checkScroll)).observe(document.querySelector('main'), {childList:true, subtree:true, attributes:true, attributeFilter:['hidden']});
-function toast(txt, ms){ $('toast-txt').textContent = txt; $('toast').hidden = false; clearTimeout(toastT);
+function toast(txt, ms){
+  /* En las prácticas, las pistas de Martina van debajo de su globito, no en un cartel encima del dibujo */
+  const gp = $('g-pista'), enPractica = gp && !$('s-lesson').hidden;
+  if (enPractica){ gp.textContent = txt; gp.hidden = false; const t0 = Date.now(); gp.dataset.t = t0; setTimeout(() => { if (gp.dataset.t == t0) gp.hidden = true; }, Math.max(ms || 0, Math.min(Math.max(4500, String(txt).length * 75), 12000))); const r = $('g-txt').getBoundingClientRect(); if (r.top >= 0 && r.bottom <= window.innerHeight) { $('toast').hidden = true; return; } }
+  $('toast').classList.toggle('arriba', !!enPractica);
+  $('toast-txt').textContent = txt; $('toast').hidden = false; clearTimeout(toastT);
   const leer = Math.min(Math.max(4500, String(txt).length * 75), 12000); // tiempo para leer tranqui según el largo
   toastT = setTimeout(() => $('toast').hidden = true, Math.max(ms || 0, leer)); }
 /* Voz de Martina: audios grabados en audio/<lección>-p<paso>[-android|-iphone].mp3.
@@ -2129,10 +2137,10 @@ function renderStep(){
   }
   if (st.k === 'try'){
     z.append(el('div', 'kind', '<span class="pill" style="background:var(--coral)">Practicá acá</span><span class="small muted">Podés probar sin miedo.</span>'));
-    const g = el('div', 'guide'); g.innerHTML = '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble" id="g-txt"></div></div>'; z.append(g);
+    const g = el('div', 'guide'); g.innerHTML = '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble" id="g-txt"></div></div><p class="pista" id="g-pista" role="status" hidden></p>'; z.append(g);
     const stage = el('div', 'stack'); stage.id = 'stage'; z.append(stage);
     const nb = nextBtn('Seguir'); nb.hidden = true; nb.id = 'try-next'; z.append(nb);
-    const api = {say: h => { $('g-txt').innerHTML = h; }, stage, done: () => { nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
+    const api = {say: h => { $('g-txt').innerHTML = h; const gp = $('g-pista'); if (gp && Date.now() - (+gp.dataset.t || 0) > 600) gp.hidden = true; }, stage, done: () => { nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
     SIMS[st.run](api);
     const hb = el('button', 'voz', '😅 Me trabé'); hb.type = 'button'; hb.id = 'try-help';
     hb.addEventListener('click', () => helpBox(hb, $('g-txt').textContent, () => { hb.hidden = true; api.say(MOSTRAR_PRACTICA_REAL ? '¡No pasa nada! Seguimos, y después lo practicás en tu celular.' : '¡No pasa nada! Seguimos y después lo repasamos.'); api.done(); }));
