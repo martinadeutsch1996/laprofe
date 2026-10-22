@@ -599,6 +599,8 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 /* Ayudas (Escuchar, No entendí, Me trabé): chips chicos, para que el único botón fuerte sea el coral */
 .voz{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:12px;border:none;background:var(--soft);color:var(--fg);font-weight:700;font-size:16px;width:auto;text-align:left}
 .voz:disabled{opacity:.5}
+/* Escuchar va dentro del globito de Martina, chiquito y abajo a la derecha: es parte de su mensaje, no un paso más */
+.voz-in{display:flex;align-items:center;gap:6px;margin:8px 0 -6px auto;background:none;border:none;color:var(--petroleo);font-weight:700;font-size:16px;min-height:44px;padding:0 2px;white-space:nowrap}
 .ayudas{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
 .remember .voz{align-self:flex-start;background:rgba(255,255,255,.14);color:var(--bg)}
 /* Letra grande o muy grande: menos columnas, más ancho para el texto */
@@ -661,9 +663,8 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 <!-- LECCIÓN -->
 <section id="s-lesson" class="screen" hidden>
   <div class="stack" style="gap:8px">
-    <div class="lhead"><b id="l-t"></b><button class="btn ghost small" type="button" id="l-exit">Salir</button></div>
-    <div class="steps" id="l-steps" aria-hidden="true" hidden></div>
-    <div class="pasos"><span class="small muted" id="l-paso" style="font-weight:700"></span><button type="button" id="l-back">Paso anterior</button></div>
+    <div class="lhead"><span id="l-paso" style="font-weight:800;font-size:18px"></span><button class="btn ghost small" type="button" id="l-exit">Salir</button></div>
+    <b id="l-t" hidden></b><div class="steps" id="l-steps" aria-hidden="true" hidden></div><button type="button" id="l-back" hidden>Paso anterior</button>
   </div>
   <div class="stack" id="lz" style="gap:14px"></div>
 </section>
@@ -1836,11 +1837,11 @@ function vozBtn(key, txt, lbl){
 const later = (fn, ms) => { const t = token; setTimeout(() => { if (t === token) fn(); }, ms); };
 
 /* ============ ONBOARDING ============ */
-const OB = ['hola','letra','nombre','edad','os','nivel','intereses','listo'];
+const OB = ['hola','datos','letra','nombre','edad','os','nivel','intereses','listo'];
 let obI = 0, obDraft = {};
 function startOnboarding(){ obI = 0; obDraft = Object.assign({intereses:[]}, S.perfil || {}); show('ob'); renderOb(); }
 function renderOb(){
-  const dots = $('ob-dots'); dots.innerHTML = ''; OB.forEach((_, i) => dots.appendChild(el('i', i === obI ? 'on' : ''))); $('ob-paso').textContent = 'Paso ' + (obI + 1) + ' de ' + OB.length;
+  const dots = $('ob-dots'); dots.innerHTML = ''; OB.forEach((_, i) => dots.appendChild(el('i', i === obI ? 'on' : ''))); $('ob-paso').textContent = 'Paso ' + obI + ' de ' + (OB.length - 1); $('ob-paso').hidden = obI === 0;
   const b = $('ob-body'); b.innerHTML = ''; const step = OB[obI];
   const next = (label, ok) => { const n = el('button', 'btn', label || 'Seguir'); n.type = 'button'; n.disabled = ok === false; n.id = 'ob-next'; n.addEventListener('click', () => { obI++; renderOb(); window.scrollTo(0,0); }); return n; };
   const back = () => { const n = el('button', 'btn ghost small', 'Volver'); n.type = 'button'; n.style.alignSelf = 'flex-start'; n.addEventListener('click', () => { obI--; renderOb(); }); return n; };
@@ -1849,18 +1850,23 @@ function renderOb(){
       c.setAttribute('aria-pressed', String(on()));
       c.addEventListener('click', () => { if (multi){ const a = obDraft[key]; a.includes(o[0]) ? a.splice(a.indexOf(o[0]), 1) : a.push(o[0]); } else obDraft[key] = o[0]; box.querySelectorAll('.choice').forEach((x, j) => x.setAttribute('aria-pressed', String(multi ? obDraft[key].includes(opts[j][0]) : obDraft[key] === opts[j][0]))); const n = $('ob-next'); if (n) n.disabled = multi ? false : !obDraft[key]; });
       box.appendChild(c); }); return box; };
-  if (step === 'hola'){
-    b.append(el('img', 'avatar xl'), el('h1', '', 'Hola, soy Martina<span class="dot">.</span>'));
+  if (step === 'hola'){ // primera pantalla: solo el saludo y un botón
+    b.append(el('img', 'avatar xl'), el('h1', 'center', 'Hola, soy Martina<span class="dot">.</span>'));
     b.firstChild.src = FOTO; b.firstChild.alt = 'Martina'; b.firstChild.style.alignSelf = 'center';
     if (EN_ICONO){ const ic = el('div', 'fb ok', '<b>¡Lo lograste! Abriste LaProfe desde su ícono.</b><span>Como es la primera vez que entrás desde acá, te hago de nuevo unas preguntas cortitas.</span>'); b.insertBefore(ic, b.firstChild.nextSibling); }
-    const p = el('div', 'bubble'); p.textContent = 'Hace más de 10 años que enseño tecnología. Acá te explico, practicás y, si algo no se entiende, te lo explico de nuevo. Primero, contame un poco de vos.';
-    const s = vozBtn('bienvenida', p.textContent);
-    const priv = el('p', 'note'); priv.textContent = 'Para mejorar las lecciones, guardo cómo usás la app. No guardo tu nombre. No escribas contraseñas, códigos ni datos del banco: no hacen falta.';
+    const p = el('p', 'center'); p.style.fontSize = '21px'; p.textContent = 'Te enseño a usar el celular, paso a paso y sin apuro.';
+    b.append(p, next('Empezar'));
+  }
+  if (step === 'datos'){ // permiso para guardar datos de uso (Ley 18.331)
+    b.append(el('h1', '', 'Antes de empezar'));
+    const p = el('div', 'bubble'); p.textContent = 'Para mejorar las lecciones, guardo cómo usás la app. No guardo tu nombre.';
+    const no2 = el('p', 'muted'); no2.textContent = 'No escribas contraseñas, códigos ni datos del banco: no hacen falta.';
     const ley = el('a', 'note'); ley.href = 'privacidad.html'; ley.textContent = 'Leer cómo cuido tus datos';
-    const si = next('Aceptar y empezar'); si.addEventListener('click', () => decidirDatos(true));
-    const no = el('button', 'btn ghost small', 'Empezar sin compartir datos'); no.type = 'button'; no.style.alignSelf = 'center';
+    const si = next('Sí, acepto'); si.addEventListener('click', () => decidirDatos(true));
+    const no = el('button', 'btn ghost', 'Prefiero que no'); no.type = 'button';
     no.addEventListener('click', () => { decidirDatos(false); obI++; renderOb(); window.scrollTo(0,0); });
-    b.append(p, s, priv, ley, si, no);
+    const nota = el('p', 'small muted center', 'La app funciona igual en los dos casos.');
+    b.append(p, no2, ley, si, no, nota);
   }
   if (step === 'letra'){
     b.append(back(), el('h1', '', '¿Cómo leés mejor?'), el('p', 'muted', 'Elegí el tamaño de la letra. Lo podés cambiar después.'));
@@ -2096,7 +2102,7 @@ $('l-exit').addEventListener('click', () => { if (si === 0) show('inicio'); else
 $('exitm-stay').addEventListener('click', () => $('exitm').hidden = true);
 $('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; show('inicio'); });
 $('l-back').addEventListener('click', () => { if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } });
-function stepDots(){ $('l-paso').textContent = 'Paso ' + (si + 1) + ' de ' + curL.steps.length; $('l-back').hidden = si === 0; const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
+function stepDots(){ $('l-paso').textContent = 'Paso ' + (si + 1) + ' de ' + curL.steps.length; /* arriba solo va el paso y Salir */ const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
 const QUE_SIGUE = {ex:'Siguiente', try:'Ahora probalo vos', check:'Veamos si te acordás', rec:'Ver el resumen', real:'Hacerlo en mi celular', mano:'Hacerlo en mi celular'};
 function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Siguiente') : 'Terminar lección'; }
   const b = el('button', 'btn main', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
@@ -2113,9 +2119,9 @@ function renderStep(){
     const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div>'); say.querySelector('.bubble').textContent = txt;
     z.append(say);
     const row = el('div', 'ayudas');
-    const sp = vozBtn(vozPaso(), txt);
+    const sp = vozBtn(vozPaso(), txt); sp.className = 'voz-in'; say.querySelector('.bubble').appendChild(sp);
     const nu = el('button', 'voz', '🤔 No entendí'); nu.type = 'button'; nu.addEventListener('click', () => { const id = curL.id, k = si; track(d => { const x = L(d, id); x.nope = addIdx(x.nope, k); }); costo(id); explainAgain(txt, z, nu); });
-    row.append(sp, nu); z.append(row);
+    row.append(nu); z.append(row);
     if (st.art) z.append(el('div', 'art', ART[st.art] ? ART[st.art]() : ''), el('p', 'note center', 'Es solo un dibujo: no hace falta tocarlo.'));
     if (curL.app && curL.steps.findIndex(x => x.k === 'ex') === si){ const lc = logoCard(curL); if (lc) z.append(lc); }
     z.append(nextBtn());
