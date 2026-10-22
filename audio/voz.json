@@ -1299,6 +1299,31 @@
    "origen": "ia",
    "huella": "ec5076952da7",
    "fecha": "2026-10-21"
+  },
+  "mano-p1": {
+   "origen": "ia",
+   "huella": "685fc855fa1a",
+   "fecha": "2026-10-22"
+  },
+  "mano-p2-android": {
+   "origen": "ia",
+   "huella": "8e4389a43af4",
+   "fecha": "2026-10-22"
+  },
+  "mano-p2-iphone": {
+   "origen": "ia",
+   "huella": "6411689bb9e7",
+   "fecha": "2026-10-22"
+  },
+  "mano-p5-android": {
+   "origen": "ia",
+   "huella": "11f7640ca5e5",
+   "fecha": "2026-10-22"
+  },
+  "mano-p5-iphone": {
+   "origen": "ia",
+   "huella": "2367d689955d",
+   "fecha": "2026-10-22"
   }
  }
 }
