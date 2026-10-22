@@ -611,6 +611,29 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .big .row > .btn{flex:1 1 100%}
 .big .art{min-height:0;padding:12px}
 .mano-pasos{display:flex;flex-direction:column;gap:12px}
+
+/* Inicio: lección del día + temas */
+.dia{background:var(--petroleo);color:#fff;border:none;border-radius:26px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;box-shadow:0 6px 18px rgba(15,82,87,.25)}
+.dia .lbl{font-weight:800;font-size:17px;color:#fff;opacity:.9}
+.dia h2{font-size:26px;line-height:1.15}
+.dia p{font-size:18px}
+.dia .ir{margin-top:10px;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--coral);color:var(--ink);border-radius:999px;min-height:56px;font-weight:800;font-size:19px}
+.dia.hecho{background:var(--card);color:var(--fg);border:3px solid var(--lima);box-shadow:none}
+.dia.hecho .lbl{color:var(--muted)}
+.tema{background:var(--card)}
+.tema .em{filter:saturate(.75)}
+.temas{display:grid;grid-template-columns:1fr;gap:10px}
+.big .temas{grid-template-columns:1fr}
+.tema{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px 16px;display:flex;flex-direction:row;align-items:center;gap:14px;text-align:left;width:100%}
+.big .tema{flex-direction:row;align-items:center;min-height:0;gap:12px}
+.tema .em{font-size:32px;line-height:1}
+.tema b{font-family:var(--display);font-size:19px;line-height:1.2}
+.tema small{font-size:16px;color:var(--muted);font-weight:600}
+.tema .fav{font-size:15px;font-weight:800;color:var(--petroleo)}
+.tema.full{border-color:var(--lima)}
+.big #s-inicio > .say .avatar{display:none}
+.tema-head{display:flex;gap:12px;align-items:center}
+.tema-head .em{font-size:44px}
 </style>
 
 <main class="app">
@@ -630,11 +653,9 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
   <div class="beta" id="h-beta" hidden><p><b>Estás probando una versión nueva.</b> Si algo falla o no se entiende, no es tu culpa: avisame y lo arreglo.</p><div class="row"><button class="btn dark small" type="button" id="h-beta-ok">Entendido</button><a class="btn ghost small" href="https://wa.me/59898031016?text=Hola%20Martina%2C%20estoy%20probando%20la%20app%20y%20te%20cuento%3A%20" target="_blank" rel="noopener">Avisar por WhatsApp</a></div></div>
   <div class="beta" id="h-datos" hidden><p><b>Te cuento cómo cuido tus datos.</b> Guardo cómo usás la app, sin tu nombre, para mejorar las lecciones. ¿Me das permiso?</p><div class="row"><button class="btn dark small" type="button" id="h-datos-si">Sí, acepto</button><button class="btn ghost small" type="button" id="h-datos-no">Prefiero que no</button></div><p style="margin:10px 0 0"><a href="privacidad.html">Leer cómo cuido tus datos</a></p></div>
   <div class="beta" id="h-inst" hidden><div class="say" style="align-items:center"><img id="h-inst-ic" alt="" style="width:48px;height:48px;border-radius:12px;flex:none;box-shadow:0 1px 4px rgba(0,0,0,.15)"><p><b>Poné LaProfe en la pantalla de inicio.</b> Así la abrís con un toque, como WhatsApp.</p></div><div class="row"><button class="btn dark small" type="button" id="h-inst-go">Mostrame cómo</button><button class="btn ghost small" type="button" id="h-inst-no">Ahora no</button></div></div>
-  <div class="nextc" id="h-nextc"><span class="lbl">Tu próxima lección</span><b id="h-nt"></b><span class="muted" id="h-nm"></span><button class="btn" type="button" id="h-cont">Empezar lección</button></div>
-  <div id="h-rep"></div>
-  <h2 style="font-size:22px;margin-top:8px">Tus lecciones</h2>
-  <div class="stack" id="h-levels"></div>
-  <div class="stack" id="h-soon-box"><h2 style="font-size:20px">Después, según lo que te interesa</h2><div class="soon" id="h-soon"></div></div>
+  <div id="h-main" class="stack" style="gap:14px"></div>
+  <div class="nextc" id="h-nextc" hidden><span class="lbl"></span><b id="h-nt"></b><span class="muted" id="h-nm"></span><button class="btn" type="button" id="h-cont"></button></div>
+  <div id="h-rep" hidden></div><div id="h-levels" hidden></div><div id="h-soon-box" hidden><div id="h-soon"></div></div>
 </section>
 
 <!-- LECCIÓN -->
@@ -649,7 +670,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 
 <!-- REPASITO -->
 <section id="s-rep" class="screen" hidden>
-  <div class="lhead"><b>Repasito de hoy</b><button class="btn ghost small" type="button" data-go="inicio">Salir</button></div>
+  <div class="lhead"><b id="r-titulo">Lección del día</b><button class="btn ghost small" type="button" data-go="inicio">Salir</button></div>
   <div class="steps" id="r-steps"></div>
   <div class="stack" id="rz" style="gap:14px"></div>
 </section>
@@ -865,7 +886,7 @@ const NOMBRE = () => (S.perfil && S.perfil.nombre) || '';
 
 /* ============ CONTENIDO: 3 NIVELES ============ */
 const NIVELES = [
-{n:1, k:'basico', em:'🌱', t:'Primeros pasos', d:'Los conceptos básicos para perderle el miedo', ls:[
+{n:1, k:'basico', em:'🌱', t:'Primeros pasos con el celular', d:'Los conceptos básicos para perderle el miedo', ls:[
  {id:'mano', ic:'📲', t:'Tené LaProfe a mano', min:4,
   des:'Abrí LaProfe tocando su ícono, sin buscar el link.',
   steps:[
@@ -946,7 +967,7 @@ const NIVELES = [
    {k:'rec', pts:['Los íconos se repiten en casi todas las apps.','La lupa busca, la flecha vuelve y la cruz cierra.','Los tres puntitos y las tres rayitas guardan más opciones.',{android:'El clip adjunta. Los tres puntitos unidos sirven para compartir.', iphone:'El clip adjunta. El cuadradito con la flecha sirve para compartir.'},'La campanita son los avisos. Si está tachada, está silenciado.']}
   ]}
 ]},
-{n:2, k:'pantalla', em:'👆', t:'La pantalla de mi celular', d:'Gestos, pantalla de inicio, atajos y letra grande', ls:[
+{n:2, k:'pantalla', em:'👆', t:'Manejar la pantalla y el teclado', d:'Gestos, pantalla de inicio, atajos y letra grande', ls:[
  {id:'2a', ic:'👆', t:'Los 4 gestos', min:5,
   des:'Practicá los 4 gestos en tu celular: tocá una app, mantené apretada una foto, deslizá en la galería y agrandá una foto con dos dedos.',
   steps:[
@@ -1036,7 +1057,7 @@ const NIVELES = [
    {k:'rec', pts:[{android:'Las apps se bajan de Play Store.', iphone:'Las apps se bajan del App Store.'},{android:'Tocás "Buscar", escribís el nombre y tocás "Instalar".', iphone:'Tocás "Buscar", escribís el nombre y tocás "Obtener".'},'Mirá quién hizo la app: hay copias.','Si ves un precio, la app es paga.']}
   ]}
 ]},
-{n:3, k:'whatsapp', em:'💬', t:'WhatsApp', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
+{n:3, k:'whatsapp', em:'💬', t:'WhatsApp: mensajes, audios y fotos', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
  {id:'3a', app:['whatsapp'], ic:'💬', t:'Conocé WhatsApp', min:4,
   des:'Abrí WhatsApp y fijate qué chats tienen el número verde. ¿Quién te escribió?',
   steps:[
@@ -1084,7 +1105,7 @@ const NIVELES = [
 /* Nivel 4: visible para todos desde el 17/10/2026. Poné false para ocultarlo. */
 const MOSTRAR_NIVEL_4 = true;
 if (MOSTRAR_NIVEL_4) NIVELES.push(
-{n:4, k:'maswa', em:'👪', t:'Más WhatsApp', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
+{n:4, k:'maswa', em:'👪', t:'WhatsApp: contactos, videollamadas y grupos', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
  {id:'4a', app:['whatsapp'], ic:'📇', t:'Guardá un contacto', min:5,
   des:'Guardá el número de alguien que te escribe seguido y todavía no tenés agendado.',
   steps:[
@@ -1124,7 +1145,7 @@ if (MOSTRAR_NIVEL_4) NIVELES.push(
 ]});
 /* Nivel: La inteligencia artificial (se publica con PUBLICAR.ia, más abajo) */
 NIVELES.push(
-{n:5, k:'ia', em:'✨', t:'La inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
+{n:5, k:'ia', em:'✨', t:'Pedirle ayuda a la inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
  {id:'5a', ic:'✨', t:'¿Qué es la inteligencia artificial?', min:5, des:'Pensá en tu día. ¿El celular te sugirió o te recomendó algo? Ahí había inteligencia artificial.',
   steps:[
    {k:'ex', txt:'La inteligencia artificial, o IA, es una tecnología que aprende de muchísimos ejemplos. Por eso puede entender lo que le decís, recomendarte cosas y escribir textos.', art:'iaart'},
@@ -1178,7 +1199,7 @@ NIVELES.push(
 ]});
 /* ============ NIVELES NUEVOS (19/10/2026) ============ */
 NIVELES.push(
-{n:0, k:'camara', em:'📷', t:'Cámara y fotos', d:'Sacar fotos, selfies y videos, y encontrarlos después', ls:[
+{n:0, k:'camara', em:'📷', t:'Sacar y guardar fotos', d:'Sacar fotos, selfies y videos, y encontrarlos después', ls:[
  {id:'fo1', ic:'📸', t:'Sacá tu primera foto', min:4, des:'Sacale una foto a algo lindo de tu casa: una planta, un cuadro o tu mascota.',
   steps:[
    {k:'ex', txt:'Para abrir la cámara, tocás el ícono que tiene dibujada una cámara de fotos. Lo que ves en la pantalla es lo que va a salir en la foto.', art:'camicon'},
@@ -1213,7 +1234,7 @@ NIVELES.push(
    {k:'rec', pts:['Tocá "Video": el botón se pone rojo.','Botón rojo: empieza a grabar.','Botón con cuadradito: termina.']}
   ]}
 ]},
-{n:0, k:'orga', em:'🗓️', t:'Organizate con el celular', d:'Calendario, notas y tus papeles importantes, siempre a mano', ls:[
+{n:0, k:'orga', em:'🗓️', t:'Agenda, notas y papeles en el celular', d:'Calendario, notas y tus papeles importantes, siempre a mano', ls:[
  {id:'or1', app:{android:['googlecalendar'], iphone:['calendario']}, ic:'🗓️', t:'Anotá en el calendario', min:6, des:'Anotá en el calendario tu próximo turno médico o un cumpleaños, con un aviso.',
   steps:[
    {k:'ex', txt:{android:'El calendario del celular es una agenda que te avisa. En Android suele llamarse Google Calendar o Calendario. Ahí anotás turnos, cumpleaños o reuniones.', iphone:'El calendario del celular es una agenda que te avisa. En iPhone se llama Calendario. Ahí anotás turnos, cumpleaños o reuniones.'}, art:'calart'},
@@ -1241,7 +1262,7 @@ NIVELES.push(
    {k:'rec', pts:['Apoyá la hoja y buscá buena luz.','Guardá la foto con "Agregar a álbum".','Nunca guardes fotos de tarjetas ni contraseñas.']}
   ]}
 ]},
-{n:0, k:'ciudad', em:'🗺️', t:'Moverme por la ciudad', d:'Google Maps, taxi, Uber y ómnibus desde el celular', ls:[
+{n:0, k:'ciudad', em:'🗺️', t:'Moverte por la ciudad: mapas, taxi y ómnibus', d:'Google Maps, taxi, Uber y ómnibus desde el celular', ls:[
  {id:'mp1', app:['googlemaps'], ic:'📍', t:'Conocé Google Maps', min:6, des:'Abrí Google Maps, buscá tu puntito azul y buscá una farmacia cerca.',
   steps:[
    {k:'ex', txt:'Google Maps es un mapa en el celular. Te muestra dónde estás, te ayuda a buscar lugares y te dice cómo llegar. Es como tener un guía en el bolsillo.', art:'mapart'},
@@ -1289,7 +1310,7 @@ NIVELES.push(
    {k:'rec', pts:['Buscá el lugar, tocá "Cómo llegar" y después el ómnibus.','Al lado del número de la línea dice hacia dónde va: fijate que el cartel del ómnibus diga lo mismo.','"Programada" es un horario previsto: conviene llegar unos minutos antes.','El circulito blanco marca dónde bajarte.']}
   ]}
 ]},
-{n:0, k:'gmail', em:'📧', t:'Correo electrónico', d:'Leer, escribir y mandar archivos por Gmail', ls:[
+{n:0, k:'gmail', em:'📧', t:'Mandar y recibir correos', d:'Leer, escribir y mandar archivos por Gmail', ls:[
  {id:'gm1', app:['gmail'], ic:'📬', t:'Conocé tu correo', min:5, des:'Abrí Gmail y fijate cuántos correos sin leer tenés.',
   steps:[
    {k:'ex', txt:'El correo electrónico, o mail, es como una carta que llega por internet. Gmail es la app de correo de Google. Tu dirección termina en @gmail.com.', art:'mailart'},
@@ -1317,7 +1338,7 @@ NIVELES.push(
    {k:'rec', pts:['Foto del papel: apoyado y que se lea.','Clip, "Fotos" y elegís la foto.','Después, fijate en "Enviados".']}
   ]}
 ]},
-{n:0, k:'google', em:'🔎', t:'Google y búsquedas', d:'Encontrar lo que buscás y saber en qué páginas confiar', ls:[
+{n:0, k:'google', em:'🔎', t:'Buscar información en Google', d:'Encontrar lo que buscás y saber en qué páginas confiar', ls:[
  {id:'go1', app:['google'], ic:'🔎', t:'Buscá en Google', min:5, des:'Buscá en Google una receta que te guste y abrí una de las páginas.',
   steps:[
    {k:'ex', txt:'Google es un buscador. Escribís lo que querés saber, y te muestra páginas de internet que hablan de eso.', art:'buscador'},
@@ -1352,7 +1373,7 @@ NIVELES.push(
    {k:'rec', pts:['"Patrocinado" quiere decir anuncio.','Las páginas del Estado terminan en gub.uy.','Desconfiá de las ofertas increíbles.']}
   ]}
 ]},
-{n:0, k:'videos', em:'🎬', t:'YouTube y Netflix', d:'Videos, películas y series para disfrutar', ls:[
+{n:0, k:'videos', em:'🎬', t:'Mirar videos, películas y series', d:'Videos, películas y series para disfrutar', ls:[
  {id:'yt1', app:['youtube'], ic:'▶️', t:'Buscá un video en YouTube', min:5, des:'Buscá en YouTube una canción que te guste mucho y escuchala.',
   steps:[
    {k:'ex', txt:'YouTube es una app con videos de todo y gratis. Hay recetas, música, gimnasia y mucho más. Su ícono es rojo, con un triangulito blanco.', art:'ytart'},
@@ -1387,7 +1408,7 @@ NIVELES.push(
    {k:'rec', pts:['Netflix no te pide la tarjeta por mensaje.','No toques enlaces de avisos de pago.','Ante la duda, abrí la app.']}
   ]}
 ]},
-{n:0, k:'redes', em:'❤️', t:'Redes sociales', d:'Instagram y Facebook: mirar, seguir, conversar y cuidarte', ls:[
+{n:0, k:'redes', em:'❤️', t:'Instagram y Facebook', d:'Instagram y Facebook: mirar, seguir, conversar y cuidarte', ls:[
  {id:'rd1', app:['instagram','facebook'], ic:'🌐', t:'¿Qué son las redes sociales?', min:5, des:'Pensá a quién o qué tema te gustaría seguir en una red social.',
   steps:[
    {k:'ex', txt:'Las redes sociales son apps para compartir fotos, videos y mensajes. Las más usadas son Instagram y Facebook. Son como un álbum de fotos compartido.', art:'redesart'},
@@ -1747,7 +1768,7 @@ function show(name){
   $('nav').hidden = !['inicio','com','mar','per'].includes(name);
   document.querySelectorAll('.nav button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === name ? 'page' : 'false'));
   stopVoz();
-  if (name === 'inicio'){ renderInicio(); maybeOpinion(); }
+  if (name === 'inicio'){ if (temaK && curL && temaK !== curL.niv.k) temaK = null; renderInicio(); maybeOpinion(); }
   if (name === 'com') renderFeed();
   if (name === 'mar') renderMartina();
   if (name === 'per') renderPerfil();
@@ -1971,44 +1992,102 @@ function sendOpinion(){
   setTimeout(closeOpinion, 2500);
 }
 let openLvl = null, lastCur = null;
+/* ===== Lección del día y temas =====
+   Arriba, una sola tarjeta: la lección del día. Por dentro, la app decide si ese día toca avanzar o repasar un tema.
+   Abajo, los temas (cada nivel es un tema). Los que la persona marca como suyos guían la lección del día. */
+const INT_TEMA = {familia:['whatsapp','maswa'], fotos:['camara'], ciudad:['ciudad'], redes:['redes'], ia:['ia'], seguridad:['redes','google'], entretenimiento:['videos'], compras:['google']};
+function misTemas(){
+  if (!Array.isArray(S.temas)){ const t = []; ((S.perfil && S.perfil.intereses) || []).forEach(i => (INT_TEMA[i] || []).forEach(k => { if (!t.includes(k) && NIVELES.some(v => v.k === k)) t.push(k); })); S.temas = t; save(); }
+  return S.temas;
+}
+function proxNueva(){
+  const ma = ALL.find(l => l.id === 'mano'); if (ma && !S.done.mano) return ma;
+  const enCurso = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (enCurso) return enCurso;
+  const ini = NIVELES.find(v => v.n === startN());
+  if (ini && ini.ls.some(l => !S.done[l.id])) return ini.ls.find(l => !S.done[l.id]);
+  const tm = misTemas(); for (const v of NIVELES) if (tm.includes(v.k)){ const l = v.ls.find(x => !S.done[x.id]); if (l) return l; }
+  return nextLesson();
+}
+function vencidas(k){ const t = hoy(), out = []; ALL.filter(l => S.done[l.id] && (!k || l.niv.k === k)).forEach(l => l.steps.forEach((st, idx) => { if (st.k === 'check' && memDe(l, idx).next <= t) out.push(l); })); return out; }
+function temaParaRepasar(){
+  const cuenta = {}; vencidas().forEach(l => { cuenta[l.niv.k] = (cuenta[l.niv.k] || 0) + 1; });
+  const tm = misTemas(); let mejor = null;
+  Object.keys(cuenta).forEach(k => { if (cuenta[k] < 2) return; if (!mejor || cuenta[k] > cuenta[mejor] || (cuenta[k] === cuenta[mejor] && tm.includes(k) && !tm.includes(mejor))) mejor = k; });
+  return mejor;
+}
+function delDia(){
+  const f = hoy(); if (S.dia && S.dia.f === f) return S.dia;
+  const antes = S.dia ? S.dia.t : null, nueva = proxNueva(), enCurso = nueva && S.prog && S.prog[nueva.id];
+  let d = {f, t:'lec'};
+  if (S.done.mano && !enCurso){ const k = temaParaRepasar(); if (k && (antes !== 'rep' || !nueva)) d = {f, t:'rep', k}; }
+  S.dia = d; save(); return d;
+}
+function diaHecho(t){ const d = delDia(); if (d.t === t && !d.hecho){ d.hecho = true; S.dia = d; save(); } }
+let temaK = null;
 function renderInicio(){
-  const n = doneN();
-  $('h-med').textContent = n + (n === 1 ? ' medalla' : ' medallas');
-  const nx = nextLesson();
-  $('h-hello').innerHTML = '<b>¡Hola, ' + esc(NOMBRE()) + '!</b> ' + (n === 0 ? 'Empecemos tranqui, a tu ritmo.' : nx ? '¡Qué bueno verte! Vas muy bien.' : '¡Terminaste todos los niveles! Estoy muy orgullosa.');
+  const n = doneN(), z = $('h-main'); z.innerHTML = '';
+  $('h-med').hidden = true; /* las medallas no ayudan a elegir el camino: no van en el inicio */
+  $('h-hello').innerHTML = '<b>¡Hola, ' + esc(NOMBRE()) + '!</b> ' + (n === 0 ? 'Empecemos tranqui, a tu ritmo.' : '¡Qué bueno verte!');
   $('h-beta').hidden = true; /* aviso de versión de prueba: oculto */
   $('h-datos').hidden = !(S.perfil && !S.datos);
   $('h-inst').hidden = true; /* el ícono ahora se aprende en la lección "Tené LaProfe a mano" */
   if (S.manoAuto === 1 && S.perfil){ S.manoAuto = 2; save(); later(() => toast('¡Lo lograste! Abriste LaProfe desde su ícono.'), 400); }
-  const enCurso = nx && S.prog && S.prog[nx.id];
-  $('h-nextc').hidden = !nx; if (nx){ $('h-nextc').querySelector('.lbl').textContent = enCurso ? 'Tu lección en curso' : 'Tu próxima lección'; $('h-nt').textContent = nx.t; $('h-nm').textContent = 'Nivel ' + nx.niv.n + ' · ' + (enCurso ? 'Vas por el paso ' + (S.prog[nx.id] + 1) + ' de ' + nx.steps.length : nx.min + ' minutos'); }
-  $('h-cont').textContent = enCurso ? 'Continuar lección' : 'Empezar lección';
-  const box = $('h-levels'); box.innerHTML = '';
-  const cur = nx ? nx.niv.n : NIVELES[NIVELES.length - 1].n; if (openLvl == null || cur !== lastCur) openLvl = cur; lastCur = cur;
-  NIVELES.forEach(nv => {
-    const open = openLvl === nv.n;
-    const d = nv.ls.filter(l => S.done[l.id]).length, rec = startN() === nv.n;
-    const c = el('div', 'lvl' + (open ? '' : ' closed') + (d === nv.ls.length ? ' full' : ''));
-    c.innerHTML = '<div class="lvl-head"><span class="em" aria-hidden="true">' + nv.em + '</span><div style="min-width:0;flex:1"><span class="muted small" style="font-weight:800">Nivel ' + nv.n + '</span><h3 style="font-size:22px"></h3><span class="muted small"></span></div></div><div class="progress"><span style="width:' + (d / nv.ls.length * 100) + '%"></span></div><span class="small muted"><b>' + d + ' de ' + nv.ls.length + '</b> lecciones</span>';
-    if (MOSTRAR_PAGO && nv.n > 1 && !S.unlocked) c.insertBefore(el('span', 'lockb', '🔒 LaProfe completo'), c.firstChild);
-    c.querySelector('h3').textContent = nv.t; c.querySelectorAll('.muted.small')[1].textContent = nv.d;
-    if (open && rec && nv.n > 1 && d < nv.ls.length){ const rn = el('div', 'say', '<img class="avatar sm" alt=""><div class="bubble small">Por lo que me contaste, te recomiendo empezar acá. Podés volver atrás cuando quieras.</div>'); rn.querySelector('img').src = FOTO; c.insertBefore(rn, c.children[1]); }
-    if (!open && !rec && nv.n < startN() && d === 0){ const on = el('span', 'small muted', 'Opcional: para repasar lo básico'); c.insertBefore(on, c.children[1]); }
-    if (d === nv.ls.length) c.insertBefore(el('span', 'okb', '✓ Nivel completo'), c.children[1]);
-    if (!open){ c.querySelectorAll('.muted.small')[1].remove(); c.querySelector('.progress').remove(); const m = el('button', 'lvl-more', 'Ver las ' + nv.ls.length + ' lecciones <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'); m.type = 'button'; m.addEventListener('click', () => { openLvl = nv.n; renderInicio(); c.scrollIntoView && box.children[nv.n - 1] && box.children[nv.n - 1].scrollIntoView({block:'start'}); }); c.appendChild(m); box.appendChild(c); return; }
-    nv.ls.forEach(l => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Terminada · podés repetirla' : (S.prog && S.prog[l.id]) ? 'Vas por el paso ' + (S.prog[l.id] + 1) + ' de ' + l.steps.length : l.min + ' minutos'; b.addEventListener('click', () => startLesson(l)); c.appendChild(b); });
-    box.appendChild(c);
-  });
-  const today = new Date().toISOString().slice(0, 10), hr = $('h-rep'); hr.innerHTML = '';
-  if (n > 0){
-    const rb = el('button', 'rep', S.repDate === today ? '<span class="em">✅</span><div><b>Repasito de hoy: ¡listo!</b><span>Mañana hay otro.</span></div>' : '<span class="em">🧠</span><div><b>Repasito de hoy · 1 minuto</b><span>3 preguntas para que no se te olvide.</span></div>');
-    rb.type = 'button'; rb.id = 'h-repb'; rb.addEventListener('click', startRep); hr.appendChild(rb);
+  $('h-hello').closest('.say').hidden = !!temaK;
+  if (temaK){ renderTema(z); return; }
+
+  /* --- Lección del día: toda la tarjeta es el botón --- */
+  const d = delDia(), nueva = proxNueva(); let c;
+  const tarjeta = (tema, linea, accion, ir) => { c = el('button', 'dia', '<span class="lbl">Lección del día</span><h2></h2><p></p><span class="ir"></span>'); c.type = 'button';
+    c.querySelector('h2').textContent = tema; c.querySelector('p').textContent = linea; c.querySelector('.ir').textContent = ir;
+    c.addEventListener('click', () => { if (Date.now() - (window._hc || 0) < 800) return; window._hc = Date.now(); accion(); }); };
+  if (d.hecho){
+    c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Hecha! 🎉</h2><p>Mañana te espera otra. Si tenés ganas, elegí un tema de abajo.</p>');
+  } else if (d.t === 'rep'){
+    const v = NIVELES.find(x => x.k === d.k);
+    tarjeta(v.t, '3 preguntas para que no se te olvide lo que aprendiste. 1 minuto.', () => startRep(d.k), 'Tocá para empezar');
+  } else if (nueva){
+    const enCurso = S.prog && S.prog[nueva.id];
+    tarjeta(nueva.niv.t, 'Hoy: ' + nueva.t + '. ' + (enCurso ? 'Vas por el paso ' + (S.prog[nueva.id] + 1) + ' de ' + nueva.steps.length + '.' : nueva.min + ' minutos.'), () => startLesson(nueva), enCurso ? 'Tocá para seguir' : 'Tocá para empezar');
+  } else {
+    c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Terminaste todas las lecciones! 🏆</h2><p>Estoy muy orgullosa. Podés repetir cualquier tema de abajo.</p>');
   }
-  const ints = (S.perfil && S.perfil.intereses || []).filter(k => SOON[k]);
-  $('h-soon-box').hidden = true; // oculto: los candados suman ruido en el inicio
-  $('h-soon').innerHTML = ''; ints.forEach(k => $('h-soon').appendChild(el('span', '', '🔒 ' + esc(SOON[k]))));
+  z.appendChild(c);
+
+  /* --- Temas --- */
+  const tm = misTemas();
+  const h = el('h2', '', 'Elegí un tema'); h.style.fontSize = '22px'; h.style.marginTop = '8px';
+  const sub = el('p', 'muted', 'Tocá un tema para ver sus lecciones.');
+  const g = el('div', 'temas');
+  const orden = NIVELES.slice().sort((x, y) => (tm.includes(y.k) ? 1 : 0) - (tm.includes(x.k) ? 1 : 0));
+  orden.forEach(v => {
+    const hechas = v.ls.filter(l => S.done[l.id]).length;
+    const b = el('button', 'tema' + (hechas === v.ls.length ? ' full' : ''), '<span class="em" aria-hidden="true">' + v.em + '</span><span><b></b><br><small></small>' + (tm.includes(v.k) ? '<br><span class="fav">⭐ Tu tema</span>' : '') + '</span>');
+    b.type = 'button'; b.querySelector('b').textContent = v.t;
+    b.querySelector('small').textContent = hechas === v.ls.length ? '✓ Terminado' : hechas + ' de ' + v.ls.length + ' lecciones';
+    b.addEventListener('click', () => { temaK = v.k; renderInicio(); window.scrollTo(0,0); });
+    g.appendChild(b);
+  });
+  z.append(h, sub, g);
 }
-$('h-cont').addEventListener('click', () => { if (Date.now() - (window._hc || 0) < 800) return; window._hc = Date.now(); const l = nextLesson(); if (l) startLesson(l); });
+function renderTema(z){
+  const v = NIVELES.find(x => x.k === temaK); if (!v){ temaK = null; renderInicio(); return; }
+  const tm = misTemas(), es = tm.includes(v.k);
+  const back = el('button', 'btn ghost small', 'Volver al inicio'); back.type = 'button'; back.style.alignSelf = 'flex-start';
+  back.addEventListener('click', () => { temaK = null; renderInicio(); window.scrollTo(0,0); });
+  const head = el('div', 'tema-head', '<span class="em" aria-hidden="true">' + v.em + '</span><div><h1 style="font-size:28px"></h1><p class="muted"></p></div>');
+  head.querySelector('h1').textContent = v.t; head.querySelector('p').textContent = v.d;
+  const hechas = v.ls.filter(l => S.done[l.id]).length;
+  const prog = el('p', 'small', '<b>' + hechas + ' de ' + v.ls.length + '</b> lecciones hechas');
+  const fav = el('div', 'beta', '<p></p>'); fav.style.borderStyle = 'solid';
+  fav.querySelector('p').innerHTML = es ? '<b>⭐ Es uno de tus temas.</b> Tu lección del día sale de acá.' : '<b>¿Te interesa este tema?</b> Si lo sumás, tu lección del día va a salir de acá.';
+  const fb = el('button', 'btn ghost small', es ? 'Sacarlo de mis temas' : '⭐ Sumarlo a mis temas'); fb.type = 'button';
+  fb.addEventListener('click', () => { const t = misTemas().slice(); if (es) t.splice(t.indexOf(v.k), 1); else t.push(v.k); S.temas = t; if (S.dia && !S.dia.hecho && S.dia.f === hoy() && S.dia.t === 'lec') delete S.dia; save(); track(d => { d.temas = t; }); toast(es ? 'Listo, lo saqué de tus temas.' : '¡Listo! Ahora es uno de tus temas.'); renderInicio(); });
+  fav.appendChild(fb);
+  const list = el('div', 'stack'); list.style.gap = '10px';
+  v.ls.forEach(l => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Hecha · tocá para repetirla' : (S.prog && S.prog[l.id]) ? 'Vas por el paso ' + (S.prog[l.id] + 1) + ' de ' + l.steps.length : 'Tocá para empezar · ' + l.min + ' minutos'; b.addEventListener('click', () => startLesson(l)); list.appendChild(b); });
+  z.append(back, head, prog, list, fav);
+}
+
 
 /* ============ REPRODUCTOR DE LECCIONES ============ */
 let si = 0, lessonT0 = 0;
@@ -2157,8 +2236,10 @@ const INTERVALO = [1, 2, 4, 7, 14]; // días hasta el próximo repaso según la 
 const hoy = (dias) => { const d = new Date(); d.setDate(d.getDate() + (dias || 0)); return d.toISOString().slice(0, 10); };
 function costo(id){ S.cost = Object.assign({}, S.cost, {[id]: true}); save(); }
 function memDe(l, idx){ const k = l.id + '-' + idx; return (S.mem && S.mem[k]) || {box: (S.cost && S.cost[l.id]) ? 0 : 1, next: hoy(), nuevo: true}; }
-function startRep(){
-  const pool = []; ALL.filter(l => S.done[l.id]).forEach(l => l.steps.forEach((st, idx) => { if (st.k === 'check'){ const m = memDe(l, idx); pool.push({l, st, key: l.id + '-' + idx, m, r: Math.random()}); } }));
+let repK = null;
+function startRep(k){
+  repK = typeof k === 'string' ? k : null; const v = repK && NIVELES.find(x => x.k === repK); $('r-titulo').textContent = v ? 'Lección del día: ' + v.t : 'Lección del día';
+  const pool = []; ALL.filter(l => S.done[l.id] && (!repK || l.niv.k === repK)).forEach(l => l.steps.forEach((st, idx) => { if (st.k === 'check'){ const m = memDe(l, idx); pool.push({l, st, key: l.id + '-' + idx, m, r: Math.random()}); } }));
   const t = hoy(), vence = pool.filter(x => x.m.next <= t), resto = pool.filter(x => x.m.next > t);
   const orden = (a, b) => (a.m.box - b.m.box) || (a.m.next < b.m.next ? -1 : a.m.next > b.m.next ? 1 : 0) || (a.r - b.r);
   vence.sort(orden); resto.sort(orden);
@@ -2168,14 +2249,14 @@ function renderRep(){
   const sd = $('r-steps'); sd.innerHTML = ''; RQ.forEach((_, i) => sd.appendChild(el('i', i < ri ? 'ok' : i === ri ? 'on' : '')));
   const z = $('rz'); z.innerHTML = '';
   if (ri >= RQ.length){
-    S.repDate = new Date().toISOString().slice(0, 10); save();
+    S.repDate = new Date().toISOString().slice(0, 10); save(); diaHecho('rep');
     const tot = RQ.length, ok = rok; track((d, now) => { d.repasos = (Array.isArray(d.repasos) ? d.repasos : []).concat({at:now, ok, tot}).slice(-60); });
     z.append(el('div', 'medal', '🧠'));
     const h = el('h1', 'center'); h.style.fontSize = '30px'; h.textContent = ok === tot ? '¡' + ok + ' de ' + tot + '! Memoria de elefante' : ok + ' de ' + tot + ': ¡muy bien!'; z.append(h);
     const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div>');
-    say.querySelector('.bubble').textContent = ok === tot ? '¡Me encanta! Lo que aprendiste ya quedó. Mañana te traigo otro repasito.' : 'Para esto repasamos: lo que hoy costó, mañana sale solo. ¡Estoy orgullosa de vos!';
+    say.querySelector('.bubble').textContent = ok === tot ? '¡Me encanta! Lo que aprendiste ya quedó. Mañana te espera otra lección del día.' : 'Para esto repasamos: lo que hoy costó, mañana sale solo. ¡Estoy orgullosa de vos!';
     z.append(say);
-    const b = el('button', 'btn', 'Ver todas las lecciones'); b.type = 'button'; b.addEventListener('click', () => show('inicio')); z.append(b); return;
+    const b = el('button', 'btn', 'Volver al inicio'); b.type = 'button'; b.addEventListener('click', () => show('inicio')); z.append(b); return;
   }
   const {l, st} = RQ[ri];
   z.append(el('span', 'pill soft', ''), el('h2', 'qh')); z.children[0].textContent = 'De la lección: ' + l.t; z.children[0].style.alignSelf = 'flex-start'; z.children[1].textContent = fillOS(st.q);
@@ -2220,7 +2301,7 @@ function answerPay(k){
 
 /* ============ LOGRO ============ */
 function finishLesson(){
-  const l = curL; S.done[l.id] = true; if (S.prog) delete S.prog[l.id]; save();
+  const l = curL; S.done[l.id] = true; if (S.prog) delete S.prog[l.id]; save(); diaHecho('lec');
   { const secs = Math.round((Date.now() - lessonT0) / 1000); track((d, now) => { const x = L(d, l.id); x.fin = x.fin || now; x.seg = secs; x.paso = l.steps.length; }); }
   $('g-ic').textContent = l.ic; $('g-t').textContent = LOGRO[l.id] || '¡Completaste "' + l.t + '"!';
   
