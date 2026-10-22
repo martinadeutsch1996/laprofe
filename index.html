@@ -673,9 +673,13 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 #stage.hecho{opacity:.45;pointer-events:none;transition:opacity .4s}
 
 /* Botón principal: coral más oscuro con letra blanca (opción C, contraste 5,1 a 1) */
-:root{--accion:#C93A1B}
+:root{--accion:#0F5257;--sec:#0F5257}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accion:#1A7A80;--sec:#F6F3EE}}
+:root[data-theme="dark"]{--accion:#1A7A80;--sec:#F6F3EE}
+/* Jerarquía de botones: principal en petróleo (uno por pantalla), secundario con borde, de paso solo texto, ayudas en chips grises. El rojo queda solo para errores. */
 .btn{background:var(--accion);color:#fff}
-.dia .ir{background:var(--accion);color:#fff}
+.btn.ghost{border-color:var(--sec);color:var(--sec)}
+.dia .ir{background:#fff;color:var(--petroleo)}
 
 /* Pantalla de tema nuevo */
 .tema-intro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:28px 8px 8px}
