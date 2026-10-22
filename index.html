@@ -677,6 +677,11 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .btn{background:var(--accion);color:#fff}
 .dia .ir{background:var(--accion);color:#fff}
 
+/* Pantalla de tema nuevo */
+.tema-intro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:28px 8px 8px}
+.tema-intro .em{font-size:64px;line-height:1}
+.tema-intro .lbl{font-weight:800;color:var(--petroleo);font-size:17px}
+.tema-intro h1{font-size:30px;line-height:1.15}
 /* Cabecera de la lección */
 .lhead .lt{display:flex;flex-direction:column;min-width:0}
 .lhead .lt b{font-family:var(--display);font-size:19px;line-height:1.2;color:var(--fg)}
@@ -1517,10 +1522,10 @@ NIVELES.push(
  {id:'rs1', app:['facebook','instagram'], ic:'🛡️', t:'Cuidarte en las redes', min:6, des:'Revisá tus solicitudes de amistad y fijate si hay alguien que no conocés.',
   steps:[
    {k:'ex', txt:'En las redes hay perfiles falsos. Una señal: alguien que ya es tu amigo te manda una solicitud otra vez. Puede ser una copia de su perfil.', art:'clon'},
-   {k:'ex', txt:'Desconfiá de premios, ofertas o desconocidos que te piden plata o datos. Y no cuentes que te vas de viaje: mejor contalo cuando vuelvas.', art:'pensa'},
+   {k:'ex', txt:'Desconfiá de premios, ofertas o desconocidos que te piden plata o datos. Y nunca cuentes en las redes que tu casa queda sola.', art:'pensa'},
    {k:'try', run:'rsCuida'},
    {k:'check', q:'Marta ya es tu amiga en Facebook y te manda otra solicitud. ¿Qué hacés?', o:['La acepto','No la acepto y le aviso a Marta'], a:1, why:'¡Bien pensado! Puede ser un perfil copiado. Avisale por WhatsApp.'},
-   {k:'rec', pts:['Una solicitud repetida puede ser un perfil falso.','Si te piden plata o datos, no respondas.','Los viajes, contalos a la vuelta.']}
+   {k:'rec', pts:['Una solicitud repetida puede ser un perfil falso.','Si te piden plata o datos, no respondas.','Nunca cuentes en las redes que tu casa queda sola.']}
   ]}
 ]});
 const REAL = {
@@ -1707,7 +1712,7 @@ Cámara: ícono de cámara; lo que se ve en pantalla es la foto; tocar en la pan
 Google: buscador; barra, escribir, lupa; se puede escribir como se habla o con palabras clave; micrófono para buscar hablando. "Patrocinado" = anuncio. Páginas del Estado uruguayo terminan en gub.uy (bps.gub.uy). Desconfiar de ofertas increíbles y de páginas que piden tarjeta para algo gratis.
 YouTube: gratis; lupa arriba; anuncio con "Omitir" a los segundos; tocar el video muestra pausa y pantalla completa; celular acostado se ve más grande.
 Netflix: pago mensual; perfiles por persona; "Seguir viendo" retoma; lupa busca; "Audio y subtítulos" (tocando la pantalla mientras se mira). Mensajes falsos de "cuenta suspendida, actualizá tu pago": no tocar el enlace, revisar abriendo la app.
-Instagram/Facebook: seguir es gratis y se deja cuando se quiere. Facebook: "Me gusta", "Comentar", "Compartir"; los comentarios los ven otros. Perfiles copiados: solicitud repetida de alguien que ya es amigo → avisarle por otro medio. Viajes: contarlos a la vuelta.
+Instagram/Facebook: seguir es gratis y se deja cuando se quiere. Facebook: "Me gusta", "Comentar", "Compartir"; los comentarios los ven otros. Perfiles copiados: solicitud repetida de alguien que ya es amigo → avisarle por otro medio. Viajes: nunca contar en las redes que la casa queda sola.
 Descargar apps: Android, Play Store (Google Play) > buscar > "Instalar" > "Abrir"; iPhone, App Store > lupa "Buscar" > "Obtener" > "Abrir" (puede pedir Face ID, huella o contraseña de la cuenta de Apple: la pide el propio celular, no se le da a nadie). Mirar quién la hizo (hay copias con nombres parecidos). Si aparece un precio, es paga.
 Redes sociales (manual de Instagram de Martina): apps para compartir fotos y videos; no hace falta publicar, se puede solo mirar. Publicación (queda en el perfil), historia (24 horas), reel (video corto, lo puede ver mucha más gente), seguir, me gusta (corazón), comentario, mensaje directo (privado, avioncito de papel), perfil, hashtag (#). Botones de abajo: casita (inicio), lupa (buscar), + (crear: "Publicación", elegir foto, "Siguiente", frase, "Compartir"), Reels, perfil. Crear cuenta: descargar Instagram, "Crear cuenta nueva", nombre y teléfono o correo, usuario, contraseña segura; anotar usuario y contraseña en un cuaderno en casa. Cuenta privada: perfil > tres rayitas > "Configuración y privacidad" > "Privacidad de la cuenta" > "Cuenta privada". Mensajes de desconocidos quedan en "Solicitudes". Cuentas falsas: pocas publicaciones, creadas hace poco, ofrecen dinero fácil o inversiones; la tilde de verificación ayuda pero no es garantía. BPS, BROU, DGI y los bancos nunca piden la contraseña por mensaje.
 Seguridad (manual de Martina): las estafas tienen urgencia, miedo o emoción, y un pedido de datos o dinero. No dar datos personales por WhatsApp o llamadas; no abrir links de desconocidos; no seguir conversaciones con desconocidos; no poner datos bancarios o contraseñas en sitios dudosos. Llamadas que se hacen pasar por un banco y piden códigos: cortar y verificar por otro medio. Nunca compartir contraseñas, códigos de SMS ni datos de tarjeta. Un "familiar" desde otro número que pide plata: llamar a la persona real. Compras: desconfiar de precios demasiado bajos, páginas desconocidas y pagos por fuera de la plataforma. Contraseñas difíciles, distintas y sin compartir. Tomarse un momento, consultar con alguien de confianza; ante la duda, no responder.
@@ -2068,12 +2073,20 @@ function misTemas(){
   if (!Array.isArray(S.temas)){ const t = []; ((S.perfil && S.perfil.intereses) || []).forEach(i => (INT_TEMA[i] || []).forEach(k => { if (!t.includes(k) && NIVELES.some(v => v.k === k)) t.push(k); })); S.temas = t; save(); }
   return S.temas;
 }
+/* El camino: primero el tema donde empezó, después sus temas elegidos, después el resto en orden.
+   Siempre se termina el tema en el que está antes de pasar a otro. */
+function camino(){
+  const ini = NIVELES.find(v => v.n === startN()), tm = misTemas(), out = [];
+  const add = v => { if (v && !out.includes(v)) out.push(v); };
+  add(ini); NIVELES.filter(v => tm.includes(v.k)).forEach(add);
+  NIVELES.filter(v => v.n >= startN()).forEach(add); NIVELES.forEach(add);
+  return out;
+}
+const sigDelTema = v => v && (v.ls.find(l => !S.done[l.id] && S.prog && S.prog[l.id]) || v.ls.find(l => !S.done[l.id]));
 function proxNueva(){
-  const enCurso = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (enCurso) return enCurso;
-  const ini = NIVELES.find(v => v.n === startN());
-  if (ini && ini.ls.some(l => !S.done[l.id])) return ini.ls.find(l => !S.done[l.id]);
-  const tm = misTemas(); for (const v of NIVELES) if (tm.includes(v.k)){ const l = v.ls.find(x => !S.done[x.id]); if (l) return l; }
-  return nextLesson();
+  const actual = NIVELES.find(v => v.k === S.ultTema), a = sigDelTema(actual); if (a) return a;
+  for (const v of camino()){ const l = sigDelTema(v); if (l) return l; }
+  return null;
 }
 function vencidas(k){ const t = hoy(), out = []; ALL.filter(l => S.done[l.id] && (!k || l.niv.k === k)).forEach(l => l.steps.forEach((st, idx) => { if (st.k === 'check' && memDe(l, idx).next <= t) out.push(l); })); return out; }
 function temaParaRepasar(){
@@ -2157,7 +2170,18 @@ function renderTema(z){
 
 /* ============ REPRODUCTOR DE LECCIONES ============ */
 let si = 0, lessonT0 = 0;
-function startLesson(l){ if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; renderStep(); }
+function startLesson(l){ if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; if (S.ultTema !== l.niv.k) temaIntro(l); else { S.ultTema = l.niv.k; save(); renderStep(); } }
+/* Cuando la lección es de otro tema, primero se avisa en qué tema está */
+function temaIntro(l){
+  const v = l.niv, hechas = v.ls.filter(x => S.done[x.id]).length, z = $('lz'); z.innerHTML = '';
+  $('l-paso').textContent = 'Lección ' + (v.ls.indexOf(l) + 1) + ' de ' + v.ls.length;
+  const c = el('div', 'tema-intro', '<span class="em" aria-hidden="true">' + v.em + '</span><span class="lbl">' + (hechas ? 'Volvés al tema' : 'Tema nuevo') + '</span><h1></h1><p class="muted"></p>');
+  c.querySelector('h1').textContent = v.t; c.querySelector('p').textContent = v.d;
+  const go = el('button', 'btn', si > 0 ? 'Seguir la lección' : 'Empezar la lección'); go.type = 'button';
+  go.addEventListener('click', () => { S.ultTema = v.k; save(); renderStep(); window.scrollTo(0,0); });
+  z.append(c, go);
+}
+
 $('l-exit').addEventListener('click', () => { if (si === 0) show('inicio'); else $('exitm').hidden = false; });
 $('exitm-stay').addEventListener('click', () => $('exitm').hidden = true);
 $('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; show('inicio'); });
@@ -2247,7 +2271,7 @@ function renderStep(){
       const foco = () => { if (t0 !== token){ mo.disconnect(); return; } if (stage.classList.contains('hecho')) return;
         let p = Array.from(stage.querySelectorAll('.pulse')).find(x => !vistos.has(x));
         if (!p && !PISTA.x && !stage.querySelector('.pulse')){ p = autoMarca(stage); if (p) p.classList.add('pulse'); }
-        if (p){ vistos.add(p); enfocar(p); } else enfocar(stage.querySelector('.phone') || stage.firstElementChild, true); };
+        if (p){ vistos.add(p); enfocar(p); } };
       stage.addEventListener('input', () => { clearTimeout(mo.t); mo.t = setTimeout(() => { const f = stage.querySelector('.field.pulse, input.pulse, textarea.pulse'); const i = stage.querySelector('input:not([readonly]), textarea:not([readonly])');
         if (f && i && i.value.trim()){ f.classList.remove('pulse'); const b = autoMarca(stage); if (b) b.classList.add('pulse'); } }, 400); });
       const mo = new MutationObserver(() => { clearTimeout(mo.t); mo.t = setTimeout(foco, 300); });
@@ -2430,8 +2454,10 @@ function finishLesson(){
     $('g-rec-si').href = 'https://wa.me/' + WA_MARTINA + '?text=' + encodeURIComponent('Hola Martina, quiero que me mandes recordatorios para practicar con LaProfe. Mi código es ' + (UID || anonUid()) + '.');
   }
   const c = $('g-com'); c.disabled = false; c.dataset.done = ''; c.textContent = '🎉 En la comunidad'; $('g-com-note').textContent = '';
-  const nx = ALL[ALL.indexOf(l) + 1]; const prox = l.niv.ls.find(x => !S.done[x.id]) || proxNueva(); S.gProx = prox ? prox.id : null; /* al terminar se ofrece seguir: primero el mismo tema */
-  $('g-next').hidden = !prox; $('g-prox').hidden = !prox; if (prox) $('g-prox').textContent = 'Próxima: ' + prox.t; $('g-home').hidden = false; $('g-com').hidden = !MOSTRAR_COMUNIDAD;
+  const nx = ALL[ALL.indexOf(l) + 1]; S.ultTema = l.niv.k; const prox = proxNueva(); S.gProx = prox ? prox.id : null; save(); /* primero se termina el tema */
+  const otroTema = prox && prox.niv !== l.niv;
+  $('g-next').hidden = !prox; $('g-prox').hidden = !prox; $('g-home').hidden = false;
+  if (prox){ $('g-prox').textContent = otroTema ? 'Sigue un tema nuevo: ' + prox.niv.t + '.' : 'Próxima: ' + prox.t; $('g-next').textContent = otroTema ? 'Empezar el tema nuevo' : 'Seguir con la próxima lección'; } $('g-com').hidden = !MOSTRAR_COMUNIDAD;
   const nivelOk = l.niv.ls.every(x => S.done[x.id]) && !(S.nivFest || {})[l.niv.k];
   if (nivelOk){
     S.nivFest = Object.assign({}, S.nivFest, {[l.niv.k]: true}); S.nivFestK = 1; save();
@@ -4002,44 +4028,41 @@ SIMS.iaConversa = function(api){
 
 SIMS.iaPedido = function(api){
   const P = [
-    {say:'Paso 1: ¿qué querés? Elegí la parte que le dice a la IA <b>qué necesitás</b>.', bien:'Una idea de regalo', mal:'Algo', no:'Con "algo" la IA no sabe qué buscar. Elegí la otra opción.'},
-    {say:'Paso 2: ¿para quién es? Elegí la parte que le da <b>más contexto</b>.', bien:'para mi nieta, que cumple 8 años y le encantan los animales', mal:'para alguien', no:'"Para alguien" no le cuenta nada. Cuanto más le contás, mejor te ayuda.'},
-    {say:'Paso 3: ¿cómo querés la respuesta? Elegí <b>cómo te gustaría</b> que te conteste.', bien:'Dame 3 ideas cortas', mal:'Escribime todo lo que sepas', no:'Así te puede contestar algo larguísimo. Mejor pedile algo corto.'}
+    {say:'Paso 1 de 4: ¿qué querés? Tocá la opción que lo dice mejor.', bien:'Una receta para la cena', mal:'Algo rico', no:'"Algo rico" puede ser cualquier cosa. Decile qué querés: una receta para la cena.'},
+    {say:'Paso 2 de 4: contale para cuántos es y qué tenés. Tocá la opción con más datos.', bien:'para dos personas, con arroz y huevos que tengo en la heladera', mal:'para nosotros', no:'"Para nosotros" no le dice cuántos son ni qué tenés en la heladera.'},
+    {say:'Paso 3 de 4: decile cómo querés la respuesta.', bien:'Explicámela en pasos cortos', mal:'Contame todo', no:'"Contame todo" te puede dar un texto larguísimo. Mejor pedile pasos cortos.'}
   ];
   let k = 0; const partes = [];
-  api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:0">' + IA_HEAD + '<div class="msgs" id="msgs"></div><div class="inrow"><label class="field" id="fld" for="inp"><input id="inp" placeholder="Preguntá lo que quieras" autocomplete="off" readonly></label><button class="round" type="button" id="btn" aria-label="Enviar">' + I.send + '</button></div></div><div class="card stack" id="arma" style="gap:10px"><b>Tu pedido</b><p id="ped" class="muted" style="margin:0;font-size:18px">Todavía vacío</p><div class="stack" id="ops"></div><p id="pist" hidden style="margin:0;font-weight:700;color:var(--fg)"></p></div>';
-  addMsg($('msgs'), 'Regalo', true, '10:40');
-  addMsg($('msgs'), 'Hay muchísimos regalos posibles: ropa, un libro, un perfume, algo de tecnología… ¿Para quién es? ¿Qué le gusta?', false, '10:40');
-  const texto = () => { let t = partes[0] || ''; if (partes[1]) t += ' ' + partes[1]; if (partes[2]) t += '. ' + partes[2] + '.'; return t; };
+  api.stage.innerHTML = '<div class="stack" id="ops" style="gap:10px"></div><div class="phone" id="ph" style="min-height:0">' + IA_HEAD + '<div class="msgs" id="msgs"></div><div class="inrow"><div class="field" id="fld" style="min-height:52px;padding:10px 14px;white-space:normal;line-height:1.35"><span id="ped" style="color:var(--ph-sub)">Tu pedido va a aparecer acá</span></div><button class="round" type="button" id="btn" aria-label="Enviar">' + I.send + '</button></div></div>';
+  addMsg($('msgs'), 'Receta', true, '20:10');
+  addMsg($('msgs'), 'Hay miles de recetas: de carne, de pescado, dulces, saladas… ¿Qué querés cocinar?', false, '20:10');
+  const texto = () => partes[0] ? partes[0] + (partes[1] ? ', ' + partes[1] : '') + '.' + (partes[2] ? ' ' + partes[2] + '.' : '') : '';
   const paso = () => {
-    const p = P[k]; api.say(k === 0 ? 'Mirá: alguien le escribió solo "Regalo" y la IA no supo qué contestar. Vamos a armar un pedido mejor. ' + p.say : p.say);
+    const p = P[k]; api.say(k === 0 ? 'Alguien escribió solo "Receta" y la IA no supo qué darle. Armemos un pedido mejor, de a una parte.\n' + p.say : p.say);
     const ops = $('ops'); ops.innerHTML = '';
-    const lista = Math.random() < .5 ? [[p.bien, 1], [p.mal, 0]] : [[p.mal, 0], [p.bien, 1]];
-    lista.forEach(o => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = o[0]; b.addEventListener('click', () => {
+    (Math.random() < .5 ? [[p.bien, 1], [p.mal, 0]] : [[p.mal, 0], [p.bien, 1]]).forEach(o => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = o[0]; b.addEventListener('click', () => {
       if (!o[1]){ b.classList.add('wrong'); toast(p.no); return; }
-      $('pist').hidden = true; partes.push(p.bien); $('ped').textContent = texto(); $('ped').classList.remove('muted');
+      partes.push(p.bien); $('ped').textContent = texto(); $('ped').style.color = 'var(--ph-text)';
       k++; if (k < P.length) paso(); else enviar();
     }); ops.appendChild(b); });
+    later(() => enfocar(ops), 60);
   };
   const enviar = () => {
-    $('ops').innerHTML = ''; $('inp').value = texto(); $('btn').classList.add('pulse');
-    api.say('¡Qué buen pedido! Ya está escrito abajo. Paso 4: tocá la <b>flecha</b> para mandarlo.');
-    $('ph').scrollIntoView({behavior:'smooth', block:'center'});
+    $('ops').innerHTML = '';
+    api.say('¡Qué buen pedido! Ya está escrito. Paso 4 de 4: tocá la <b>flecha</b> para mandarlo.'); api.marca('#btn');
     let ido = false;
     $('btn').addEventListener('click', () => {
-      if (ido) return; ido = true; $('btn').classList.remove('pulse'); const t = $('inp').value; $('inp').value = '';
-      addMsg($('msgs'), esc(t), true, '10:41');
+      if (ido || k < P.length) return; ido = true; $('btn').classList.remove('pulse'); const t = texto(); $('ped').textContent = ''; 
+      addMsg($('msgs'), esc(t), true, '20:11');
       later(() => $('msgs').appendChild(el('div', 'typing', 'Escribiendo…')), 400);
       later(() => { const ty = $('msgs').querySelector('.typing'); if (ty) ty.remove();
-        addMsg($('msgs'), iaHtml('¡Qué lindo! Tres ideas para una nena de 8 años a la que le encantan los animales:\n1. Un libro de animales con figuritas para pegar.\n2. Un peluche de su animal favorito, con una tarjeta escrita por vos.\n3. Una salida a una granja para ver animales de cerca.'), false, '10:41');
-        api.say('¿Viste la diferencia? Con el mismo tema, ahora la respuesta te sirve de verdad. Y si no te convence, le pedís otras ideas.'); api.done(); }, 2000);
+        addMsg($('msgs'), iaHtml('¡Dale! Arroz con huevo, para dos:\n1. Hervís una taza de arroz durante 15 minutos.\n2. En una sartén, batís 2 huevos y los cocinás revolviendo.\n3. Mezclás el arroz con los huevos y le ponés sal. ¡Listo!'), false, '20:11');
+        api.say('¿Viste la diferencia? Con el mismo tema, ahora la respuesta te sirve de verdad.'); api.done(); }, 2000);
     });
   };
-  $('fld').addEventListener('click', () => { if (k < P.length) toast('Primero armamos el pedido eligiendo las partes de abajo.'); });
-  $('btn').addEventListener('click', () => { if (k < P.length) toast('Primero armamos el pedido eligiendo las partes de abajo.'); });
+  $('btn').addEventListener('click', () => { if (k < P.length) toast('Primero armamos el pedido con las opciones de arriba.'); });
   paso();
 };
-
 SIMS.iaFoto = function(api){
   const ios = OS() === 'iphone';
   let foto = null;
@@ -5027,7 +5050,7 @@ SIMS.rsCuida = function(api){
   decidir(api, {em:'🛡️', bien:'¡Usás las redes con muy buen ojo!', fin:'Solicitudes repetidas, premios que piden plata y casas solas: con esas tres señales ya te cuidás muchísimo.', items:[
     {ctx:'Marta, tu vecina, ya es tu amiga en Facebook. Hoy te llega esto:', html:'<div class="fbreq"><span class="pic" style="background:#3F7FD8">M</span><div><b>Marta Pérez</b><small>te envió una solicitud de amistad</small></div></div>', q:'¿La aceptás?', b:['La acepto','No, y le aviso a Marta'], ok:1, why:'Si Marta ya es tu amiga, esta puede ser una copia de su perfil. Avisale por WhatsApp o llamándola.'},
     {html:msgCard('Sorteos Oficiales 🏆', 'Te escribe por Facebook', '#8A8A8A', '¡Felicitaciones! Ganaste una heladera. Para enviártela, pagá $500 de envío con este enlace.'), q:'¿Pagás el envío?', b:['Lo pago','Mejor no'], ok:1, why:'No participaste de ningún sorteo y te piden plata. Es una estafa: no pagues y bloquealo.'},
-    {ctx:'Estás por publicar esto en tu perfil:', html:'<div class="fbp" style="padding:12px"><b>' + esc(NOMBRE() || 'Vos') + '</b><p style="margin:6px 0 0">¡Mañana nos vamos 15 días a Florianópolis! La casa queda sola 😅</p></div>', q:'¿Lo publicás así?', b:['Lo publico','Mejor lo cuento a la vuelta'], ok:1, why:'Avisar que la casa queda sola puede ser peligroso. Las fotos del viaje, mejor a la vuelta.'},
+    {ctx:'Estás por publicar esto en tu perfil:', html:'<div class="fbp" style="padding:12px"><b>' + esc(NOMBRE() || 'Vos') + '</b><p style="margin:6px 0 0">¡Mañana nos vamos 15 días a Florianópolis! La casa queda sola 😅</p></div>', q:'¿Lo publicás?', b:['Lo publico','No lo publico'], ok:1, why:'Nunca cuentes en las redes que tu casa queda sola: lo pueden ver personas que no conocés.'},
     {ctx:'Pedro, tu nieto, comentó tu foto:', html:'<div class="fbcm" style="padding:12px"><span class="pic" style="background:#0F8F7E">P</span><div><b>Pedro</b><span>¡Qué linda foto! Te quiero mucho ❤️</span></div></div>', q:'¿Le respondés?', b:['Le respondo','Lo bloqueo'], ok:0, why:'Es alguien que conocés y no te pide nada. ¡Respondele con cariño!'}
   ]});
 };
