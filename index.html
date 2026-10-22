@@ -676,6 +676,26 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 :root{--accion:#C93A1B}
 .btn{background:var(--accion);color:#fff}
 .dia .ir{background:var(--accion);color:#fff}
+
+/* Cabecera de la lección */
+.lhead .lt{display:flex;flex-direction:column;min-width:0}
+.lhead .lt b{font-family:var(--display);font-size:19px;line-height:1.2;color:var(--fg)}
+.lhead .lt span{font-weight:700;font-size:16px;color:var(--muted)}
+.lhead b{white-space:normal}
+.atras-paso{align-self:center;margin-top:4px}
+/* La consigna nueva de Martina se ilumina un momento */
+#g-txt.nueva{animation:nueva 1.2s ease-out}
+@keyframes nueva{0%{box-shadow:0 0 0 4px var(--lima)}100%{box-shadow:0 0 0 0 transparent}}
+/* Dentro del dibujo del celular, los botones se ven como en un celular, no como los de LaProfe */
+#stage .phone .btn,#stage .phone .btn.dark{background:#1A73E8;color:#fff;min-height:46px;font-size:16px;font-weight:700;box-shadow:none;border:none}
+#stage .phone .btn.ghost{background:transparent;color:#1A73E8;border:2px solid #1A73E8}
+#stage .phone .btn.green{background:var(--ph-green)}
+/* Interruptor de celular */
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:none;border:none;padding:12px 4px;font-size:16px;font-weight:600;color:var(--ph-text);text-align:left;border-radius:12px}
+.sw i{flex:none;width:52px;height:30px;border-radius:999px;background:#B9C0C7;position:relative;transition:background .2s}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.sw[aria-pressed=true] i{background:#1A73E8}
+.sw[aria-pressed=true] i::after{left:25px}
 </style>
 
 <main class="app">
@@ -703,8 +723,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 <!-- LECCIÓN -->
 <section id="s-lesson" class="screen" hidden>
   <div class="stack" style="gap:8px">
-    <div class="lhead"><span id="l-paso" style="font-weight:800;font-size:18px"></span><button class="btn ghost small" type="button" id="l-exit">Salir</button></div>
-    <b id="l-t" hidden></b><div class="steps" id="l-steps" aria-hidden="true" hidden></div><button type="button" id="l-back" hidden>Paso anterior</button>
+    <div class="lhead"><div class="lt"><b id="l-t"></b><span id="l-paso"></span></div><button class="btn ghost small" type="button" id="l-exit">Salir</button></div><div class="steps" id="l-steps" aria-hidden="true" hidden></div><button type="button" id="l-back" hidden>Paso anterior</button>
   </div>
   <div class="stack" id="lz" style="gap:14px"></div>
 </section>
@@ -2036,8 +2055,7 @@ function sendOpinion(){
   const txt = $('op-txt').value.trim().slice(0, 500), o = opSel;
   track((d, now) => { d.opiniones = (d.opiniones || []).concat([{fecha:now, carita:o[0], txt:txt, lecciones:doneN()}]).slice(-10); });
   S.opNext = doneN() + 6; save();
-  $('op-opts').hidden = true; $('op-more').hidden = true; $('op-ok').hidden = false; $('op-no').textContent = 'Cerrar';
-  setTimeout(closeOpinion, 2500);
+  closeOpinion(); // sin cartel de gracias: no hace falta cerrar nada más
 }
 let openLvl = null, lastCur = null;
 /* ===== Lección del día y temas =====
@@ -2137,7 +2155,7 @@ function renderTema(z){
 
 /* ============ REPRODUCTOR DE LECCIONES ============ */
 let si = 0, lessonT0 = 0;
-function startLesson(l){ if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = 'Nivel ' + l.niv.n + ' · Lección ' + (l.niv.ls.indexOf(l) + 1) + ' de ' + l.niv.ls.length; renderStep(); }
+function startLesson(l){ if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; renderStep(); }
 $('l-exit').addEventListener('click', () => { if (si === 0) show('inicio'); else $('exitm').hidden = false; });
 $('exitm-stay').addEventListener('click', () => $('exitm').hidden = true);
 $('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; show('inicio'); });
@@ -2160,17 +2178,25 @@ function enfocar(x, suave){
   window.scrollTo({top: Math.max(0, y), behavior: 'smooth'});
 }
 /* Pregunta de la lección. Se usa en su propio paso o debajo de la práctica, sin botón en el medio */
+/* Si se equivocó, la explicación no arranca festejando ("¡Eso!", "Exacto:") */
+const sinFestejo = (t, ok) => ok ? t : String(t).replace(/^¡?(Eso|Exacto|Bien|Muy bien|Perfecto|Claro)[!.:,]*\s*/i, '').replace(/^./, c => c.toUpperCase());
+function atrasPaso(){
+  const z = $('lz'); if (!z || si === 0 || z.querySelector('.atras-paso') || (curL.steps[si] && curL.steps[si].k === 'try')) return; // en la práctica no: suma ruido
+  const b = el('button', 'atras atras-paso', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Ver el paso anterior'); b.type = 'button';
+  b.addEventListener('click', () => { if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } }); z.appendChild(b);
+}
 function checkEn(z, st){
     const q = el('h2', 'qh'); q.textContent = fillOS(st.q); z.append(q);
     const opts = el('div', 'stack'); const fb = el('div'); const o = T(st.o);
     o.forEach((t, k) => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = fillOS(t); b.addEventListener('click', () => {
       if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; { const id = curL.id, ks = si; track(d => { const x = L(d, id); if (ok) x.bien = addIdx(x.bien, ks); else x.mal = addIdx(x.mal, ks); }); if (!ok){ costo(id); S.mem = Object.assign({}, S.mem, {[id + '-' + ks]: {box:0, next:hoy()}}); save(); } } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
-      fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Muy bien!','¡Eso! ¡Viste que sabías!','¡Exacto! Vas volando.']) : pick(['¡Casi! Equivocarse es parte de aprender.','No pasa nada: así se aprende.','Tranqui: esta confunde a todos al principio.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = fillOS(st.why);
+      fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Muy bien!','¡Eso! ¡Viste que sabías!','¡Exacto! Vas volando.']) : pick(['¡Casi! Equivocarse es parte de aprender.','No pasa nada: así se aprende.','Tranqui: esta confunde a todos al principio.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = sinFestejo(fillOS(st.why), ok);
       const nb = nextBtn(); nb.style.marginTop = '12px'; fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
     }); opts.appendChild(b); });
     z.append(opts, fb);
 }
 function renderStep(){
+  setTimeout(atrasPaso, 0);
   token++; $('toast').hidden = true; stopVoz(); yaBajo = false;
   if (!S.done[curL.id]){ S.prog = Object.assign({}, S.prog); if (si > 0) S.prog[curL.id] = si; else delete S.prog[curL.id]; save(); }
   { const id = curL.id, k = si; track(d => { const x = L(d, id); x.paso = Math.max(x.paso || 0, k); }); }
@@ -2193,12 +2219,12 @@ function renderStep(){
     const g = el('div', 'guide'); g.innerHTML = '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble" id="g-txt"></div></div><p class="pista" id="g-pista" role="status" hidden></p>'; z.append(g);
     const stage = el('div', 'stack'); stage.id = 'stage'; z.append(stage);
     const nb = nextBtn('Seguir'); nb.hidden = true; nb.id = 'try-next'; z.append(nb);
-    const api = {say: h => { $('g-txt').innerHTML = h; const gp = $('g-pista'); if (gp && Date.now() - (+gp.dataset.t || 0) > 600) gp.hidden = true; }, stage, done: () => {
+    const api = {say: h => { const gt = $('g-txt'); if (gt.innerHTML && gt.innerHTML !== h){ gt.classList.remove('nueva'); void gt.offsetWidth; gt.classList.add('nueva'); } gt.innerHTML = h; const gp = $('g-pista'); if (gp && Date.now() - (+gp.dataset.t || 0) > 600) gp.hidden = true; }, stage, done: () => {
       const sig = curL.steps[si + 1];
       if (sig && sig.k === 'check' && !z.querySelector('.check-in')){ // la pregunta aparece abajo, en la misma pantalla
         si++; if (!S.done[curL.id]){ S.prog = Object.assign({}, S.prog, {[curL.id]: si}); save(); } { const id = curL.id, k = si; track(d => { const x = L(d, id); x.paso = Math.max(x.paso || 0, k); }); }
         stepDots(); g.style.position = 'static'; const hb2 = $('try-help'); if (hb2) hb2.hidden = true; stage.classList.add('hecho');
-        const box = el('div', 'stack check-in'); box.style.gap = '14px'; box.style.marginTop = '22px'; z.insertBefore(box, nb); checkEn(box, sig);
+        const box = el('div', 'stack check-in'); box.style.gap = '14px'; box.style.marginTop = '22px'; z.insertBefore(box, nb); checkEn(box, sig); atrasPaso();
         later(() => box.scrollIntoView({behavior:'smooth', block:'start'}), 900); return;
       }
       nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
@@ -2336,7 +2362,7 @@ function renderRep(){
   T(st.o).forEach((t, k) => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = fillOS(t); b.addEventListener('click', () => {
     if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; if (ok) rok++;
     { const it = RQ[ri], box = ok ? Math.min((it.m.box || 0) + 1, INTERVALO.length - 1) : 0; S.mem = Object.assign({}, S.mem, {[it.key]: {box, next: hoy(INTERVALO[box])}}); save(); track((d, now) => { d.memoria = Object.assign({}, d.memoria, {[it.key]: box}); }); } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
-    fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Te acordaste!','¡Eso!','¡Perfecto!']) : pick(['¡Casi! Ahora ya no se te olvida.','Tranqui: para eso repasamos.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = fillOS(st.why);
+    fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Te acordaste!','¡Eso!','¡Perfecto!']) : pick(['¡Casi! Ahora ya no se te olvida.','Tranqui: para eso repasamos.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = sinFestejo(fillOS(st.why), ok);
     const nb = el('button', 'btn', ri < RQ.length - 1 ? 'Seguir' : 'Ver resultado'); nb.type = 'button'; nb.style.marginTop = '12px'; nb.addEventListener('click', () => { ri++; renderRep(); window.scrollTo(0,0); }); fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
   }); opts.appendChild(b); });
   z.append(opts, fb);
@@ -3310,24 +3336,23 @@ SIMS.statusBar = function(api){
 
 SIMS.cloudSim = function(api){
   const F = ['🎂','🏖️','🐶','🌸','👵','🎄'];
-  let on = false, step = 0;
-  api.say('Paso 1: tocá el interruptor para <b>activar la copia de seguridad</b>.');
-  const render = (photos, phoneTitle) => { api.stage.innerHTML = '<div class="phone" style="min-height:0">' + sbar() + '<div class="bar"><h3>' + phoneTitle + '</h3></div><div class="pgrid" id="cg" style="background:var(--ph-bar);min-height:150px">' + (photos ? F.map(e => '<span class="tile" style="background:var(--ph-line)">' + e + '</span>').join('') : '<p style="grid-column:1/-1;padding:16px;color:var(--ph-sub)">Celular nuevo: todavía no hay fotos.</p>') + '</div><div id="cz" style="background:var(--ph-bar);padding:14px;display:flex;flex-direction:column;gap:10px"></div></div>'; };
-  render(true, 'Mis fotos');
-  const cz = () => $('cz');
-  cz().innerHTML = '<button type="button" class="qt pulse" id="ct" aria-pressed="false" style="flex-direction:row;justify-content:space-between;min-height:60px;padding:0 16px;font-size:16px"><span>☁️ Copia de seguridad</span><b id="cts">Apagada</b></button>';
+  const ph = (titulo, cuerpo) => '<div class="phone" style="min-height:0">' + sbar() + '<div class="bar"><h3>' + titulo + '</h3></div><div style="background:var(--ph-bar);padding:10px 14px 16px;display:flex;flex-direction:column;gap:10px">' + cuerpo + '</div></div>';
+  const fotos = '<div class="pgrid" style="padding:0">' + F.map(e => '<span class="tile" style="background:var(--ph-line)">' + e + '</span>').join('') + '</div>';
+  api.say('Paso 1 de 2: tocá el interruptor para <b>prender la copia de seguridad</b>.');
+  api.stage.innerHTML = ph('Fotos', fotos + '<button type="button" class="sw pulse" id="ct" aria-pressed="false"><span>☁️ Copia de seguridad</span><i></i></button>');
   $('ct').addEventListener('click', () => {
-    if (step !== 0) return; on = true; step = 1; $('ct').setAttribute('aria-pressed', 'true'); $('ct').classList.remove('pulse'); $('cts').textContent = 'Prendida';
-    cz().insertAdjacentHTML('beforeend', '<span id="cup" style="font-weight:700">Subiendo tus fotos a la nube…</span>');
-    later(() => { $('cup').textContent = '✓ 6 fotos guardadas en la nube'; api.say('¡Listo! Ahora imaginemos lo peor. Tocá <b>"Se me perdió el celular"</b>.'); const b = el('button', 'btn dark', '😱 Se me perdió el celular'); b.type = 'button'; b.id = 'lost'; b.classList.add('pulse'); cz().appendChild(b);
-      b.addEventListener('click', () => { step = 2; render(false, 'Celular nuevo'); api.say('Te compraste otro. Está vacío… Tocá <b>"Entrar con mi cuenta"</b>.');
-        const e2 = el('button', 'btn', 'Entrar con mi cuenta'); e2.type = 'button'; e2.classList.add('pulse'); cz().appendChild(e2);
-        e2.addEventListener('click', () => { render(true, 'Mis fotos'); cz().innerHTML = '<b>✓ Recuperaste tus 6 fotos desde la nube</b>'; api.say('¡Volvieron todas! Eso hace la copia de seguridad: aunque pierdas el celular, lo tuyo no se pierde.'); api.done(); });
+    const t = $('ct'); if (t.getAttribute('aria-pressed') === 'true') return;
+    t.setAttribute('aria-pressed', 'true'); t.classList.remove('pulse');
+    later(() => {
+      api.say('¡Listo, tus fotos están en la nube! Imaginá que perdiste el celular y tenés uno nuevo.\nPaso 2 de 2: tocá <b>"Iniciar sesión"</b>.');
+      api.stage.innerHTML = ph('Celular nuevo', '<div style="min-height:120px;display:grid;place-items:center;color:var(--ph-sub);font-size:40px">📭</div><button type="button" class="btn pulse" id="cin">Iniciar sesión</button>');
+      $('cin').addEventListener('click', () => {
+        api.stage.innerHTML = ph('Fotos', fotos);
+        api.say('¡Volvieron todas tus fotos! Eso hace la copia de seguridad: aunque pierdas el celular, lo tuyo no se pierde.'); api.done();
       });
-    }, 1500);
+    }, 900);
   });
 };
-
 SIMS.pinLock = function(api){
   const PIN = '2580'; let typed = '';
   api.say('Este celular tiene bloqueo. Tu PIN de práctica es <b>2 5 8 0</b>. Tocá los números.');
