@@ -613,13 +613,17 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .mano-pasos{display:flex;flex-direction:column;gap:12px}
 
 /* Inicio: lección del día + temas */
-.dia{background:var(--card);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:8px;border:3px solid var(--coral)}
-.dia .lbl{font-weight:800;font-size:16px;color:var(--muted)}
+.dia{background:var(--coral);color:var(--ink);border:none;border-radius:26px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;box-shadow:0 6px 18px rgba(255,90,54,.28)}
+.dia .lbl{font-weight:800;font-size:17px}
 .dia h2{font-size:26px;line-height:1.15}
-.dia.hecho{border-color:var(--lima)}
-.temas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.dia p{font-size:18px}
+.dia .ir{margin-top:10px;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--ink);color:#fff;border-radius:999px;min-height:56px;font-weight:800;font-size:19px}
+.dia.hecho{background:var(--card);border:3px solid var(--lima);box-shadow:none}
+.tema{background:var(--card)}
+.tema .em{filter:saturate(.75)}
+.temas{display:grid;grid-template-columns:1fr;gap:10px}
 .big .temas{grid-template-columns:1fr}
-.tema{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;min-height:132px;width:100%}
+.tema{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px 16px;display:flex;flex-direction:row;align-items:center;gap:14px;text-align:left;width:100%}
 .big .tema{flex-direction:row;align-items:center;min-height:0;gap:12px}
 .tema .em{font-size:32px;line-height:1}
 .tema b{font-family:var(--display);font-size:19px;line-height:1.2}
@@ -881,7 +885,7 @@ const NOMBRE = () => (S.perfil && S.perfil.nombre) || '';
 
 /* ============ CONTENIDO: 3 NIVELES ============ */
 const NIVELES = [
-{n:1, k:'basico', em:'🌱', t:'Primeros pasos', d:'Los conceptos básicos para perderle el miedo', ls:[
+{n:1, k:'basico', em:'🌱', t:'Primeros pasos con el celular', d:'Los conceptos básicos para perderle el miedo', ls:[
  {id:'mano', ic:'📲', t:'Tené LaProfe a mano', min:4,
   des:'Abrí LaProfe tocando su ícono, sin buscar el link.',
   steps:[
@@ -962,7 +966,7 @@ const NIVELES = [
    {k:'rec', pts:['Los íconos se repiten en casi todas las apps.','La lupa busca, la flecha vuelve y la cruz cierra.','Los tres puntitos y las tres rayitas guardan más opciones.',{android:'El clip adjunta. Los tres puntitos unidos sirven para compartir.', iphone:'El clip adjunta. El cuadradito con la flecha sirve para compartir.'},'La campanita son los avisos. Si está tachada, está silenciado.']}
   ]}
 ]},
-{n:2, k:'pantalla', em:'👆', t:'La pantalla de mi celular', d:'Gestos, pantalla de inicio, atajos y letra grande', ls:[
+{n:2, k:'pantalla', em:'👆', t:'Manejar la pantalla y el teclado', d:'Gestos, pantalla de inicio, atajos y letra grande', ls:[
  {id:'2a', ic:'👆', t:'Los 4 gestos', min:5,
   des:'Practicá los 4 gestos en tu celular: tocá una app, mantené apretada una foto, deslizá en la galería y agrandá una foto con dos dedos.',
   steps:[
@@ -1052,7 +1056,7 @@ const NIVELES = [
    {k:'rec', pts:[{android:'Las apps se bajan de Play Store.', iphone:'Las apps se bajan del App Store.'},{android:'Tocás "Buscar", escribís el nombre y tocás "Instalar".', iphone:'Tocás "Buscar", escribís el nombre y tocás "Obtener".'},'Mirá quién hizo la app: hay copias.','Si ves un precio, la app es paga.']}
   ]}
 ]},
-{n:3, k:'whatsapp', em:'💬', t:'WhatsApp', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
+{n:3, k:'whatsapp', em:'💬', t:'WhatsApp: mensajes, audios y fotos', d:'Mensajes, audios, fotos y cuidarte de estafas', ls:[
  {id:'3a', app:['whatsapp'], ic:'💬', t:'Conocé WhatsApp', min:4,
   des:'Abrí WhatsApp y fijate qué chats tienen el número verde. ¿Quién te escribió?',
   steps:[
@@ -1100,7 +1104,7 @@ const NIVELES = [
 /* Nivel 4: visible para todos desde el 17/10/2026. Poné false para ocultarlo. */
 const MOSTRAR_NIVEL_4 = true;
 if (MOSTRAR_NIVEL_4) NIVELES.push(
-{n:4, k:'maswa', em:'👪', t:'Más WhatsApp', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
+{n:4, k:'maswa', em:'👪', t:'WhatsApp: contactos, videollamadas y grupos', d:'Contactos, videollamadas, grupos y reenviar con cuidado', ls:[
  {id:'4a', app:['whatsapp'], ic:'📇', t:'Guardá un contacto', min:5,
   des:'Guardá el número de alguien que te escribe seguido y todavía no tenés agendado.',
   steps:[
@@ -1140,7 +1144,7 @@ if (MOSTRAR_NIVEL_4) NIVELES.push(
 ]});
 /* Nivel: La inteligencia artificial (se publica con PUBLICAR.ia, más abajo) */
 NIVELES.push(
-{n:5, k:'ia', em:'✨', t:'La inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
+{n:5, k:'ia', em:'✨', t:'Pedirle ayuda a la inteligencia artificial', d:'Qué es, cómo pedirle las cosas y cuándo desconfiar', ls:[
  {id:'5a', ic:'✨', t:'¿Qué es la inteligencia artificial?', min:5, des:'Pensá en tu día. ¿El celular te sugirió o te recomendó algo? Ahí había inteligencia artificial.',
   steps:[
    {k:'ex', txt:'La inteligencia artificial, o IA, es una tecnología que aprende de muchísimos ejemplos. Por eso puede entender lo que le decís, recomendarte cosas y escribir textos.', art:'iaart'},
@@ -1194,7 +1198,7 @@ NIVELES.push(
 ]});
 /* ============ NIVELES NUEVOS (19/10/2026) ============ */
 NIVELES.push(
-{n:0, k:'camara', em:'📷', t:'Cámara y fotos', d:'Sacar fotos, selfies y videos, y encontrarlos después', ls:[
+{n:0, k:'camara', em:'📷', t:'Sacar y guardar fotos', d:'Sacar fotos, selfies y videos, y encontrarlos después', ls:[
  {id:'fo1', ic:'📸', t:'Sacá tu primera foto', min:4, des:'Sacale una foto a algo lindo de tu casa: una planta, un cuadro o tu mascota.',
   steps:[
    {k:'ex', txt:'Para abrir la cámara, tocás el ícono que tiene dibujada una cámara de fotos. Lo que ves en la pantalla es lo que va a salir en la foto.', art:'camicon'},
@@ -1229,7 +1233,7 @@ NIVELES.push(
    {k:'rec', pts:['Tocá "Video": el botón se pone rojo.','Botón rojo: empieza a grabar.','Botón con cuadradito: termina.']}
   ]}
 ]},
-{n:0, k:'orga', em:'🗓️', t:'Organizate con el celular', d:'Calendario, notas y tus papeles importantes, siempre a mano', ls:[
+{n:0, k:'orga', em:'🗓️', t:'Agenda, notas y papeles en el celular', d:'Calendario, notas y tus papeles importantes, siempre a mano', ls:[
  {id:'or1', app:{android:['googlecalendar'], iphone:['calendario']}, ic:'🗓️', t:'Anotá en el calendario', min:6, des:'Anotá en el calendario tu próximo turno médico o un cumpleaños, con un aviso.',
   steps:[
    {k:'ex', txt:{android:'El calendario del celular es una agenda que te avisa. En Android suele llamarse Google Calendar o Calendario. Ahí anotás turnos, cumpleaños o reuniones.', iphone:'El calendario del celular es una agenda que te avisa. En iPhone se llama Calendario. Ahí anotás turnos, cumpleaños o reuniones.'}, art:'calart'},
@@ -1257,7 +1261,7 @@ NIVELES.push(
    {k:'rec', pts:['Apoyá la hoja y buscá buena luz.','Guardá la foto con "Agregar a álbum".','Nunca guardes fotos de tarjetas ni contraseñas.']}
   ]}
 ]},
-{n:0, k:'ciudad', em:'🗺️', t:'Moverme por la ciudad', d:'Google Maps, taxi, Uber y ómnibus desde el celular', ls:[
+{n:0, k:'ciudad', em:'🗺️', t:'Moverte por la ciudad: mapas, taxi y ómnibus', d:'Google Maps, taxi, Uber y ómnibus desde el celular', ls:[
  {id:'mp1', app:['googlemaps'], ic:'📍', t:'Conocé Google Maps', min:6, des:'Abrí Google Maps, buscá tu puntito azul y buscá una farmacia cerca.',
   steps:[
    {k:'ex', txt:'Google Maps es un mapa en el celular. Te muestra dónde estás, te ayuda a buscar lugares y te dice cómo llegar. Es como tener un guía en el bolsillo.', art:'mapart'},
@@ -1305,7 +1309,7 @@ NIVELES.push(
    {k:'rec', pts:['Buscá el lugar, tocá "Cómo llegar" y después el ómnibus.','Al lado del número de la línea dice hacia dónde va: fijate que el cartel del ómnibus diga lo mismo.','"Programada" es un horario previsto: conviene llegar unos minutos antes.','El circulito blanco marca dónde bajarte.']}
   ]}
 ]},
-{n:0, k:'gmail', em:'📧', t:'Correo electrónico', d:'Leer, escribir y mandar archivos por Gmail', ls:[
+{n:0, k:'gmail', em:'📧', t:'Mandar y recibir correos', d:'Leer, escribir y mandar archivos por Gmail', ls:[
  {id:'gm1', app:['gmail'], ic:'📬', t:'Conocé tu correo', min:5, des:'Abrí Gmail y fijate cuántos correos sin leer tenés.',
   steps:[
    {k:'ex', txt:'El correo electrónico, o mail, es como una carta que llega por internet. Gmail es la app de correo de Google. Tu dirección termina en @gmail.com.', art:'mailart'},
@@ -1333,7 +1337,7 @@ NIVELES.push(
    {k:'rec', pts:['Foto del papel: apoyado y que se lea.','Clip, "Fotos" y elegís la foto.','Después, fijate en "Enviados".']}
   ]}
 ]},
-{n:0, k:'google', em:'🔎', t:'Google y búsquedas', d:'Encontrar lo que buscás y saber en qué páginas confiar', ls:[
+{n:0, k:'google', em:'🔎', t:'Buscar información en Google', d:'Encontrar lo que buscás y saber en qué páginas confiar', ls:[
  {id:'go1', app:['google'], ic:'🔎', t:'Buscá en Google', min:5, des:'Buscá en Google una receta que te guste y abrí una de las páginas.',
   steps:[
    {k:'ex', txt:'Google es un buscador. Escribís lo que querés saber, y te muestra páginas de internet que hablan de eso.', art:'buscador'},
@@ -1368,7 +1372,7 @@ NIVELES.push(
    {k:'rec', pts:['"Patrocinado" quiere decir anuncio.','Las páginas del Estado terminan en gub.uy.','Desconfiá de las ofertas increíbles.']}
   ]}
 ]},
-{n:0, k:'videos', em:'🎬', t:'YouTube y Netflix', d:'Videos, películas y series para disfrutar', ls:[
+{n:0, k:'videos', em:'🎬', t:'Mirar videos, películas y series', d:'Videos, películas y series para disfrutar', ls:[
  {id:'yt1', app:['youtube'], ic:'▶️', t:'Buscá un video en YouTube', min:5, des:'Buscá en YouTube una canción que te guste mucho y escuchala.',
   steps:[
    {k:'ex', txt:'YouTube es una app con videos de todo y gratis. Hay recetas, música, gimnasia y mucho más. Su ícono es rojo, con un triangulito blanco.', art:'ytart'},
@@ -1403,7 +1407,7 @@ NIVELES.push(
    {k:'rec', pts:['Netflix no te pide la tarjeta por mensaje.','No toques enlaces de avisos de pago.','Ante la duda, abrí la app.']}
   ]}
 ]},
-{n:0, k:'redes', em:'❤️', t:'Redes sociales', d:'Instagram y Facebook: mirar, seguir, conversar y cuidarte', ls:[
+{n:0, k:'redes', em:'❤️', t:'Instagram y Facebook', d:'Instagram y Facebook: mirar, seguir, conversar y cuidarte', ls:[
  {id:'rd1', app:['instagram','facebook'], ic:'🌐', t:'¿Qué son las redes sociales?', min:5, des:'Pensá a quién o qué tema te gustaría seguir en una red social.',
   steps:[
    {k:'ex', txt:'Las redes sociales son apps para compartir fotos, videos y mensajes. Las más usadas son Instagram y Facebook. Son como un álbum de fotos compartido.', art:'redesart'},
@@ -2030,24 +2034,21 @@ function renderInicio(){
   $('h-hello').closest('.say').hidden = !!temaK;
   if (temaK){ renderTema(z); return; }
 
-  /* --- Lección del día --- */
-  const d = delDia(), nueva = proxNueva(), c = el('div', 'dia' + (d.hecho ? ' hecho' : ''));
+  /* --- Lección del día: toda la tarjeta es el botón --- */
+  const d = delDia(), nueva = proxNueva(); let c;
+  const tarjeta = (tema, linea, accion, ir) => { c = el('button', 'dia', '<span class="lbl">Lección del día</span><h2></h2><p></p><span class="ir"></span>'); c.type = 'button';
+    c.querySelector('h2').textContent = tema; c.querySelector('p').textContent = linea; c.querySelector('.ir').textContent = ir;
+    c.addEventListener('click', () => { if (Date.now() - (window._hc || 0) < 800) return; window._hc = Date.now(); accion(); }); };
   if (d.hecho){
-    c.innerHTML = '<span class="lbl">Tu lección del día</span><h2>¡Hecha! 🎉</h2><p></p>';
-    c.querySelector('p').textContent = 'Mañana te espera otra. Si tenés ganas, podés seguir con un tema de abajo.';
+    c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Hecha! 🎉</h2><p>Mañana te espera otra. Si tenés ganas, elegí un tema de abajo.</p>');
   } else if (d.t === 'rep'){
     const v = NIVELES.find(x => x.k === d.k);
-    c.innerHTML = '<span class="lbl">Tu lección del día</span><h2></h2><p class="muted">3 preguntas · 1 minuto. Para que no se te olvide lo que ya aprendiste.</p>';
-    c.querySelector('h2').textContent = v.em + ' Repasemos: ' + v.t;
-    const go = el('button', 'btn', 'Empezar lección'); go.type = 'button'; go.addEventListener('click', () => startRep(d.k)); c.appendChild(go);
+    tarjeta(v.t, '3 preguntas para que no se te olvide lo que aprendiste. 1 minuto.', () => startRep(d.k), 'Tocá para empezar');
   } else if (nueva){
     const enCurso = S.prog && S.prog[nueva.id];
-    c.innerHTML = '<span class="lbl">Tu lección del día</span><h2></h2><p class="muted"></p>';
-    c.querySelector('h2').textContent = nueva.ic + ' ' + nueva.t;
-    c.querySelector('p').textContent = nueva.niv.t + ' · ' + (enCurso ? 'Vas por el paso ' + (S.prog[nueva.id] + 1) + ' de ' + nueva.steps.length : nueva.min + ' minutos');
-    const go = el('button', 'btn', enCurso ? 'Seguir lección' : 'Empezar lección'); go.type = 'button'; go.addEventListener('click', () => { if (Date.now() - (window._hc || 0) < 800) return; window._hc = Date.now(); startLesson(nueva); }); c.appendChild(go);
+    tarjeta(nueva.niv.t, 'Hoy: ' + nueva.t + '. ' + (enCurso ? 'Vas por el paso ' + (S.prog[nueva.id] + 1) + ' de ' + nueva.steps.length + '.' : nueva.min + ' minutos.'), () => startLesson(nueva), enCurso ? 'Tocá para seguir' : 'Tocá para empezar');
   } else {
-    c.innerHTML = '<span class="lbl">Tu lección del día</span><h2>¡Terminaste todas las lecciones! 🏆</h2><p>Estoy muy orgullosa. Podés repetir cualquier tema de abajo.</p>';
+    c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Terminaste todas las lecciones! 🏆</h2><p>Estoy muy orgullosa. Podés repetir cualquier tema de abajo.</p>');
   }
   z.appendChild(c);
 
@@ -2236,7 +2237,7 @@ function costo(id){ S.cost = Object.assign({}, S.cost, {[id]: true}); save(); }
 function memDe(l, idx){ const k = l.id + '-' + idx; return (S.mem && S.mem[k]) || {box: (S.cost && S.cost[l.id]) ? 0 : 1, next: hoy(), nuevo: true}; }
 let repK = null;
 function startRep(k){
-  repK = typeof k === 'string' ? k : null; const v = repK && NIVELES.find(x => x.k === repK); $('r-titulo').textContent = v ? 'Repasemos: ' + v.t : 'Lección del día';
+  repK = typeof k === 'string' ? k : null; const v = repK && NIVELES.find(x => x.k === repK); $('r-titulo').textContent = v ? 'Lección del día: ' + v.t : 'Lección del día';
   const pool = []; ALL.filter(l => S.done[l.id] && (!repK || l.niv.k === repK)).forEach(l => l.steps.forEach((st, idx) => { if (st.k === 'check'){ const m = memDe(l, idx); pool.push({l, st, key: l.id + '-' + idx, m, r: Math.random()}); } }));
   const t = hoy(), vence = pool.filter(x => x.m.next <= t), resto = pool.filter(x => x.m.next > t);
   const orden = (a, b) => (a.m.box - b.m.box) || (a.m.next < b.m.next ? -1 : a.m.next > b.m.next ? 1 : 0) || (a.r - b.r);
