@@ -671,6 +671,11 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 #lz .art + .note{font-size:15px;margin-top:-6px}
 /* Al terminar la práctica, el dibujo queda apagado y la pregunta de abajo es lo importante */
 #stage.hecho{opacity:.45;pointer-events:none;transition:opacity .4s}
+
+/* Botón principal: coral más oscuro con letra blanca (opción C, contraste 5,1 a 1) */
+:root{--accion:#C93A1B}
+.btn{background:var(--accion);color:#fff}
+.dia .ir{background:var(--accion);color:#fff}
 </style>
 
 <main class="app">
@@ -2143,6 +2148,17 @@ const QUE_SIGUE = {ex:'Seguir', try:'Probar', check:'Seguir', rec:'Ver resumen',
 function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Seguir') : 'Terminar lección'; }
   const b = el('button', 'btn main', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
 const fillOS = s => String(T(s)).replace('{os}', OS() === 'iphone' ? 'iPhone' : 'Android');
+/* Lleva la pantalla a lo que hay que mirar, sin que la persona tenga que buscarlo.
+   suave = solo si casi no se ve (para el celular dibujado, que puede ser más alto que la pantalla) */
+function enfocar(x, suave){
+  if (!x || !document.body.contains(x)) return;
+  const r = x.getBoundingClientRect(), g = document.querySelector('#lz .guide');
+  const arriba = (g && getComputedStyle(g).position === 'sticky' ? g.offsetHeight : 0) + 10, abajo = window.innerHeight - 20; // la consigna de Martina queda fija arriba
+  if (suave){ const visible = Math.min(r.bottom, abajo) - Math.max(r.top, arriba); if (visible >= Math.min(r.height, abajo - arriba) * 0.6) return; }
+  else if (r.top >= arriba && r.bottom <= abajo) return;
+  const alto = abajo - arriba, y = window.scrollY + r.top - arriba - (r.height < alto ? (alto - r.height) / 2 : 0);
+  window.scrollTo({top: Math.max(0, y), behavior: 'smooth'});
+}
 /* Pregunta de la lección. Se usa en su propio paso o debajo de la práctica, sin botón en el medio */
 function checkEn(z, st){
     const q = el('h2', 'qh'); q.textContent = fillOS(st.q); z.append(q);
@@ -2187,6 +2203,16 @@ function renderStep(){
       }
       nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
     SIMS[st.run](api);
+    { // cuando la práctica marca algo para tocar (titila), la pantalla va hasta ahí
+      const t0 = token, vistos = new WeakSet();
+      const foco = () => { if (t0 !== token){ mo.disconnect(); return; } if (stage.classList.contains('hecho')) return;
+        const p = Array.from(stage.querySelectorAll('.pulse')).find(x => !vistos.has(x));
+        if (p){ vistos.add(p); enfocar(p); } else enfocar(stage.querySelector('.phone') || stage.firstElementChild, true); };
+      const mo = new MutationObserver(() => { clearTimeout(mo.t); mo.t = setTimeout(foco, 300); });
+      mo.observe(stage, {subtree:true, childList:true, attributes:true, attributeFilter:['class']});
+      // al empezar la práctica: la consigna arriba y el dibujo justo debajo (se va lo que ya leyó)
+      setTimeout(() => { if (t0 !== token) return; const y = window.scrollY + stage.getBoundingClientRect().top - g.offsetHeight - 10; if (y > window.scrollY + 20) window.scrollTo({top: y, behavior: 'smooth'}); setTimeout(foco, 700); }, 500);
+    }
     const hb = el('button', 'voz', '😅 Me trabé'); hb.type = 'button'; hb.id = 'try-help';
     hb.addEventListener('click', () => helpBox(hb, $('g-txt').textContent, () => { hb.hidden = true; api.say(MOSTRAR_PRACTICA_REAL ? '¡No pasa nada! Seguimos, y después lo practicás en tu celular.' : '¡No pasa nada! Seguimos y después lo repasamos.'); api.done(); }));
     const hr = el('div', 'ayudas trabe'); hr.append(hb); z.insertBefore(hr, nb); // debajo del dibujo, donde se traban
