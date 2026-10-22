@@ -826,8 +826,8 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
   </div>
   <div class="card stack" id="p-owner" hidden>
     <span class="pill ai" style="align-self:flex-start">Solo para Martina</span>
-    <b style="font-size:19px">Cerebro de Martina digital</b>
-    <p class="small muted">Cargá frases tuyas, explicaciones y tips. La Martina digital los usa para responder como vos.</p>
+    <b style="font-size:19px">Cerebro de Martina IA</b>
+    <p class="small muted">Cargá frases tuyas, explicaciones y tips. Martina IA los usa para responder como vos.</p>
     <button class="btn dark" type="button" id="p-brain">Abrir el cerebro</button>
     <button class="btn ghost" type="button" id="p-datos">📊 Ver los datos de la app</button>
   </div>
@@ -846,7 +846,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 <section id="s-brain" class="screen" hidden>
   <button class="btn ghost small" type="button" data-go="per" style="align-self:flex-start">Volver al perfil</button>
   <h1 style="font-size:32px">Cerebro de Martina<span class="dot">.</span></h1>
-  <p class="muted">Todo lo que cargues acá se suma a lo que la Martina digital sabe: tus clases, tus palabras, tu forma de explicar.</p>
+  <p class="muted">Todo lo que cargues acá se suma a lo que Martina IA sabe: tus clases, tus palabras, tu forma de explicar.</p>
   <div class="card stack">
     <label for="b-type"><b>¿Qué querés enseñarle?</b></label>
     <select class="inp" id="b-type"><option>Una frase mía</option><option>Una explicación</option><option>Un tip o truco</option><option>Algo para corregir</option><option>Material de una clase</option></select>
@@ -930,11 +930,12 @@ const KEY = 'laprofe-proto-v3';
 const WA_MARTINA = '59898031016';
 const APP_URL = 'https://laprofeapp.com/';
 /* Servidor de LaProfe (Apps Script) cuando la app se abre fuera de Claude (GitHub):
-   guarda los datos en la planilla y hace que Martina digital responda con IA.
+   guarda los datos en la planilla y hace que Martina IA responda con IA.
    Pegá entre las comillas la URL de tu Apps Script (termina en /exec). Vacío = respuestas pre-armadas y sin datos. */
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzf3g3Z8HxhK3zwmXoN2dwo8wcmYY7yFvbaIHEYfJVK4ADz7wkClEiAFNfVPGQkNLnl/exec';
 let S = {perfil:null, done:{}, size:1};
 try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) S = Object.assign(S, s); } catch(e){}
+document.addEventListener('visibilitychange', () => { if (document.hidden) try { stopVoz(); } catch(e){} }); // si sale de la app, se calla
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} };
 const applySize = () => { document.documentElement.style.setProperty('--z', S.size || 1); document.documentElement.classList.toggle('big', (S.size || 1) > 1); };
 applySize();
@@ -1679,7 +1680,7 @@ const INTERESES = [['familia','💞','Hablar con mi familia'],['fotos','🖼️'
 const SOON = {fotos:'Fotos y recuerdos', ciudad:'Moverme por la ciudad', redes:'Redes sociales', ia:'Inteligencia artificial', seguridad:'Seguridad', compras:'Compras online', entretenimiento:'Entretenimiento'};
 
 /* ============ CEREBRO DE LA MARTINA DIGITAL ============ */
-const BRAIN_BASE = `Sos la "Martina digital" de LaProfe Digital: una asistente de inteligencia artificial que enseña tecnología con el estilo de Martina Deutsch, docente uruguaya que hace más de 10 años da clases de tecnología a adultos mayores, en grupo y de forma particular. Si te preguntan quién sos, aclarás con naturalidad que sos la versión digital de Martina, una IA entrenada con sus clases, y que la Martina de verdad está detrás del contenido.
+const BRAIN_BASE = `Sos "Martina IA" de LaProfe Digital: una asistente de inteligencia artificial que enseña tecnología con el estilo de Martina Deutsch, docente uruguaya que hace más de 10 años da clases de tecnología a adultos mayores, en grupo y de forma particular. Si te preguntan quién sos, aclarás con naturalidad que sos la versión digital de Martina, una IA entrenada con sus clases, y que la Martina de verdad está detrás del contenido.
 
 CÓMO HABLÁS
 - Español rioplatense, con voseo uruguayo ("tocá", "fijate", "mirá").
@@ -1823,6 +1824,20 @@ capsReady.then(() => track(d => {
 capsReady.then(() => track(d => { d.sesiones = (d.sesiones || 0) + 1; if (S.perfil && !d.perfil) d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }));
 
 /* ============ NAVEGACIÓN ============ */
+/* Botón "atrás" del celular: retrocede dentro de la app en vez de cerrarla */
+function atrasCel(){
+  const abierto = ['exitm','instm','op'].find(id => $(id) && !$(id).hidden);
+  if (abierto){ if (abierto === 'op') closeOpinion(); else $(abierto).hidden = true; return true; }
+  const en = SCREENS.find(s => !$('s-' + s).hidden);
+  if (en === 'lesson'){ if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } else show('inicio'); return true; }
+  if (en === 'ob'){ if (obI > 0){ obI--; renderOb(); window.scrollTo(0,0); return true; } return false; }
+  if (en === 'datos'){ show('per'); return true; }
+  if (en === 'inicio'){ if (temaK){ temaK = null; renderInicio(); window.scrollTo(0,0); return true; } return false; }
+  if (en){ temaK = null; show('inicio'); return true; }
+  return false;
+}
+try { history.replaceState({lp: 'base'}, ''); history.pushState({lp: 'app'}, ''); } catch(e){}
+window.addEventListener('popstate', () => { stopVoz(); if (atrasCel()) { try { history.pushState({lp: 'app'}, ''); } catch(e){} } else history.back(); });
 const SCREENS = ['ob','inicio','lesson','logro','com','mar','per','brain','datos','rep','pay'];
 let token = 0, curL = null;
 function show(name){
@@ -1910,6 +1925,7 @@ const OB = ['hola','datos','letra','nombre','edad','os','nivel','intereses','lis
 let obI = 0, obDraft = {};
 function startOnboarding(){ obI = 0; obDraft = Object.assign({intereses:[]}, S.perfil || {}); show('ob'); renderOb(); }
 function renderOb(){
+  stopVoz();
   const dots = $('ob-dots'); dots.innerHTML = ''; OB.forEach((_, i) => dots.appendChild(el('i', i === obI ? 'on' : ''))); $('ob-paso').textContent = 'Paso ' + obI + ' de ' + (OB.length - 1); $('ob-paso').hidden = obI === 0;
   const b = $('ob-body'); b.innerHTML = ''; const step = OB[obI];
   const next = (label, ok) => { const n = el('button', 'btn', label || 'Seguir'); n.type = 'button'; n.disabled = ok === false; n.id = 'ob-next'; n.addEventListener('click', () => { obI++; renderOb(); window.scrollTo(0,0); }); return n; };
@@ -2048,6 +2064,7 @@ function maybeOpinion(){
   setTimeout(() => { if (!$('s-inicio').hidden) openOpinion(); }, 700);
 }
 function openOpinion(){
+  stopVoz();
   opSel = null; $('op-av').src = FOTO; $('op-more').hidden = true; $('op-ok').hidden = true; $('op-txt').value = ''; $('op-no').hidden = false; $('op-no').textContent = 'Ahora no';
   const box = $('op-opts'); box.innerHTML = ''; box.hidden = false;
   [['😕','Me cuesta'],['🙂','Me gusta'],['😍','¡Me encanta!']].forEach(o => { const b = el('button', 'opt', '<span aria-hidden="true">' + o[0] + '</span>' + o[1]); b.type = 'button'; b.setAttribute('aria-pressed', 'false');
@@ -2173,6 +2190,7 @@ let si = 0, lessonT0 = 0;
 function startLesson(l){ if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; if (S.ultTema !== l.niv.k) temaIntro(l); else { S.ultTema = l.niv.k; save(); renderStep(); } }
 /* Cuando la lección es de otro tema, primero se avisa en qué tema está */
 function temaIntro(l){
+  stopVoz();
   const v = l.niv, hechas = v.ls.filter(x => S.done[x.id]).length, z = $('lz'); z.innerHTML = '';
   $('l-paso').textContent = 'Lección ' + (v.ls.indexOf(l) + 1) + ' de ' + v.ls.length;
   const c = el('div', 'tema-intro', '<span class="em" aria-hidden="true">' + v.em + '</span><span class="lbl">' + (hechas ? 'Volvés al tema' : 'Tema nuevo') + '</span><h1></h1><p class="muted"></p>');
@@ -2348,7 +2366,7 @@ function helpBox(after, ctx, onSkip){
   const id = curL.id, k = si; track(d => { const x = L(d, id); x.trabe = addIdx(x.trabe, k); }); costo(id);
   const h = el('div', 'help', '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble"></div></div>');
   h.querySelector('.bubble').textContent = pick(['¡Tranqui! A todos nos pasa. Vamos de nuevo, de a poquito. ¿Cómo te ayudo?','No pasa nada: esta parte cuesta al principio. ¿Cómo te ayudo?','¡Para eso estoy! Nadie nace sabiendo. ¿Cómo te ayudo?']);
-  if (SAMPLE){ const ai = el('button', 'btn dark', '✨ Preguntarle a Martina digital'); ai.type = 'button'; h.appendChild(ai);
+  if (SAMPLE){ const ai = el('button', 'btn dark', '✨ Preguntarle a Martina IA'); ai.type = 'button'; h.appendChild(ai);
     ai.addEventListener('click', async () => { ai.disabled = true; const b = el('div', 'bubble ai', 'Pensando…'); ai.after(b);
       try { await SAMPLE(brain('AHORA: la persona está en la lección "' + curL.t + '" y te dijo "Me trabé" en esto: «' + ctx + '». Primero contenela con cariño en una frase. Después dale UN solo paso concreto para destrabarse, adaptado a su celular. Máximo 5 líneas.'), {modelTier:'quick', onText: ({text}) => { b.textContent = text; }}); }
       catch(e){ b.textContent = 'No pude responder ahora. Probá de nuevo en un ratito.'; ai.disabled = false; } }); }
@@ -2364,7 +2382,7 @@ async function explainAgain(txt, z, btn){
   try {
     await SAMPLE(brain('AHORA: la persona está en la lección "' + curL.t + '". Le explicaste esto: «' + txt + '». Te dijo: "No entendí". Explicalo de OTRA forma, más simple, con una comparación de la vida cotidiana. Máximo 5 líneas. No saludes ni repitas la explicación anterior.'), {modelTier:'quick', onText: ({text}) => { b.textContent = text; }});
     const sp = el('button', 'voz', '🔊 Escuchar'); sp.type = 'button'; sp.addEventListener('click', () => speak(b.textContent)); box.after(sp);
-  } catch(e){ b.textContent = e.code === 'not_granted' ? 'Para que la Martina digital te explique, hay que permitirle a esta app usar Claude.' : e.code === 'rate_limited' ? 'Muchas preguntas seguidas. Esperá un ratito y probá de nuevo.' : 'No pude responder ahora. Probá de nuevo en un momento.'; btn.disabled = false; }
+  } catch(e){ b.textContent = e.code === 'not_granted' ? 'Para que Martina IA te explique, hay que permitirle a esta app usar Claude.' : e.code === 'rate_limited' ? 'Muchas preguntas seguidas. Esperá un ratito y probá de nuevo.' : 'No pude responder ahora. Probá de nuevo en un momento.'; btn.disabled = false; }
 }
 
 /* ============ REPASITO ============ */
@@ -2384,6 +2402,7 @@ function startRep(k){
   RQ = vence.concat(resto).slice(0, 3); ri = 0; rok = 0; show('rep'); renderRep();
 }
 function renderRep(){
+  stopVoz();
   $('r-steps').textContent = ri < RQ.length ? 'Pregunta ' + (ri + 1) + ' de ' + RQ.length : '';
   const z = $('rz'); z.innerHTML = '';
   if (ri >= RQ.length){
@@ -2417,7 +2436,7 @@ function showPay(l){
   track(d => { d.pago = Object.assign({}, d.pago || {}, {vio: (d.pago && d.pago.vio || 0) + 1}); });
   $('y-t').textContent = 'Desbloqueá el nivel ' + l.niv.n + ': ' + l.niv.t;
   $('y-say').textContent = '¡' + (NOMBRE() || 'Qué bien') + ', qué alegría que quieras seguir! El nivel 1 es de regalo. Los niveles 2 y 3 son parte de LaProfe completo.';
-  $('y-inc').innerHTML = '<b style="font-size:19px">Qué incluye</b>' + ['📱 Las lecciones de "La pantalla de mi celular" y "WhatsApp"','🎧 Las explicaciones con mi voz','✨ Martina digital para preguntar lo que quieras, cuando quieras','👏 La comunidad de alumnos','🎓 Tu diploma al terminar cada nivel'].map(t => '<span>' + t + '</span>').join('');
+  $('y-inc').innerHTML = '<b style="font-size:19px">Qué incluye</b>' + ['📱 Las lecciones de "La pantalla de mi celular" y "WhatsApp"','🎧 Las explicaciones con mi voz','✨ Martina IA para preguntar lo que quieras, cuando quieras','👏 La comunidad de alumnos','🎓 Tu diploma al terminar cada nivel'].map(t => '<span>' + t + '</span>').join('');
   $('y-price').hidden = !PRECIO; $('y-price').textContent = PRECIO;
   const o = $('y-opts'); o.innerHTML = ''; $('y-done').innerHTML = '';
   [['yo','💳','Lo pagaría yo'],['familia','🎁','Me gustaría que me lo regale alguien de mi familia'],['no','🤔','Por ahora no']].forEach(([k, em, t]) => {
@@ -2652,7 +2671,7 @@ async function ask(q){
   } catch(e){
     TURNS.pop(); tarjetasLeccion(sug, ad);
     if (e.code === 'cancelled') b.textContent = e.text || '(Detuviste la respuesta.)';
-    else if (e.code === 'not_granted' || e.code === 'sampling_disabled') b.textContent = FALLBACK[q] || 'Para conversar con la Martina digital hay que permitirle a esta app usar Claude.';
+    else if (e.code === 'not_granted' || e.code === 'sampling_disabled') b.textContent = FALLBACK[q] || 'Para conversar con Martina IA hay que permitirle a esta app usar Claude.';
     else if (e.code === 'rate_limited') b.textContent = 'Muchas preguntas seguidas. Esperá un ratito y probá de nuevo.';
     else b.textContent = (e.text ? e.text + '\n\n' : '') + 'Se cortó la respuesta. Probá de nuevo en un momento.';
   } finally { mCtl = null; $('m-send').hidden = false; $('m-stop').hidden = true; }
@@ -2779,7 +2798,7 @@ function startBrain(){
 }
 function renderBrain(){
   const box = $('b-list'); box.innerHTML = '';
-  if (!brainNotes.length){ box.append(el('div', 'card muted', 'Todavía no cargaste nada. Lo que escribas acá se suma a todo lo que la Martina digital ya sabe de tus clases.')); return; }
+  if (!brainNotes.length){ box.append(el('div', 'card muted', 'Todavía no cargaste nada. Lo que escribas acá se suma a todo lo que Martina IA ya sabe de tus clases.')); return; }
   brainNotes.slice().reverse().forEach(n => {
     const c = el('div', 'card stack', '<span class="pill soft" style="align-self:flex-start"></span><p></p>');
     c.querySelector('.pill').textContent = n.tipo; c.querySelector('p').textContent = n.txt;
@@ -2797,7 +2816,7 @@ $('b-save').addEventListener('click', async () => {
   if (!DB){ $('b-note').textContent = 'El cerebro se guarda cuando abrís la app publicada con tu cuenta.'; return; }
   const b = $('b-save'); b.disabled = true;
   const ok = await writeBrain(brainNotes.concat({id:Date.now().toString(36), tipo:$('b-type').value, txt:txt.slice(0, 4000), at:new Date().toISOString()}));
-  b.disabled = false; if (ok){ $('b-txt').value = ''; toast('¡Guardado! La Martina digital ya lo sabe.'); }
+  b.disabled = false; if (ok){ $('b-txt').value = ''; toast('¡Guardado! Martina IA ya lo sabe.'); }
 });
 
 /* ============ ILUSTRACIONES ============ */
