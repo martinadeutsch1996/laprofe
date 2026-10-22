@@ -2129,7 +2129,7 @@ $('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; show('
 $('l-back').addEventListener('click', () => { if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } });
 function stepDots(){ $('l-paso').textContent = 'Paso ' + (si + 1) + ' de ' + curL.steps.length; /* arriba solo va el paso y Salir */ const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
 /* Botones: verbo primero, 1 a 3 palabras, que digan qué pasa al tocarlos */
-const QUE_SIGUE = {ex:'Seguir', try:'Probar', check:'Contestar una pregunta', rec:'Ver resumen', real:'Probar en mi celular', mano:'Agregar el ícono'};
+const QUE_SIGUE = {ex:'Seguir', try:'Probar', check:'Seguir', rec:'Ver resumen', real:'Probar en mi celular', mano:'Agregar el ícono'};
 function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Seguir') : 'Terminar lección'; }
   const b = el('button', 'btn main', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
 const fillOS = s => String(T(s)).replace('{os}', OS() === 'iphone' ? 'iPhone' : 'Android');
