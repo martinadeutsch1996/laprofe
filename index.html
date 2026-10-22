@@ -595,6 +595,22 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .gmatt > div{display:flex;flex-direction:column;font-size:15px}
 .gmatt small{color:var(--ph-sub)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Ayudas (Escuchar, No entendí, Me trabé): chips chicos, para que el único botón fuerte sea el coral */
+.voz{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:12px;border:none;background:var(--soft);color:var(--fg);font-weight:700;font-size:16px;width:auto;text-align:left}
+.voz:disabled{opacity:.5}
+.ayudas{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.remember .voz{align-self:flex-start;background:rgba(255,255,255,.14);color:var(--bg)}
+/* Letra grande o muy grande: menos columnas, más ancho para el texto */
+.big .say{flex-direction:column;gap:6px}
+.big .say .avatar{width:40px;height:40px;border-width:2px}
+.big .kind.ex{display:none}
+.big .lhead b{white-space:normal}
+.big .kind{flex-wrap:wrap}
+.big .phone{zoom:calc(1.1 / var(--z))}
+.big .row > .btn{flex:1 1 100%}
+.big .art{min-height:0;padding:12px}
+.mano-pasos{display:flex;flex-direction:column;gap:12px}
 </style>
 
 <main class="app">
@@ -839,15 +855,27 @@ const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzf3g3Z8HxhK3zwmXoN2
 let S = {perfil:null, done:{}, size:1};
 try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) S = Object.assign(S, s); } catch(e){}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} };
-const applySize = () => document.documentElement.style.setProperty('--z', S.size || 1);
+const applySize = () => { document.documentElement.style.setProperty('--z', S.size || 1); document.documentElement.classList.toggle('big', (S.size || 1) > 1); };
 applySize();
 const OS = () => (S.perfil && S.perfil.os) || 'android';
+/* true si la app se abrió desde el ícono de la pantalla de inicio */
+const EN_ICONO = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
 const T = x => (x && typeof x === 'object' && !Array.isArray(x)) ? (x[OS()] || x.android) : x;
 const NOMBRE = () => (S.perfil && S.perfil.nombre) || '';
 
 /* ============ CONTENIDO: 3 NIVELES ============ */
 const NIVELES = [
 {n:1, k:'basico', em:'🌱', t:'Primeros pasos', d:'Los conceptos básicos para perderle el miedo', ls:[
+ {id:'mano', ic:'📲', t:'Tené LaProfe a mano', min:4,
+  des:'Abrí LaProfe tocando su ícono, sin buscar el link.',
+  steps:[
+   {k:'ex', txt:'Hoy, para entrar a LaProfe, buscás el link en WhatsApp. Si ponés su ícono en la pantalla de inicio, la abrís con un toque, como cualquier app.', art:'manoIcono'},
+   {k:'ex', txt:{android:'Para poner el ícono:\n1. Arriba a la derecha, tocá los tres puntitos.\n2. Tocá "Agregar a la pantalla principal" o "Instalar app".\n3. Tocá "Instalar" o "Agregar".', iphone:'Para poner el ícono:\n1. Abajo a la derecha, tocá los tres puntitos.\n2. Tocá "Compartir".\n3. Bajá un poquito y tocá "Agregar a pantalla de inicio".\n4. Arriba a la derecha, tocá "Agregar".'}},
+   {k:'try', run:'manoIcono'},
+   {k:'check', q:'¿Para qué sirve el ícono de LaProfe?', o:['Para abrirla con un toque, sin buscar el link','Para que el celular ande más rápido'], a:0, why:'¡Eso! Es un atajo: la encontrás junto a tus otras apps.'},
+   {k:'rec', pts:[{android:'Tres puntitos y "Agregar a la pantalla principal".', iphone:'Tres puntitos, "Compartir" y "Agregar a pantalla de inicio".'},'El ícono queda junto a tus otras apps.','Desde ahora, entrá a LaProfe tocando su ícono.']},
+   {k:'mano'}
+  ]},
  {id:'1a', ic:'📱', t:'Tu celular, una computadora de bolsillo', min:4,
   des:'Mirá la pantalla de tu celular y contá cuántas apps tenés. ¿Cuáles usás todos los días?',
   steps:[
@@ -1483,6 +1511,7 @@ const REAL = {
 NIVELES.forEach(n => n.ls.forEach(l => { if (MOSTRAR_PRACTICA_REAL && REAL[l.id]){ const i = l.steps.findIndex(x => x.k === 'try'); l.steps.splice(i + 1, 0, {k:'real', pasos:REAL[l.id]}); } }));
 /* Lo que la persona ya sabe hacer al terminar cada lección (se muestra en el festejo) */
 const LOGRO = {
+  'mano':'Ya tenés LaProfe a mano: la abrís con un toque.',
   '1a':'Ya sabés qué es una app y para qué sirve cada una.',
   '1b':'Ya sabés diferenciar el WiFi de los datos móviles.',
   '1c':'Ya sabés qué es la nube y cómo no perder tus fotos.',
@@ -1561,6 +1590,7 @@ if (S.nivFest && !S.nivFestK){ const nf = {}; Object.keys(S.nivFest).forEach(x =
 const startN = () => { const k = S.perfil && S.perfil.startK; const v = k && NIVELES.find(x => x.k === k); return v ? v.n : 1; };
 const ALL = []; NIVELES.forEach(n => n.ls.forEach((l, i) => { l.niv = n; l.idx = i; ALL.push(l); }));
 const doneN = () => ALL.filter(l => S.done[l.id]).length;
+if (ALL.some(l => l.id === 'mano') && !S.done.mano && (EN_ICONO || S.instOk)){ S.done.mano = true; if (S.prog) delete S.prog.mano; if (EN_ICONO) S.manoAuto = 1; save(); }
 const INTERESES = [['familia','💞','Hablar con mi familia'],['fotos','🖼️','Fotos y recuerdos'],['ciudad','🚌','Moverme por la ciudad'],['redes','❤️','Redes sociales'],['ia','✨','Inteligencia artificial'],['seguridad','🛡️','Seguridad y estafas'],['compras','🛒','Compras online'],['entretenimiento','🎬','Películas, música y videos']];
 const SOON = {fotos:'Fotos y recuerdos', ciudad:'Moverme por la ciudad', redes:'Redes sociales', ia:'Inteligencia artificial', seguridad:'Seguridad', compras:'Compras online', entretenimiento:'Entretenimiento'};
 
@@ -1779,7 +1809,7 @@ function speak(txt, key, btn){
   a.play().catch(() => { if (VA === a){ stopVoz(); tts(txt); } });
 }
 function vozBtn(key, txt, lbl){
-  const b = el('button', 'btn ghost', vozKey(key) ? '🔊 Escuchar a Martina' : (lbl || '🔊 Escuchar')); b.type = 'button';
+  const b = el('button', 'voz', lbl || '🔊 Escuchar'); b.type = 'button';
   b.addEventListener('click', () => speak(txt, key, b)); return b;
 }
 const later = (fn, ms) => { const t = token; setTimeout(() => { if (t === token) fn(); }, ms); };
@@ -1801,6 +1831,7 @@ function renderOb(){
   if (step === 'hola'){
     b.append(el('img', 'avatar xl'), el('h1', '', 'Hola, soy Martina<span class="dot">.</span>'));
     b.firstChild.src = FOTO; b.firstChild.alt = 'Martina'; b.firstChild.style.alignSelf = 'center';
+    if (EN_ICONO){ const ic = el('div', 'fb ok', '<b>¡Lo lograste! Abriste LaProfe desde su ícono.</b><span>Como es la primera vez que entrás desde acá, te hago de nuevo unas preguntas cortitas.</span>'); b.insertBefore(ic, b.firstChild.nextSibling); }
     const p = el('div', 'bubble'); p.textContent = 'Hace más de 10 años que enseño tecnología. Acá te explico, practicás y, si algo no se entiende, te lo explico de nuevo. Primero, contame un poco de vos.';
     const s = vozBtn('bienvenida', p.textContent);
     const priv = el('p', 'note'); priv.textContent = 'Para mejorar las lecciones, guardo cómo usás la app. No guardo tu nombre. No escribas contraseñas, códigos ni datos del banco: no hacen falta.';
@@ -1859,12 +1890,12 @@ function renderOb(){
 }
 
 /* ============ INICIO ============ */
-function nextLesson(){ const st = startN(); const mid = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (mid) return mid; return ALL.find(l => l.niv.n >= st && !S.done[l.id]) || ALL.find(l => !S.done[l.id]); }
+function nextLesson(){ const ma = ALL.find(l => l.id === 'mano'); if (ma && !S.done.mano) return ma; const st = startN(); const mid = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (mid) return mid; return ALL.find(l => l.niv.n >= st && !S.done[l.id]) || ALL.find(l => !S.done[l.id]); }
 $('h-datos-si').addEventListener('click', () => { decidirDatos(true); $('h-datos').hidden = true; toast('¡Gracias! Así puedo mejorar las lecciones.'); });
 $('h-datos-no').addEventListener('click', () => { decidirDatos(false); $('h-datos').hidden = true; toast('Listo. La app funciona igual. Lo podés cambiar en Mi perfil.'); });
-$('h-beta-ok').addEventListener('click', () => { S.betaOk = true; save(); $('h-beta').hidden = true; $('h-inst').hidden = !instVisible(); });
+$('h-beta-ok').addEventListener('click', () => { S.betaOk = true; save(); $('h-beta').hidden = true; });
 /* ===== Instalar en la pantalla de inicio ===== */
-const STANDALONE = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+const STANDALONE = EN_ICONO;
 let instEvt = null;
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); instEvt = e; });
 window.addEventListener('appinstalled', () => { S.instOk = true; save(); track(d => { d.instalada = true; }); $('h-inst').hidden = true; });
@@ -1882,13 +1913,15 @@ const INST_ART = {
   andAdd: () => '<svg viewBox="0 0 300 96" role="img" aria-label="Menú de Chrome con la opción Agregar a la pantalla principal señalada"><rect x="1" y="1" width="298" height="94" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="18" y="26" font-size="14" fill="#777" font-family="system-ui">Compartir…</text><rect x="8" y="38" width="284" height="34" rx="8" fill="#FFF1EE" stroke="#E5281B" stroke-width="3"/><text x="18" y="60" font-size="15" font-weight="700" fill="#222" font-family="system-ui">Agregar a la pantalla principal</text><text x="18" y="88" font-size="14" fill="#777" font-family="system-ui">Configuración</text></svg>',
   iosShare: () => '<svg viewBox="0 0 300 70" role="img" aria-label="Barra de Safari con el botón Compartir señalado"><rect x="1" y="1" width="298" height="68" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="22" y="42" font-size="22" fill="#2F6FEB" font-family="system-ui">‹</text><text x="66" y="42" font-size="22" fill="#2F6FEB" font-family="system-ui">›</text><circle cx="150" cy="35" r="22" fill="none" stroke="#E5281B" stroke-width="4"/><rect x="140" y="30" width="20" height="18" rx="3" fill="none" stroke="#2F6FEB" stroke-width="2.4"/><path d="M150 18 V38 M143 25 L150 18 L157 25" fill="none" stroke="#2F6FEB" stroke-width="2.4" stroke-linecap="round"/>' + ARROW(208, 35, 180) + '</svg>',
   iosAdd: () => '<svg viewBox="0 0 300 96" role="img" aria-label="Menú de compartir con la opción Agregar a pantalla de inicio señalada"><rect x="1" y="1" width="298" height="94" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="18" y="26" font-size="14" fill="#777" font-family="system-ui">Copiar</text><rect x="8" y="38" width="284" height="34" rx="8" fill="#FFF1EE" stroke="#E5281B" stroke-width="3"/><text x="18" y="60" font-size="15" font-weight="700" fill="#222" font-family="system-ui">Agregar a pantalla de inicio</text><rect x="258" y="45" width="20" height="20" rx="4" fill="none" stroke="#222" stroke-width="2"/><path d="M268 50 V60 M263 55 H273" stroke="#222" stroke-width="2"/><text x="18" y="88" font-size="14" fill="#777" font-family="system-ui">Agregar a favoritos</text></svg>',
+  iosDots: () => '<svg viewBox="0 0 300 70" role="img" aria-label="Barra de Safari con los tres puntitos señalados"><rect x="1" y="1" width="298" height="68" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="22" y="44" font-size="26" fill="#2F6FEB" font-family="system-ui">‹</text><rect x="56" y="17" width="170" height="36" rx="18" fill="#EEF1F4"/><text x="80" y="40" font-size="14" fill="#555" font-family="system-ui">laprofeapp.com</text><circle cx="266" cy="35" r="22" fill="none" stroke="#E5281B" stroke-width="4"/><circle cx="256" cy="35" r="3.2" fill="#222"/><circle cx="266" cy="35" r="3.2" fill="#222"/><circle cx="276" cy="35" r="3.2" fill="#222"/></svg>',
+  iosMenu: () => '<svg viewBox="0 0 300 96" role="img" aria-label="Menú de Safari con la opción Compartir señalada"><rect x="1" y="1" width="298" height="94" rx="12" fill="#fff" stroke="#DDD6CB"/><rect x="8" y="10" width="284" height="34" rx="8" fill="#FFF1EE" stroke="#E5281B" stroke-width="3"/><text x="18" y="32" font-size="15" font-weight="700" fill="#222" font-family="system-ui">Compartir</text><rect x="262" y="17" width="16" height="15" rx="3" fill="none" stroke="#2F6FEB" stroke-width="2"/><path d="M270 12 V27 M265 17 L270 12 L275 17" fill="none" stroke="#2F6FEB" stroke-width="2"/><text x="18" y="70" font-size="14" fill="#777" font-family="system-ui">Agregar a favoritos</text><text x="18" y="90" font-size="14" fill="#777" font-family="system-ui">Buscar en la página</text></svg>',
   icon: () => '<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><img src="icon-192-v3.png" alt="" style="width:60px;height:60px;border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.15)"><span class="small" style="font-weight:700">LaProfe</span></div>'
 };
 function instPasos(){
   const ua = navigator.userAgent || '', wa = /WhatsApp|FBAN|FBAV|Instagram|; wv\)/i.test(ua), ios = OS() === 'iphone';
   const p = [];
   if (wa) p.push(ios ? 'Si abriste el link desde WhatsApp, primero tocá los tres puntitos ··· o el botón de compartir y elegí "Abrir en Safari".' : 'Si abriste el link desde WhatsApp, primero tocá los tres puntitos ⋮ de arriba y elegí "Abrir en Chrome".');
-  if (ios){ p.push(['Abajo, tocá Compartir: un cuadradito con una flecha hacia arriba. Si no lo ves, tocá ···.', 'iosShare']); p.push(['Bajá un poquito y tocá "Agregar a pantalla de inicio".', 'iosAdd']); p.push(['Arriba a la derecha, tocá "Agregar". ¡Listo! Buscá el ícono de LaProfe.', 'icon']); }
+  if (ios){ p.push(['Abajo a la derecha, tocá los tres puntitos ···.', 'iosDots']); p.push(['Tocá "Compartir".', 'iosMenu']); p.push(['Bajá un poquito y tocá "Agregar a pantalla de inicio". Si no lo ves, tocá "Ver más".', 'iosAdd']); p.push(['Arriba a la derecha, tocá "Agregar". ¡Listo! Buscá el ícono de LaProfe.', 'icon']); }
   else { p.push(['Arriba a la derecha, tocá los tres puntitos ⋮.', 'andDots']); p.push(['Tocá "Agregar a la pantalla principal" o "Instalar app".', 'andAdd']); p.push(['Tocá "Agregar" o "Instalar". ¡Listo! Buscá el ícono de LaProfe.', 'icon']); }
   return p;
 }
@@ -1945,7 +1978,8 @@ function renderInicio(){
   $('h-hello').innerHTML = '<b>¡Hola, ' + esc(NOMBRE()) + '!</b> ' + (n === 0 ? 'Empecemos tranqui, a tu ritmo.' : nx ? '¡Qué bueno verte! Vas muy bien.' : '¡Terminaste todos los niveles! Estoy muy orgullosa.');
   $('h-beta').hidden = true; /* aviso de versión de prueba: oculto */
   $('h-datos').hidden = !(S.perfil && !S.datos);
-  $('h-inst').hidden = !instVisible();
+  $('h-inst').hidden = true; /* el ícono ahora se aprende en la lección "Tené LaProfe a mano" */
+  if (S.manoAuto === 1 && S.perfil){ S.manoAuto = 2; save(); later(() => toast('¡Lo lograste! Abriste LaProfe desde su ícono.'), 400); }
   const enCurso = nx && S.prog && S.prog[nx.id];
   $('h-nextc').hidden = !nx; if (nx){ $('h-nextc').querySelector('.lbl').textContent = enCurso ? 'Tu lección en curso' : 'Tu próxima lección'; $('h-nt').textContent = nx.t; $('h-nm').textContent = 'Nivel ' + nx.niv.n + ' · ' + (enCurso ? 'Vas por el paso ' + (S.prog[nx.id] + 1) + ' de ' + nx.steps.length : nx.min + ' minutos'); }
   $('h-cont').textContent = enCurso ? 'Continuar lección' : 'Empezar lección';
@@ -1984,9 +2018,9 @@ $('exitm-stay').addEventListener('click', () => $('exitm').hidden = true);
 $('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; show('inicio'); });
 $('l-back').addEventListener('click', () => { if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } });
 function stepDots(){ $('l-paso').textContent = 'Paso ' + (si + 1) + ' de ' + curL.steps.length; $('l-back').hidden = si === 0; const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
-const QUE_SIGUE = {ex:'Siguiente', try:'Ahora probalo vos', check:'Veamos si te acordás', rec:'Ver el resumen', real:'Hacerlo en mi celular'};
+const QUE_SIGUE = {ex:'Siguiente', try:'Ahora probalo vos', check:'Veamos si te acordás', rec:'Ver el resumen', real:'Hacerlo en mi celular', mano:'Hacerlo en mi celular'};
 function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Siguiente') : 'Terminar lección'; }
-  const b = el('button', 'btn', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
+  const b = el('button', 'btn main', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
 const fillOS = s => String(T(s)).replace('{os}', OS() === 'iphone' ? 'iPhone' : 'Android');
 function renderStep(){
   token++; $('toast').hidden = true; stopVoz(); yaBajo = false;
@@ -1995,16 +2029,17 @@ function renderStep(){
   stepDots();
   const st = curL.steps[si], z = $('lz'); z.innerHTML = '';
   if (st.k === 'ex'){
-    z.append(el('div', 'kind', '<span class="pill">Te explico</span>'));
+    z.append(el('div', 'kind ex', '<span class="pill">Te explico</span>'));
     const txt = fillOS(st.txt);
     const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div>'); say.querySelector('.bubble').textContent = txt;
     z.append(say);
+    const row = el('div', 'ayudas');
+    const sp = vozBtn(vozPaso(), txt);
+    const nu = el('button', 'voz', '🤔 No entendí'); nu.type = 'button'; nu.addEventListener('click', () => { const id = curL.id, k = si; track(d => { const x = L(d, id); x.nope = addIdx(x.nope, k); }); costo(id); explainAgain(txt, z, nu); });
+    row.append(sp, nu); z.append(row);
     if (st.art) z.append(el('div', 'art', ART[st.art] ? ART[st.art]() : ''), el('p', 'note center', 'Es solo un dibujo: no hace falta tocarlo.'));
     if (curL.app && curL.steps.findIndex(x => x.k === 'ex') === si){ const lc = logoCard(curL); if (lc) z.append(lc); }
-    const row = el('div', 'row aux');
-    const sp = vozBtn(vozPaso(), txt);
-    const nu = el('button', 'btn ghost', '🤔 No entendí'); nu.type = 'button'; nu.addEventListener('click', () => { const id = curL.id, k = si; track(d => { const x = L(d, id); x.nope = addIdx(x.nope, k); }); costo(id); explainAgain(txt, z, nu); });
-    row.append(sp, nu); z.append(row, nextBtn());
+    z.append(nextBtn());
   }
   if (st.k === 'try'){
     z.append(el('div', 'kind', '<span class="pill" style="background:var(--coral)">Practicá acá</span><span class="small muted">Podés probar sin miedo.</span>'));
@@ -2013,9 +2048,9 @@ function renderStep(){
     const nb = nextBtn('Seguir'); nb.hidden = true; nb.id = 'try-next'; z.append(nb);
     const api = {say: h => { $('g-txt').innerHTML = h; }, stage, done: () => { nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
     SIMS[st.run](api);
-    const hb = el('button', 'btn ghost', '😅 Me trabé'); hb.type = 'button'; hb.id = 'try-help';
+    const hb = el('button', 'voz', '😅 Me trabé'); hb.type = 'button'; hb.id = 'try-help';
     hb.addEventListener('click', () => helpBox(hb, $('g-txt').textContent, () => { hb.hidden = true; api.say(MOSTRAR_PRACTICA_REAL ? '¡No pasa nada! Seguimos, y después lo practicás en tu celular.' : '¡No pasa nada! Seguimos y después lo repasamos.'); api.done(); }));
-    z.append(hb);
+    const hr = el('div', 'ayudas'); hr.append(hb); g.append(hr);
   }
   if (st.k === 'real'){
     z.append(el('div', 'kind', '<span class="pill" style="background:var(--petroleo);color:#fff">Ahora en tu celular</span>'));
@@ -2040,6 +2075,34 @@ function renderStep(){
     later2.addEventListener('click', () => { track(d => { L(d, id).real = L(d, id).real || 'despues'; }); si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } });
     z.append(nb, later2);
   }
+  if (st.k === 'mano'){
+    z.append(el('div', 'kind', '<span class="pill" style="background:var(--petroleo);color:#fff">Ahora en tu celular</span>'));
+    const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div>'); z.append(say);
+    const bub = say.querySelector('.bubble'), id = curL.id;
+    const listo = () => { S.instOk = true; save(); track(d => { d.instDijo = true; L(d, id).real = 'todo'; }); };
+    if (EN_ICONO){ bub.textContent = '¡Ya abriste LaProfe desde su ícono! Este paso ya está hecho.'; z.append(nextBtn('Terminar lección')); return; }
+    bub.textContent = OS() === 'iphone'
+      ? 'Ahora lo hacemos de verdad, en este celular. Seguí los pasos sin cerrar esta pantalla.\nOjo: el iPhone guarda aparte la app del ícono. La primera vez que la abras desde ahí, te hago de nuevo las preguntas del principio.'
+      : 'Ahora lo hacemos de verdad, en este celular. Seguí los pasos sin cerrar esta pantalla.';
+    track(d => { d.instVio = (d.instVio || 0) + 1; });
+    const pasos = el('div', 'rl mano-pasos');
+    instPasos().forEach((x, i) => { const t = Array.isArray(x) ? x[0] : x, k = Array.isArray(x) ? x[1] : '';
+      const it = el('div', 'ri', '<p></p>'); it.querySelector('p').textContent = t; if (INST_ART[k]) it.appendChild(el('div', 'instart', INST_ART[k]())); pasos.appendChild(it); });
+    const ok = nextBtn('Ya lo agregué'); ok.addEventListener('click', listo, true);
+    const despues = el('button', 'btn ghost', 'Lo hago después'); despues.type = 'button';
+    despues.addEventListener('click', () => { track(d => { L(d, id).real = L(d, id).real || 'despues'; }); si++; finishLesson(); });
+    if (instEvt){ // Android con Chrome: el celular lo hace con un solo botón
+      const nat = el('button', 'btn main', 'Agregar el ícono'); nat.type = 'button';
+      const ver = el('button', 'voz', 'Prefiero ver los pasos'); ver.type = 'button';
+      pasos.hidden = true; ok.hidden = true;
+      const manual = () => { pasos.hidden = false; ok.hidden = false; nat.hidden = true; ver.hidden = true; };
+      ver.addEventListener('click', manual);
+      nat.addEventListener('click', async () => { const ev = instEvt; if (!ev){ manual(); return; } ev.prompt(); instEvt = null;
+        try { const r = await ev.userChoice; if (r.outcome === 'accepted'){ listo(); toast('¡Listo! Ya está el ícono de LaProfe.'); si++; finishLesson(); return; } } catch(e){}
+        manual(); });
+      z.append(ver, pasos, nat, ok, despues);
+    } else z.append(pasos, ok, despues);
+  }
   if (st.k === 'check'){
     z.append(el('div', 'kind', '<span class="pill soft">¿Te quedó?</span>'));
     const q = el('h2', 'qh'); q.textContent = fillOS(st.q); z.append(q);
@@ -2055,7 +2118,8 @@ function renderStep(){
     const r = el('div', 'remember', '<span class="pill" style="align-self:flex-start">Para recordar</span><ul></ul>');
     st.pts.forEach(p => { const li = el('li'); li.textContent = fillOS(p); r.querySelector('ul').appendChild(li); });
     const sp = vozBtn(vozPaso(), st.pts.map(fillOS).join('. '), '🔊 Escuchar el resumen');
-    z.append(r, sp, nextBtn('Terminar lección'));
+    r.insertBefore(sp, r.children[1]);
+    z.append(r, nextBtn());
   }
 }
 function helpBox(after, ctx, onSkip){
@@ -2077,12 +2141,12 @@ function helpBox(after, ctx, onSkip){
 async function explainAgain(txt, z, btn){
   await capsReady;
   const box = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble ai">Pensando otra forma de explicártelo…</div>');
-  btn.after(box); btn.disabled = true; box.scrollIntoView({behavior:'smooth', block:'center'});
+  (btn.closest('.ayudas') || btn).after(box); btn.disabled = true; box.scrollIntoView({behavior:'smooth', block:'center'});
   const b = box.querySelector('.bubble');
   if (!SAMPLE){ b.textContent = 'Leelo de nuevo con calma, de a una frase, y mirá el dibujo. Si sigue sin cerrar, escribime por WhatsApp y lo vemos.'; return; }
   try {
     await SAMPLE(brain('AHORA: la persona está en la lección "' + curL.t + '". Le explicaste esto: «' + txt + '». Te dijo: "No entendí". Explicalo de OTRA forma, más simple, con una comparación de la vida cotidiana. Máximo 5 líneas. No saludes ni repitas la explicación anterior.'), {modelTier:'quick', onText: ({text}) => { b.textContent = text; }});
-    const sp = el('button', 'btn ghost small', '🔊 Escuchar'); sp.type = 'button'; sp.addEventListener('click', () => speak(b.textContent)); box.after(sp);
+    const sp = el('button', 'voz', '🔊 Escuchar'); sp.type = 'button'; sp.addEventListener('click', () => speak(b.textContent)); box.after(sp);
   } catch(e){ b.textContent = e.code === 'not_granted' ? 'Para que la Martina digital te explique, hay que permitirle a esta app usar Claude.' : e.code === 'rate_limited' ? 'Muchas preguntas seguidas. Esperá un ratito y probá de nuevo.' : 'No pude responder ahora. Probá de nuevo en un momento.'; btn.disabled = false; }
 }
 
@@ -2270,6 +2334,7 @@ function renderFeed(){
 /* ============ MARTINA IA RECOMIENDA LECCIONES ============
    Palabras que llevan a cada lección cuando alguien se las escribe a Martina IA (sin tildes, en minúscula). */
 const KW = {
+  'mano':['icono de laprofe','icono','acceso directo','pantalla de inicio','pantalla principal','instalar laprofe','agregar laprofe','abrir laprofe','encontrar la app','perdi el link','donde esta la app'],
   'll1':['llamada','llamadas','atender','cortar','altavoz','llamada perdida','llamadas perdidas','llamar','me llaman','no puedo atender','devolver la llamada'],
   'tb1':['teclado','escribir','mayuscula','mayusculas','tilde','tildes','acento','borrar letras','emoji','emojis','dictar','escribir con la voz','la enie'],
   'nt1':['no molestar','silencio','modo silencio','silenciar el celular','vibrar','vibracion','de noche','suena mucho','notificacion','notificaciones','avisos','sonido'],
@@ -2554,6 +2619,7 @@ const icoSvg = (k, z) => '<svg width="' + (z || 34) + '" height="' + (z || 34) +
 const rnd = (bg, lb, cortar) => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:104px;text-align:center"><span style="width:64px;height:64px;border-radius:50%;background:' + bg + ';color:#fff;display:grid;place-items:center' + (cortar ? ';transform:rotate(135deg)' : '') + '">' + icoSvg('tel', 30) + '</span><b style="font-size:16px;line-height:1.2">' + lb + '</b></div>';
 const icTiles = list => '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px">' + list.map(x => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px;text-align:center"><span style="width:64px;height:64px;border-radius:18px;background:var(--soft);color:var(--petroleo);display:grid;place-items:center">' + icoSvg(x[0]) + '</span><b style="font-size:16px;line-height:1.2">' + x[1] + '</b></div>').join('') + '</div>';
 const ART = {
+  manoIcono: () => '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px;width:100%;max-width:300px;background:var(--ph-home);border-radius:18px;padding:14px 8px">' + HOME_APPS.slice(0, 7).map(a => '<span class="app-ic"><span class="sq" style="background:' + a[2] + '">' + a[1] + '</span>' + a[3] + '</span>').join('') + '<span class="app-ic"><img src="icon-192-v3.png" alt="" style="width:54px;height:54px;border-radius:15px;outline:3px solid var(--coral);outline-offset:2px">LaProfe</span></div>',
   llamEntra: () => '<div style="display:flex;gap:26px">' + rnd('#E5484D', 'Rojo: no atender', true) + rnd('#1DAA61', 'Verde: atender') + '</div>',
   llamBotones: () => icTiles([['altavoz','Altavoz'],['microT','Silenciar tu voz']]) + rnd('#E5484D', 'Cortar', true),
   llamPerdida: () => '<div style="width:100%;max-width:300px;background:var(--soft);border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center"><span><b style="color:#D93025">Dr. Pérez</b><br><span class="muted small">Perdida</span></span><span class="muted">10:15</span></div>',
@@ -2738,6 +2804,42 @@ function logoCard(l){
 
 /* ============ PRÁCTICAS ============ */
 const SIMS = {};
+
+/* Tené LaProfe a mano: poner el ícono en la pantalla de inicio (Chrome en Android, Safari en iPhone) */
+SIMS.manoIcono = function(api){
+  const ios = OS() === 'iphone';
+  const B = (t, html, st) => '<button type="button" data-t="' + t + '" style="background:none;border:none;color:var(--ph-text);min-height:46px;text-align:left;' + (st || '') + '">' + html + '</button>';
+  const pagina = '<div style="flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;background:#F6F3EE;color:#1B1B2F"><b style="font-size:22px">LaProfe<span style="color:#FF5A36">.</span></b><div style="background:#fff;border-radius:16px;padding:12px"><span style="font-size:13px;color:#4A4A5E">Tu próxima lección</span><br><b>Tené LaProfe a mano</b></div><div style="height:40px;border-radius:999px;background:#FF5A36;opacity:.35"></div></div>';
+  const fila = (t, txt, sub) => B(t, '<b style="font-weight:600">' + txt + '</b>' + (sub ? '<br><small style="color:var(--ph-sub)">' + sub + '</small>' : ''), 'display:block;width:100%;padding:10px 16px;border-bottom:1px solid var(--ph-line)');
+  const urlAnd = '<div class="bar" style="gap:6px"><div style="flex:1;background:var(--ph-line);border-radius:999px;padding:10px 14px;font-size:14px;color:var(--ph-sub)">laprofeapp.com</div>' + B('dots', '<span style="font-size:26px;font-weight:900;line-height:1">⋮</span>', 'width:46px;display:grid;place-items:center') + '</div>';
+  const urlIos = '<div style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--ph-bar);border-top:1px solid var(--ph-line)">' + B('atras', '<span style="font-size:28px;color:#2F6FEB;line-height:1">‹</span>', 'width:40px') + '<div style="flex:1;background:var(--ph-line);border-radius:999px;padding:10px 14px;font-size:14px;color:var(--ph-sub);text-align:center">laprofeapp.com</div>' + B('dots', '<span style="font-size:22px;font-weight:900;letter-spacing:1px">···</span>', 'width:52px;display:grid;place-items:center') + '</div>';
+  const nav = (sobre) => ios ? pagina + (sobre || '') + urlIos : urlAnd + (sobre || '') + pagina;
+  const icono = '<img src="icon-192-v3.png" alt="" style="width:54px;height:54px;border-radius:15px">';
+  const pasos = ios ? [
+    {pide:'dots', say:'Estás en LaProfe, en Safari. Tocá los <b>tres puntitos</b> de abajo a la derecha.', pista:'Buscá los tres puntitos, abajo a la derecha.', html:() => nav()},
+    {pide:'comp', say:'Se abrió un menú. Tocá <b>"Compartir"</b>.', pista:'Tocá "Compartir", arriba de todo en el menú.', html:() => nav('<div style="background:var(--ph-bar);border-top:1px solid var(--ph-line)">' + fila('comp', 'Compartir') + fila('fav', 'Agregar a favoritos') + fila('bus', 'Buscar en la página') + '</div>')},
+    {pide:'add', say:'Ahora tocá <b>"Agregar a pantalla de inicio"</b>.', pista:'Buscá "Agregar a pantalla de inicio".', html:() => '<div style="flex:1;background:var(--ph-bg);display:flex;flex-direction:column;justify-content:flex-end"><div style="background:var(--ph-bar);border-radius:18px 18px 0 0">' + fila('copiar', 'Copiar') + fila('lista', 'Agregar a lista de lectura') + fila('add', 'Agregar a pantalla de inicio') + fila('imp', 'Imprimir') + '</div></div>'},
+    {pide:'ok', say:'Así se va a llamar el ícono. Tocá <b>"Agregar"</b>, arriba a la derecha.', pista:'"Agregar" está arriba a la derecha, en azul.', html:() => '<div class="bar" style="justify-content:space-between">' + B('cancel', '<span style="color:#2F6FEB">Cancelar</span>') + '<b style="font-size:14px">Pantalla de inicio</b>' + B('ok', '<b style="color:#2F6FEB">Agregar</b>') + '</div><div style="flex:1;padding:16px;background:var(--ph-bg)"><div style="display:flex;gap:12px;align-items:center;background:var(--ph-bar);border-radius:14px;padding:12px">' + icono + '<div><b>LaProfe</b><br><small style="color:var(--ph-sub)">laprofeapp.com</small></div></div></div>'}
+  ] : [
+    {pide:'dots', say:'Estás en LaProfe, en Chrome. Tocá los <b>tres puntitos</b> de arriba a la derecha.', pista:'Buscá los tres puntitos, arriba a la derecha.', html:() => nav()},
+    {pide:'add', say:'Se abrió un menú. Tocá <b>"Agregar a la pantalla principal"</b>.', pista:'Buscá "Agregar a la pantalla principal".', html:() => urlAnd + '<div style="background:var(--ph-bar);border-bottom:1px solid var(--ph-line)">' + fila('nueva', 'Nueva pestaña') + fila('hist', 'Historial') + fila('comp', 'Compartir') + fila('add', 'Agregar a la pantalla principal') + '</div>' + pagina},
+    {pide:'ok', say:'El celular te pregunta si lo querés. Tocá <b>"Instalar"</b>.', pista:'Tocá "Instalar", abajo a la derecha del cartel.', html:() => '<div style="flex:1;background:rgba(0,0,0,.35);display:grid;place-items:center;padding:16px"><div style="background:var(--ph-bar);border-radius:22px;padding:18px;width:100%;display:flex;flex-direction:column;gap:12px"><b style="font-size:17px">¿Instalar app?</b><div style="display:flex;gap:12px;align-items:center">' + icono + '<div><b>LaProfe</b><br><small style="color:var(--ph-sub)">laprofeapp.com</small></div></div><div style="display:flex;justify-content:flex-end;gap:6px">' + B('cancel', '<b style="color:#1A73E8">Cancelar</b>', 'padding:0 12px') + B('ok', '<b style="color:#1A73E8">Instalar</b>', 'padding:0 12px') + '</div></div></div>'}
+  ];
+  pasos.push({pide:'laprofe', say:'¡Ahí está el ícono! Tocalo para abrir <b>LaProfe</b>.', pista:'Es el ícono crema que dice LaProfe, el último.', html:() => '<div class="home"><div class="icons">' + HOME_APPS.slice(0, 7).map(appIcon).join('') + '<button type="button" class="app-ic" data-t="laprofe">' + icono + 'LaProfe</button></div></div>'});
+  let k = 0;
+  function pinta(){
+    const p = pasos[k]; api.say(p.say);
+    api.stage.innerHTML = '<div class="phone" style="min-height:430px">' + sbar() + p.html() + '</div><p class="muted small" style="margin-top:10px;text-align:center">Es un dibujo de tu celular: podés tocar sin miedo.</p>';
+    api.stage.querySelectorAll('.app-ic:not([data-t])').forEach(b => b.addEventListener('click', () => toast(p.pista)));
+    api.stage.querySelectorAll('[data-t]').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.t !== p.pide){ toast(p.pista); return; }
+      b.style.background = 'var(--lima)'; b.style.color = 'var(--ink)'; k++;
+      if (k < pasos.length){ later(pinta, 350); return; }
+      api.say('¡Eso! Así se abre LaProfe desde ahora: con un toque, como cualquier app.'); api.done();
+    }));
+  }
+  pinta();
+};
 
 SIMS.tapIcon = function(api){
   const seq = [['msg','Tocá la app que sirve para <b>mandar mensajes</b>.'],['cam','¡Bien! Ahora tocá la que sirve para <b>sacar fotos</b>.'],['maps','Última: la que te ayuda a <b>no perderte en la calle</b>.']];
