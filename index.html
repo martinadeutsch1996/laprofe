@@ -2133,6 +2133,17 @@ const QUE_SIGUE = {ex:'Seguir', try:'Probar', check:'Seguir', rec:'Ver resumen',
 function nextBtn(label){ if (!label || label === 'Seguir'){ const nk = curL.steps[si + 1]; label = nk ? (QUE_SIGUE[nk.k] || 'Seguir') : 'Terminar lección'; }
   const b = el('button', 'btn main', label); b.type = 'button'; b.addEventListener('click', () => { if (b.dataset.t) return; b.dataset.t = 1; si++; if (si >= curL.steps.length) finishLesson(); else { renderStep(); window.scrollTo(0,0); } }); return b; }
 const fillOS = s => String(T(s)).replace('{os}', OS() === 'iphone' ? 'iPhone' : 'Android');
+/* Pregunta de la lección. Se usa en su propio paso o debajo de la práctica, sin botón en el medio */
+function checkEn(z, st){
+    const q = el('h2', 'qh'); q.textContent = fillOS(st.q); z.append(q);
+    const opts = el('div', 'stack'); const fb = el('div'); const o = T(st.o);
+    o.forEach((t, k) => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = fillOS(t); b.addEventListener('click', () => {
+      if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; { const id = curL.id, ks = si; track(d => { const x = L(d, id); if (ok) x.bien = addIdx(x.bien, ks); else x.mal = addIdx(x.mal, ks); }); if (!ok){ costo(id); S.mem = Object.assign({}, S.mem, {[id + '-' + ks]: {box:0, next:hoy()}}); save(); } } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
+      fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Muy bien!','¡Eso! ¡Viste que sabías!','¡Exacto! Vas volando.']) : pick(['¡Casi! Equivocarse es parte de aprender.','No pasa nada: así se aprende.','Tranqui: esta confunde a todos al principio.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = fillOS(st.why);
+      const nb = nextBtn(); nb.style.marginTop = '12px'; fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
+    }); opts.appendChild(b); });
+    z.append(opts, fb);
+}
 function renderStep(){
   token++; $('toast').hidden = true; stopVoz(); yaBajo = false;
   if (!S.done[curL.id]){ S.prog = Object.assign({}, S.prog); if (si > 0) S.prog[curL.id] = si; else delete S.prog[curL.id]; save(); }
@@ -2156,7 +2167,15 @@ function renderStep(){
     const g = el('div', 'guide'); g.innerHTML = '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble" id="g-txt"></div></div><p class="pista" id="g-pista" role="status" hidden></p>'; z.append(g);
     const stage = el('div', 'stack'); stage.id = 'stage'; z.append(stage);
     const nb = nextBtn('Seguir'); nb.hidden = true; nb.id = 'try-next'; z.append(nb);
-    const api = {say: h => { $('g-txt').innerHTML = h; const gp = $('g-pista'); if (gp && Date.now() - (+gp.dataset.t || 0) > 600) gp.hidden = true; }, stage, done: () => { nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
+    const api = {say: h => { $('g-txt').innerHTML = h; const gp = $('g-pista'); if (gp && Date.now() - (+gp.dataset.t || 0) > 600) gp.hidden = true; }, stage, done: () => {
+      const sig = curL.steps[si + 1];
+      if (sig && sig.k === 'check' && !z.querySelector('.check-in')){ // la pregunta aparece abajo, en la misma pantalla
+        si++; if (!S.done[curL.id]){ S.prog = Object.assign({}, S.prog, {[curL.id]: si}); save(); } { const id = curL.id, k = si; track(d => { const x = L(d, id); x.paso = Math.max(x.paso || 0, k); }); }
+        stepDots(); g.style.position = 'static'; const hb2 = $('try-help'); if (hb2) hb2.hidden = true;
+        const box = el('div', 'stack check-in'); box.style.gap = '14px'; box.style.marginTop = '22px'; z.insertBefore(box, nb); checkEn(box, sig);
+        later(() => box.scrollIntoView({behavior:'smooth', block:'start'}), 900); return;
+      }
+      nb.hidden = false; nb.classList.add('pulse'); setTimeout(() => nb.scrollIntoView({behavior:'smooth', block:'center'}), 50); }};
     SIMS[st.run](api);
     const hb = el('button', 'voz', '😅 Me trabé'); hb.type = 'button'; hb.id = 'try-help';
     hb.addEventListener('click', () => helpBox(hb, $('g-txt').textContent, () => { hb.hidden = true; api.say(MOSTRAR_PRACTICA_REAL ? '¡No pasa nada! Seguimos, y después lo practicás en tu celular.' : '¡No pasa nada! Seguimos y después lo repasamos.'); api.done(); }));
@@ -2213,16 +2232,7 @@ function renderStep(){
       z.append(ver, pasos, nat, ok, despues);
     } else z.append(pasos, ok, despues);
   }
-  if (st.k === 'check'){
-    const q = el('h2', 'qh'); q.textContent = fillOS(st.q); z.append(q);
-    const opts = el('div', 'stack'); const fb = el('div'); const o = T(st.o);
-    o.forEach((t, k) => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = fillOS(t); b.addEventListener('click', () => {
-      if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; { const id = curL.id, ks = si; track(d => { const x = L(d, id); if (ok) x.bien = addIdx(x.bien, ks); else x.mal = addIdx(x.mal, ks); }); if (!ok){ costo(id); S.mem = Object.assign({}, S.mem, {[id + '-' + ks]: {box:0, next:hoy()}}); save(); } } b.classList.add(ok ? 'right' : 'wrong'); if (!ok) opts.children[st.a].classList.add('right');
-      fb.innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '"><b>' + (ok ? pick(['¡Muy bien!','¡Eso! ¡Viste que sabías!','¡Exacto! Vas volando.']) : pick(['¡Casi! Equivocarse es parte de aprender.','No pasa nada: así se aprende.','Tranqui: esta confunde a todos al principio.'])) + '</b><span></span></div>'; fb.querySelector('span').textContent = fillOS(st.why);
-      const nb = nextBtn(); nb.style.marginTop = '12px'; fb.appendChild(nb); nb.scrollIntoView({behavior:'smooth', block:'center'});
-    }); opts.appendChild(b); });
-    z.append(opts, fb);
-  }
+  if (st.k === 'check') checkEn(z, st);
   if (st.k === 'rec'){
     const r = el('div', 'remember', '<span class="pill" style="align-self:flex-start">Para recordar</span><ul></ul>');
     st.pts.forEach(p => { const li = el('li'); li.textContent = fillOS(p); r.querySelector('ul').appendChild(li); });
