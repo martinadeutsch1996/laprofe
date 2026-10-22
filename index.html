@@ -658,6 +658,9 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .composer{flex-wrap:wrap}
 .composer textarea{flex:1 1 100%}
 .composer .btn{flex:1 1 0;width:auto}
+.composer textarea{min-height:120px;font-size:20px;border-radius:18px}
+#m-chips .chip{font-size:17px}
+.big .composer{position:static}
 .rq-n{font-weight:800;font-size:18px}
 </style>
 
@@ -751,7 +754,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
   <p class="note" id="m-mic-note" hidden></p>
   <div class="composer">
     <label for="m-in" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tu pregunta</label>
-    <textarea id="m-in" rows="1" placeholder="Tu pregunta…"></textarea>
+    <textarea id="m-in" rows="3" placeholder="Escribí tu pregunta acá"></textarea>
     <button class="btn ghost small" type="button" id="m-mic" style="min-height:56px;padding:8px 12px" aria-label="Hablar para dictar la pregunta" hidden>🎤 Hablar</button>
     <button class="btn small" type="button" id="m-send" style="min-height:56px">Enviar</button>
     <button class="btn small dark" type="button" id="m-stop" hidden style="min-height:56px">Detener</button>
@@ -1624,6 +1627,9 @@ const LOGRO = {
 const PUBLICAR = {camara:true, orga:true, ciudad:true, google:true, gmail:true, videos:true, redes:true, ia:true, apps:true, iconos:true, llamadas:true, teclado:true, avisos:true, captura:true}; // publicados el 19/10/2026 // apps = lección "Descargá una app"
 const PRUEBA = /[?&](prueba|nivel5)\b/.test(location.search);
 const ORDEN = ['basico','pantalla','camara','whatsapp','maswa','orga','ciudad','google','gmail','videos','redes','ia'];
+/* "Tené LaProfe a mano" va después de "La pantalla de inicio" (2b): no es de las primeras lecciones */
+{ const bas = NIVELES.find(v => v.k === 'basico'), pan = NIVELES.find(v => v.k === 'pantalla'), i = bas ? bas.ls.findIndex(l => l.id === 'mano') : -1;
+  if (i >= 0 && pan){ const [ma] = bas.ls.splice(i, 1); const j = pan.ls.findIndex(l => l.id === '2b'); pan.ls.splice(j >= 0 ? j + 1 : pan.ls.length, 0, ma); } }
 NIVELES.sort((a, b) => ORDEN.indexOf(a.k) - ORDEN.indexOf(b.k));
 for (let i = NIVELES.length - 1; i >= 0; i--) if (NIVELES[i].k in PUBLICAR && !PUBLICAR[NIVELES[i].k] && !PRUEBA) NIVELES.splice(i, 1);
 NIVELES.forEach(v => { v.ls = v.ls.filter(l => !l.pub || PUBLICAR[l.pub] || PRUEBA); });
@@ -1934,7 +1940,8 @@ function renderOb(){
     b.append(el('img', 'avatar xl')); b.lastChild.src = FOTO; b.lastChild.alt = ''; b.lastChild.style.alignSelf = 'center';
     const h = el('h1', ''); h.textContent = '¡Listo, ' + (obDraft.nombre || '') + '!'; b.append(h);
     const nuevo = !S.perfil || doneN() === 0;
-    const p = el('div', 'bubble'); p.textContent = nuevo ? 'Tu primera lección es "Tené LaProfe a mano". Si te trabás, tocá "Martina IA", abajo.' : 'Listo, guardé tus cambios.';
+    const p = el('div', 'bubble'); const pri = niv.ls.find(l => !S.done[l.id]) || niv.ls[0];
+    p.textContent = nuevo ? 'Tu primera lección es "' + pri.t + '". Si te trabás, tocá "Martina IA", abajo.' : 'Listo, guardé tus cambios.';
     b.append(p);
     const go = el('button', 'btn', nuevo ? 'Empezar la primera lección' : 'Volver al inicio'); go.type = 'button';
     go.addEventListener('click', () => { obDraft.start = start; obDraft.startK = startK; S.nivFestK = 1; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); if (nuevo){ const l = proxNueva(); if (l){ startLesson(l); return; } } show('inicio'); });
@@ -1943,7 +1950,7 @@ function renderOb(){
 }
 
 /* ============ INICIO ============ */
-function nextLesson(){ const ma = ALL.find(l => l.id === 'mano'); if (ma && !S.done.mano) return ma; const st = startN(); const mid = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (mid) return mid; return ALL.find(l => l.niv.n >= st && !S.done[l.id]) || ALL.find(l => !S.done[l.id]); }
+function nextLesson(){ const st = startN(); const mid = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (mid) return mid; return ALL.find(l => l.niv.n >= st && !S.done[l.id]) || ALL.find(l => !S.done[l.id]); }
 $('h-datos-si').addEventListener('click', () => { decidirDatos(true); $('h-datos').hidden = true; toast('¡Gracias! Así puedo mejorar las lecciones.'); });
 $('h-datos-no').addEventListener('click', () => { decidirDatos(false); $('h-datos').hidden = true; toast('Listo. La app funciona igual. Lo podés cambiar en Mi perfil.'); });
 $('h-beta-ok').addEventListener('click', () => { S.betaOk = true; save(); $('h-beta').hidden = true; });
@@ -2033,7 +2040,6 @@ function misTemas(){
   return S.temas;
 }
 function proxNueva(){
-  const ma = ALL.find(l => l.id === 'mano'); if (ma && !S.done.mano) return ma;
   const enCurso = ALL.find(l => !S.done[l.id] && S.prog && S.prog[l.id]); if (enCurso) return enCurso;
   const ini = NIVELES.find(v => v.n === startN());
   if (ini && ini.ls.some(l => !S.done[l.id])) return ini.ls.find(l => !S.done[l.id]);
@@ -2051,7 +2057,7 @@ function delDia(){
   const f = hoy(); if (S.dia && S.dia.f === f) return S.dia;
   const antes = S.dia ? S.dia.t : null, nueva = proxNueva(), enCurso = nueva && S.prog && S.prog[nueva.id];
   let d = {f, t:'lec'};
-  if (S.done.mano && !enCurso){ const k = temaParaRepasar(); if (k && (antes !== 'rep' || !nueva)) d = {f, t:'rep', k}; }
+  if (doneN() > 0 && !enCurso){ const k = temaParaRepasar(); if (k && (antes !== 'rep' || !nueva)) d = {f, t:'rep', k}; }
   S.dia = d; save(); return d;
 }
 function diaHecho(t){ const d = delDia(); if (d.t === t && !d.hecho){ d.hecho = true; S.dia = d; save(); } }
@@ -2513,13 +2519,15 @@ function tarjetasLeccion(ls, tras){
 
 /* ============ MARTINA DIGITAL (chat) ============ */
 const TURNS = []; let mCtl = null;
-const M_CHIPS = ['¿Cómo agrando la letra?','¿Qué es la nube?','Me llegó un mensaje raro pidiendo plata','¿Cómo mando un audio?','¿Qué es la inteligencia artificial?'];
+const M_POOL = ['¿Cómo agrando la letra?','¿Qué es la nube?','Me llegó un mensaje raro pidiendo plata','¿Cómo mando un audio?','¿Qué es la inteligencia artificial?','¿Cómo hago una videollamada?','¿Cómo saco una foto de la pantalla?','¿Cómo libero espacio en el celular?','¿Cómo sé si una página es segura?','¿Cómo comparto una foto por WhatsApp?','¿Qué hago si el celular anda lento?','¿Cómo silencio un grupo de WhatsApp?'];
+/* Cada día se muestran 3 preguntas distintas */
+const M_CHIPS = (() => { const d = Math.floor(Date.now() / 864e5), out = []; for (let i = 0; i < 3; i++) out.push(M_POOL[(d * 3 + i) % M_POOL.length]); return out; })();;
 const FALLBACK = {'¿Cómo agrando la letra?':'Andá a Ajustes y buscá "Pantalla". Ahí está "Tamaño de fuente": mové la barrita a la derecha hasta que leas cómodo. ¿Probamos?','¿Qué es la nube?':'Es un espacio en internet donde se guardan tus fotos y archivos. Como dejar una copia de tus fotos en lo de tu hija: si perdés el celular, ella tiene la copia.','Me llegó un mensaje raro pidiendo plata':'Frenemos un segundo. Si es de un número que no conocés y te apura, no respondas ni transfieras nada. Llamá a tu familiar al número de siempre. ¿Querés que veamos las señales juntos?','¿Cómo mando un audio?':'Entrá al chat, mantené apretado el micrófono verde y hablá. Cuando soltás, se manda. Si te equivocaste, deslizá el dedo a la izquierda sin soltar.','¿Qué es la inteligencia artificial?':'Son programas que hacen cosas que antes solo hacía una persona: reconocer una cara, recomendarte una película o escribir un texto. Aprende de patrones. Ayuda mucho, pero puede equivocarse: la IA nos ayuda, nosotros decidimos.'};
 let mInit = false;
 function renderMartina(){
   if (!mInit){
     mInit = true;
-    const hi = el('div', 'say', '<img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble ai"></div>'); hi.querySelector('.bubble').textContent = '¡Hola' + (NOMBRE() ? ', ' + NOMBRE() : '') + '! Preguntame lo que quieras del celular. No existen las preguntas tontas: si algo no se entiende, te lo explico de nuevo.';
+    const hi = el('div', 'say', '<img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble ai"></div>'); hi.querySelector('.bubble').textContent = '¡Hola' + (NOMBRE() ? ', ' + NOMBRE() : '') + '! Preguntame lo que quieras del celular.';
     $('m-chat').appendChild(hi);
     M_CHIPS.forEach(q => { const c = el('button', 'chip'); c.type = 'button'; c.textContent = q; c.addEventListener('click', () => ask(q)); $('m-chips').appendChild(c); });
   }
