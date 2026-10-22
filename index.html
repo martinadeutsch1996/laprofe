@@ -174,7 +174,7 @@ a{color:var(--petroleo)}
 .round{width:52px;height:52px;border-radius:50%;border:none;background:var(--ph-green);display:grid;place-items:center;flex:none;touch-action:none}
 .round svg{width:24px;height:24px}
 .pulse{animation:pulse 1.6s ease-in-out infinite;border-color:var(--coral)!important;box-shadow:0 0 0 4px var(--coral)}
-@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(255,90,54,.25)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px var(--coral)}50%{box-shadow:0 0 0 4px var(--coral),0 0 0 11px rgba(255,90,54,.28)}} /* de punta a punta, así se ve aunque el botón tenga su propia sombra */
 .typing{align-self:flex-start;background:var(--ph-in);border-radius:10px;padding:10px 14px;color:var(--ph-sub);font-size:15px;font-style:italic}
 .helpers{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0 8px 8px}
 .helpers button{border:2px dashed var(--ph-sub);background:var(--ph-bar);color:var(--ph-text);border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px;min-height:44px}
@@ -1853,7 +1853,9 @@ $('scrollhint').addEventListener('click', () => window.scrollBy({top: Math.round
 window.addEventListener('scroll', checkScroll, {passive:true});
 window.addEventListener('resize', checkScroll);
 new MutationObserver(() => requestAnimationFrame(checkScroll)).observe(document.querySelector('main'), {childList:true, subtree:true, attributes:true, attributeFilter:['hidden']});
+const PISTA = {x: null, t: 0, api: null};
 function toast(txt, ms){
+  if (PISTA.x && PISTA.api && !$('s-lesson').hidden){ const x = PISTA.x; PISTA.api.marca(x); } // se equivocó: ahora sí, lo que hay que tocar titila
   /* En las prácticas, las pistas de Martina van debajo de su globito, no en un cartel encima del dibujo */
   const gp = $('g-pista'), enPractica = gp && !$('s-lesson').hidden;
   if (enPractica){ gp.textContent = txt; gp.hidden = false; const t0 = Date.now(); gp.dataset.t = t0; setTimeout(() => { if (gp.dataset.t == t0) gp.hidden = true; }, Math.max(ms || 0, Math.min(Math.max(4500, String(txt).length * 75), 12000))); const r = $('g-txt').getBoundingClientRect(); if (r.top >= 0 && r.bottom <= window.innerHeight) { $('toast').hidden = true; return; } }
@@ -2180,6 +2182,14 @@ function enfocar(x, suave){
 /* Pregunta de la lección. Se usa en su propio paso o debajo de la práctica, sin botón en el medio */
 /* Si se equivocó, la explicación no arranca festejando ("¡Eso!", "Exacto:") */
 const sinFestejo = (t, ok) => ok ? t : String(t).replace(/^¡?(Eso|Exacto|Bien|Muy bien|Perfecto|Claro)[!.:,]*\s*/i, '').replace(/^./, c => c.toUpperCase());
+/* Si nada titila y hay que escribir: marca el campo vacío o, si ya tiene texto, el botón que lo manda */
+function autoMarca(stage){
+  const vis = e => e && e.getClientRects().length && getComputedStyle(e).visibility !== 'hidden';
+  const i = Array.from(stage.querySelectorAll('input:not([readonly]):not([type=range]):not([type=checkbox]), textarea:not([readonly])')).find(vis); if (!i) return null;
+  if (!i.value.trim()) return i.closest('.field') || i;
+  const box = i.closest('.inrow, .sbox, .gbar, .bar, div') || stage;
+  return Array.from((i.closest('.inrow') || box.parentElement || box).querySelectorAll('button.round, .gico, [aria-label="Enviar"], [aria-label="Buscar"]')).find(vis) || null;
+}
 function atrasPaso(){
   const z = $('lz'); if (!z || si === 0 || z.querySelector('.atras-paso') || (curL.steps[si] && curL.steps[si].k === 'try')) return; // en la práctica no: suma ruido
   const b = el('button', 'atras atras-paso', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Ver el paso anterior'); b.type = 'button';
@@ -2219,7 +2229,10 @@ function renderStep(){
     const g = el('div', 'guide'); g.innerHTML = '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble" id="g-txt"></div></div><p class="pista" id="g-pista" role="status" hidden></p>'; z.append(g);
     const stage = el('div', 'stack'); stage.id = 'stage'; z.append(stage);
     const nb = nextBtn('Seguir'); nb.hidden = true; nb.id = 'try-next'; z.append(nb);
-    const api = {say: h => { const gt = $('g-txt'); if (gt.innerHTML && gt.innerHTML !== h){ gt.classList.remove('nueva'); void gt.offsetWidth; gt.classList.add('nueva'); } gt.innerHTML = h; const gp = $('g-pista'); if (gp && Date.now() - (+gp.dataset.t || 0) > 600) gp.hidden = true; }, stage, done: () => {
+    const api = {marca: x => { PISTA.x = null; clearTimeout(PISTA.t); stage.querySelectorAll('.pulse').forEach(e => e.classList.remove('pulse')); const e = typeof x === 'string' ? stage.querySelector(x) : x; if (e) e.classList.add('pulse'); },
+      /* pista: para las prácticas de "encontrá…", lo que hay que tocar titila recién si se equivoca o pasan unos segundos */
+      pista: x => { clearTimeout(PISTA.t); stage.querySelectorAll('.pulse').forEach(e => e.classList.remove('pulse')); PISTA.x = x; PISTA.api = api; const t0 = token; PISTA.t = setTimeout(() => { if (t0 === token && PISTA.x === x) api.marca(x); }, window.PISTA_MS || 9000); },
+      say: h => { const gt = $('g-txt'); if (gt.innerHTML && gt.innerHTML !== h){ gt.classList.remove('nueva'); void gt.offsetWidth; gt.classList.add('nueva'); } gt.innerHTML = h; const gp = $('g-pista'); if (gp && Date.now() - (+gp.dataset.t || 0) > 600) gp.hidden = true; }, stage, done: () => {
       const sig = curL.steps[si + 1];
       if (sig && sig.k === 'check' && !z.querySelector('.check-in')){ // la pregunta aparece abajo, en la misma pantalla
         si++; if (!S.done[curL.id]){ S.prog = Object.assign({}, S.prog, {[curL.id]: si}); save(); } { const id = curL.id, k = si; track(d => { const x = L(d, id); x.paso = Math.max(x.paso || 0, k); }); }
@@ -2232,8 +2245,11 @@ function renderStep(){
     { // cuando la práctica marca algo para tocar (titila), la pantalla va hasta ahí
       const t0 = token, vistos = new WeakSet();
       const foco = () => { if (t0 !== token){ mo.disconnect(); return; } if (stage.classList.contains('hecho')) return;
-        const p = Array.from(stage.querySelectorAll('.pulse')).find(x => !vistos.has(x));
+        let p = Array.from(stage.querySelectorAll('.pulse')).find(x => !vistos.has(x));
+        if (!p && !PISTA.x && !stage.querySelector('.pulse')){ p = autoMarca(stage); if (p) p.classList.add('pulse'); }
         if (p){ vistos.add(p); enfocar(p); } else enfocar(stage.querySelector('.phone') || stage.firstElementChild, true); };
+      stage.addEventListener('input', () => { clearTimeout(mo.t); mo.t = setTimeout(() => { const f = stage.querySelector('.field.pulse, input.pulse, textarea.pulse'); const i = stage.querySelector('input:not([readonly]), textarea:not([readonly])');
+        if (f && i && i.value.trim()){ f.classList.remove('pulse'); const b = autoMarca(stage); if (b) b.classList.add('pulse'); } }, 400); });
       const mo = new MutationObserver(() => { clearTimeout(mo.t); mo.t = setTimeout(foco, 300); });
       mo.observe(stage, {subtree:true, childList:true, attributes:true, attributeFilter:['class']});
       // al empezar la práctica: la consigna arriba y el dibujo justo debajo (se va lo que ya leyó)
@@ -3009,8 +3025,8 @@ SIMS.manoIcono = function(api){
   pasos.push({pide:'laprofe', say:'¡Ahí está el ícono! Tocalo para abrir <b>LaProfe</b>.', pista:'Es el ícono crema que dice LaProfe, el último.', html:() => '<div class="home"><div class="icons">' + HOME_APPS.slice(0, 7).map(appIcon).join('') + '<button type="button" class="app-ic" data-t="laprofe">' + icono + 'LaProfe</button></div></div>'});
   let k = 0;
   function pinta(){
-    const p = pasos[k]; api.say(p.say);
-    api.stage.innerHTML = '<div class="phone" style="min-height:430px">' + sbar() + p.html() + '</div><p class="muted small" style="margin-top:10px;text-align:center">Es un dibujo de tu celular: podés tocar sin miedo.</p>';
+    const p = pasos[k]; api.say(p.say); later(() => api.marca('[data-t="' + p.pide + '"]'), 30);
+    api.stage.innerHTML = '<div class="phone" style="min-height:430px">' + sbar() + p.html() + '</div>';
     api.stage.querySelectorAll('.app-ic:not([data-t])').forEach(b => b.addEventListener('click', () => toast(p.pista)));
     api.stage.querySelectorAll('[data-t]').forEach(b => b.addEventListener('click', () => {
       if (b.dataset.t !== p.pide){ toast(p.pista); return; }
@@ -3027,11 +3043,12 @@ SIMS.tapIcon = function(api){
   let k = 0; api.say(seq[0][1]);
   api.stage.innerHTML = '<div class="phone" style="min-height:0">' + sbar() + '<div class="home"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div></div></div>';
   const what = {tel:'llamar',msg:'mandar mensajes',cam:'sacar fotos',fotos:'ver tus fotos',maps:'no perderte',aj:'cambiar opciones del celular',vid:'mirar videos',reloj:'poner alarmas'};
+  const pi = () => api.pista('[data-a="' + seq[k][0] + '"] .sq'); pi();
   api.stage.querySelectorAll('.app-ic').forEach(b => b.addEventListener('click', () => {
     if (k >= seq.length) return;
     if (b.dataset.a !== seq[k][0]){ toast('Esa app sirve para ' + what[b.dataset.a] + '. Buscá otra.'); return; }
     b.querySelector('.sq').style.outline = '4px solid var(--lima)'; k++;
-    if (k < seq.length) api.say(seq[k][1]); else { api.say('¡Perfecto! Cada app es una herramienta para algo distinto.'); api.done(); }
+    if (k < seq.length){ api.say(seq[k][1]); pi(); } else { api.say('¡Perfecto! Cada app es una herramienta para algo distinto.'); api.done(); }
   }));
 };
 
@@ -3054,24 +3071,24 @@ SIMS.icFind = function(api){
     k++;
     if (scr === 1 && k === T1.length){ later(() => { scr = 2; k = 0; chat(); }, 500); return; }
     if (scr === 2 && k === T2.length){ menu(); return; }
-    api.say(list[k][1]);
+    api.say(list[k][1]); api.pista('[data-t="' + list[k][0] + '"]');
   }
   function post(){
     api.stage.innerHTML = '<div class="phone" style="min-height:0;background:var(--ph-bar)">' + sbar() + '<div class="bar">' + back() + '<h3 style="flex:1">Fotos de Laura</h3>' + btn('lupa', icoSvg('lupa', 26)) + btn('campana', icoSvg('campana', 26)) + '</div>'
       + '<div style="height:190px;background:linear-gradient(#FFB74D,#F06292);display:grid;place-items:center;font-size:90px">🌅</div>'
       + '<div style="display:flex;gap:4px;padding:6px 8px">' + btn('corazon', icoSvg('corazon', 28)) + btn('globo', icoSvg('globo', 28)) + btn('compartir', icoSvg(ios ? 'compartirI' : 'compartir', 28)) + '</div>'
-      + '<p style="margin:0 14px 14px">Atardecer en la playa 🌅</p></div><p class="muted small" style="margin-top:10px;text-align:center">Es una app inventada: los íconos son los mismos que vas a ver en las de verdad.</p>';
-    wire(); api.say(T1[0][1]);
+      + '<p style="margin:0 14px 14px">Atardecer en la playa 🌅</p></div>';
+    wire(); api.say(T1[0][1]); api.pista('[data-t="' + T1[0][0] + '"]');
   }
   function chat(){
     api.stage.innerHTML = '<div class="phone" id="icp">' + sbar() + '<div class="bar">' + back() + '<div class="who" style="flex:1"><span class="pic" style="background:#7E57C2">F</span><div style="min-width:0"><b>Familia</b><small>Carlos, Ana, Vos</small></div></div>' + btn('puntos', icoSvg(ios ? 'puntosH' : 'puntos', 26)) + '</div>'
       + '<div class="msgs" id="icm" style="flex:1"></div><div class="inrow"><label class="field"><input placeholder="Mensaje" readonly>' + btn('clip', icoSvg('clip', 24), ';color:var(--ph-sub)') + btn('cam', I.cam, ';color:var(--ph-sub)') + '</label><button class="round" type="button" data-t="micro" aria-label="el micrófono">' + I.mic + '</button></div></div>';
     addMsg($('icm'), '¿Quién lleva el postre el domingo? 🍰', false, '10:40'); addMsg($('icm'), '¡Yo llevo! 🙋', false, '10:41'); addMsg($('icm'), 'Y yo el helado 🍨', false, '10:41');
-    wire(); api.say(T2[0][1]);
+    wire(); api.say(T2[0][1]); api.pista('[data-t="' + T2[0][0] + '"]');
   }
   function menu(){
     const m = el('div', 'sheet', [['buscar','lupa','Buscar'],['silenciar','silencio','Silenciar notificaciones'],['vaciar','tacho','Vaciar chat']].map(o => '<button type="button" data-o="' + o[0] + '"' + (o[0] === 'silenciar' ? ' class="pulse"' : '') + '><span class="si" style="background:var(--ph-line);color:var(--ph-text)">' + icoSvg(o[1], 24) + '</span>' + o[2] + '</button>').join(''));
-    $('toast').hidden = true; $('icp').appendChild(m); api.say('Se abrieron más opciones. Tocá la de la <b>campanita tachada</b>, para silenciar.');
+    $('toast').hidden = true; $('icp').appendChild(m); api.say('Se abrieron más opciones. Tocá la de la <b>campanita tachada</b>, para silenciar.'); api.marca(m.querySelector('[data-o="silenciar"]'));
     m.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
       if (b.dataset.o === 'buscar'){ toast('La lupa busca dentro del chat. Buscá la campanita tachada.'); return; }
       if (b.dataset.o === 'vaciar'){ toast('El tachito borra. ¡Mejor no! Buscá la campanita tachada.'); return; }
@@ -3104,6 +3121,7 @@ SIMS.llamada = function(api){
     + '</div></div>';
   api.say(ios ? 'Te está llamando Carla. Paso 1: deslizá el <b>botón verde hacia la derecha</b> para atender.' : 'Te está llamando Carla. Paso 1: apoyá el dedo en el <b>teléfono verde</b> y deslizalo hacia arriba para atender.');
   if (!ios) $('llr').addEventListener('click', () => toast('Ese no atiende: la llamada se cortaría. Deslizá el teléfono verde hacia arriba.'));
+  api.marca('#llk');
   gestoDeslizar($('llk'), ios ? 'der' : 'arriba', enLlamada, ios ? 'Apoyá el dedo en el botón verde y llevalo hacia la derecha, sin soltar.' : 'Apoyá el dedo en el teléfono verde y llevalo hacia arriba, sin soltar.');
   let seg = 0, enCurso = false;
   const reloj = () => { if (!enCurso || !$('llsub')) return; seg++; $('llsub').textContent = '0' + Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0'); later(reloj, 1000); };
@@ -3112,13 +3130,13 @@ SIMS.llamada = function(api){
     const b = (k, ico, lb) => '<button type="button" data-ll="' + k + '" style="background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:15px;font-weight:700"><span class="llb" style="width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center">' + ico + '</span>' + lb + '</button>';
     $('llz').innerHTML = quien('00:00') + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px 18px">' + b('mudo', icoSvg('microT', 30), 'Silenciar') + b('tec', '<span style="font-size:26px">⌨️</span>', 'Teclado') + b('alta', icoSvg('altavoz', 30), 'Altavoz') + '</div><button type="button" id="llc" style="background:none;border:none;padding:0" aria-label="Cortar">' + rojo + '</button>';
     later(reloj, 1000);
-    api.say('¡Atendiste! Paso 2: estás cocinando. Tocá <b>Altavoz</b> para hablar sin tener el celular en la oreja.');
+    api.say('¡Atendiste! Paso 2: estás cocinando. Tocá <b>Altavoz</b> para hablar sin tener el celular en la oreja.'); api.marca('[data-ll="alta"] .llb');
     api.stage.querySelectorAll('[data-ll]').forEach(x => x.addEventListener('click', () => {
       const k = x.dataset.ll, sq = x.querySelector('.llb');
       if (k === 'tec'){ toast('El teclado sirve cuando una grabación te pide marcar un número, por ejemplo "marque 1".'); return; }
       if (k === 'mudo'){ mudo = !mudo; sq.style.background = mudo ? '#fff' : 'rgba(255,255,255,.18)'; sq.style.color = mudo ? '#1B1B2F' : '#fff'; toast(mudo ? 'Silenciaste tu voz: Carla no te escucha. Tocalo de nuevo para que te escuche.' : 'Listo, Carla ya te escucha otra vez.'); return; }
       alta = !alta; sq.style.background = alta ? '#fff' : 'rgba(255,255,255,.18)'; sq.style.color = alta ? '#1B1B2F' : '#fff';
-      if (alta && fase === 0){ fase = 1; toast('Carla: ¡Hola! ¿Me escuchás bien? Te llamaba para saludarte 😊', 4500); later(() => { api.say('¡Con altavoz! Paso 3: cuando terminen de hablar, tocá el <b>botón rojo</b> para cortar.'); $('llc').classList.add('pulse'); }, 1800); }
+      if (alta && fase === 0){ fase = 1; api.say('¡Con altavoz! Carla te dice: "¡Hola! ¿Me escuchás bien?" 😊\nPaso 3: cuando terminen de hablar, tocá el <b>botón rojo</b> para cortar.'); api.marca('#llc'); }
     }));
     $('llc').addEventListener('click', () => { if (fase === 0){ toast('Antes, probá el altavoz.'); return; } enCurso = false; recientes(); });
   }
@@ -3127,7 +3145,7 @@ SIMS.llamada = function(api){
     const filas = [['Carla','Entrante · ahora',false],['Dr. Pérez','Perdida · 10:15',true],['Ana','Saliente · ayer',false]];
     $('llp').innerHTML = sbar() + '<div class="bar"><h3>' + (ios ? 'Llamadas' : 'Recientes') + '</h3></div><div style="flex:1;background:var(--ph-bar)">' + filas.map((f, i) => '<button type="button" class="crow" data-f="' + i + '" style="display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:64px"><span class="pic" style="background:' + (f[2] ? '#D93025' : '#7E57C2') + '">' + f[0][0] + '</span><span style="flex:1;min-width:0"><b style="' + (f[2] ? 'color:#D93025' : '') + '">' + f[0] + '</b><br><small style="color:var(--ph-sub)">' + f[1] + '</small></span><span style="color:var(--ph-sub)">' + icoSvg('tel', 22) + '</span></button>').join('') + '</div>'
       + barraTabs(ios ? [['📞','Llamadas'],['👥','Contactos'],['⌨️','Teclado']] : [['⭐','Favoritos'],['🕘','Recientes'],['👥','Contactos'],['⌨️','Teclado']], ios ? 'Llamadas' : 'Recientes', ios, '#1DAA61');
-    api.say('Ya cortaste. Mientras hablabas, te llamó otra persona. Paso 4: tocá la <b>llamada perdida</b>, la que está en rojo, para devolverla.');
+    api.say('Ya cortaste. Mientras hablabas, te llamó otra persona. Paso 4: tocá la <b>llamada perdida</b>, la que está en rojo, para devolverla.'); api.pista('[data-f="1"]');
     $('llp').querySelectorAll('[data-st]').forEach(x => x.addEventListener('click', () => toast('Hoy nos quedamos acá, en tus llamadas.')));
     $('llp').querySelectorAll('[data-f]').forEach(x => x.addEventListener('click', () => {
       if (x.dataset.f !== '1'){ toast('Esa llamada sí la atendiste. Buscá la que está en rojo.'); return; }
@@ -3156,10 +3174,21 @@ SIMS.teclado = function(api){
   }
   const pinta = () => { $('tkt').innerHTML = esc(txt) + '<span style="display:inline-block;width:2px;height:22px;background:var(--ph-green);vertical-align:-4px;margin-left:1px"></span>'; };
   const meta = () => paso === 0 ? 'Hola' : 'Hola Inés';
+  function guia(){ // marca la próxima tecla
+    if (paso > 1) return; const m = meta(), kb = $('tkk'); if (!kb) return; let sel = null;
+    if (!m.startsWith(txt)) sel = '[data-x="del"]';
+    else { const c = m[txt.length]; if (c === undefined) return;
+      if (c === ' ') sel = '[data-c=" "]';
+      else if (c !== c.toLowerCase() && !shift) sel = '[data-x="shift"]';
+      else sel = '[data-c="' + norm(c).toLowerCase() + '"]';
+      if (paso === 1 && c === 'I' && !shift && txt === 'Hola ') api.say('Ahora escribí <b>Inés</b>. Para la I grande, tocá primero la <b>flecha hacia arriba</b>.');
+      if (paso === 1 && c === 'é') api.say('Para la <b>é</b>: mantené apretada la <b>e</b> y elegí la é.'); }
+    api.marca(kb.querySelector(sel));
+  }
   function revisa(){
-    pinta();
-    if (paso === 0 && txt === 'Hola'){ paso = 1; aviso = ''; api.say('¡Muy bien! Paso 2: tocá <b>espacio</b>, la barra larga. Después escribí <b>Inés</b>. Para la I grande, tocá primero la flecha hacia arriba. Para la é, mantené apretada la e.'); return; }
-    if (paso === 1 && txt === 'Hola Inés'){ paso = 2; aviso = ''; modo = 'abc'; teclas(); api.say('¡Perfecto, con tilde y todo! Paso 3: tocá la <b>carita</b> y elegí un emoji.'); api.stage.querySelector('[data-x="emo"]').classList.add('pulse'); return; }
+    pinta(); setTimeout(guia, 0);
+    if (paso === 0 && txt === 'Hola'){ paso = 1; aviso = ''; api.say('¡Muy bien! Paso 2: tocá <b>espacio</b>, la barra larga.'); return; }
+    if (paso === 1 && txt === 'Hola Inés'){ paso = 2; aviso = ''; modo = 'abc'; teclas(); api.say('¡Perfecto, con tilde y todo! Paso 3: tocá la <b>carita</b> y elegí un emoji.'); api.marca('[data-x="emo"]'); api.stage.querySelector('[data-x="emo"]').classList.add('pulse'); return; }
     if (paso > 1) return;
     const m = meta(); if (m.startsWith(txt)) { aviso = ''; return; }
     let msg = 'Se coló una letra. Tocá la tecla de borrar, la de la cruz, hasta que quede bien.';
@@ -3178,8 +3207,8 @@ SIMS.teclado = function(api){
       const r = b.getBoundingClientRect(), rk = kb.getBoundingClientRect();
       pop = el('div', '', ACC[c].split('').map(a => '<button type="button" data-a="' + a + '" style="width:44px;height:50px;border:none;border-radius:9px;background:var(--ph-bar);color:var(--ph-text);font-size:22px;font-weight:700">' + (shift ? a.toUpperCase() : a) + '</button>').join(''));
       pop.style.cssText = 'position:absolute;z-index:4;display:flex;gap:4px;padding:5px;border-radius:12px;background:var(--ph-line);box-shadow:0 6px 18px rgba(0,0,0,.3);top:' + Math.max(0, r.top - rk.top - 60) + 'px;left:' + Math.max(0, Math.min(rk.width - 150, r.left - rk.left - 10)) + 'px';
-      kb.appendChild(pop); pop.firstChild.style.background = 'var(--petroleo)'; pop.firstChild.style.color = '#fff';
-      pop.querySelectorAll('[data-a]').forEach(x => x.addEventListener('click', () => { cierraPop(); pone(x.dataset.a); }));
+      kb.appendChild(pop); pop.firstChild.style.background = 'var(--petroleo)'; pop.firstChild.style.color = '#fff'; if (c === 'e' && paso === 1) api.marca(pop.firstChild);
+      pop.querySelectorAll('[data-a]').forEach(x => x.addEventListener('click', () => { if (!pop) return; cierraPop(); pone(x.dataset.a); })); // si ya lo tomó al soltar el dedo, no lo escribe dos veces
     }, 500);
     b.dataset.down = '1';
   });
@@ -3191,12 +3220,12 @@ SIMS.teclado = function(api){
   kb.addEventListener('contextmenu', e => e.preventDefault());
   kb.addEventListener('click', e => {
     const x = e.target.closest('[data-x],[data-e]'); if (!x) return;
-    if (x.dataset.e){ if (paso !== 2) return; txt += ' ' + x.dataset.e; paso = 3; pinta(); modo = 'abc'; teclas(); api.say('¡Qué lindo! Paso 4: tocá la <b>flecha verde</b> para mandarlo.'); $('tks').classList.add('pulse'); return; }
+    if (x.dataset.e){ if (paso !== 2) return; txt += ' ' + x.dataset.e; paso = 3; pinta(); modo = 'abc'; teclas(); api.say('¡Qué lindo! Paso 4: tocá la <b>flecha verde</b> para mandarlo.'); api.marca('#tks'); return; }
     const k = x.dataset.x;
-    if (k === 'shift'){ shift = !shift; teclas(); }
-    else if (k === 'del'){ txt = txt.slice(0, -1); if (!txt) shift = true; teclas(); pinta(); aviso = ''; }
+    if (k === 'shift'){ shift = !shift; teclas(); guia(); }
+    else if (k === 'del'){ txt = txt.slice(0, -1); if (!txt) shift = true; teclas(); pinta(); aviso = ''; guia(); }
     else if (k === 'modo'){ modo = modo === 'abc' ? 'num' : 'abc'; teclas(); if (modo === 'num') toast('Estos son los números y signos. Para volver a las letras, tocá "ABC".'); }
-    else if (k === 'emo'){ if (paso < 2){ toast('Los emojis los ponemos al final. Primero escribí el saludo.'); return; } modo = modo === 'emo' ? 'abc' : 'emo'; teclas(); }
+    else if (k === 'emo'){ if (paso < 2){ toast('Los emojis los ponemos al final. Primero escribí el saludo.'); return; } modo = modo === 'emo' ? 'abc' : 'emo'; teclas(); if (modo === 'emo') api.marca($('tkk').querySelector('[data-e]')); }
     else if (k === 'mic') toast('El micrófono escribe lo que decís. Hoy practicamos con las teclas.');
   });
   $('tks').addEventListener('click', () => {
@@ -3205,7 +3234,7 @@ SIMS.teclado = function(api){
     later(() => { addMsg($('tkm'), '¡Qué alegría tu mensaje! 💛', false, '11:03'); api.say('¡Lo mandaste! Mayúscula, tilde y emoji: ya te manejás con el teclado.'); api.done(); }, 1400);
   });
   teclas(); pinta();
-  api.say('Paso 1: escribí <b>Hola</b>. Fijate que la primera letra ya sale en mayúscula sola.');
+  api.say('Paso 1: escribí <b>Hola</b>. Fijate que la primera letra ya sale en mayúscula sola.'); guia();
 };
 
 SIMS.noMolestar = function(api){
@@ -3226,7 +3255,7 @@ SIMS.noMolestar = function(api){
   const tile = (k, e, lb, on) => '<button type="button" class="qt" data-q="' + k + '" aria-pressed="' + !!on + '"><span class="e">' + e + '</span>' + lb + '</button>';
   if (!ios){
     home('left:0;right:0', '⬇ deslizá desde acá');
-    api.say('Te llegaron dos avisos. Paso 1: apoyá el dedo <b>arriba de todo</b> y deslizalo hacia abajo para verlos.');
+    api.say('Te llegaron dos avisos. Paso 1: apoyá el dedo <b>arriba de todo</b> y deslizalo hacia abajo para verlos.'); api.marca('#nmz');
     gestoDeslizar($('nmz'), 'abajo', () => {
       const pn = el('div', 'panel', '<div class="tiles" id="nmt"></div><div style="display:flex;flex-direction:column;gap:8px" id="nma">' + AV.map(aviso).join('') + '</div>');
       $('nmh').appendChild(pn);
@@ -3238,7 +3267,7 @@ SIMS.noMolestar = function(api){
       function toca(q){
         if (q === 'wifi'){ toast('Hoy dejamos el WiFi como está.'); return; }
         if (q === 'son'){ if (fase < 1){ toast('Primero borrá el aviso de la Tienda.'); return; } sonido = sonido === 'son' ? 'vib' : sonido === 'vib' ? 'sil' : 'son'; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra();
-          if (sonido === 'vib') toast('Vibrar: no suena, pero se mueve. Tocá una vez más para el silencio total.');
+          if (sonido === 'vib'){ toast('Vibrar: no suena, pero se mueve. Tocá una vez más para el silencio total.'); if (fase === 1) api.marca($('nmt').querySelector('[data-q="son"]')); }
           if (sonido === 'sil' && fase === 1){ fase = 2; api.say('¡En silencio! Los mensajes llegan igual, sin sonar. Paso 4: ya es de noche. Tocá la <b>lunita</b> para prender el "No molestar".'); $('nmt').querySelector('[data-q="luna"]').classList.add('pulse'); }
           else if (fase === 2) $('nmt').querySelector('[data-q="luna"]').classList.add('pulse');
           return; }
@@ -3250,7 +3279,7 @@ SIMS.noMolestar = function(api){
     return;
   }
   home('left:27%;width:46%', '⬇ deslizá desde acá');
-  api.say('Te llegaron dos avisos. Paso 1: apoyá el dedo en el <b>centro de arriba</b> y deslizalo hacia abajo para verlos.');
+  api.say('Te llegaron dos avisos. Paso 1: apoyá el dedo en el <b>centro de arriba</b> y deslizalo hacia abajo para verlos.'); api.marca('#nmz');
   gestoDeslizar($('nmz'), 'abajo', () => {
     const pn = el('div', 'appscreen', '<div style="flex:1;background:linear-gradient(170deg,#3A4A7A,#1B1B2F);padding:18px 12px;display:flex;flex-direction:column;gap:10px"><div style="color:#fff;text-align:center;font-size:44px;font-weight:300">23:10</div>' + AV.map(aviso).join('') + '<button type="button" class="btn small dark" id="nmx" style="align-self:center;margin-top:auto" hidden>Cerrar los avisos</button></div>');
     $('nmh').appendChild(pn);
@@ -3260,7 +3289,7 @@ SIMS.noMolestar = function(api){
   }, 'Apoyá el dedo en el centro de arriba y bajalo, sin soltar.');
   function centro(){
     home('right:0;width:45%', '⬇ deslizá desde acá');
-    api.say('Paso 4: ahora abrí el <b>Centro de control</b>: deslizá el dedo desde la <b>esquina de arriba a la derecha</b> hacia abajo.');
+    api.say('Paso 4: ahora abrí el <b>Centro de control</b>: deslizá el dedo desde la <b>esquina de arriba a la derecha</b> hacia abajo.'); api.marca('#nmz');
     gestoDeslizar($('nmz'), 'abajo', () => {
       let fase = 0;
       const pn = el('div', 'panel', '<div class="tiles" id="nmt"></div>'); $('nmh').appendChild(pn);
@@ -3275,7 +3304,7 @@ SIMS.noMolestar = function(api){
         if (fase < 1){ toast('Primero poné el modo silencio, con la campanita.'); return; }
         if (luna){ luna = false; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra(); return; }
         const m = el('div', 'homenu', ['No molestar','Personal','Dormir'].map(o => '<button type="button" data-m="' + o + '"' + (o === 'No molestar' ? ' class="pulse"' : '') + '>🌙 ' + o + '</button>').join(''));
-        $('nmp').appendChild(m); api.say('Paso 7: elegí <b>"No molestar"</b>.');
+        $('nmp').querySelectorAll('.homenu').forEach(x => x.remove()); $('nmp').appendChild(m); api.say('Paso 7: elegí <b>"No molestar"</b>.'); api.marca(m.querySelector('[data-m="No molestar"]'));
         m.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.m !== 'No molestar'){ toast('Esa es otra forma de concentración. Hoy elegimos "No molestar".'); return; }
           m.remove(); luna = true; tiles(); $('nmp').querySelector('.sbar').outerHTML = barra();
           api.say('¡Listo! Arriba apareció la lunita: el celular no te va a molestar hasta que la apagues. Las personas que elijas igual te pueden llamar.'); api.done(); }));
@@ -3291,30 +3320,31 @@ SIMS.captura = function(api){
   const bt = (k, lado, top, alto, lb) => '<button type="button" data-b="' + k + '" aria-label="Botón ' + NOMB[k] + '" style="position:absolute;' + lado + ':-6px;top:' + top + 'px;width:26px;height:' + alto + 'px;border:none;border-radius:6px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;touch-action:none;padding:0;z-index:2">' + lb + '</button>';
   const lados = ios ? bt('acc','left',90,34,'') + bt('up','left',140,56,'＋') + bt('down','left',206,56,'－') + bt('lat','right',160,84,'')
                     : bt('up','right',100,56,'＋') + bt('down','right',160,56,'－') + bt('pow','right',236,62,'⏻');
-  api.stage.innerHTML = '<div style="position:relative;padding:0 22px"><div class="phone" id="cpp" style="min-height:440px">' + sbar() + '<div class="home" id="cph"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div></div></div>' + lados + '</div><p class="muted small" style="margin-top:10px;text-align:center">Los botones están dibujados al costado del celular.</p>';
+  api.stage.innerHTML = '<div style="position:relative;padding:0 22px"><div class="phone" id="cpp" style="min-height:440px">' + sbar() + '<div class="home" id="cph"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div></div></div>' + lados + '</div>';
   api.say(ios ? 'Paso 1: apretá al mismo tiempo el <b>botón del costado derecho</b> y el de <b>subir volumen</b> (＋), a la izquierda.' : 'Paso 1: apretá al mismo tiempo el botón de <b>encendido</b> (⏻) y el de <b>bajar volumen</b> (－). <small>Con un dedo, tocá uno y enseguida el otro.</small>');
-  const t = {}; let hecho = false, avisoT = 0;
+  const t = {}; let hecho = false, avisoT = 0; par.forEach(k => api.stage.querySelector('[data-b="' + k + '"]').classList.add('pulse'));
   api.stage.querySelectorAll('[data-b]').forEach(b => b.addEventListener('pointerdown', e => {
     e.preventDefault(); if (hecho) return; const k = b.dataset.b; t[k] = Date.now(); b.style.background = 'var(--coral)'; later(() => { b.style.background = 'var(--ink)'; }, 700);
     const otro = par[0] === k ? par[1] : par[1] === k ? par[0] : null;
-    if (otro && t[otro] && Date.now() - t[otro] < 1400) return foto();
+    if (otro && t[otro] && Date.now() - t[otro] < 3000) return foto();
     clearTimeout(avisoT);
     avisoT = setTimeout(() => { if (hecho) return;
       if (!otro) toast(k === 'acc' ? 'Ese es el botón de acción. Para la captura, usá el del costado derecho y el de subir volumen.' : 'Ese cambia el volumen, pero hoy usamos el otro. Mirá el paso de arriba.');
       else toast((k === 'pow' || k === 'lat') ? 'Ese solo apaga la pantalla. Hay que apretarlo junto con el de ' + (ios ? 'subir' : 'bajar') + ' volumen.' : 'Ese solo cambia el volumen. Hay que apretarlo junto con el ' + (ios ? 'del costado.' : 'de encendido.'));
-    }, 1500);
+    }, 3200);
   }));
   function foto(){
-    hecho = true; clearTimeout(avisoT); $('toast').hidden = true;
+    hecho = true; clearTimeout(avisoT); $('toast').hidden = true; api.stage.querySelectorAll('[data-b]').forEach(b => b.classList.remove('pulse'));
     const fl = el('div', ''); fl.style.cssText = 'position:absolute;inset:0;background:#fff;opacity:.95;z-index:6;transition:opacity .5s'; $('cpp').appendChild(fl); later(() => { fl.style.opacity = '0'; }, 80); later(() => fl.remove(), 650);
     const mini = el('div', ''); mini.style.cssText = 'position:absolute;bottom:14px;' + (ios ? 'left:14px' : 'left:50%;transform:translateX(-50%)') + ';width:78px;height:130px;border-radius:10px;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.35);background:var(--ph-home);z-index:5;display:grid;place-items:center;font-size:22px'; mini.textContent = '📱';
     $('cpp').appendChild(mini); later(() => mini.remove(), 3200);
     api.say('¡Clic! Sacaste la captura: abajo apareció en chiquito y se guardó sola. Paso 2: abrí <b>Fotos</b> para encontrarla.');
-    later(() => { const f = api.stage.querySelector('[data-a="fotos"]'); f.classList.add('pulse');
+    later(() => { api.marca('[data-a="fotos"]');
       api.stage.querySelectorAll('.app-ic').forEach(b => b.addEventListener('click', () => {
+        if ($('cph').querySelector('.appscreen')) return;
         if (b.dataset.a !== 'fotos'){ toast('Buscá la app de Fotos, la amarilla.'); return; }
         const g = el('div', 'appscreen', '<div class="bar"><h3>' + (ios ? 'Fotos' : 'Galería') + '</h3></div><div class="pgrid" style="background:var(--ph-bar);flex:1;align-content:start">' + '<button type="button" class="tile pulse" id="cpc" style="background:var(--ph-home);font-size:30px;position:relative">📱<small style="position:absolute;bottom:4px;left:0;right:0;font-size:11px;font-weight:700">Captura</small></button>' + [['🌷','#F2D0E8'],['🏖️','#9FD7EE'],['🎂','#F6C3D0'],['🐶','#E9D3A8'],['🌳','#BFE3B4']].map(p => '<span class="tile" style="background:' + p[1] + '">' + p[0] + '</span>').join('') + '</div>');
-        $('cph').appendChild(g); api.say('Paso 3: ahí está, primera de todas porque es la más nueva. Tocala para verla.');
+        $('cph').appendChild(g); api.say('Paso 3: ahí está, primera de todas porque es la más nueva. Tocala para verla.'); api.marca('#cpc');
         $('cpc').addEventListener('click', () => { g.innerHTML = '<div style="flex:1;background:#000;display:grid;place-items:center;padding:16px"><div style="width:60%;aspect-ratio:9/16;background:var(--ph-home);border-radius:10px;display:grid;place-items:center;font-size:40px">📱</div></div>';
           api.say('¡Ahí está tu captura! Es una foto de tu pantalla: la podés mandar por WhatsApp como cualquier foto. Ideal para pedir ayuda.'); api.done(); });
       }));
@@ -3324,13 +3354,14 @@ SIMS.captura = function(api){
 
 SIMS.statusBar = function(api){
   const seq = [['wifi','Tocá el dibujito del <b>WiFi</b>: parece un abanico.','¡Ese! El abanico dice que estás conectado a un WiFi.'],['bars','Ahora tocá las <b>rayitas de la señal</b>.','Esas rayitas son la señal de tu compañía: los datos móviles.'],['bat','Por último, tocá la <b>batería</b>.','72 %: te queda bastante. Cuando baje de 20 %, a cargarlo.']];
-  let k = 0; api.say(seq[0][1]);
-  api.stage.innerHTML = '<div class="card" style="padding:12px"><div style="display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:16px;padding:12px 14px;font-weight:800;font-size:20px"><span>10:42</span><span style="flex:1"></span><button type="button" class="clip" data-t="bars" style="color:var(--fg);width:52px;height:52px" aria-label="Señal">' + BARS + '</button><button type="button" class="clip" data-t="wifi" style="color:var(--fg);width:52px;height:52px" aria-label="WiFi">' + WIFI + '</button><button type="button" class="clip" data-t="bat" style="color:var(--fg);width:auto;height:52px;padding:0 8px;font-size:20px;font-weight:800" aria-label="Batería">🔋72%</button></div><p class="muted small" style="margin-top:10px;text-align:center">Así se ve la parte de arriba de la pantalla, en grande.</p></div>';
+  let k = 0; api.say('Así se ve, en grande, la parte de arriba de la pantalla. ' + seq[0][1]);
+  api.stage.innerHTML = '<div class="card" style="padding:12px"><div style="display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:16px;padding:12px 14px;font-weight:800;font-size:20px"><span>10:42</span><span style="flex:1"></span><button type="button" class="clip" data-t="bars" style="color:var(--fg);width:52px;height:52px" aria-label="Señal">' + BARS + '</button><button type="button" class="clip" data-t="wifi" style="color:var(--fg);width:52px;height:52px" aria-label="WiFi">' + WIFI + '</button><button type="button" class="clip" data-t="bat" style="color:var(--fg);width:auto;height:52px;padding:0 8px;font-size:20px;font-weight:800" aria-label="Batería">🔋72%</button></div></div>';
+  const pi = () => api.pista('[data-t="' + seq[k][0] + '"]'); pi();
   api.stage.querySelectorAll('[data-t]').forEach(b => b.addEventListener('click', () => {
     if (k >= seq.length) return;
     if (b.dataset.t !== seq[k][0]){ toast('Casi. Ese no es: ' + (seq[k][1].replace(/<[^>]+>/g, ''))); return; }
     b.style.background = 'var(--lima)'; b.style.color = 'var(--ink)'; toast(seq[k][2], 3000); k++;
-    if (k < seq.length) api.say(seq[k][1]); else { api.say('¡Muy bien! Ya sabés leer la parte de arriba de tu celular.'); api.done(); }
+    if (k < seq.length){ api.say(seq[k][1]); pi(); } else { api.say('¡Muy bien! Ya sabés leer la parte de arriba de tu celular.'); api.done(); }
   }));
 };
 
@@ -3357,14 +3388,15 @@ SIMS.pinLock = function(api){
   const PIN = '2580'; let typed = '';
   api.say('Este celular tiene bloqueo. Tu PIN de práctica es <b>2 5 8 0</b>. Tocá los números.');
   api.stage.innerHTML = '<div class="phone" style="min-height:0;background:linear-gradient(160deg,#2B3A67,#1B1B2F);color:#fff"><div style="text-align:center;padding:22px 10px 8px"><div style="font-size:52px;font-weight:300">10:42</div><div>🔒 Ingresá tu PIN</div><div id="pd" style="font-size:30px;letter-spacing:.4em;min-height:44px;margin-top:8px">○○○○</div></div><div id="pad" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px 24px 22px"></div></div>';
-  const pad = $('pad');
-  ['1','2','3','4','5','6','7','8','9','','0','⌫'].forEach(d => { const b = el('button', '', d); b.type = 'button'; b.style.cssText = 'height:62px;border-radius:50%;border:none;font-size:26px;color:#fff;background:' + (d ? 'rgba(255,255,255,.14)' : 'transparent'); if (!d) b.disabled = true; pad.appendChild(b);
+  const pad = $('pad'); later(() => api.marca('[data-d="2"]'), 50);
+  ['1','2','3','4','5','6','7','8','9','','0','⌫'].forEach(d => { const b = el('button', '', d); b.type = 'button'; b.dataset.d = d; b.style.cssText = 'height:62px;border-radius:50%;border:none;font-size:26px;color:#fff;background:' + (d ? 'rgba(255,255,255,.14)' : 'transparent'); if (!d) b.disabled = true; pad.appendChild(b);
     b.addEventListener('click', () => {
       if (d === '⌫') typed = typed.slice(0, -1); else if (typed.length < 4) typed += d;
       $('pd').textContent = '●'.repeat(typed.length) + '○'.repeat(4 - typed.length);
+      if (typed.length < 4) api.marca('[data-d="' + (PIN.startsWith(typed) ? PIN[typed.length] : '⌫') + '"]');
       if (typed.length === 4){
         if (typed === PIN){ api.stage.querySelector('.phone').outerHTML = '<div class="phone" style="min-height:0">' + sbar() + '<div class="home"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div></div></div>'; api.say('¡Desbloqueado! Solo quien sabe el PIN puede entrar. Por eso tu PIN no se comparte con nadie.'); api.done(); }
-        else { typed = ''; $('pd').textContent = '○○○○'; toast('PIN incorrecto. Probá de nuevo: 2 5 8 0. ¡Equivocarse es parte de aprender!'); }
+        else { typed = ''; $('pd').textContent = '○○○○'; toast('PIN incorrecto. Probá de nuevo: 2 5 8 0. ¡Equivocarse es parte de aprender!'); api.marca('[data-d="2"]'); }
       }
     });
   });
@@ -3376,11 +3408,11 @@ SIMS.gestures = function(api){
   const okNext = msg => { toast(msg, 2400); k++; if (k < parts.length) run(); else { z.innerHTML = '<div class="center"><div style="font-size:60px">🏅</div><b style="font-size:22px">¡Los 4 gestos dominados!</b></div>'; api.say('¡Ya sabés los cuatro gestos! Con esto manejás casi todo el celular.'); api.done(); } };
   function run(){
     const p = parts[k];
-    if (p === 'tap'){ api.say('Gesto 1 de 4 · <b>Tocar</b>: un toque corto, como tocar el timbre. Tocá el círculo.'); z.innerHTML = '<button type="button" class="gbtn" id="gt">Tocame</button>'; $('gt').addEventListener('click', () => okNext('¡Eso es tocar!')); }
+    if (p === 'tap'){ api.say('Gesto 1 de 4 · <b>Tocar</b>: un toque corto, como tocar el timbre. Tocá el círculo.'); z.innerHTML = '<button type="button" class="gbtn" id="gt">Tocame</button>'; api.marca('#gt'); $('gt').addEventListener('click', () => okNext('¡Eso es tocar!')); }
     if (p === 'hold'){
       api.say('Gesto 2 de 4 · <b>Mantener apretado</b>: dejá el dedo apoyado sobre la estrella hasta que se llene el círculo.');
       z.innerHTML = '<div class="ring" id="gr"><button type="button" id="gh" aria-label="Mantené apretada la estrella">⭐</button></div>';
-      let t0 = 0, raf = 0, done = false; const ring = $('gr');
+      let t0 = 0, raf = 0, done = false; const ring = $('gr'); api.marca('#gh');
       const tickF = () => { const p2 = Math.min(100, (Date.now() - t0) / 9); ring.style.setProperty('--p', p2); if (p2 >= 100){ done = true; okNext('¡Muy bien! Eso es mantener apretado.'); return; } raf = requestAnimationFrame(tickF); };
       const start = e => { e.preventDefault(); if (done) return; t0 = Date.now(); raf = requestAnimationFrame(tickF); };
       const stop = () => { if (done) return; cancelAnimationFrame(raf); if (t0 && Date.now() - t0 < 900){ toast('Un poquito más: dejá el dedo apoyado hasta que se llene el círculo.'); } ring.style.setProperty('--p', 0); t0 = 0; };
@@ -3390,7 +3422,7 @@ SIMS.gestures = function(api){
     if (p === 'swipe'){
       api.say('Gesto 3 de 4 · <b>Deslizar</b>: apoyá el dedo en la tarjeta y arrastrala hacia la izquierda, sin levantar el dedo.');
       z.innerHTML = '<div class="swcard" id="gs">⬅️ Arrastrame hacia la izquierda</div>';
-      const c = $('gs'); let x0 = null, dx = 0;
+      const c = $('gs'); let x0 = null, dx = 0; api.marca(c);
       c.addEventListener('pointerdown', e => { x0 = e.clientX; c.style.transition = 'none'; try { c.setPointerCapture(e.pointerId); } catch(_){} });
       c.addEventListener('pointermove', e => { if (x0 === null) return; dx = Math.min(30, e.clientX - x0); c.style.transform = 'translateX(' + dx + 'px) rotate(' + (dx / 20) + 'deg)'; });
       const end = () => { if (x0 === null) return; x0 = null; c.style.transition = 'transform .25s'; if (dx < -80){ c.style.transform = 'translateX(-420px) rotate(-12deg)'; setTimeout(() => okNext('¡Así se desliza! Lo vas a usar para pasar fotos.'), 300); } else { c.style.transform = ''; if (dx > -10) toast('Apoyá el dedo y movelo hacia la izquierda sin soltar.'); } dx = 0; };
@@ -3399,7 +3431,7 @@ SIMS.gestures = function(api){
     if (p === 'pinch'){
       api.say('Gesto 4 de 4 · <b>Pellizcar</b>: poné dos dedos sobre la foto y separalos para agrandarla. <small>(En una computadora: hacé doble clic.)</small>');
       z.innerHTML = '<div class="zoompic" id="gz">🌻</div>';
-      const pic = $('gz'); const pts = new Map(); let d0 = 0, won = false;
+      const pic = $('gz'); const pts = new Map(); let d0 = 0, won = false; api.marca(pic);
       const win = () => { if (won) return; won = true; pic.style.transform = 'scale(1.6)'; setTimeout(() => okNext('¡Agrandaste la foto! Juntando los dedos vuelve a su tamaño.'), 600); };
       const dist = () => { const a = [...pts.values()]; return a.length < 2 ? 0 : Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y); };
       pic.addEventListener('pointerdown', e => { pts.set(e.pointerId, {x:e.clientX, y:e.clientY}); if (pts.size === 2) d0 = dist(); });
@@ -3418,15 +3450,16 @@ SIMS.homeScreen = function(api){
   const homeHTML = () => '<div class="phone" id="hp" style="min-height:470px">' + sbar() + '<div class="home" id="hh"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div>' + (ios ? '<div class="indicator" id="hi" aria-label="Deslizá hacia arriba para ir al inicio"><i></i></div>' : '<div class="navbar"><button type="button" data-n="back" aria-label="Atrás">◀</button><button type="button" data-n="home" aria-label="Inicio">⬤</button><button type="button" data-n="rec" aria-label="Apps abiertas">■</button></div>') + '</div></div>';
   api.stage.innerHTML = homeHTML();
   const SAY = ['Paso 1: abrí la <b>Cámara</b>. Un toque en su ícono.', ios ? 'Paso 2: estás en la cámara. Volvé al inicio <b>deslizando el dedo desde la rayita de abajo hacia arriba</b>.' : 'Paso 2: estás en la cámara. Volvé al inicio tocando el <b>botón del medio</b>, abajo.', 'Paso 3: ahora abrí <b>Ajustes</b>, el engranaje.', ios ? 'Paso 4: volvé al inicio otra vez, <b>deslizando desde abajo</b>.' : 'Paso 4: volvé al inicio con el <b>botón del medio</b>.'];
-  api.say(SAY[0]);
+  const casa = ios ? '#hi' : '[data-n="home"]';
+  api.say(SAY[0]); api.pista('[data-a="cam"]');
   const openApp = (name, html) => { const s = el('div', 'appscreen', html); s.style.bottom = ios ? '40px' : '52px'; $('hh').appendChild(s); };
   $('hh').addEventListener('click', e => {
     const a = e.target.closest('.app-ic'); if (!a || $('hh').querySelector('.appscreen')) return;
-    if (step === 0 && a.dataset.a === 'cam'){ openApp('cam', '<div style="flex:1;background:#111;display:grid;place-items:center;color:#fff;font-size:15px">📷 La cámara está abierta</div><div style="background:#111;display:grid;place-items:center;padding:14px"><span style="width:62px;height:62px;border-radius:50%;border:5px solid #fff"></span></div>'); step = 1; api.say(SAY[1]); return; }
-    if (step === 2 && a.dataset.a === 'aj'){ openApp('aj', '<div class="bar"><h3>' + (ios ? 'Configuración' : 'Ajustes') + '</h3></div><div style="flex:1;background:var(--ph-bar)">' + ['📶 WiFi','🔊 Sonido','☀️ Pantalla','🔋 Batería'].map(x => '<div style="padding:14px 16px;border-bottom:1px solid var(--ph-line)">' + x + '</div>').join('') + '</div>'); step = 3; api.say(SAY[3]); return; }
+    if (step === 0 && a.dataset.a === 'cam'){ openApp('cam', '<div style="flex:1;background:#111;display:grid;place-items:center;color:#fff;font-size:15px">📷 La cámara está abierta</div><div style="background:#111;display:grid;place-items:center;padding:14px"><span style="width:62px;height:62px;border-radius:50%;border:5px solid #fff"></span></div>'); step = 1; api.say(SAY[1]); api.marca(casa); return; }
+    if (step === 2 && a.dataset.a === 'aj'){ openApp('aj', '<div class="bar"><h3>' + (ios ? 'Configuración' : 'Ajustes') + '</h3></div><div style="flex:1;background:var(--ph-bar)">' + ['📶 WiFi','🔊 Sonido','☀️ Pantalla','🔋 Batería'].map(x => '<div style="padding:14px 16px;border-bottom:1px solid var(--ph-line)">' + x + '</div>').join('') + '</div>'); step = 3; api.say(SAY[3]); api.marca(casa); return; }
     toast(step === 0 ? 'Esa no es la cámara. Buscá el ícono gris con la camarita.' : 'Buscá el engranaje: es Ajustes.');
   });
-  const goHome = () => { const s = $('hh').querySelector('.appscreen'); if (!s) return; s.remove(); if (step === 1){ step = 2; api.say(SAY[2]); } else if (step === 3){ step = 4; api.say('¡Perfecto! Abrir con un toque, y volver al inicio desde cualquier lado. Así de fácil.'); api.done(); } };
+  const goHome = () => { const s = $('hh').querySelector('.appscreen'); if (!s) return; s.remove(); if (step === 1){ step = 2; api.say(SAY[2]); api.pista('[data-a="aj"]'); } else if (step === 3){ step = 4; api.say('¡Perfecto! Abrir con un toque, y volver al inicio desde cualquier lado. Así de fácil.'); api.done(); } };
   if (ios){
     const ind = $('hi'); let y0 = null;
     ind.addEventListener('pointerdown', e => { y0 = e.clientY; try { ind.setPointerCapture(e.pointerId); } catch(_){} });
@@ -3520,22 +3553,23 @@ SIMS.homeOrder = function(api){
 
 SIMS.quickPanel = function(api){
   const ios = OS() === 'iphone'; let step = 0; const st = {wifi:true, datos:true, lin:false, ubi:false, avion:false};
-  api.stage.innerHTML = '<div class="phone" id="qp" style="min-height:470px">' + sbar() + '<div class="home" id="qh"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div><div class="pullzone" id="pz" style="' + (ios ? 'right:0;width:45%' : 'left:0;right:0') + '"><span>⬇ deslizá desde acá</span></div></div></div><button type="button" class="btn ghost small" id="qfb" style="align-self:center">¿No te sale deslizar? Abrilo con un toque</button>';
+  api.stage.innerHTML = '<div class="phone" id="qp" style="min-height:470px">' + sbar() + '<div class="home" id="qh"><div class="icons">' + HOME_APPS.map(appIcon).join('') + '</div><div class="pullzone" id="pz" style="' + (ios ? 'right:0;width:45%' : 'left:0;right:0') + '"><span>⬇ deslizá desde acá</span></div></div></div><button type="button" class="voz" id="qfb" style="align-self:center">¿No te sale deslizar? Abrilo con un toque</button>';
   api.say(ios ? 'Paso 1: apoyá el dedo en la <b>esquina de arriba a la derecha</b> y deslizalo hacia abajo.' : 'Paso 1: apoyá el dedo <b>arriba de todo</b> y deslizalo hacia abajo.');
+  later(() => api.marca('#pz'), 50);
   const TILES = [['wifi','📶','WiFi'],['datos','📡','Datos'],['lin','🔦','Linterna'],['ubi','📍','Ubicación'],['avion','✈️','Modo avión'],['rot','🔄','Rotar']];
   const open = () => {
     if (step !== 0) return; step = 1;
     const p = el('div', 'panel', '<div class="tiles">' + TILES.map(t => '<button type="button" class="qt" data-q="' + t[0] + '" aria-pressed="' + (!!st[t[0]]) + '"><span class="e">' + t[1] + '</span>' + t[2] + '</button>').join('') + '</div><label style="display:flex;align-items:center;gap:10px;font-size:14px">☀️<input type="range" min="20" max="100" value="80" id="qbr" style="flex:1" aria-label="Brillo"></label><button type="button" class="btn small dark" id="qclose" style="align-self:center">⬆ Cerrar</button>');
     $('qh').appendChild(p); $('qfb').hidden = true;
-    api.say('¡Abriste los atajos! Paso 2: prendé la <b>linterna</b>.');
+    api.say('¡Abriste los atajos! Paso 2: prendé la <b>linterna</b>.'); api.marca('[data-q="lin"]');
     p.querySelectorAll('.qt').forEach(b => b.addEventListener('click', () => {
       const q = b.dataset.q; if (q === 'rot'){ toast('Rotar gira la pantalla cuando ponés el celular de costado.'); return; }
       st[q] = !st[q]; b.setAttribute('aria-pressed', String(st[q]));
       if (q === 'lin') $('qp').classList.toggle('glow', st.lin);
       if (q === 'avion') toast(st.avion ? 'Modo avión prendido: se cortó todo (WiFi y datos). Tocalo de nuevo para apagarlo.' : '¡Bien! Apagaste el modo avión: vuelven las conexiones.', 3800);
       if (q === 'wifi' && !st.wifi) toast('Apagaste el WiFi: ahora usás datos móviles. Tocalo de nuevo para prenderlo.');
-      if (step === 1 && q === 'lin' && st.lin){ step = 2; api.say('¡Se hizo la luz! Paso 3: activá la <b>Ubicación</b>. Google Maps y el taxi la necesitan.'); }
-      else if (step === 2 && q === 'ubi' && st.ubi){ step = 3; api.say('¡Perfecto! Paso 4: cerrá el panel con <b>"Cerrar"</b> (o deslizando hacia arriba).'); }
+      if (step === 1 && q === 'lin' && st.lin){ step = 2; api.say('¡Se hizo la luz! Paso 3: activá la <b>Ubicación</b>. Google Maps y el taxi la necesitan.'); api.marca('[data-q="ubi"]'); }
+      else if (step === 2 && q === 'ubi' && st.ubi){ step = 3; api.say('¡Perfecto! Paso 4: cerrá el panel con <b>"Cerrar"</b> (o deslizando hacia arriba).'); api.marca('#qclose'); }
     }));
     $('qbr').addEventListener('input', e => { $('qh').style.filter = 'brightness(' + (e.target.value / 100 + .1) + ')'; });
     $('qclose').addEventListener('click', () => { if (step < 3){ toast(step === 1 ? 'Antes, prendé la linterna.' : 'Antes, activá la ubicación.'); return; } p.remove(); step = 4; api.say('¡Listo! Ya sabés usar los atajos. Lo que prendiste queda prendido aunque cierres el panel.'); api.done(); });
@@ -3553,13 +3587,14 @@ SIMS.fontSize = function(api){
   api.stage.innerHTML = '<div class="phone" id="fp" style="min-height:440px">' + sbar() + '<div id="fs" style="flex:1;background:var(--ph-bar);display:flex;flex-direction:column"></div></div>';
   const list = (title, rows) => { $('fs').innerHTML = '<div class="bar"><h3>' + title + '</h3></div>' + rows.map(r => '<button type="button" class="crow" data-r="' + r[0] + '" style="padding:16px;font-size:17px;display:flex;justify-content:space-between"><span>' + r[1] + '</span><span style="color:var(--ph-sub)">›</span></button>').join(''); };
   list(ios ? 'Configuración' : 'Ajustes', [['wifi','📶 WiFi'],['son','🔊 Sonido'],['pan','☀️ ' + pantalla],['bat','🔋 Batería'],['acc','♿ Accesibilidad']]);
+  api.marca('[data-r="pan"]');
   $('fs').addEventListener('click', e => {
     const r = e.target.closest('[data-r]'); if (!r) return;
     if (step === 0){ if (r.dataset.r !== 'pan'){ toast('Ahí no está. Buscá "' + pantalla + '".'); return; }
-      step = 1; list(pantalla, [['bri','Brillo'],['tam',tam],['osc','Modo oscuro']]); api.say('Paso 2: tocá <b>' + tam + '</b>.'); return; }
+      step = 1; list(pantalla, [['bri','Brillo'],['tam',tam],['osc','Modo oscuro']]); api.say('Paso 2: tocá <b>' + tam + '</b>.'); api.marca('[data-r="tam"]'); return; }
     if (step === 1){ if (r.dataset.r !== 'tam'){ toast('Buscá "' + tam + '".'); return; }
       step = 2; $('fs').innerHTML = '<div class="bar"><h3>' + tam + '</h3></div><div style="padding:18px;display:flex;flex-direction:column;gap:18px"><div style="background:var(--ph-bg);border-radius:14px;padding:14px"><span id="fprev" style="font-size:15px;line-height:1.3">Hola, ¿cómo andás? Te mando un beso grande.</span></div><label style="display:flex;align-items:center;gap:10px"><span style="font-size:13px">A</span><input type="range" id="fr" min="1" max="6" value="1" style="flex:1" aria-label="Tamaño de letra"><span style="font-size:26px">A</span></label></div>';
-      api.say('Paso 3: mové la barrita <b>hacia la derecha</b> hasta que leas cómodo el mensaje de ejemplo.');
+      api.say('Paso 3: mové la barrita <b>hacia la derecha</b> hasta que leas cómodo el mensaje de ejemplo.'); api.marca('#fr');
       $('fr').addEventListener('input', ev => { const v = +ev.target.value; $('fprev').style.fontSize = (13 + v * 3) + 'px'; if (v >= 4 && step === 2){ step = 3; api.say('¡Así se lee mucho mejor! El cambio vale para todo el celular: WhatsApp, mensajes, todo.'); api.done(); } });
     }
   });
@@ -3580,10 +3615,11 @@ SIMS.chatList = function(api){
       toast('Primero tocá la barra de "Buscar", arriba.');
     }); $('cll').appendChild(r); }); };
   draw(chats);
-  $('cls').addEventListener('click', () => { if (step !== 1) return; step = 2; $('cls').classList.remove('pulse'); $('cls').hidden = true; $('clq').hidden = false; $('clin').focus(); api.say('Paso 3: escribí <b>Carlos</b> y tocalo en la lista.'); });
+  $('cls').addEventListener('click', () => { if (step !== 1) return; step = 2; $('cls').classList.remove('pulse'); $('cls').hidden = true; $('clq').hidden = false; $('clin').focus(); api.say('Paso 3: escribí <b>Carlos</b>.'); });
+  const marcaCarlos = () => { if (step !== 2 || !$('clin').value.trim()) return; const r = Array.from($('cll').querySelectorAll('.crow')).find(x => x.querySelector('b') && x.querySelector('b').textContent === 'Carlos'); if (r && !r.classList.contains('pulse')){ api.say('Paso 4: tocá a <b>Carlos</b> en la lista.'); api.marca(r); } };
   const filt = () => { const v = norm($('clin').value); draw(chats.filter(c => !v || norm(c[0]).includes(v))); };
-  $('clin').addEventListener('input', filt);
-  $('clh').addEventListener('click', () => { $('clin').value = 'Carlos'; filt(); });
+  $('clin').addEventListener('input', () => { filt(); marcaCarlos(); });
+  $('clh').addEventListener('click', () => { $('clin').value = 'Carlos'; filt(); marcaCarlos(); });
 };
 
 SIMS.waMsg = function(api){
@@ -3665,7 +3701,7 @@ SIMS.waPhoto = function(api){
       if (b.dataset.o !== 'Galería' && b.dataset.o !== 'Fotos'){ toast(b.dataset.o + ' sirve para otra cosa. Buscá ' + (ios ? 'Fotos' : 'Galería') + '.'); return; }
       s.remove(); step = 2;
       const g = el('div', 'appscreen', '<div class="bar"><h3>' + (ios ? 'Fotos' : 'Galería') + '</h3></div><div class="pgrid" style="background:var(--ph-bar);flex:1;align-content:start">' + PH.map((p, i) => '<button type="button" class="tile" data-i="' + i + '" style="background:' + p[1] + '">' + p[0] + '</button>').join('') + '</div>');
-      $('pp').appendChild(g); api.say('Paso 3: tocá la foto que quieras mandar. ¿La del jardín? 🌷');
+      $('pp').appendChild(g); api.say('Paso 3: tocá la foto del jardín 🌷.'); api.marca(g.querySelector('[data-i="0"]'));
       g.querySelectorAll('.tile').forEach(t => t.addEventListener('click', () => {
         const p = PH[+t.dataset.i]; step = 3;
         g.innerHTML = '<div style="flex:1;background:#000;display:grid;place-items:center;font-size:110px">' + p[0] + '</div><div class="inrow" style="background:#000"><label class="field" for="cap"><input id="cap" placeholder="Añade un comentario…" autocomplete="off"></label><button class="round pulse" type="button" id="snd" aria-label="Enviar">' + I.send + '</button></div><div class="helpers" style="background:#000;margin:0;padding-bottom:10px"><button type="button" id="ch">Escribí por mí: Mirá qué lindo el jardín</button></div>';
@@ -3692,7 +3728,7 @@ SIMS.estafa = function(api){
   const render = () => {
     const e = E[i];
     api.say('Mensaje ' + (i + 1) + ' de 4. Leelo con calma. ¿Es de confianza o sospechoso?');
-    api.stage.innerHTML = '<div class="phone" style="min-height:0">' + chatHead(e.from, e.known ? 'Contacto agendado' : 'No está en tus contactos', e.known ? '#0F8F7E' : '#8A8A8A') + '<div class="msgs" style="min-height:140px"><div class="msg in"><span></span><div class="meta">11:0' + i + '</div></div></div></div><div class="row"><button type="button" class="btn dark" data-a="ok">Parece de confianza</button><button type="button" class="btn" data-a="no">Es sospechoso</button></div><div id="efb"></div>';
+    api.stage.innerHTML = '<div class="phone" style="min-height:0">' + chatHead(e.from, e.known ? 'Contacto agendado' : 'No está en tus contactos', e.known ? '#0F8F7E' : '#8A8A8A') + '<div class="msgs" style="min-height:140px"><div class="msg in"><span></span><div class="meta">11:0' + i + '</div></div></div></div><div class="stack"><button type="button" class="opt" data-a="ok">Parece de confianza</button><button type="button" class="opt" data-a="no">Es sospechoso</button></div><div id="efb"></div>';
     api.stage.querySelector('.msg span').textContent = e.msg;
     api.stage.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
       if ($('efb').dataset.d) return; $('efb').dataset.d = 1;
@@ -3828,9 +3864,10 @@ SIMS.waGroup = function(api){
     $('gm').addEventListener('click', () => {
       if (paso !== 1) return;
       const sh = el('div', 'sheet ov', '<div><b style="font-size:18px">Silenciar notificaciones</b><small style="color:var(--ph-sub)">Los demás no se enteran.</small><label><input type="radio" name="gt" value="8 horas">8 horas</label><label><input type="radio" name="gt" value="1 semana">1 semana</label><label><input type="radio" name="gt" value="Siempre">Siempre</label><p id="gerr" hidden style="margin:0;color:#E5484D;font-weight:700;font-size:15px">Primero elegí por cuánto tiempo.</p><button type="button" class="pgreen" id="gok">Aceptar</button></div>');
-      $('gi').appendChild(sh); api.say('Elegí por cuánto tiempo y tocá <b>Aceptar</b>.');
+      $('gi').appendChild(sh); api.say('Elegí por cuánto tiempo: tocá <b>8 horas</b>, <b>1 semana</b> o <b>Siempre</b>.'); api.marca(sh.querySelector('label'));
+      sh.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', () => { api.say('Ahora tocá <b>Aceptar</b>.'); api.marca('#gok'); }));
       $('gok').addEventListener('click', () => {
-        const v = sh.querySelector('input:checked'); if (!v){ $('gerr').hidden = false; return; }
+        const v = sh.querySelector('input:checked'); if (!v){ toast('Primero elegí por cuánto tiempo.'); return; }
         sh.remove(); mudo = true; paso = 2; $('gm').classList.remove('pulse'); $('gm').style.border = 'none'; $('gm').innerHTML = '🔕 Silenciado · ' + esc(v.value);
         $('gb').classList.add('pulse'); api.say('¡Silenciado! Los mensajes te siguen llegando, pero el celular no suena. Paso 3: tocá la <b>flechita de arriba</b> para volver al chat.');
       });
@@ -3874,7 +3911,7 @@ SIMS.reenviar = function(api){
   const render = () => {
     const e = E[i];
     api.say('Mensaje ' + (i + 1) + ' de 4. Leelo con calma. ¿Lo reenviarías?');
-    api.stage.innerHTML = '<div class="phone" style="min-height:0">' + chatHead(e.from, e.grp ? 'Grupo' : 'Contacto agendado', e.grp ? '#7E57C2' : '#0F8F7E') + '<div class="msgs" style="min-height:150px"><div class="msg in">' + (e.fwd ? '<span class="fwdl"></span>' : '') + '<span class="tx"></span><div class="meta">12:0' + i + '</div></div></div></div><div class="row"><button type="button" class="btn dark" data-a="ok">Lo reenvío</button><button type="button" class="btn" data-a="no">Mejor no</button></div><div id="efb"></div>';
+    api.stage.innerHTML = '<div class="phone" style="min-height:0">' + chatHead(e.from, e.grp ? 'Grupo' : 'Contacto agendado', e.grp ? '#7E57C2' : '#0F8F7E') + '<div class="msgs" style="min-height:150px"><div class="msg in">' + (e.fwd ? '<span class="fwdl"></span>' : '') + '<span class="tx"></span><div class="meta">12:0' + i + '</div></div></div></div><div class="stack"><button type="button" class="opt" data-a="ok">Lo reenvío</button><button type="button" class="opt" data-a="no">Mejor no</button></div><div id="efb"></div>';
     if (e.fwd) api.stage.querySelector('.fwdl').textContent = e.fwd;
     api.stage.querySelector('.tx').textContent = e.msg;
     api.stage.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
@@ -3934,7 +3971,7 @@ SIMS.iaDonde = function(api){
   const render = () => {
     const e = E[i];
     api.say('Situación ' + (i + 1) + ' de ' + E.length + '. ¿Acá hay inteligencia artificial?');
-    api.stage.innerHTML = '<div class="card center stack" style="gap:10px"><span style="font-size:56px;line-height:1">' + e.e + '</span><p style="font-size:19px;font-weight:700;margin:0"></p></div><div class="row"><button type="button" class="btn dark" data-a="si">Tiene IA</button><button type="button" class="btn dark" data-a="no">No tiene IA</button></div><div id="efb"></div>';
+    api.stage.innerHTML = '<div class="card center stack" style="gap:10px"><span style="font-size:56px;line-height:1">' + e.e + '</span><p style="font-size:19px;font-weight:700;margin:0"></p></div><div class="stack"><button type="button" class="opt" data-a="si">Tiene IA</button><button type="button" class="opt" data-a="no">No tiene IA</button></div><div id="efb"></div>';
     api.stage.querySelector('p').textContent = e.t;
     api.stage.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
       if ($('efb').dataset.d) return; $('efb').dataset.d = 1;
@@ -3979,7 +4016,7 @@ SIMS.iaPedido = function(api){
     const ops = $('ops'); ops.innerHTML = '';
     const lista = Math.random() < .5 ? [[p.bien, 1], [p.mal, 0]] : [[p.mal, 0], [p.bien, 1]];
     lista.forEach(o => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = o[0]; b.addEventListener('click', () => {
-      if (!o[1]){ b.classList.add('wrong'); $('pist').textContent = '💡 ' + p.no; $('pist').hidden = false; return; }
+      if (!o[1]){ b.classList.add('wrong'); toast(p.no); return; }
       $('pist').hidden = true; partes.push(p.bien); $('ped').textContent = texto(); $('ped').classList.remove('muted');
       k++; if (k < P.length) paso(); else enviar();
     }); ops.appendChild(b); });
@@ -4045,9 +4082,8 @@ SIMS.iaConfio = function(api){
   let i = 0, ac = 0;
   const render = () => {
     const e = E[i];
-    api.say('Situación ' + (i + 1) + ' de ' + E.length + '. Leela con calma.');
-    api.stage.innerHTML = '<p class="ctx" style="margin:0;font-weight:700"></p><div class="phone" style="min-height:0">' + IA_HEAD + '<div class="msgs" style="min-height:130px">' + (e.yo ? '<div class="msg out" style="opacity:.75;border:2px dashed var(--ph-sub)"><span class="tx"></span><div class="meta">Sin mandar</div></div>' : '<div class="msg in"><span class="tx"></span><div class="meta">10:5' + i + '</div></div>') + '</div></div><h2 class="qh" style="margin:4px 0"></h2><div class="row"><button type="button" class="btn dark" data-a="0"></button><button type="button" class="btn dark" data-a="1"></button></div><div id="efb"></div>';
-    api.stage.querySelector('.ctx').textContent = e.ctx;
+    api.say('Situación ' + (i + 1) + ' de ' + E.length + '. ' + esc(e.ctx));
+    api.stage.innerHTML = '<div class="phone" style="min-height:0">' + IA_HEAD + '<div class="msgs" style="min-height:130px">' + (e.yo ? '<div class="msg out" style="opacity:.75;border:2px dashed var(--ph-sub)"><span class="tx"></span><div class="meta">Sin mandar</div></div>' : '<div class="msg in"><span class="tx"></span><div class="meta">10:5' + i + '</div></div>') + '</div></div><h2 class="qh" style="margin:4px 0"></h2><div class="stack"><button type="button" class="opt" data-a="0"></button><button type="button" class="opt" data-a="1"></button></div><div id="efb"></div>';
     api.stage.querySelector('.tx').textContent = e.yo || e.ia;
     api.stage.querySelector('.qh').textContent = e.q;
     api.stage.querySelectorAll('[data-a]').forEach(b => { b.textContent = e.b[+b.dataset.a]; b.addEventListener('click', () => {
@@ -4069,9 +4105,8 @@ function decidir(api, cfg){
   const E = cfg.items; let i = 0, ac = 0;
   const render = () => {
     const e = E[i];
-    api.say('Situación ' + (i + 1) + ' de ' + E.length + '. Leela con calma.');
-    api.stage.innerHTML = (e.ctx ? '<p class="ctx" style="margin:0;font-weight:700"></p>' : '') + '<div class="phone" style="min-height:0"' + (e.dark ? ' data-dark="1"' : '') + '>' + e.html + '</div><h2 class="qh" style="margin:4px 0"></h2><div class="row"><button type="button" class="btn dark" data-a="0"></button><button type="button" class="btn dark" data-a="1"></button></div><div id="efb"></div>';
-    if (e.ctx) api.stage.querySelector('.ctx').textContent = e.ctx;
+    api.say('Situación ' + (i + 1) + ' de ' + E.length + '. ' + (e.ctx ? esc(e.ctx) : 'Leela con calma.'));
+    api.stage.innerHTML = '<div class="phone" style="min-height:0"' + (e.dark ? ' data-dark="1"' : '') + '>' + e.html + '</div><h2 class="qh" style="margin:4px 0"></h2><div class="stack"><button type="button" class="opt" data-a="0"></button><button type="button" class="opt" data-a="1"></button></div><div id="efb"></div>';
     api.stage.querySelector('.qh').textContent = e.q;
     api.stage.querySelectorAll('[data-a]').forEach(b => { b.textContent = e.b[+b.dataset.a]; b.addEventListener('click', () => {
       if ($('efb').dataset.d) return; $('efb').dataset.d = 1;
@@ -4101,7 +4136,7 @@ SIMS.apStore = function(api){
   let paso = 0, tab = ios ? 'Hoy' : 'Apps';
   const nav = () => '<nav class="stnav' + (ios ? ' ios' : '') + '" aria-label="Pestañas de la tienda">' + TABS.map(t => '<button type="button" data-st="' + t[1] + '"' + (t[1] === tab ? ' class="on" aria-current="page"' : '') + '><span aria-hidden="true">' + t[0] + '</span>' + t[1] + '</button>').join('') + '</nav>';
   const gris = n => Array.from({length:n}, () => '<div class="stcard" aria-hidden="true"><i></i><div><i></i><i></i></div></div>').join('');
-  api.stage.innerHTML = '<div class="phone stphone' + (ios ? ' ios' : '') + '" id="ph" style="min-height:480px"></div><p class="muted" style="margin:6px 0 0;font-size:15px">Es solo un dibujo de la tienda. En tu celular puede verse un poco distinto.</p>';
+  api.stage.innerHTML = '<div class="phone stphone' + (ios ? ' ios' : '') + '" id="ph" style="min-height:480px"></div>';
   const pintar = (html) => { $('ph').innerHTML = '<div class="stbody">' + html + '</div>' + nav(); $('ph').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', () => tocarTab(b.dataset.st))); };
   function inicio(){
     pintar(ios
@@ -4130,9 +4165,9 @@ SIMS.apStore = function(api){
       if (paso !== 2) return; if (!q.value.trim()){ toast('Primero escribí el nombre de la app.'); return; }
       paso = 3; $('ago').classList.remove('pulse'); q.readOnly = true; q.blur(); $('help').hidden = true;
       $('ares').innerHTML = fila('copia', 'Insta Fotos Pro', 'FotoApps Studio', '★ 3,1 · Con anuncios', '#9C27B0', '📷') + fila('ok', 'Instagram', 'Instagram', '★ 4,5 · Más de mil millones de descargas', '#5C6BC0', '📸');
-      api.say('Aparecieron dos apps parecidas. Paso ' + N.elegir + ': mirá abajo de cada nombre <b>quién la hizo</b>, y tocá la verdadera.');
+      api.say('Aparecieron dos apps parecidas. Paso ' + N.elegir + ': mirá abajo de cada nombre <b>quién la hizo</b>, y tocá la verdadera.'); api.pista('[data-k="ok"]');
       $('ares').querySelectorAll('.aprow').forEach(b => b.addEventListener('click', () => {
-        if (b.dataset.k !== 'ok'){ b.classList.add('wrong'); $('ahint').hidden = false; $('ahint').textContent = '💡 Mirá quién la hizo: "FotoApps Studio". Es una copia, no la verdadera.'; return; }
+        if (b.dataset.k !== 'ok'){ b.classList.add('wrong'); toast('Mirá quién la hizo: "FotoApps Studio". Es una copia, no la verdadera.'); return; }
         ficha();
       }));
     });
@@ -4218,7 +4253,7 @@ SIMS.igDM = function(api){
     paso = 4;
     $('ph').innerHTML = '<div class="bar"><b style="flex:1">Solicitudes</b></div><div class="msgs" style="flex:none;min-height:140px"><div class="msg in"><span class="sender" style="color:#B3261E">inversiones.rapidas.ok</span>Hola, ¿querés ganar $50.000 por semana desde tu casa? Escribime y te explico 💰<div class="meta">09:40</div></div></div><p style="margin:0 12px;color:var(--ph-sub);font-size:15px">No sabe si leíste su mensaje hasta que lo aceptes.</p><div class="row" style="padding:12px"><button type="button" class="btn dark" id="dacc">Aceptar</button><button type="button" class="btn" id="ddel">Eliminar</button></div><p id="dhint" hidden style="margin:0 12px 12px;font-weight:700"></p>';
     api.say('Es alguien que no conocés, ofreciendo plata fácil. Paso 5: ¿qué hacés? Elegí una opción.');
-    $('dacc').addEventListener('click', () => { $('dhint').hidden = false; $('dhint').textContent = '💡 Mejor no: es un desconocido con una oferta de plata fácil. Así empiezan muchas estafas.'; });
+    $('dacc').addEventListener('click', () => { toast('Mejor no: es un desconocido con una oferta de plata fácil. Así empiezan muchas estafas.'); });
     $('ddel').addEventListener('click', () => { $('ph').querySelector('.msgs').innerHTML = '<div class="sysmsg">Solicitud eliminada</div>'; $('dhint').hidden = true; $('ph').querySelector('.row').remove(); api.say('¡Muy bien! Respondiste a tu familia y eliminaste al desconocido. Así se usan los mensajes con tranquilidad.'); api.done(); });
   };
   feed();
@@ -4276,20 +4311,28 @@ SIMS.orCal = function(api){
       + '<span class="cl">Día</span><div class="chips" data-g="d">' + [['20','Mar 20'],['21','Mié 21'],['22','Jue 22'],['23','Vie 23']].map(x => '<button type="button" data-v="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>'
       + '<span class="cl">Hora</span><div class="chips" data-g="h">' + ['9:00','10:30','15:00'].map(x => '<button type="button" data-v="' + x + '">' + x + '</button>').join('') + '</div>'
       + '<span class="cl">' + (ios ? 'Aviso' : 'Notificación') + '</span><div class="chips" data-g="a">' + ['Sin aviso','1 hora antes','1 día antes'].map(x => '<button type="button" data-v="' + x + '">' + x + '</button>').join('') + '</div><p id="chint" hidden style="margin:0;font-weight:700"></p></div>';
-    api.say('Paso 2: escribí <b>Turno con la doctora</b>, elegí el <b>jueves 22</b>, la hora y un <b>aviso</b>. Después tocá <b>' + (ios ? 'Agregar' : 'Guardar') + '</b>, arriba.');
-    $('ctf').classList.add('pulse');
-    $('h1').addEventListener('click', () => { $('ct').value = 'Turno con la doctora'; $('ctf').classList.remove('pulse'); listo(); });
-    $('ct').addEventListener('input', () => { $('ctf').classList.toggle('pulse', !$('ct').value.trim()); listo(); });
+    ult = ''; listo();
+    $('h1').addEventListener('click', () => { $('ct').value = 'Turno con la doctora'; listo(); });
+    $('ct').addEventListener('input', listo);
     $('ph').querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); sel[g.dataset.g] = b.dataset.v; listo(); }));
     $('csave').addEventListener('click', guardar);
   };
-  const listo = () => { const ok = $('ct').value.trim() && sel.d && sel.h && sel.a; $('csave').classList.toggle('pulse', !!ok); };
+  let ult = '';
+  const listo = () => { // una cosa por vez: qué es, el día, la hora, el aviso y guardar
+    const t = $('ct').value.trim(), n0 = ios ? 2 : 3, q = s => $('ph').querySelector(s); let k, msg, m;
+    if (!t){ k = 't'; msg = 'escribí <b>Turno con la doctora</b>. Si te cuesta, tocá "Escribir por mí".'; m = $('ctf'); }
+    else if (sel.d !== '22'){ k = 'd'; msg = 'elegí el día: el turno es el <b>jueves 22</b>.'; m = q('[data-g="d"] [data-v="22"]'); }
+    else if (!sel.h){ k = 'h'; msg = 'elegí la <b>hora</b> del turno.'; m = q('[data-g="h"] button'); }
+    else if (!sel.a){ k = 'a'; msg = 'elegí un <b>aviso</b>, así el celular te lo recuerda.'; m = q('[data-g="a"] [data-v="1 día antes"]'); }
+    else { k = 's'; msg = 'tocá <b>' + (ios ? 'Agregar' : 'Guardar') + '</b>, arriba.'; m = $('csave'); }
+    if (k !== ult){ ult = k; api.say('Paso ' + (n0 + ['t','d','h','a','s'].indexOf(k)) + ': ' + msg); api.marca(m); }
+  };
   const guardar = () => {
     const h = $('chint'), t = $('ct').value.trim();
-    if (!t){ h.hidden = false; h.textContent = '💡 Falta escribir qué es. Si te cuesta, tocá "Escribir por mí".'; return; }
-    if (sel.d !== '22'){ h.hidden = false; h.textContent = '💡 El turno es el jueves: elegí "Jue 22".'; return; }
-    if (!sel.h){ h.hidden = false; h.textContent = '💡 Elegí a qué hora es el turno.'; return; }
-    if (!sel.a){ h.hidden = false; h.textContent = '💡 Elegí un aviso, así el celular te lo recuerda.'; return; }
+    if (!t){ toast('Falta escribir qué es. Si te cuesta, tocá "Escribir por mí".'); return; }
+    if (sel.d !== '22'){ toast('El turno es el jueves: elegí "Jue 22".'); return; }
+    if (!sel.h){ toast('Elegí a qué hora es el turno.'); return; }
+    if (!sel.a){ toast('Elegí un aviso, así el celular te lo recuerda.'); return; }
     paso = 3; $('ph').innerHTML = mes({t, h:sel.h, a:sel.a});
     api.say(sel.a === 'Sin aviso' ? '¡Anotado! Un consejo: la próxima vez poné un aviso, así el celular te lo recuerda solo.' : '¡Anotado! El jueves 22 quedó marcado, y el celular te va a avisar ' + sel.a.toLowerCase() + '. ¡Ya no se te pasa!'); api.done();
   };
@@ -4396,7 +4439,7 @@ SIMS.mpLlegar = function(api){
     api.say('Paso 2: hoy vamos caminando. Tocá el <b>muñequito que camina</b>.');
     $('mcard').querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => {
       if (paso !== 1) return;
-      if (b.dataset.m === 'auto'){ $('mhint').hidden = false; $('mhint').textContent = '💡 Ese es en auto. Hoy elegimos caminando: el muñequito.'; return; }
+      if (b.dataset.m === 'auto'){ toast('Ese es en auto. Hoy elegimos caminando: el muñequito.'); return; }
       paso = 2; $('mruta').hidden = false; b.classList.remove('pulse'); b.setAttribute('aria-pressed', 'true');
       $('mcard').innerHTML = '<div class="mplace"><b style="font-size:20px">🚶 22 min <small style="display:inline">(1,7 km)</small></b><small>Por calles con veredas</small><button type="button" class="mbtn pulse" id="mgo" style="width:100%">▶ Iniciar</button></div>';
       api.say('¡Ahí está el camino, en azul, y cuánto vas a tardar! Paso 3: tocá <b>Iniciar</b> para que te vaya guiando.');
@@ -4463,11 +4506,11 @@ SIMS.trUber = function(api){
       return;
     }
     if (paso === 4 && b.id === 'ul'){
-      paso = 5; P('<div class="ubpanel" style="flex:1"><b style="font-size:19px">Paran dos autos grises. ¿Cuál es el tuyo?</b><button type="button" class="ubcar" data-c="no"><span>🚗</span><div><b>Auto gris</b><span class="ubmat">SAB 5678</span></div></button><button type="button" class="ubcar" data-c="si"><span>🚗</span><div><b>Auto gris</b><span class="ubmat">SBX 1234</span></div></button><p id="uhint" hidden style="margin:0;font-weight:700"></p></div>');
-      api.say('Paso 6: fijate la <b>matrícula</b> y tocá el auto correcto.'); return;
+      paso = 5; P('<div class="ubpanel" style="flex:1"><button type="button" class="ubcar" data-c="no"><span>🚗</span><div><b>Auto gris</b><span class="ubmat">SAB 5678</span></div></button><button type="button" class="ubcar" data-c="si"><span>🚗</span><div><b>Auto gris</b><span class="ubmat">SBX 1234</span></div></button><p id="uhint" hidden style="margin:0;font-weight:700"></p></div>');
+      api.say('Paran dos autos grises. Paso 6: fijate la <b>matrícula</b> y tocá el tuyo.'); api.pista('[data-c="si"]'); return;
     }
     if (paso === 5 && b.dataset.c){
-      if (b.dataset.c === 'no'){ $('uhint').hidden = false; $('uhint').textContent = '💡 Ese no: la matrícula de tu viaje es SBX 1234. Nunca subas a otro auto.'; b.classList.add('wrong'); return; }
+      if (b.dataset.c === 'no'){ toast('Ese no: la matrícula de tu viaje es SBX 1234. Nunca subas a otro auto.'); b.classList.add('wrong'); return; }
       paso = 6; P(mapaHtml('<span class="mpin" style="left:45%;top:45%">🚗</span>') + '<div class="ubpanel"><b>En viaje a Terminal Tres Cruces</b><small style="color:#555">Llegás en 12 min</small><button type="button" class="ubgo pulse" id="ush">📤 Compartir viaje</button></div>');
       api.say('¡Subiste al auto correcto! Paso 7: para viajar con más tranquilidad, tocá <b>Compartir viaje</b>.'); return;
     }
@@ -4493,7 +4536,7 @@ SIMS.trBus = function(api){
       api.say('Paso 2: tocá el <b>dibujito del ómnibus</b>.'); return;
     }
     if (paso === 1 && b.dataset.m){
-      if (b.dataset.m !== 'bus'){ $('bhint').hidden = false; $('bhint').textContent = '💡 Ese no es el ómnibus. Buscá el dibujito del ómnibus.'; return; }
+      if (b.dataset.m !== 'bus'){ toast('Ese no es el ómnibus. Buscá el dibujito del ómnibus.'); return; }
       paso = 2; P('<div class="mplace" style="flex:1;gap:10px"><b>En ómnibus hasta Plaza del Sol</b><button type="button" class="bline pulse" id="bo1"><div><b style="font-size:19px">18 min · Llegada 10:24</b><small>🚶 4 › 🚌 ' + ln('25') + ' ' + ln('40') + '</small><small>Pasa a las 10:08</small></div></button><button type="button" class="bline" id="bo2"><div><b style="font-size:19px">27 min · Llegada 10:33</b><small>🚶 6 › 🚌 ' + ln('112') + '</small><small>Pasa a las 10:12</small></div></button><small style="color:var(--ph-sub)">Calles y líneas de ejemplo, para practicar.</small></div>');
       api.say('Cada opción te dice cuánto tardás, a qué hora llegás y qué líneas te sirven. Paso 3: tocá la que llega antes, a las <b>10:24</b>.'); return;
     }
@@ -4508,11 +4551,11 @@ SIMS.trBus = function(api){
       api.say('Esas son las paradas que vas a pasar. Paso 5: tocá la del <b>circulito blanco</b>, donde te bajás.'); return;
     }
     if (paso === 4 && b.id === 'bbaj'){
-      paso = 5; P('<div class="mplace" style="flex:1"><b style="font-size:19px">Llegan dos ómnibus de la línea 25. ¿Cuál tomás?</b><button type="button" class="bline" data-c="no"><b class="bnum gbcart">25 · PUERTO</b></button><button type="button" class="bline" data-c="si"><b class="bnum gbcart">25 · CENTRO</b></button><p id="bhint" hidden style="margin:0;font-weight:700"></p></div>');
-      api.say('Paso 6: mirá el <b>cartel</b> de cada ómnibus. En la app decía que va hacia <b>Centro</b>.'); return;
+      paso = 5; P('<div class="mplace" style="flex:1"><button type="button" class="bline" data-c="no"><b class="bnum gbcart">25 · PUERTO</b></button><button type="button" class="bline" data-c="si"><b class="bnum gbcart">25 · CENTRO</b></button><p id="bhint" hidden style="margin:0;font-weight:700"></p></div>');
+      api.say('Llegan dos ómnibus de la línea 25. Paso 6: mirá el <b>cartel</b> de cada uno y tocá el que va hacia <b>Centro</b>.'); api.pista('[data-c="si"]'); return;
     }
     if (paso === 5 && b.dataset.c){
-      if (b.dataset.c === 'no'){ $('bhint').hidden = false; $('bhint').textContent = '💡 Ese va hacia el otro lado. En la app decía "Centro".'; b.classList.add('wrong'); return; }
+      if (b.dataset.c === 'no'){ toast('Ese va hacia el otro lado. En la app decía "Centro".'); b.classList.add('wrong'); return; }
       paso = 6; P(mapaHtml('<span class="mdot" style="left:30%;top:66%"></span><span class="mpin" style="left:66%;top:24%">📍</span><svg class="mruta" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="30,68 30,30 66,30 66,26" fill="none" stroke="#1A73E8" stroke-width="2.6"/></svg>') + '<div class="mplace"><b>🚌 Línea 25 · Centro</b><small>Te bajás en Calle Mayo y Sol, a las 10:20</small><button type="button" class="mbtn pulse" id="bgo" style="width:100%">▶ Iniciar</button></div>');
       api.say('¡Ese es! Paso 7: tocá <b>Iniciar</b> para que el mapa te acompañe en el viaje.'); return;
     }
@@ -4550,17 +4593,17 @@ SIMS.gmEscribir = function(api){
     if (paso !== 0) return; paso = 1;
     $('ph').innerHTML = '<div class="bar"><b style="flex:1">Redactar</b><button type="button" class="ibtn" id="gsend" aria-label="Enviar">' + I.send.replace('#fff', 'currentColor') + '</button></div><div class="gmform"><label><span>Para</span><input id="gpara" autocomplete="off" inputmode="email"></label><label><span>Asunto</span><input id="gas" autocomplete="off"></label><textarea id="gmsg" rows="5" placeholder="Redactar correo"></textarea><div class="helpers" style="padding:0;justify-content:flex-start"><button type="button" id="h1">Escribir por mí</button></div><p id="ghint" hidden style="margin:0;font-weight:700"></p></div>';
     const F = [['gpara','laura.gomez@gmail.com','En <b>Para</b>, escribí la dirección de Laura: <b>laura.gomez@gmail.com</b>.'],['gas','Fotos del cumple','En <b>Asunto</b>, escribí de qué se trata: <b>Fotos del cumple</b>.'],['gmsg','Hola Laura:\n¡Qué lindas las fotos del domingo! ¿Me mandás la del brindis?\nSaludos,\n' + (NOMBRE() || 'Ana') + '.','Ahora escribí el mensaje: saludá, contá qué necesitás y firmá.']];
-    let k = 0; const marca = () => F.forEach((x, i) => $(x[0]).classList.toggle('pulseb', i === k));
-    const sig = () => { while (k < F.length && $(F[k][0]).value.trim()) k++; if (k < F.length){ api.say('Paso ' + (k + 2) + ': ' + F[k][2]); marca(); } else { F.forEach(x => $(x[0]).classList.remove('pulseb')); $('gsend').classList.add('pulse'); api.say('¡Listo para mandar! Revisá la dirección y tocá el <b>ícono de enviar</b>, arriba.'); } };
+    let k = 0; const marca = () => api.marca($(F[k][0]));
+    const sig = () => { while (k < F.length && $(F[k][0]).value.trim()) k++; if (k < F.length){ api.say('Paso ' + (k + 2) + ': ' + F[k][2]); marca(); } else { api.marca('#gsend'); api.say('¡Listo para mandar! Revisá la dirección y tocá el <b>ícono de enviar</b>, arriba.'); } };
     F.forEach(x => $(x[0]).addEventListener('input', () => { $('gsend').classList.remove('pulse'); $('ghint').hidden = true; const i = F.indexOf(x); if (i === k && $(x[0]).value.trim().length > 3) sig(); }));
     F.forEach(x => $(x[0]).addEventListener('blur', () => { if (F.indexOf(x) === k && $(x[0]).value.trim()) sig(); }));
     $('h1').addEventListener('click', () => { if (k < F.length){ $(F[k][0]).value = F[k][1]; sig(); } });
     sig();
     $('gsend').addEventListener('click', () => {
       const h = $('ghint'), para = $('gpara').value.trim();
-      if (!para.includes('@') || !para.includes('.')){ h.hidden = false; h.textContent = '💡 Revisá la dirección: tiene que tener @ y un punto, como laura.gomez@gmail.com.'; return; }
-      if (!$('gas').value.trim()){ h.hidden = false; h.textContent = '💡 Falta el asunto: una frase corta que diga de qué se trata.'; return; }
-      if (!$('gmsg').value.trim()){ h.hidden = false; h.textContent = '💡 Falta el mensaje.'; return; }
+      if (!para.includes('@') || !para.includes('.')){ toast('Revisá la dirección: tiene que tener @ y un punto, como laura.gomez@gmail.com.'); return; }
+      if (!$('gas').value.trim()){ toast('Falta el asunto: una frase corta que diga de qué se trata.'); return; }
+      if (!$('gmsg').value.trim()){ toast('Falta el mensaje.'); return; }
       paso = 2; $('ph').innerHTML = gmLista(-1) + '<div class="sysmsg" style="position:absolute;left:12px;right:12px;bottom:84px;text-align:center">✓ Enviado</div>';
       api.say('¡Lo mandaste! Abajo dice "Enviado". Y si después lo querés ver, está en "Enviados".'); api.done();
     });
@@ -4572,7 +4615,7 @@ SIMS.gmAdjuntar = function(api){
   api.stage.innerHTML = '<div class="phone" id="ph" style="min-height:480px;background:var(--ph-bar)"><div class="bar"><b style="flex:1">Re: Comprobante</b><button type="button" class="ibtn pulse" id="gclip" aria-label="Adjuntar">' + I.clip + '</button><button type="button" class="ibtn" id="gsend" aria-label="Enviar">' + I.send.replace('#fff', 'currentColor') + '</button></div><div class="gmform"><label><span>Para</span><input value="administracion@edificio-ejemplo.com" readonly></label><label><span>Asunto</span><input value="Re: Comprobante" readonly></label><div style="font-size:17px;padding:4px 2px">Hola, adjunto el comprobante solicitado.<br>Saludos,<br>' + esc(NOMBRE() || 'Ana') + '.</div><div id="gadj"></div><p id="ghint" hidden style="margin:0;font-weight:700"></p></div></div>';
   api.say('La administración te pidió el comprobante de pago. El mensaje ya está escrito. Paso 1: tocá el <b>clip</b>, arriba.');
   $('gsend').addEventListener('click', () => {
-    if (paso < 3){ $('ghint').hidden = false; $('ghint').textContent = '💡 Todavía falta el comprobante: primero adjuntalo con el clip.'; return; }
+    if (paso < 3){ toast('Todavía falta el comprobante: primero adjuntalo con el clip.'); return; }
     if (paso !== 3) return; paso = 4; $('ph').innerHTML = '<div class="bar"><b style="flex:1">Enviados</b></div><button type="button" class="gmrow"><span class="pic" style="background:#E07A3F">Yo</span><div><b>Para: administracion@edificio-ejemplo.com</b><span>Re: Comprobante 📎</span><small>Hola, adjunto el comprobante solicitado.</small></div></button>';
     api.say('¡Lo lograste! El correo está en "Enviados", con el clip que indica que lleva el adjunto.'); api.done();
   });
@@ -4607,11 +4650,11 @@ const camZoom = z => { $('scene').style.transform = 'scale(' + z + ')'; document
 SIMS.camShoot = function(api){
   camUI(api, '🌻'); let paso = 0;
   $('scene').classList.add('blur');
-  api.say('Paso 1: tocá la <b>flor</b> en la pantalla para enfocarla.');
+  api.say('Paso 1: tocá la <b>flor</b> en la pantalla para enfocarla.'); api.marca('#scene');
   $('vf').addEventListener('click', e => {
     if (paso !== 0) return;
     const r = $('vf').getBoundingClientRect(), f = $('focus'); f.hidden = false; f.style.left = (e.clientX - r.left) + 'px'; f.style.top = (e.clientY - r.top) + 'px';
-    $('scene').classList.remove('blur'); paso = 1; $('shut').classList.add('pulse');
+    $('scene').classList.remove('blur'); paso = 1; api.marca('#shut');
     api.say('¡Enfocada! ¿Viste el cuadradito amarillo? Paso 2: tocá el <b>botón redondo grande</b> de abajo.');
   });
   $('shut').addEventListener('click', () => {
@@ -4663,7 +4706,7 @@ SIMS.camGallery = function(api){
     if (paso !== 0) return; paso = 1;
     $('ph').className = 'phone galph';
     $('ph').innerHTML = '<div class="bar" style="background:#000;border:none;color:#fff"><b style="flex:1" id="gcount"></b></div><div class="gview" id="gv"><span id="gimg"></span><small id="gcap"></small></div><div class="gacts"><button type="button" id="gsh">↗️<span>Compartir</span></button><button type="button" id="ged">✏️<span>Editar</span></button><button type="button" id="gdel">🗑️<span>Borrar</span></button></div>';
-    pinta(); api.say('Esta es la última foto que sacaste. Paso 2: <b>deslizá el dedo hacia un costado</b> para ver la anterior.');
+    pinta(); api.say('Esta es la última foto que sacaste. Paso 2: <b>deslizá el dedo hacia un costado</b> para ver la anterior.'); later(() => api.marca('#gv'), 30);
     const gv = $('gv'); let x0 = null, dx = 0; gv.style.touchAction = 'pan-y';
     gv.addEventListener('pointerdown', e => { x0 = e.clientX; dx = 0; try { gv.setPointerCapture(e.pointerId); } catch(_){} });
     gv.addEventListener('pointermove', e => { if (x0 == null) return; dx = e.clientX - x0; $('gimg').style.transform = 'translateX(' + Math.max(-80, Math.min(80, dx)) + 'px)'; });
@@ -4675,7 +4718,7 @@ SIMS.camGallery = function(api){
   }
   function pinta(){ const f = F[idx]; $('gimg').textContent = f.e; $('gimg').classList.toggle('blur', !!f.blur); $('gcap').textContent = f.t; $('gcount').textContent = 'Foto ' + (idx + 1) + ' de ' + F.length; }
   function pasar(){
-    if (paso === 1){ idx = 1; paso = 2; pinta(); $('gdel').classList.add('pulse'); $('toast').hidden = true; api.say('¡Eso! Esta salió movida: no se ve nada. Paso 3: tocá el <b>tachito</b> para borrarla.'); return; }
+    if (paso === 1){ idx = 1; paso = 2; pinta(); api.marca('#gdel'); $('toast').hidden = true; api.say('¡Eso! Esta salió movida: no se ve nada. Paso 3: tocá el <b>tachito</b> para borrarla.'); return; }
     if (paso === 2){ toast('Esta es la foto movida. Tocá el tachito para borrarla.'); return; }
     idx = idx === 0 ? F.length - 1 : idx - 1; pinta();
   }
@@ -4826,10 +4869,10 @@ SIMS.ytControls = function(api){
   api.say('Primero aparece un anuncio. Paso 1: esperá unos segundos a que aparezca <b>Omitir</b>, abajo a la derecha, y tocalo.');
   let s = 5; const cuenta = () => { s--; if ($('yad')) $('yad').textContent = 'Anuncio · 0:0' + Math.max(s, 0); if (s === 2){ $('yskip').hidden = false; $('yskip').classList.add('pulse'); } if (s > 0 && paso === 0) later(cuenta, 1000); }; later(cuenta, 1000);
   const corre = () => { if (!play) return; p = Math.min(100, p + 2); $('ypr').style.width = p + '%'; if (p < 100) later(corre, 500); };
-  $('yskip').addEventListener('click', e => { e.stopPropagation(); if (paso !== 0) return; paso = 1; $('yskip').remove(); $('yad').remove(); $('yimg').textContent = '🫓'; play = true; corre(); api.say('¡Chau anuncio! Ya empezó tu video. Paso 2: tocá el <b>video</b> una vez para que aparezcan los botones.'); });
+  $('yskip').addEventListener('click', e => { e.stopPropagation(); if (paso !== 0) return; paso = 1; $('yskip').remove(); $('yad').remove(); $('yimg').textContent = '🫓'; play = true; corre(); api.say('¡Chau anuncio! Ya empezó tu video. Paso 2: tocá el <b>video</b> una vez para que aparezcan los botones.'); api.marca('#ytp'); });
   $('ytp').addEventListener('click', () => {
     if (paso === 0){ toast('Esperá un poquito: abajo a la derecha va a aparecer "Omitir".'); return; }
-    if (paso === 1){ paso = 2; $('toast').hidden = true; $('yctl').hidden = false; $('yplay').classList.add('pulse'); api.say('¡Ahí están los botones! Paso 3: tocá la <b>pausa</b>, en el medio.'); }
+    if (paso === 1){ paso = 2; $('toast').hidden = true; $('yctl').hidden = false; api.marca('#yplay'); api.say('¡Ahí están los botones! Paso 3: tocá la <b>pausa</b>, en el medio.'); }
   });
   $('yplay').addEventListener('click', e => {
     e.stopPropagation();
@@ -4864,8 +4907,8 @@ SIMS.nfBrowse = function(api){
   const ver = () => {
     paso = 2; $('toast').hidden = true;
     $('ph').innerHTML = '<div class="nfplay" id="nfv"><span style="font-size:80px">🌊</span><small id="nfr">Retomando desde 23:10</small><div class="nfsub" id="nfsub" hidden>—¿Me pasás el mate?</div><div class="nfctl" id="nfctl" hidden><button type="button" class="nfbtn pulse" id="nfas">💬 Audio y subtítulos</button></div></div><div style="padding:12px 14px;color:#fff"><b>Historias del puerto</b><br><small style="color:#aaa">Temporada 1 · Capítulo 3</small></div>';
-    api.say('¡Retomó justo donde la dejaste! Paso 3: no se escucha muy bien. Tocá la <b>pantalla</b> para ver los botones.');
-    $('nfv').addEventListener('click', () => { if (paso !== 2) return; paso = 3; $('nfctl').hidden = false; api.say('Paso 4: tocá <b>Audio y subtítulos</b>.'); });
+    api.say('¡Retomó justo donde la dejaste! Paso 3: no se escucha muy bien. Tocá la <b>pantalla</b> para ver los botones.'); later(() => api.marca('#nfv'), 30);
+    $('nfv').addEventListener('click', () => { if (paso !== 2) return; paso = 3; $('nfctl').hidden = false; api.say('Paso 4: tocá <b>Audio y subtítulos</b>.'); api.marca('#nfas'); });
     $('nfas').addEventListener('click', e => {
       e.stopPropagation(); if (paso !== 3) return; paso = 4;
       const pn = el('div', 'nfpanel', '<div><b>Audio</b><span class="sel">✓ Español</span></div><div><b>Subtítulos</b><button type="button" id="nfoff" class="sel">✓ Desactivados</button><button type="button" id="nfes" class="pulse">Español</button></div>');
