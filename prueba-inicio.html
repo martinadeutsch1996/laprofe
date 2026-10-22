@@ -613,12 +613,13 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .mano-pasos{display:flex;flex-direction:column;gap:12px}
 
 /* Inicio: lección del día + temas */
-.dia{background:var(--coral);color:var(--ink);border:none;border-radius:26px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;box-shadow:0 6px 18px rgba(255,90,54,.28)}
-.dia .lbl{font-weight:800;font-size:17px}
+.dia{background:var(--petroleo);color:#fff;border:none;border-radius:26px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;box-shadow:0 6px 18px rgba(15,82,87,.25)}
+.dia .lbl{font-weight:800;font-size:17px;color:#fff;opacity:.9}
 .dia h2{font-size:26px;line-height:1.15}
 .dia p{font-size:18px}
-.dia .ir{margin-top:10px;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--ink);color:#fff;border-radius:999px;min-height:56px;font-weight:800;font-size:19px}
-.dia.hecho{background:var(--card);border:3px solid var(--lima);box-shadow:none}
+.dia .ir{margin-top:10px;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--coral);color:var(--ink);border-radius:999px;min-height:56px;font-weight:800;font-size:19px}
+.dia.hecho{background:var(--card);color:var(--fg);border:3px solid var(--lima);box-shadow:none}
+.dia.hecho .lbl{color:var(--muted)}
 .tema{background:var(--card)}
 .tema .em{filter:saturate(.75)}
 .temas{display:grid;grid-template-columns:1fr;gap:10px}
@@ -2025,7 +2026,7 @@ function diaHecho(t){ const d = delDia(); if (d.t === t && !d.hecho){ d.hecho = 
 let temaK = null;
 function renderInicio(){
   const n = doneN(), z = $('h-main'); z.innerHTML = '';
-  $('h-med').textContent = n + (n === 1 ? ' medalla' : ' medallas'); $('h-med').hidden = n === 0;
+  $('h-med').hidden = true; /* las medallas no ayudan a elegir el camino: no van en el inicio */
   $('h-hello').innerHTML = '<b>¡Hola, ' + esc(NOMBRE()) + '!</b> ' + (n === 0 ? 'Empecemos tranqui, a tu ritmo.' : '¡Qué bueno verte!');
   $('h-beta').hidden = true; /* aviso de versión de prueba: oculto */
   $('h-datos').hidden = !(S.perfil && !S.datos);
