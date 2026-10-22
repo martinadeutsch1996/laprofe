@@ -1779,7 +1779,7 @@ function show(name){
 }
 document.addEventListener('click', e => {
   const g = e.target.closest('[data-go]'); if (g) show(g.dataset.go);
-  const t = e.target.closest('[data-tab]'); if (t) show(t.dataset.tab);
+  const t = e.target.closest('[data-tab]'); if (t){ if (t.dataset.tab === 'inicio') temaK = null; /* "Aprender" siempre vuelve al inicio */ show(t.dataset.tab); }
 });
 let toastT;
 /* Aviso "Hay más abajo": aparece si la pantalla sigue hacia abajo y se va al llegar al final */
