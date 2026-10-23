@@ -86,7 +86,7 @@ a{color:var(--petroleo)}
 .lvl-head{display:flex;gap:12px;align-items:center}
 .lvl-head .em{width:54px;height:54px;border-radius:16px;background:var(--soft);display:grid;place-items:center;font-size:28px;flex:none}
 .lesson{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--bg);border:2px solid transparent;border-radius:18px;padding:10px 12px;min-height:64px}
-.lesson:hover{border-color:var(--coral)}
+@media (hover:hover){.lesson:hover{border-color:var(--coral)}} /* en el celular el hover queda pegado donde se tocó */
 .lesson .ic{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--soft);font-size:19px}
 .lesson.done .ic{background:var(--lima);color:var(--ink)}
 .lesson .t{display:flex;flex-direction:column;min-width:0;flex:1}
@@ -645,6 +645,8 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .big #s-inicio > .say .avatar{display:none}
 .tema-head{display:flex;gap:12px;align-items:center}
 .tema-head .em{font-size:44px}
+.te-toca{font-size:19px;margin:0 0 10px}
+.tema-tit{font-size:26px;line-height:1.2;margin:4px 0 14px}
 
 /* ===== Revisión de usabilidad (22/10/2026) ===== */
 /* Volver: el patrón que ya conocen del celular, "‹ Volver", sin forma de botón grande */
@@ -2213,23 +2215,18 @@ function renderTema(z){
   const tm = misTemas(), es = tm.includes(v.k);
   const back = el('button', 'atras', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Volver'); back.type = 'button';
   back.addEventListener('click', () => { temaK = null; renderInicio(); window.scrollTo(0,0); });
-  const head = el('div', 'tema-head', '<span class="em" aria-hidden="true">' + v.em + '</span><div><h1 style="font-size:28px"></h1><p class="muted"></p></div>');
-  head.querySelector('h1').textContent = v.t; head.querySelector('p').textContent = v.d;
+  const head = el('h1', 'tema-tit', '<span aria-hidden="true">' + v.em + '</span> <span></span>'); /* ícono en la misma línea: con letra grande el botón sigue a la vista */
+  head.querySelectorAll('span')[1].textContent = v.t;
   const hechas = v.ls.filter(l => S.done[l.id]).length;
-  const prog = el('p', 'small', '<b>' + hechas + ' de ' + v.ls.length + '</b> lecciones hechas');
   const prox = sigDelTema(v), abrir = l => { S.ultTema = v.k; save(); startLesson(l); }; // ya vio el tema: no hace falta el aviso de "Tema nuevo"
-  const fav = el('div', 'beta', '<p></p>'); fav.style.borderStyle = 'solid';
-  fav.querySelector('p').innerHTML = es ? '<b>⭐ Es uno de tus temas.</b> Tu lección del día sale de acá.' : '<b>¿Te interesa este tema?</b> Si lo sumás, tu lección del día va a salir de acá.';
-  const fb = el('button', 'btn ghost small', es ? 'Sacarlo de mis temas' : '⭐ Sumarlo a mis temas'); fb.type = 'button';
-  fb.addEventListener('click', () => { const t = misTemas().slice(); if (es) t.splice(t.indexOf(v.k), 1); else t.push(v.k); S.temas = t; if (S.dia && !S.dia.hecho && S.dia.f === hoy() && S.dia.t === 'lec') delete S.dia; save(); track(d => { d.temas = t; }); toast(es ? 'Listo, lo saqué de tus temas.' : '¡Listo! Ahora es uno de tus temas.'); renderInicio(); });
-  fav.appendChild(fb);
   const list = el('div', 'stack'); list.style.gap = '10px';
-  v.ls.forEach((l, i) => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : '') + (l === prox ? ' prox' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = (i + 1) + '. ' + l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Hecha · tocá para repetirla' : (S.prog && S.prog[l.id]) ? (l === prox ? 'Te toca esta · ' : '') + 'Vas por el paso ' + (S.prog[l.id] + 1) + ' de ' + l.steps.length : l === prox ? 'Te toca esta · ' + l.min + ' minutos' : l.min + ' minutos'; b.addEventListener('click', () => abrir(l)); list.appendChild(b); });
+  v.ls.forEach((l, i) => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : '') + (l === prox ? ' prox' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = (i + 1) + '. ' + l.t; b.querySelector('.t span').remove(); /* la próxima ya se dice arriba ("Te toca: …") y queda con borde */ b.addEventListener('click', () => abrir(l)); list.appendChild(b); });
   /* Un solo botón fuerte: la próxima lección del tema */
-  const items = [back, head, prog];
-  if (prox){ const enC = S.prog && S.prog[prox.id]; const go = el('button', 'btn', (enC ? 'Seguir: ' : 'Empezar: ') + prox.t); go.type = 'button'; go.addEventListener('click', () => abrir(prox)); items.push(go); }
+  const items = [back, head];
+  if (prox){ const enC = S.prog && S.prog[prox.id]; const tt = el('p', 'te-toca', 'Te toca: <b></b>'); tt.querySelector('b').textContent = prox.t;
+    const go = el('button', 'btn', enC ? 'Seguir' : 'Empezar'); go.type = 'button'; go.addEventListener('click', () => abrir(prox)); items.push(tt, go); }
   const lh = el('h2', '', 'Las lecciones de este tema'); lh.style.fontSize = '20px'; lh.style.marginTop = '6px';
-  z.append(...items, lh, list, fav);
+  z.append(...items, lh, list);
 }
 
 
