@@ -636,6 +636,12 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .tema small{font-size:16px;color:var(--muted);font-weight:600}
 .tema .fav{font-size:15px;font-weight:800;color:var(--petroleo)}
 .tema.full{border-color:var(--lima)}
+.tema.aca{border-color:var(--accion);border-width:3px}
+.tema .aca-lbl{font-size:16px;font-weight:800;color:var(--accion)}
+.lesson.prox{border-color:var(--accion);border-width:3px}
+.tema-ls{margin:4px 0 0;padding-left:28px;display:flex;flex-direction:column;gap:8px;font-size:17px;line-height:1.35}
+.tema-ls li.hecha{color:var(--muted)}
+.tema-ls li.ahora{font-weight:800;color:var(--accion)}
 .big #s-inicio > .say .avatar{display:none}
 .tema-head{display:flex;gap:12px;align-items:center}
 .tema-head .em{font-size:44px}
@@ -2119,15 +2125,22 @@ function misTemas(){
   if (!Array.isArray(S.temas)){ const t = []; ((S.perfil && S.perfil.intereses) || []).forEach(i => (INT_TEMA[i] || []).forEach(k => { if (!t.includes(k) && NIVELES.some(v => v.k === k)) t.push(k); })); S.temas = t; save(); }
   return S.temas;
 }
-/* El camino: primero el tema donde empezó, después sus temas elegidos, después el resto en orden.
+/* El camino (23/10/2026): primero las bases (Primeros pasos, Pantalla y WhatsApp, desde donde empezó),
+   después sus temas elegidos, después el resto en orden. Un tema que necesita otro lo tiene antes
+   (REQUIERE: el taxi usa "Guardá un contacto"; guardar papeles y adjuntar usan fotos).
    Siempre se termina el tema en el que está antes de pasar a otro. */
+const BASES = ['basico','pantalla','whatsapp'];
+const REQUIERE = {ciudad:['maswa'], orga:['camara'], gmail:['camara']};
 function camino(){
-  const ini = NIVELES.find(v => v.n === startN()), tm = misTemas(), out = [];
-  const add = v => { if (v && !out.includes(v)) out.push(v); };
-  add(ini); NIVELES.filter(v => tm.includes(v.k)).forEach(add);
-  NIVELES.filter(v => v.n >= startN()).forEach(add); NIVELES.forEach(add);
+  const tm = misTemas(), out = [], sn = startN();
+  const add = v => { if (!v || out.includes(v)) return; (REQUIERE[v.k] || []).forEach(k => { const r = NIVELES.find(x => x.k === k); if (r && r.n >= sn && r.ls.some(l => !S.done[l.id])) add(r); }); if (!out.includes(v)) out.push(v); };
+  BASES.forEach(k => { const v = NIVELES.find(x => x.k === k); if (v && v.n >= sn) add(v); });
+  NIVELES.filter(v => tm.includes(v.k)).forEach(add);
+  NIVELES.filter(v => v.n >= sn).forEach(add); NIVELES.forEach(add);
   return out;
 }
+/* El tema en el que está ahora: el de su próxima lección */
+const temaActual = () => { const l = proxNueva(); return l ? l.niv : null; };
 const sigDelTema = v => v && (v.ls.find(l => !S.done[l.id] && S.prog && S.prog[l.id]) || v.ls.find(l => !S.done[l.id]));
 function proxNueva(){
   const actual = NIVELES.find(v => v.k === S.ultTema), a = sigDelTema(actual); if (a) return a;
@@ -2167,7 +2180,7 @@ function renderInicio(){
     c.querySelector('h2').textContent = tema; c.querySelector('p').textContent = linea; c.querySelector('.ir').textContent = ir;
     c.addEventListener('click', () => { if (Date.now() - (window._hc || 0) < 800) return; window._hc = Date.now(); accion(); }); };
   if (d.hecho){
-    c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Hecha! 🎉</h2><p>Mañana te espera otra. Si tenés ganas, elegí un tema de abajo.</p>');
+    c = el('div', 'dia hecho', '<span class="lbl">Lección del día</span><h2>¡Hecha! 🎉</h2><p>Mañana te espera otra. Para seguir aprendiendo, elegí un tema de abajo.</p>');
   } else if (d.t === 'rep'){
     const v = NIVELES.find(x => x.k === d.k);
     tarjeta(v.t, '3 preguntas para que no se te olvide lo que aprendiste. 1 minuto.', () => startRep(d.k), 'Empezar');
@@ -2183,13 +2196,14 @@ function renderInicio(){
   const tm = misTemas();
   const h = el('h2', '', 'Elegí un tema'); h.style.fontSize = '22px'; h.style.marginTop = '8px';
   const g = el('div', 'temas');
-  const orden = NIVELES.slice().sort((x, y) => (tm.includes(y.k) ? 1 : 0) - (tm.includes(x.k) ? 1 : 0));
+  /* Mismo orden que la lección del día: el camino. El tema actual dice "Estás acá". */
+  const orden = camino(), act = temaActual();
   orden.forEach(v => {
     const hechas = v.ls.filter(l => S.done[l.id]).length;
-    const b = el('button', 'tema' + (hechas === v.ls.length ? ' full' : ''), '<span class="em" aria-hidden="true">' + v.em + '</span><span><b></b><br><small></small>' + (tm.includes(v.k) ? '<br><span class="fav">⭐ Tu tema</span>' : '') + '</span>');
+    const b = el('button', 'tema' + (hechas === v.ls.length ? ' full' : '') + (v === act ? ' aca' : ''), '<span class="em" aria-hidden="true">' + v.em + '</span><span>' + (v === act ? '<span class="aca-lbl">📍 Estás acá</span><br>' : '') + '<b></b><br><small></small>' + (tm.includes(v.k) ? '<br><span class="fav">⭐ Tu tema</span>' : '') + '</span>');
     b.type = 'button'; b.querySelector('b').textContent = v.t;
     { const sm = b.querySelector('small'), emp = v.ls.some(x => S.prog && S.prog[x.id]); sm.textContent = hechas === v.ls.length ? '✓ Terminado' : hechas === 0 && !emp ? 'Sin empezar · ' + v.ls.length + ' lecciones' : 'Hiciste ' + hechas + ' de ' + v.ls.length + ' lecciones'; if (hechas === v.ls.length) sm.style.color = 'var(--ok)'; }
-    b.addEventListener('click', () => { const l = v.ls.find(x => !S.done[x.id] && S.prog && S.prog[x.id]) || v.ls.find(x => !S.done[x.id]); if (l){ startLesson(l); return; } temaK = v.k; renderInicio(); window.scrollTo(0,0); }); // si ya lo terminó, ve la lista para repetir
+    b.addEventListener('click', () => { temaK = v.k; renderInicio(); window.scrollTo(0,0); }); // primero ve las lecciones del tema, después empieza
     g.appendChild(b);
   });
   z.append(h, g);
@@ -2203,14 +2217,19 @@ function renderTema(z){
   head.querySelector('h1').textContent = v.t; head.querySelector('p').textContent = v.d;
   const hechas = v.ls.filter(l => S.done[l.id]).length;
   const prog = el('p', 'small', '<b>' + hechas + ' de ' + v.ls.length + '</b> lecciones hechas');
+  const prox = sigDelTema(v), abrir = l => { S.ultTema = v.k; save(); startLesson(l); }; // ya vio el tema: no hace falta el aviso de "Tema nuevo"
   const fav = el('div', 'beta', '<p></p>'); fav.style.borderStyle = 'solid';
   fav.querySelector('p').innerHTML = es ? '<b>⭐ Es uno de tus temas.</b> Tu lección del día sale de acá.' : '<b>¿Te interesa este tema?</b> Si lo sumás, tu lección del día va a salir de acá.';
   const fb = el('button', 'btn ghost small', es ? 'Sacarlo de mis temas' : '⭐ Sumarlo a mis temas'); fb.type = 'button';
   fb.addEventListener('click', () => { const t = misTemas().slice(); if (es) t.splice(t.indexOf(v.k), 1); else t.push(v.k); S.temas = t; if (S.dia && !S.dia.hecho && S.dia.f === hoy() && S.dia.t === 'lec') delete S.dia; save(); track(d => { d.temas = t; }); toast(es ? 'Listo, lo saqué de tus temas.' : '¡Listo! Ahora es uno de tus temas.'); renderInicio(); });
   fav.appendChild(fb);
   const list = el('div', 'stack'); list.style.gap = '10px';
-  v.ls.forEach(l => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Hecha · tocá para repetirla' : (S.prog && S.prog[l.id]) ? 'Vas por el paso ' + (S.prog[l.id] + 1) + ' de ' + l.steps.length : 'Tocá para empezar · ' + l.min + ' minutos'; b.addEventListener('click', () => startLesson(l)); list.appendChild(b); });
-  z.append(back, head, prog, list, fav);
+  v.ls.forEach((l, i) => { const b = el('button', 'lesson' + (S.done[l.id] ? ' done' : '') + (l === prox ? ' prox' : ''), '<span class="ic" aria-hidden="true">' + (S.done[l.id] ? '✓' : l.ic) + '</span><span class="t"><b></b><span></span></span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'); b.type = 'button'; b.querySelector('b').textContent = (i + 1) + '. ' + l.t; b.querySelector('.t span').textContent = S.done[l.id] ? 'Hecha · tocá para repetirla' : (S.prog && S.prog[l.id]) ? (l === prox ? 'Te toca esta · ' : '') + 'Vas por el paso ' + (S.prog[l.id] + 1) + ' de ' + l.steps.length : l === prox ? 'Te toca esta · ' + l.min + ' minutos' : l.min + ' minutos'; b.addEventListener('click', () => abrir(l)); list.appendChild(b); });
+  /* Un solo botón fuerte: la próxima lección del tema */
+  const items = [back, head, prog];
+  if (prox){ const enC = S.prog && S.prog[prox.id]; const go = el('button', 'btn', (enC ? 'Seguir: ' : 'Empezar: ') + prox.t); go.type = 'button'; go.addEventListener('click', () => abrir(prox)); items.push(go); }
+  const lh = el('h2', '', 'Las lecciones de este tema'); lh.style.fontSize = '20px'; lh.style.marginTop = '6px';
+  z.append(...items, lh, list, fav);
 }
 
 
@@ -2225,9 +2244,13 @@ function temaIntro(l){
   $('l-paso').textContent = 'Lección ' + (v.ls.indexOf(l) + 1) + ' de ' + v.ls.length;
   const c = el('div', 'tema-intro', '<span class="em" aria-hidden="true">' + v.em + '</span><span class="lbl">' + (hechas ? 'Volvés al tema' : 'Tema nuevo') + '</span><h1></h1><p class="muted"></p>');
   c.querySelector('h1').textContent = v.t; c.querySelector('p').textContent = v.d;
+  /* Qué lecciones trae el tema y cuál empieza ahora (no se tocan: es solo para ubicarse) */
+  const ul = el('ol', 'tema-ls'); ul.setAttribute('aria-label', 'Las lecciones de este tema');
+  v.ls.forEach(x => { const li = el('li', x === l ? 'ahora' : S.done[x.id] ? 'hecha' : ''); li.textContent = (S.done[x.id] ? '✓ ' : '') + x.t + (x === l ? ' · ahora' : ''); ul.appendChild(li); });
   const go = el('button', 'btn', si > 0 ? 'Seguir la lección' : 'Empezar la lección'); go.type = 'button';
   go.addEventListener('click', () => { S.ultTema = v.k; save(); renderStep(); window.scrollTo(0,0); });
-  z.append(c, go);
+  const lh = el('p', 'small', '<b>Lo que vas a aprender en este tema:</b>'); lh.style.marginTop = '14px';
+  z.append(c, go, lh, ul); // el botón queda a la vista, sin bajar
 }
 
 $('l-exit').addEventListener('click', () => { if (si === 0) salirLeccion(); else $('exitm').hidden = false; });
