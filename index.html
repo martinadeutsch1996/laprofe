@@ -2733,7 +2733,7 @@ async function ask(q, forzar){
   await capsReady;
   const sug = foto ? [] : leccionesPara(q);
   const fin = (txt, ls) => { pintaRespuesta(ad, txt); guardaCharla('a', txt); let tras = ad; if (ls && ls.length) tras = tarjetasLeccion(ls.slice(0, 2), ad); seguimiento(tras); if (S.leerIA) speak(txt, null, ad.querySelector('.voz-in')); };
-  if (!SAMPLE){ fin(FALLBACK[q] || (foto ? 'Todavía no puedo ver fotos. Contame con palabras qué ves en la pantalla y te ayudo.' : sug.length ? '¡Tengo una lección justo para eso! Tocá «Hacer la lección» y la hacemos juntas.' : '¡Buena pregunta! Todavía no sé responder todo. Probá preguntarlo con otras palabras.'), sug); return; }
+  if (!SAMPLE){ fin(FALLBACK[q] || (foto ? 'Todavía no puedo ver fotos. Contame con palabras qué ves en la pantalla y te ayudo.' : sug.length ? '¡Tengo una lección justo para eso! Tocá «Hacer la lección» y la hacemos juntos.' : '¡Buena pregunta! Todavía no sé responder todo. Probá preguntarlo con otras palabras.'), sug); return; }
   const contenido = foto ? [{type:'image', source:{type:'base64', media_type:'image/jpeg', data:foto}}, {type:'text', text:q}] : q;
   TURNS.push({role:'user', content:contenido});
   track((d, now) => { d.preguntas = (Array.isArray(d.preguntas) ? d.preguntas : []).concat({q:(foto ? '[foto] ' : '') + q.slice(0, 300), at:now}).slice(-30); });
