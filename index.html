@@ -662,8 +662,14 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 #m-chips .chip{font-size:17px}
 .composer{position:static}
 .composer #m-send,.composer #m-stop{flex:1 1 100%}
-.lsug{border:2px solid var(--line)!important}
+.lsug{display:block;border:3px solid var(--accion)!important;padding:16px;border-radius:18px}
+.lsug .lsug-k{display:block;color:var(--accion);font-weight:800;font-size:17px;margin-bottom:8px}
+.lsug > .lsug-t{display:flex;flex-direction:row;align-items:center;gap:12px;min-width:0}
+.lsug .lsug-t b{font-size:22px;line-height:1.25}
+.lsug .em{font-size:34px;flex:none}
+.lsug p{margin:8px 0 12px;color:var(--muted);font-size:17px;line-height:1.4}
 .lsug .btn{width:100%}
+.big .lsug{margin-left:0}
 .mseg{display:flex;flex-wrap:wrap;gap:8px;margin-left:52px}
 .big .mseg{margin-left:0}
 .mfoto{max-width:180px;border-radius:12px;display:block;margin-bottom:6px}
@@ -1849,10 +1855,11 @@ function atrasCel(){
   const abierto = ['exitm','instm','op'].find(id => $(id) && !$(id).hidden);
   if (abierto){ if (abierto === 'op') closeOpinion(); else $(abierto).hidden = true; return true; }
   const en = SCREENS.find(s => !$('s-' + s).hidden);
-  if (en === 'lesson'){ if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } else show('inicio'); return true; }
+  if (en === 'lesson'){ if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } else salirLeccion(); return true; }
   if (en === 'ob'){ if (obI > 0){ obI--; renderOb(); window.scrollTo(0,0); return true; } return false; }
   if (en === 'datos'){ show('per'); return true; }
   if (en === 'inicio'){ if (temaK){ temaK = null; renderInicio(); window.scrollTo(0,0); return true; } return false; }
+  if (en === 'logro' && deIA){ salirLeccion(); return true; }
   if (en){ temaK = null; show('inicio'); return true; }
   return false;
 }
@@ -1860,7 +1867,9 @@ try { history.replaceState({lp: 'base'}, ''); history.pushState({lp: 'app'}, '')
 window.addEventListener('popstate', () => { stopVoz(); if (atrasCel()) { try { history.pushState({lp: 'app'}, ''); } catch(e){} } else history.back(); });
 const SCREENS = ['ob','inicio','lesson','logro','com','mar','per','brain','datos','rep','pay'];
 let token = 0, curL = null;
+let deIA = false; /* la lección se abrió desde Martina IA: al salir, vuelve a la charla */
 function show(name){
+  if (name !== 'lesson' && name !== 'logro') deIA = false;
   token++; $('toast').hidden = true; yaBajo = false; $('exitm').hidden = true; $('instm').hidden = true;
   SCREENS.forEach(s => $('s-' + s).hidden = s !== name);
   $('nav').hidden = !['inicio','com','mar','per'].includes(name);
@@ -2207,7 +2216,8 @@ function renderTema(z){
 
 /* ============ REPRODUCTOR DE LECCIONES ============ */
 let si = 0, lessonT0 = 0;
-function startLesson(l){ if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; if (S.ultTema !== l.niv.k) temaIntro(l); else { S.ultTema = l.niv.k; save(); renderStep(); } }
+const salirLeccion = () => { const v = deIA ? 'mar' : 'inicio'; deIA = false; show(v); if (v === 'mar') document.querySelectorAll('#m-chat .lsug').forEach(pintaLsug); };
+function startLesson(l, ia){ deIA = !!ia; if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; if (S.ultTema !== l.niv.k) temaIntro(l); else { S.ultTema = l.niv.k; save(); renderStep(); } }
 /* Cuando la lección es de otro tema, primero se avisa en qué tema está */
 function temaIntro(l){
   stopVoz();
@@ -2220,9 +2230,9 @@ function temaIntro(l){
   z.append(c, go);
 }
 
-$('l-exit').addEventListener('click', () => { if (si === 0) show('inicio'); else $('exitm').hidden = false; });
+$('l-exit').addEventListener('click', () => { if (si === 0) salirLeccion(); else $('exitm').hidden = false; });
 $('exitm-stay').addEventListener('click', () => $('exitm').hidden = true);
-$('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; show('inicio'); });
+$('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; salirLeccion(); });
 $('l-back').addEventListener('click', () => { if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } });
 function stepDots(){ $('l-paso').textContent = 'Paso ' + (si + 1) + ' de ' + curL.steps.length; /* arriba solo va el paso y Salir */ const s = $('l-steps'); s.innerHTML = ''; curL.steps.forEach((_, i) => s.appendChild(el('i', i < si ? 'ok' : i === si ? 'on' : ''))); }
 /* Botones: verbo primero, 1 a 3 palabras, que digan qué pasa al tocarlos */
@@ -2495,7 +2505,7 @@ function finishLesson(){
   const c = $('g-com'); c.disabled = false; c.dataset.done = ''; c.textContent = '🎉 En la comunidad'; $('g-com-note').textContent = '';
   const nx = ALL[ALL.indexOf(l) + 1]; S.ultTema = l.niv.k; const prox = proxNueva(); S.gProx = prox ? prox.id : null; save(); /* primero se termina el tema */
   const otroTema = prox && prox.niv !== l.niv;
-  $('g-next').hidden = !prox; $('g-prox').hidden = !prox; $('g-home').hidden = false;
+  $('g-next').hidden = !prox; $('g-prox').hidden = !prox; $('g-home').hidden = false; $('g-home').textContent = deIA ? 'Volver a Martina IA' : 'Volver al inicio'; $('g-home').classList.toggle('ghost', !deIA); if (deIA){ $('g-next').hidden = true; $('g-prox').hidden = true; } /* desde Martina IA: se vuelve a la charla, como prometía la tarjeta */
   if (prox){ $('g-prox').textContent = otroTema ? 'Sigue un tema nuevo: ' + prox.niv.t + '.' : 'Próxima: ' + prox.t; $('g-next').textContent = otroTema ? 'Empezar el tema nuevo' : 'Seguir con la próxima lección'; } $('g-com').hidden = !MOSTRAR_COMUNIDAD;
   const nivelOk = l.niv.ls.every(x => S.done[x.id]) && !(S.nivFest || {})[l.niv.k];
   if (nivelOk){
@@ -2511,7 +2521,7 @@ $('g-rec-si').addEventListener('click', () => { track((d, now) => { d.recPidio =
 $('g-wa').addEventListener('click', () => track(d => { d.comp = d.comp || {}; d.comp.familia = (d.comp.familia || 0) + 1; }));
 $('p-wa').addEventListener('click', () => track(d => { d.comp = d.comp || {}; d.comp.perfil = (d.comp.perfil || 0) + 1; }));
 $('g-next').addEventListener('click', () => { const l = ALL.find(x => x.id === S.gProx); if (l) startLesson(l); else { temaK = null; show('inicio'); } });
-$('g-home').addEventListener('click', () => { temaK = null; show('inicio'); });
+$('g-home').addEventListener('click', () => { temaK = null; salirLeccion(); });
 $('g-com').addEventListener('click', async e => {
   const b = e.currentTarget; if (b.dataset.done){ show('com'); return; } b.disabled = true; b.textContent = 'Compartiendo…';
   const ok = await postLogro(curL);
@@ -2641,13 +2651,19 @@ function leccionesPara(q){
   return pts.filter(x => x.p >= max).map(x => x.l).sort((a, b) => (S.done[a.id] ? 1 : 0) - (S.done[b.id] ? 1 : 0)).slice(0, 2);
 }
 const CATALOGO = () => 'LECCIONES DE LA APP (id: título, nivel):\n' + ALL.map(l => l.id + ': ' + l.t + ' (' + l.niv.t + ')').join('\n') + '\nSi la persona pide una lección o quiere aprender algo que tiene lección, decíselo con entusiasmo en una frase y escribí al final, en una línea aparte, [lección:ID] con el id exacto (como mucho dos). La app le muestra un botón para empezarla. No inventes ids.';
+function pintaLsug(c){
+  const l = ALL.find(x => x.id === c.dataset.id); if (!l) return; const hecha = !!S.done[l.id];
+  c.querySelector('.lsug-k').textContent = hecha ? '✓ Ya hiciste esta lección' : '📚 Tengo una lección para esto';
+  c.querySelector('.em').textContent = l.ic; c.querySelector('b').textContent = l.t;
+  c.querySelector('p').textContent = (hecha ? 'Podés hacerla otra vez si querés. ' : 'Paso a paso y con práctica. ') + l.min + ' minutos. Al terminar, volvés a esta charla.';
+  c.querySelector('.btn').textContent = hecha ? 'Hacerla otra vez' : 'Hacer la lección';
+}
 function tarjetasLeccion(ls, tras){
   ls.forEach(l => {
-    const c = el('div', 'lsug', '<span class="em" aria-hidden="true"></span><div><small></small><b></b></div>');
-    c.querySelector('.em').textContent = l.ic; c.querySelector('small').textContent = l.niv.t + ' · ' + l.min + ' minutos' + (S.done[l.id] ? ' · Ya la hiciste' : ''); c.querySelector('b').textContent = l.t;
-    const go = el('button', 'btn ghost small', S.done[l.id] ? 'Repetir la lección' : 'Ver la lección'); go.type = 'button';
-    go.addEventListener('click', () => { track(d => { d.lecSugeridas = (d.lecSugeridas || 0) + 1; }); startLesson(l); });
-    c.appendChild(go); tras.after(c); tras = c;
+    const c = el('div', 'lsug', '<span class="lsug-k"></span><div class="lsug-t"><span class="em" aria-hidden="true"></span><b></b></div><p></p><button class="btn" type="button"></button>');
+    c.dataset.id = l.id; pintaLsug(c);
+    c.querySelector('.btn').addEventListener('click', () => { track(d => { d.lecSugeridas = (d.lecSugeridas || 0) + 1; }); startLesson(l, true); });
+    tras.after(c); tras = c;
   });
   return tras;
 }
@@ -2717,7 +2733,7 @@ async function ask(q, forzar){
   await capsReady;
   const sug = foto ? [] : leccionesPara(q);
   const fin = (txt, ls) => { pintaRespuesta(ad, txt); guardaCharla('a', txt); let tras = ad; if (ls && ls.length) tras = tarjetasLeccion(ls.slice(0, 2), ad); seguimiento(tras); if (S.leerIA) speak(txt, null, ad.querySelector('.voz-in')); };
-  if (!SAMPLE){ fin(FALLBACK[q] || (foto ? 'Todavía no puedo ver fotos. Contame con palabras qué ves en la pantalla y te ayudo.' : sug.length ? '¡Tengo una lección justo para eso! Tocá el botón y la hacemos juntos.' : '¡Buena pregunta! Todavía no sé responder todo. Probá preguntarlo con otras palabras.'), sug); return; }
+  if (!SAMPLE){ fin(FALLBACK[q] || (foto ? 'Todavía no puedo ver fotos. Contame con palabras qué ves en la pantalla y te ayudo.' : sug.length ? '¡Tengo una lección justo para eso! Tocá «Hacer la lección» y la hacemos juntas.' : '¡Buena pregunta! Todavía no sé responder todo. Probá preguntarlo con otras palabras.'), sug); return; }
   const contenido = foto ? [{type:'image', source:{type:'base64', media_type:'image/jpeg', data:foto}}, {type:'text', text:q}] : q;
   TURNS.push({role:'user', content:contenido});
   track((d, now) => { d.preguntas = (Array.isArray(d.preguntas) ? d.preguntas : []).concat({q:(foto ? '[foto] ' : '') + q.slice(0, 300), at:now}).slice(-30); });
