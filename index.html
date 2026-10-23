@@ -809,8 +809,6 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
     <label for="m-in" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tu pregunta</label>
     <textarea id="m-in" rows="3" placeholder="Escribí tu pregunta acá"></textarea>
     <button class="btn ghost small" type="button" id="m-mic" aria-label="Hablar para dictar la pregunta" hidden>🎤 Hablar</button>
-    <button class="btn ghost small" type="button" id="m-cam">📷 Mandar una foto</button>
-    <input type="file" id="m-file" accept="image/*" hidden>
     <button class="btn" type="button" id="m-send">Enviar</button>
     <button class="btn ghost" type="button" id="m-stop" hidden>Detener</button>
   </div>
@@ -2724,7 +2722,7 @@ async function ask(q, forzar){
   TURNS.push({role:'user', content:contenido});
   track((d, now) => { d.preguntas = (Array.isArray(d.preguntas) ? d.preguntas : []).concat({q:(foto ? '[foto] ' : '') + q.slice(0, 300), at:now}).slice(-30); });
   mCtl = new AbortController(); $('m-send').hidden = true; $('m-stop').hidden = false;
-  const REGLAS = 'Respondé como en una charla, corto y claro: como máximo 4 pasos numerados, un paso por renglón, frases cortas, sin títulos ni negritas ni asteriscos. Si te mandan una foto de la pantalla del celular, decí qué ves y qué tocar. Terminá con "¿Te sirvió?". Respondé a la pregunta que sigue.';
+  const REGLAS = 'Respondé como en una charla, corto y claro: como máximo 4 pasos numerados, un paso por renglón, frases cortas, sin títulos ni negritas ni asteriscos. Terminá con "¿Te sirvió?". Respondé a la pregunta que sigue.';
   try {
     const limpio = t => String(t || '').replace(/\[lecci[oó]n:[^\]]*\]?/gi, '').replace(/\[lecc?[^\]]*$/i, '').replace(/\*\*/g, '').trim();
     const hist = TURNS.slice(-10).map((t, i, arr) => (Array.isArray(t.content) && i < arr.length - 1) ? {role:t.role, content:'[Mandé una foto de mi celular] ' + t.content[1].text} : t);
@@ -2749,18 +2747,7 @@ async function ask(q, forzar){
 $('m-send').addEventListener('click', () => { const n = $('m-mic-note'); if (n.textContent.startsWith('Si está')) n.hidden = true; });
 $('m-send').addEventListener('click', () => ask($('m-in').value));
 $('m-new').addEventListener('click', () => { S.chat = {f: hoy(), items: []}; save(); TURNS.length = 0; $('m-chat').innerHTML = ''; mInit = false; renderMartina(); window.scrollTo(0,0); });
-/* Mandar una foto (por ejemplo, una captura de lo que ve en el celular) */
-$('m-cam').addEventListener('click', () => $('m-file').click());
-$('m-file').addEventListener('change', e => {
-  const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
-  const img = new Image(), url = URL.createObjectURL(f);
-  img.onload = () => { const max = 1024, k = Math.min(1, max / Math.max(img.width, img.height)), c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
-    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); mFoto = c.toDataURL('image/jpeg', .72).split(',')[1];
-    const box = $('m-foto'); box.innerHTML = '<img alt="La foto que vas a mandar"><div style="flex:1"><b>Foto lista para mandar.</b><br><span class="small muted">Escribí tu pregunta o tocá Enviar. No mandes fotos de tarjetas ni documentos.</span></div>'; box.querySelector('img').src = 'data:image/jpeg;base64,' + mFoto;
-    const x = el('button', 'voz', 'Sacar'); x.type = 'button'; x.addEventListener('click', () => { mFoto = null; box.hidden = true; box.innerHTML = ''; }); box.appendChild(x); box.hidden = false; box.scrollIntoView({behavior:'smooth', block:'center'}); };
-  img.onerror = () => { URL.revokeObjectURL(url); toast('No pude abrir esa foto. Probá con otra.'); };
-  img.src = url;
-});
+
 /* Dictar la pregunta con la voz (si el celular lo permite) */
 (function(){
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition, b = $('m-mic'), note = $('m-mic-note');
