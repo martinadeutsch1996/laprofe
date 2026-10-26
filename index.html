@@ -1,4 +1,4 @@
-<!doctype html><html lang="es" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="manifest" href="manifest-v3.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon-v3.png"><link rel="icon" href="icon-192-v3.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LaProfe"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#F6F3EE"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="es" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="manifest" href="manifest-v4.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon-v4.png"><link rel="icon" href="icon-192-v4.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LaProfe"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#F6F3EE"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>LaProfe Digital App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;700;800&display=swap">
@@ -6,7 +6,10 @@
 /* Layout: app de celular centrada; una pantalla a la vez; 4 pestañas abajo; lecciones paso a paso */
 :root{
   --bg:#F6F3EE; --fg:#1B1B2F; --card:#FFFFFF; --muted:#4A4A5E; --line:#DDD6CB; --soft:#EDE8E0;
-  --coral:#FF5A36; --lima:#C6F432; --petroleo:#0F5257; --ink:#1B1B2F; --violeta:#7B5BD6;
+  /* Paleta ciruela y durazno (26/10/2026). Los nombres viejos (--petroleo, --coral, --lima) se mantienen para no tocar todo el código:
+     --petroleo = ciruela, --coral = durazno fuerte (bordes, titileo, puntos), --durazno = durazno claro (rellenos con letra oscura),
+     --lima = verde de logro (relleno con letra oscura y bordes, 3,2 a 1 sobre el fondo). */
+  --ciruela:#5A2A4F; --petroleo:var(--ciruela); --coral:#C8561F; --durazno:#E07A45; --lima:#4E9A5E; --ink:#1B1B2F; --violeta:var(--ciruela);
   --ok:#1F7A4D; --ok-bg:#E3F4EA; --warn:#B3261E; --warn-bg:#FDE7E4;
   --ph-bg:#EFEAE2; --ph-bar:#FFFFFF; --ph-text:#111B21; --ph-sub:#667781; --ph-out:#D9FDD3; --ph-in:#FFFFFF; --ph-green:#1DAA61; --ph-blue:#53BDEB; --ph-line:#E9EDEF; --ph-home:#DCE6F2;
   --display:'Bricolage Grotesque','Arial Black',system-ui,sans-serif;
@@ -14,13 +17,13 @@
   --z:1;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#14142A; --fg:#F6F3EE; --card:#21213A; --muted:#BDB9C9; --line:#34345A; --soft:#2A2A47;
-  --ok:#7BE0A6; --ok-bg:#16382A; --warn:#FF9C8F; --warn-bg:#40201D; --violeta:#A88BFF;
+  --bg:#1E1420; --fg:#F6F3EE; --card:#2C1F2B; --muted:#CDBFCA; --line:#4A3446; --soft:#33242F;
+  --ok:#7BE0A6; --ok-bg:#16382A; --warn:#FF9C8F; --warn-bg:#40201D; --violeta:#C892B8; --petroleo:#D9AACB; --coral:#E07A45; --lima:#5AA56A;
   --ph-bg:#0B141A; --ph-bar:#202C33; --ph-text:#E9EDEF; --ph-sub:#8696A0; --ph-out:#005C4B; --ph-in:#202C33; --ph-line:#2A3942; --ph-home:#1C2733;
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#14142A; --fg:#F6F3EE; --card:#21213A; --muted:#BDB9C9; --line:#34345A; --soft:#2A2A47;
-  --ok:#7BE0A6; --ok-bg:#16382A; --warn:#FF9C8F; --warn-bg:#40201D; --violeta:#A88BFF;
+  --bg:#1E1420; --fg:#F6F3EE; --card:#2C1F2B; --muted:#CDBFCA; --line:#4A3446; --soft:#33242F;
+  --ok:#7BE0A6; --ok-bg:#16382A; --warn:#FF9C8F; --warn-bg:#40201D; --violeta:#C892B8; --petroleo:#D9AACB; --coral:#E07A45; --lima:#5AA56A;
   --ph-bg:#0B141A; --ph-bar:#202C33; --ph-text:#E9EDEF; --ph-sub:#8696A0; --ph-out:#005C4B; --ph-in:#202C33; --ph-line:#2A3942; --ph-home:#1C2733;
   color-scheme:dark}
 *{box-sizing:border-box}
@@ -38,12 +41,12 @@ a{color:var(--petroleo)}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:6px}
 .logo b{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.04em}
-.logo i{font-style:normal;font-family:var(--display);font-weight:800;font-size:12px;background:var(--coral);color:var(--ink);padding:2px 9px 4px;border-radius:999px}
+.logo i{font-style:normal;font-family:var(--display);font-weight:800;font-size:12px;background:var(--ciruela);color:#fff;padding:2px 9px 4px;border-radius:999px}
 .dot{color:var(--coral)}
 .avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;border:3px solid var(--lima)}
 .avatar.sm{width:40px;height:40px;border-width:2px}
 .avatar.xl{width:120px;height:120px;border-width:4px}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:12px 22px;border-radius:999px;border:none;font-weight:800;font-size:19px;background:var(--coral);color:var(--ink);width:100%;text-align:center;text-decoration:none}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:12px 22px;border-radius:999px;border:none;font-weight:800;font-size:19px;background:var(--durazno);color:var(--ink);width:100%;text-align:center;text-decoration:none}
 .btn:disabled{opacity:.45;cursor:default}
 .btn,.opt,.choice,.lesson,.chip,.rep,.lvl-more,.nav button,.sizes button{transition:transform .08s,filter .08s;-webkit-tap-highlight-color:transparent}
 .btn:active:not(:disabled),.opt:active,.choice:active,.lesson:active,.chip:active,.rep:active,.lvl-more:active,.nav button:active,.sizes button:active{transform:scale(.97);filter:brightness(.92)}
@@ -121,7 +124,7 @@ a{color:var(--petroleo)}
 .modal .opt[aria-pressed="true"]{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--card))}
 .scrollhint.nonav{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 .scrollhint svg{width:20px;height:20px}
-.inicial{width:56px;height:56px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--petroleo);color:#fff;font-family:var(--display);font-weight:800;font-size:26px}
+.inicial{width:56px;height:56px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--ciruela);color:#fff;font-family:var(--display);font-weight:800;font-size:26px}
 .soon span{background:var(--card);border-radius:999px;padding:8px 14px;font-size:16px;font-weight:700;color:var(--muted)}
 /* navegación */
 .nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
@@ -174,7 +177,7 @@ a{color:var(--petroleo)}
 .round{width:52px;height:52px;border-radius:50%;border:none;background:var(--ph-green);display:grid;place-items:center;flex:none;touch-action:none}
 .round svg{width:24px;height:24px}
 .pulse{animation:pulse 1.6s ease-in-out infinite;border-color:var(--coral)!important;box-shadow:0 0 0 4px var(--coral)}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 4px var(--coral)}50%{box-shadow:0 0 0 4px var(--coral),0 0 0 11px rgba(255,90,54,.28)}} /* de punta a punta, así se ve aunque el botón tenga su propia sombra */
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px var(--coral)}50%{box-shadow:0 0 0 4px var(--coral),0 0 0 11px rgba(200,86,31,.30)}} /* de punta a punta, así se ve aunque el botón tenga su propia sombra */
 .typing{align-self:flex-start;background:var(--ph-in);border-radius:10px;padding:10px 14px;color:var(--ph-sub);font-size:15px;font-style:italic}
 .helpers{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0 8px 8px}
 .helpers button{border:2px dashed var(--ph-sub);background:var(--ph-bar);color:var(--ph-text);border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px;min-height:44px}
@@ -210,7 +213,7 @@ a{color:var(--petroleo)}
 .glow{box-shadow:inset 0 0 60px 20px rgba(255,236,150,.7)}
 /* gestos */
 .gzone{background:var(--card);border-radius:22px;min-height:300px;display:grid;place-items:center;position:relative;overflow:hidden;touch-action:none}
-.gbtn{width:150px;height:150px;border-radius:50%;border:none;background:var(--coral);color:var(--ink);font-family:var(--display);font-weight:800;font-size:24px}
+.gbtn{width:150px;height:150px;border-radius:50%;border:none;background:var(--durazno);color:var(--ink);font-family:var(--display);font-weight:800;font-size:24px}
 .ring{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--lima) calc(var(--p,0)*1%),var(--soft) 0)}
 .ring button{width:134px;height:134px;border-radius:50%;border:none;background:var(--card);font-size:56px;touch-action:none}
 .swcard{width:230px;padding:24px;border-radius:20px;background:var(--fg);color:var(--bg);font-size:20px;font-weight:700;text-align:center;touch-action:none;cursor:grab;transition:transform .25s}
@@ -228,7 +231,7 @@ a{color:var(--petroleo)}
 /* logro */
 .medal{width:120px;height:120px;border-radius:50%;background:var(--lima);color:var(--ink);display:grid;place-items:center;margin:8px auto 0;font-size:56px;animation:pop .6s cubic-bezier(.2,1.6,.4,1)}
 @keyframes pop{from{transform:scale(.4)}}
-.sharecard{background:linear-gradient(135deg,var(--coral),#FF8A5C);color:var(--ink);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:6px;text-align:left}
+.sharecard{background:linear-gradient(135deg,var(--durazno),#F2A273);color:var(--ink);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:6px;text-align:left}
 /* comunidad */
 .post{background:var(--card);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:10px}
 .post .ph{display:flex;align-items:center;gap:10px}
@@ -260,7 +263,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .ri{background:var(--card);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;border:3px solid transparent}
 .ri.ok{border-color:var(--lima)}
 .ri p{display:flex;gap:10px;font-size:19px;line-height:1.35}
-.ri p::before{counter-increment:rl;content:counter(rl);flex:none;width:32px;height:32px;border-radius:50%;background:var(--petroleo);color:#fff;display:grid;place-items:center;font-weight:800;font-size:16px}
+.ri p::before{counter-increment:rl;content:counter(rl);flex:none;width:32px;height:32px;border-radius:50%;background:var(--ciruela);color:#fff;display:grid;place-items:center;font-weight:800;font-size:16px}
 .ri.ok p::before{content:'✓';background:var(--lima);color:var(--ink)}
 .ri .row .btn{min-height:48px;font-size:16px}
 .help{background:var(--card);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;border:2px dashed var(--coral)}
@@ -590,7 +593,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .gmform label span{color:var(--ph-sub);font-size:15px;min-width:56px}
 .gmform input,.gmform textarea{flex:1;font:inherit;font-size:17px;border:2px solid transparent;border-radius:8px;background:none;color:var(--ph-text);padding:8px 4px;min-width:0}
 .gmform textarea{border:1px solid var(--ph-line);padding:10px}
-.pulseb{border-color:var(--coral)!important;background:rgba(255,94,58,.06)!important}
+.pulseb{border-color:var(--coral)!important;background:rgba(200,86,31,.08)!important}
 .gmatt{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--ph-line);border-radius:12px;font-size:30px}
 .gmatt > div{display:flex;flex-direction:column;font-size:15px}
 .gmatt small{color:var(--ph-sub)}
@@ -599,7 +602,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 /* Ayudas (Escuchar, No entendí, Me trabé): chips chicos, para que el único botón fuerte sea el coral */
 .voz{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:12px;border:none;background:var(--soft);color:var(--fg);font-weight:700;font-size:16px;width:auto;text-align:left}
 .voz:disabled{opacity:.5}
-.pista{margin:8px 0 0 52px;background:#E3EEEE;color:var(--petroleo);border-radius:14px;padding:10px 14px;font-size:17px;font-weight:600;line-height:1.35}
+.pista{margin:8px 0 0 52px;background:#F3E6EE;color:var(--petroleo);border-radius:14px;padding:10px 14px;font-size:17px;font-weight:600;line-height:1.35}
 .big .pista{margin-left:0}
 .toast.arriba{bottom:auto;top:calc(12px + env(safe-area-inset-top,0px));background:var(--card);color:var(--fg);border:2px solid var(--petroleo)}
 /* Escuchar va dentro del globito de Martina, chiquito y abajo a la derecha: es parte de su mensaje, no un paso más */
@@ -618,11 +621,11 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .mano-pasos{display:flex;flex-direction:column;gap:12px}
 
 /* Inicio: lección del día + temas */
-.dia{background:var(--petroleo);color:#fff;border:none;border-radius:26px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;box-shadow:0 6px 18px rgba(15,82,87,.25)}
+.dia{background:var(--ciruela);color:#fff;border:none;border-radius:26px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;box-shadow:0 6px 18px rgba(90,42,79,.25)}
 .dia .lbl{font-weight:800;font-size:17px;color:#fff;opacity:.9}
 .dia h2{font-size:26px;line-height:1.15}
 .dia p{font-size:18px}
-.dia .ir{margin-top:10px;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--coral);color:var(--ink);border-radius:999px;min-height:56px;font-weight:800;font-size:19px}
+.dia .ir{margin-top:10px;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--durazno);color:var(--ink);border-radius:999px;min-height:56px;font-weight:800;font-size:19px}
 .dia.hecho{background:var(--card);color:var(--fg);border:3px solid var(--lima);box-shadow:none}
 .dia.hecho .lbl{color:var(--muted)}
 .tema{background:var(--card)}
@@ -637,11 +640,11 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .tema .fav{font-size:15px;font-weight:800;color:var(--petroleo)}
 .tema.full{border-color:var(--lima)}
 .tema.aca{border-color:var(--accion);border-width:3px}
-.tema .aca-lbl{font-size:16px;font-weight:800;color:var(--accion)}
+.tema .aca-lbl{font-size:16px;font-weight:800;color:var(--petroleo)}
 .lesson.prox{border-color:var(--accion);border-width:3px}
 .tema-ls{margin:4px 0 0;padding-left:28px;display:flex;flex-direction:column;gap:8px;font-size:17px;line-height:1.35}
 .tema-ls li.hecha{color:var(--muted)}
-.tema-ls li.ahora{font-weight:800;color:var(--accion)}
+.tema-ls li.ahora{font-weight:800;color:var(--petroleo)}
 .big #s-inicio > .say .avatar{display:none}
 .tema-head{display:flex;gap:12px;align-items:center}
 .tema-head .em{font-size:44px}
@@ -671,7 +674,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .composer{position:static}
 .composer #m-send,.composer #m-stop{flex:1 1 100%}
 .lsug{display:block;border:3px solid var(--accion)!important;padding:16px;border-radius:18px}
-.lsug .lsug-k{display:block;color:var(--accion);font-weight:800;font-size:17px;margin-bottom:8px}
+.lsug .lsug-k{display:block;color:var(--petroleo);font-weight:800;font-size:17px;margin-bottom:8px}
 .lsug > .lsug-t{display:flex;flex-direction:row;align-items:center;gap:12px;min-width:0}
 .lsug .lsug-t b{font-size:22px;line-height:1.25}
 .lsug .em{font-size:34px;flex:none}
@@ -695,14 +698,16 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 /* Al terminar la práctica, el dibujo queda apagado y la pregunta de abajo es lo importante */
 #stage.hecho{opacity:.45;pointer-events:none;transition:opacity .4s}
 
-/* Botón principal: coral más oscuro con letra blanca (opción C, contraste 5,1 a 1) */
-:root{--accion:#0F5257;--sec:#0F5257}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accion:#1A7A80;--sec:#F6F3EE}}
-:root[data-theme="dark"]{--accion:#1A7A80;--sec:#F6F3EE}
-/* Jerarquía de botones: principal en petróleo (uno por pantalla), secundario con borde, de paso solo texto, ayudas en chips grises. El rojo queda solo para errores. */
+/* Botón principal: ciruela con letra blanca (11,2 a 1). En modo oscuro, ciruela más clara (5 a 1). */
+:root{--accion:#5A2A4F;--sec:#5A2A4F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accion:#9A5A8C;--sec:#F6F3EE}}
+:root[data-theme="dark"]{--accion:#9A5A8C;--sec:#F6F3EE}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pista{background:var(--soft)}}
+:root[data-theme="dark"] .pista{background:var(--soft)}
+/* Jerarquía de botones: principal en ciruela (uno por pantalla), secundario con borde, de paso solo texto, ayudas en chips grises. El rojo queda solo para errores. */
 .btn{background:var(--accion);color:#fff}
 .btn.ghost{border-color:var(--sec);color:var(--sec)}
-.dia .ir{background:#fff;color:var(--petroleo)}
+.dia .ir{background:#fff;color:var(--ciruela)}
 
 /* Pantalla de tema nuevo */
 .tema-intro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:28px 8px 8px}
@@ -2063,7 +2068,7 @@ const INST_ART = {
   iosAdd: () => '<svg viewBox="0 0 300 96" role="img" aria-label="Menú de compartir con la opción Agregar a pantalla de inicio señalada"><rect x="1" y="1" width="298" height="94" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="18" y="26" font-size="14" fill="#777" font-family="system-ui">Copiar</text><rect x="8" y="38" width="284" height="34" rx="8" fill="#FFF1EE" stroke="#E5281B" stroke-width="3"/><text x="18" y="60" font-size="15" font-weight="700" fill="#222" font-family="system-ui">Agregar a pantalla de inicio</text><rect x="258" y="45" width="20" height="20" rx="4" fill="none" stroke="#222" stroke-width="2"/><path d="M268 50 V60 M263 55 H273" stroke="#222" stroke-width="2"/><text x="18" y="88" font-size="14" fill="#777" font-family="system-ui">Agregar a favoritos</text></svg>',
   iosDots: () => '<svg viewBox="0 0 300 70" role="img" aria-label="Barra de Safari con los tres puntitos señalados"><rect x="1" y="1" width="298" height="68" rx="12" fill="#fff" stroke="#DDD6CB"/><text x="22" y="44" font-size="26" fill="#2F6FEB" font-family="system-ui">‹</text><rect x="56" y="17" width="170" height="36" rx="18" fill="#EEF1F4"/><text x="80" y="40" font-size="14" fill="#555" font-family="system-ui">laprofeapp.com</text><circle cx="266" cy="35" r="22" fill="none" stroke="#E5281B" stroke-width="4"/><circle cx="256" cy="35" r="3.2" fill="#222"/><circle cx="266" cy="35" r="3.2" fill="#222"/><circle cx="276" cy="35" r="3.2" fill="#222"/></svg>',
   iosMenu: () => '<svg viewBox="0 0 300 96" role="img" aria-label="Menú de Safari con la opción Compartir señalada"><rect x="1" y="1" width="298" height="94" rx="12" fill="#fff" stroke="#DDD6CB"/><rect x="8" y="10" width="284" height="34" rx="8" fill="#FFF1EE" stroke="#E5281B" stroke-width="3"/><text x="18" y="32" font-size="15" font-weight="700" fill="#222" font-family="system-ui">Compartir</text><rect x="262" y="17" width="16" height="15" rx="3" fill="none" stroke="#2F6FEB" stroke-width="2"/><path d="M270 12 V27 M265 17 L270 12 L275 17" fill="none" stroke="#2F6FEB" stroke-width="2"/><text x="18" y="70" font-size="14" fill="#777" font-family="system-ui">Agregar a favoritos</text><text x="18" y="90" font-size="14" fill="#777" font-family="system-ui">Buscar en la página</text></svg>',
-  icon: () => '<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><img src="icon-192-v3.png" alt="" style="width:60px;height:60px;border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.15)"><span class="small" style="font-weight:700">LaProfe</span></div>'
+  icon: () => '<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><img src="icon-192-v4.png" alt="" style="width:60px;height:60px;border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.15)"><span class="small" style="font-weight:700">LaProfe</span></div>'
 };
 function instPasos(){
   const ua = navigator.userAgent || '', wa = /WhatsApp|FBAN|FBAV|Instagram|; wv\)/i.test(ua), ios = OS() === 'iphone';
@@ -2073,7 +2078,7 @@ function instPasos(){
   else { p.push(['Arriba a la derecha, tocá los tres puntitos ⋮.', 'andDots']); p.push(['Tocá "Agregar a la pantalla principal" o "Instalar app".', 'andAdd']); p.push(['Tocá "Agregar" o "Instalar". ¡Listo! Buscá el ícono de LaProfe.', 'icon']); }
   return p;
 }
-$('h-inst-ic').src = 'icon-192-v3.png';
+$('h-inst-ic').src = 'icon-192-v4.png';
 document.addEventListener('click', e => { const c = e.target.closest('.mclose'); if (!c) return; const m = c.dataset.close; if (m === 'op'){ if (opSel && $('op-ok').hidden) sendOpinion(); else closeOpinion(); } else $(m).hidden = true; });
 let instI = 0, instL = [];
 function renderInst(){
@@ -2317,7 +2322,7 @@ function renderStep(){
     z.append(nextBtn());
   }
   if (st.k === 'try'){
-    z.append(el('div', 'kind', '<span class="pill" style="background:var(--coral)">Practicá acá</span>'));
+    z.append(el('div', 'kind', '<span class="pill" style="background:var(--durazno)">Practicá acá</span>'));
     const g = el('div', 'guide'); g.innerHTML = '<div class="say"><img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble" id="g-txt"></div></div><p class="pista" id="g-pista" role="status" hidden></p>'; z.append(g);
     const stage = el('div', 'stack'); stage.id = 'stage'; z.append(stage);
     const nb = nextBtn('Seguir'); nb.hidden = true; nb.id = 'try-next'; z.append(nb);
@@ -2352,7 +2357,7 @@ function renderStep(){
     const hr = el('div', 'ayudas trabe'); hr.append(hb); z.insertBefore(hr, nb); // debajo del dibujo, donde se traban
   }
   if (st.k === 'real'){
-    z.append(el('div', 'kind', '<span class="pill" style="background:var(--petroleo);color:#fff">Ahora en tu celular</span>'));
+    z.append(el('div', 'kind', '<span class="pill" style="background:var(--ciruela);color:#fff">Ahora en tu celular</span>'));
     const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div></div>');
     say.querySelector('.bubble').textContent = 'Ahora lo hacemos en tu celular de verdad. Leé cada paso, andá a hacerlo y volvé acá a marcarlo. ¡Yo te espero!';
     z.append(say);
@@ -2375,7 +2380,7 @@ function renderStep(){
     z.append(nb, later2);
   }
   if (st.k === 'mano'){
-    z.append(el('div', 'kind', '<span class="pill" style="background:var(--petroleo);color:#fff">Ahora de verdad</span>'));
+    z.append(el('div', 'kind', '<span class="pill" style="background:var(--ciruela);color:#fff">Ahora de verdad</span>'));
     const say = el('div', 'say', '<img class="avatar" src="' + FOTO + '" alt=""><div class="bubble"></div>'); z.append(say);
     const bub = say.querySelector('.bubble'), id = curL.id;
     const listo = () => { S.instOk = true; save(); track(d => { d.instDijo = true; L(d, id).real = 'todo'; }); };
@@ -2968,7 +2973,7 @@ const icoSvg = (k, z) => '<svg width="' + (z || 34) + '" height="' + (z || 34) +
 const rnd = (bg, lb, cortar) => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:104px;text-align:center"><span style="width:64px;height:64px;border-radius:50%;background:' + bg + ';color:#fff;display:grid;place-items:center' + (cortar ? ';transform:rotate(135deg)' : '') + '">' + icoSvg('tel', 30) + '</span><b style="font-size:16px;line-height:1.2">' + lb + '</b></div>';
 const icTiles = list => '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px">' + list.map(x => '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px;text-align:center"><span style="width:64px;height:64px;border-radius:18px;background:var(--soft);color:var(--petroleo);display:grid;place-items:center">' + icoSvg(x[0]) + '</span><b style="font-size:16px;line-height:1.2">' + x[1] + '</b></div>').join('') + '</div>';
 const ART = {
-  manoIcono: () => '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px;width:100%;max-width:300px;background:var(--ph-home);border-radius:18px;padding:14px 8px">' + HOME_APPS.slice(0, 7).map(a => '<span class="app-ic"><span class="sq" style="background:' + a[2] + '">' + a[1] + '</span>' + a[3] + '</span>').join('') + '<span class="app-ic"><img src="icon-192-v3.png" alt="" style="width:54px;height:54px;border-radius:15px;outline:3px solid var(--coral);outline-offset:2px">LaProfe</span></div>',
+  manoIcono: () => '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px;width:100%;max-width:300px;background:var(--ph-home);border-radius:18px;padding:14px 8px">' + HOME_APPS.slice(0, 7).map(a => '<span class="app-ic"><span class="sq" style="background:' + a[2] + '">' + a[1] + '</span>' + a[3] + '</span>').join('') + '<span class="app-ic"><img src="icon-192-v4.png" alt="" style="width:54px;height:54px;border-radius:15px;outline:3px solid var(--coral);outline-offset:2px">LaProfe</span></div>',
   llamEntra: () => '<div style="display:flex;gap:26px">' + rnd('#E5484D', 'Rojo: no atender', true) + rnd('#1DAA61', 'Verde: atender') + '</div>',
   llamBotones: () => icTiles([['altavoz','Altavoz'],['microT','Silenciar tu voz']]) + rnd('#E5484D', 'Cortar', true),
   llamPerdida: () => '<div style="width:100%;max-width:300px;background:var(--soft);border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center"><span><b style="color:#D93025">Dr. Pérez</b><br><span class="muted small">Perdida</span></span><span class="muted">10:15</span></div>',
@@ -3158,12 +3163,12 @@ const SIMS = {};
 SIMS.manoIcono = function(api){
   const ios = OS() === 'iphone';
   const B = (t, html, st) => '<button type="button" data-t="' + t + '" style="background:none;border:none;color:var(--ph-text);min-height:46px;text-align:left;' + (st || '') + '">' + html + '</button>';
-  const pagina = '<div style="flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;background:#F6F3EE;color:#1B1B2F"><b style="font-size:22px">LaProfe<span style="color:#FF5A36">.</span></b><div style="background:#fff;border-radius:16px;padding:12px"><span style="font-size:13px;color:#4A4A5E">Tu próxima lección</span><br><b>Tené LaProfe a mano</b></div><div style="height:40px;border-radius:999px;background:#FF5A36;opacity:.35"></div></div>';
+  const pagina = '<div style="flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;background:#F6F3EE;color:#1B1B2F"><b style="font-size:22px">LaProfe<span style="color:#C8561F">.</span></b><div style="background:#fff;border-radius:16px;padding:12px"><span style="font-size:13px;color:#4A4A5E">Tu próxima lección</span><br><b>Tené LaProfe a mano</b></div><div style="height:40px;border-radius:999px;background:#5A2A4F;opacity:.35"></div></div>';
   const fila = (t, txt, sub) => B(t, '<b style="font-weight:600">' + txt + '</b>' + (sub ? '<br><small style="color:var(--ph-sub)">' + sub + '</small>' : ''), 'display:block;width:100%;padding:10px 16px;border-bottom:1px solid var(--ph-line)');
   const urlAnd = '<div class="bar" style="gap:6px"><div style="flex:1;background:var(--ph-line);border-radius:999px;padding:10px 14px;font-size:14px;color:var(--ph-sub)">laprofeapp.com</div>' + B('dots', '<span style="font-size:26px;font-weight:900;line-height:1">⋮</span>', 'width:46px;display:grid;place-items:center') + '</div>';
   const urlIos = '<div style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--ph-bar);border-top:1px solid var(--ph-line)">' + B('atras', '<span style="font-size:28px;color:#2F6FEB;line-height:1">‹</span>', 'width:40px') + '<div style="flex:1;background:var(--ph-line);border-radius:999px;padding:10px 14px;font-size:14px;color:var(--ph-sub);text-align:center">laprofeapp.com</div>' + B('dots', '<span style="font-size:22px;font-weight:900;letter-spacing:1px">···</span>', 'width:52px;display:grid;place-items:center') + '</div>';
   const nav = (sobre) => ios ? pagina + (sobre || '') + urlIos : urlAnd + (sobre || '') + pagina;
-  const icono = '<img src="icon-192-v3.png" alt="" style="width:54px;height:54px;border-radius:15px">';
+  const icono = '<img src="icon-192-v4.png" alt="" style="width:54px;height:54px;border-radius:15px">';
   const pasos = ios ? [
     {pide:'dots', say:'Estás en LaProfe, en Safari. Tocá los <b>tres puntitos</b> de abajo a la derecha.', pista:'Buscá los tres puntitos, abajo a la derecha.', html:() => nav()},
     {pide:'comp', say:'Se abrió un menú. Tocá <b>"Compartir"</b>.', pista:'Tocá "Compartir", arriba de todo en el menú.', html:() => nav('<div style="background:var(--ph-bar);border-top:1px solid var(--ph-line)">' + fila('comp', 'Compartir') + fila('fav', 'Agregar a favoritos') + fila('bus', 'Buscar en la página') + '</div>')},
