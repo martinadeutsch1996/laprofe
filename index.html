@@ -688,6 +688,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 #m-foto img{width:64px;height:64px;object-fit:cover;border-radius:10px}
 .mriesgo{border:2px solid var(--warn);background:var(--warn-bg)}
 .rq-n{font-weight:800;font-size:18px}
+.rep-de{font-size:17px;color:var(--muted);margin:0}
 
 /* Me trabé: centrado debajo del dibujo de la práctica */
 .ayudas.trabe{justify-content:center;margin-top:-4px}
@@ -1868,7 +1869,7 @@ function atrasCel(){
   const abierto = ['exitm','instm','op'].find(id => $(id) && !$(id).hidden);
   if (abierto){ if (abierto === 'op') closeOpinion(); else $(abierto).hidden = true; return true; }
   const en = SCREENS.find(s => !$('s-' + s).hidden);
-  if (en === 'lesson'){ if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } else salirLeccion(); return true; }
+  if (en === 'lesson'){ if (enRetomar){ enRetomar = false; salirLeccion(); } else if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } else salirLeccion(); return true; }
   if (en === 'ob'){ if (obI > 0){ obI--; renderOb(); window.scrollTo(0,0); return true; } return false; }
   if (en === 'datos'){ show('per'); return true; }
   if (en === 'inicio'){ if (temaK){ temaK = null; renderInicio(); window.scrollTo(0,0); return true; } return false; }
@@ -2238,7 +2239,32 @@ function renderTema(z){
 /* ============ REPRODUCTOR DE LECCIONES ============ */
 let si = 0, lessonT0 = 0;
 const salirLeccion = () => { const v = deIA ? 'mar' : 'inicio'; deIA = false; show(v); if (v === 'mar') document.querySelectorAll('#m-chat .lsug').forEach(pintaLsug); };
-function startLesson(l, ia){ deIA = !!ia; if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; if (S.ultTema !== l.niv.k) temaIntro(l); else { S.ultTema = l.niv.k; save(); renderStep(); } }
+function startLesson(l, ia){ deIA = !!ia; if (MOSTRAR_PAGO && l.niv.n > 1 && !S.unlocked){ showPay(l); return; } curL = l; si = (!S.done[l.id] && S.prog && S.prog[l.id] < l.steps.length) ? S.prog[l.id] : 0; lessonT0 = Date.now(); track((d, now) => { const x = L(d, l.id); x.ini = x.ini || now; x.veces = (x.veces || 0) + 1; x.paso = Math.max(x.paso || 0, 0); }); show('lesson'); $('l-t').textContent = l.ic + ' ' + l.t; if (si > 0) retomar(l); else if (S.ultTema !== l.niv.k) temaIntro(l); else { S.ultTema = l.niv.k; save(); renderStep(); } }
+/* Al retomar una lección que quedó por la mitad (30/10/2026): un poco de contexto antes de seguir.
+   Dice la lección y el tema, repite lo último que explicó Martina y qué viene ahora. */
+let enRetomar = false; /* en la pantalla de retomar, "Salir" y "atrás" salen sin preguntar */
+function retomar(l){
+  stopVoz(); enRetomar = true;
+  const v = l.niv, z = $('lz'); z.innerHTML = '';
+  $('l-paso').textContent = 'Vas por el paso ' + (si + 1) + ' de ' + l.steps.length;
+  const c = el('div', 'tema-intro', '<span class="em" aria-hidden="true">' + l.ic + '</span><span class="lbl">Seguimos donde quedaste</span><h1></h1><p class="muted"></p>');
+  c.querySelector('h1').textContent = l.t; c.querySelector('p').textContent = 'Del tema: ' + v.t;
+  z.append(c);
+  /* Lo último que le expliqué, tal cual lo vio */
+  let ult = -1; for (let i = si - 1; i >= 0; i--){ if (l.steps[i].k === 'ex'){ ult = i; break; } }
+  if (ult >= 0){
+    const lh = el('p', 'small', '<b>Para que te ubiques, lo último que te expliqué:</b>'); lh.style.marginTop = '6px';
+    const say = el('div', 'say', '<img class="avatar sm" src="' + FOTO + '" alt=""><div class="bubble"></div>'); say.querySelector('.bubble').textContent = fillOS(l.steps[ult].txt);
+    z.append(lh, say);
+  }
+  const sig = l.steps[si] || {}, ahora = {try:'Ahora practicás acá, en la app.', check:'Ahora sigue una pregunta.', rec:'Ahora sigue el resumen.', ex:'Ahora sigue otra explicación.'}[sig.k];
+  if (ahora){ const a = el('p', 'small'); a.textContent = ahora; z.append(a); }
+  const go = el('button', 'btn', 'Seguir la lección'); go.type = 'button';
+  go.addEventListener('click', () => { S.ultTema = v.k; save(); renderStep(); window.scrollTo(0,0); });
+  const de0 = el('button', 'btn ghost', 'Empezar desde el principio'); de0.type = 'button';
+  de0.addEventListener('click', () => { S.ultTema = v.k; si = 0; save(); renderStep(); window.scrollTo(0,0); });
+  z.append(go, de0);
+}
 /* Cuando la lección es de otro tema, primero se avisa en qué tema está */
 function temaIntro(l){
   stopVoz();
@@ -2255,7 +2281,7 @@ function temaIntro(l){
   z.append(c, go, lh, ul); // el botón queda a la vista, sin bajar
 }
 
-$('l-exit').addEventListener('click', () => { if (si === 0) salirLeccion(); else $('exitm').hidden = false; });
+$('l-exit').addEventListener('click', () => { if (si === 0 || enRetomar){ enRetomar = false; salirLeccion(); } else $('exitm').hidden = false; });
 $('exitm-stay').addEventListener('click', () => $('exitm').hidden = true);
 $('exitm-go').addEventListener('click', () => { $('exitm').hidden = true; salirLeccion(); });
 $('l-back').addEventListener('click', () => { if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } });
@@ -2303,7 +2329,7 @@ function checkEn(z, st){
     z.append(opts, fb);
 }
 function renderStep(){
-  setTimeout(atrasPaso, 0);
+  enRetomar = false; setTimeout(atrasPaso, 0);
   token++; $('toast').hidden = true; stopVoz(); yaBajo = false;
   if (!S.done[curL.id]){ S.prog = Object.assign({}, S.prog); if (si > 0) S.prog[curL.id] = si; else delete S.prog[curL.id]; save(); }
   { const id = curL.id, k = si; track(d => { const x = L(d, id); x.paso = Math.max(x.paso || 0, k); }); }
@@ -2471,7 +2497,8 @@ function renderRep(){
     const b = el('button', 'btn', 'Volver al inicio'); b.type = 'button'; b.addEventListener('click', () => show('inicio')); z.append(b); return;
   }
   const {l, st} = RQ[ri];
-  z.append(el('h2', 'qh')); z.children[0].textContent = fillOS(st.q);
+  { const de = el('p', 'rep-de'); de.textContent = 'De la lección ' + l.ic + ' ' + l.t; z.append(de); } /* contexto: de dónde sale la pregunta */
+  { const q = el('h2', 'qh'); q.textContent = fillOS(st.q); z.append(q); }
   const opts = el('div', 'stack'), fb = el('div');
   T(st.o).forEach((t, k) => { const b = el('button', 'opt'); b.type = 'button'; b.textContent = fillOS(t); b.addEventListener('click', () => {
     if (opts.dataset.d) return; opts.dataset.d = 1; const ok = k === st.a; if (ok) rok++;
