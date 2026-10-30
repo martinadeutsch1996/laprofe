@@ -1871,7 +1871,7 @@ function atrasCel(){
   if (abierto){ if (abierto === 'op') closeOpinion(); else $(abierto).hidden = true; return true; }
   const en = SCREENS.find(s => !$('s-' + s).hidden);
   if (en === 'lesson'){ if (enRetomar){ enRetomar = false; salirLeccion(); } else if (si > 0){ si--; renderStep(); window.scrollTo(0,0); } else salirLeccion(); return true; }
-  if (en === 'ob'){ if (obI > 0){ obI--; renderOb(); window.scrollTo(0,0); return true; } return false; }
+  if (en === 'ob'){ if (obMin > 0 && obI <= obMin){ show('per'); return true; } if (obI > 0){ obI--; renderOb(); window.scrollTo(0,0); return true; } return false; }
   if (en === 'datos'){ show('per'); return true; }
   if (en === 'inicio'){ if (temaK){ temaK = null; renderInicio(); window.scrollTo(0,0); return true; } return false; }
   if (en === 'logro' && deIA){ salirLeccion(); return true; }
@@ -1966,14 +1966,14 @@ const later = (fn, ms) => { const t = token; setTimeout(() => { if (t === token)
 
 /* ============ ONBOARDING ============ */
 const OB = ['hola','datos','letra','nombre','edad','os','nivel','intereses','listo'];
-let obI = 0, obDraft = {};
-function startOnboarding(){ obI = 0; obDraft = Object.assign({intereses:[]}, S.perfil || {}); show('ob'); renderOb(); }
+let obI = 0, obDraft = {}, obMin = 0; /* obMin: al cambiar los datos se arranca en "letra" y no se vuelve al saludo ni al permiso */
+function startOnboarding(){ obMin = S.perfil && S.perfil.nombre ? OB.indexOf('letra') : 0; obI = obMin; obDraft = Object.assign({intereses:[]}, S.perfil || {}); show('ob'); renderOb(); }
 function renderOb(){
   stopVoz();
-  const dots = $('ob-dots'); dots.innerHTML = ''; OB.forEach((_, i) => dots.appendChild(el('i', i === obI ? 'on' : ''))); $('ob-paso').textContent = 'Paso ' + obI + ' de ' + (OB.length - 1); $('ob-paso').hidden = obI === 0;
+  const dots = $('ob-dots'); dots.innerHTML = ''; OB.forEach((_, i) => dots.appendChild(el('i', i === obI ? 'on' : ''))); $('ob-paso').textContent = 'Paso ' + obI + ' de ' + (OB.length - 1); $('ob-paso').hidden = obI === 0 || obMin > 0; $('ob-dots').hidden = obMin > 0;
   const b = $('ob-body'); b.innerHTML = ''; const step = OB[obI];
   const next = (label, ok) => { const n = el('button', 'btn', label || 'Seguir'); n.type = 'button'; n.disabled = ok === false; n.id = 'ob-next'; n.addEventListener('click', () => { obI++; renderOb(); window.scrollTo(0,0); }); return n; };
-  const back = () => { const n = el('button', 'atras', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Volver'); n.type = 'button'; n.style.alignSelf = 'flex-start'; n.addEventListener('click', () => { obI--; renderOb(); }); return n; };
+  const back = () => { const n = el('button', 'atras', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Volver'); n.type = 'button'; n.style.alignSelf = 'flex-start'; n.addEventListener('click', () => { if (obI <= obMin){ show('per'); return; } obI--; renderOb(); }); return n; };
   const choices = (opts, key, multi, cols) => { const box = el('div', cols ? 'grid2 obgrid' : 'stack'); opts.forEach(o => { const c = el('button', 'choice', (o[1] ? '<span class="em" aria-hidden="true">' + o[1] + '</span>' : '') + '<span><span class="lb"></span>' + (o[3] ? '<small></small>' : '') + '</span>'); c.type = 'button'; c.querySelector('.lb').textContent = o[2]; if (o[3]) c.querySelector('small').textContent = o[3];
       const on = () => multi ? obDraft[key].includes(o[0]) : obDraft[key] === o[0];
       c.setAttribute('aria-pressed', String(on()));
@@ -2036,10 +2036,10 @@ function renderOb(){
     const h = el('h1', ''); h.textContent = '¡Listo, ' + (obDraft.nombre || '') + '!'; b.append(h);
     const nuevo = !S.perfil || doneN() === 0;
     const p = el('div', 'bubble'); const pri = niv.ls.find(l => !S.done[l.id]) || niv.ls[0];
-    p.textContent = nuevo ? 'Ya armé tu camino. Antes de la primera lección, te muestro tu pantalla de inicio.' : 'Listo, guardé tus cambios.'; void pri; /* 30/10/2026: primero conoce el inicio, después empieza */
+    p.textContent = nuevo ? 'Ya armé tu camino. Antes de la primera lección, te muestro tu pantalla de inicio.' : 'Guardé tus cambios.'; void pri; /* 30/10/2026: primero conoce el inicio, después empieza */
     b.append(p);
     const go = el('button', 'btn', nuevo ? 'Ir a mi inicio' : 'Volver al inicio'); go.type = 'button';
-    go.addEventListener('click', () => { obDraft.start = start; obDraft.startK = startK; S.nivFestK = 1; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); show('inicio'); window.scrollTo(0,0); });
+    go.addEventListener('click', () => { obDraft.start = start; obDraft.startK = startK; S.nivFestK = 1; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; if (!nuevo) delete S.temas; /* si cambió los intereses, cambian sus temas */ save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); show('inicio'); window.scrollTo(0,0); });
     b.append(go);
   }
 }
@@ -2184,8 +2184,8 @@ function renderInicio(){
   if (temaK){ renderTema(z); return; }
 
   /* --- Primera vez (30/10/2026): Martina presenta el inicio hasta que termina la primera lección --- */
-  const primera = n === 0;
-  if (primera){ const g = el('div', 'bubble guia-ini'); g.textContent = 'Esta es tu pantalla de inicio. Acá te espera una lección cada día.\nMás abajo están todos los temas. Si tenés una duda, tocá "Martina IA".\n¿Empezamos con la primera?'; /* sin otra foto: la de "¡Hola!" ya es Martina */ z.appendChild(g); }
+  const primera = n === 0, nueva0 = primera && Object.keys(S.prog || {}).length > 0;
+  if (primera){ const g = el('div', 'bubble guia-ini'); g.textContent = 'Esta es tu pantalla de inicio. Acá te espera una lección cada día.\nMás abajo están todos los temas. Si tenés una duda, tocá "Martina IA".\n' + (nueva0 ? '¿Seguimos con la primera?' : '¿Empezamos con la primera?'); /* sin otra foto: la de "¡Hola!" ya es Martina */ z.appendChild(g); }
   /* --- Lección del día: toda la tarjeta es el botón --- */
   const d = delDia(), nueva = proxNueva(); let c;
   const tarjeta = (tema, linea, accion, ir) => { c = el('button', 'dia', '<span class="lbl">' + (primera ? 'Tu primera lección' : 'Lección del día') + '</span><h2></h2><p></p><span class="ir"></span>'); c.type = 'button';
@@ -2214,7 +2214,7 @@ function renderInicio(){
     const hechas = v.ls.filter(l => S.done[l.id]).length;
     const b = el('button', 'tema' + (hechas === v.ls.length ? ' full' : '') + (v === act ? ' aca' : ''), '<span class="em" aria-hidden="true">' + v.em + '</span><span>' + (v === act ? '<span class="aca-lbl">📍 Estás acá</span><br>' : '') + '<b></b><br><small></small>' + (tm.includes(v.k) ? '<br><span class="fav">⭐ Tu tema</span>' : '') + '</span>');
     b.type = 'button'; b.querySelector('b').textContent = v.t;
-    { const sm = b.querySelector('small'), emp = v.ls.some(x => S.prog && S.prog[x.id]); sm.textContent = hechas === v.ls.length ? '✓ Terminado' : hechas === 0 && !emp ? 'Sin empezar · ' + v.ls.length + ' lecciones' : 'Hiciste ' + hechas + ' de ' + v.ls.length + ' lecciones'; if (hechas === v.ls.length) sm.style.color = 'var(--ok)'; }
+    { const sm = b.querySelector('small'), emp = v.ls.some(x => S.prog && S.prog[x.id]); sm.textContent = hechas === v.ls.length ? '✓ Terminado' : hechas === 0 && !emp ? 'Sin empezar · ' + v.ls.length + ' lecciones' : hechas === 0 ? 'Empezaste · ' + v.ls.length + ' lecciones' : 'Hiciste ' + hechas + ' de ' + v.ls.length + ' lecciones'; if (hechas === v.ls.length) sm.style.color = 'var(--ok)'; }
     b.addEventListener('click', () => { temaK = v.k; renderInicio(); window.scrollTo(0,0); }); // primero ve las lecciones del tema, después empieza
     g.appendChild(b);
   });
@@ -2544,13 +2544,14 @@ function answerPay(k){
 
 /* ============ LOGRO ============ */
 function finishLesson(){
-  const l = curL; S.done[l.id] = true; if (S.prog) delete S.prog[l.id]; save(); diaHecho('lec');
+  const l = curL, d0 = delDia(), cumpleDia = d0.t === 'lec' && !d0.hecho && doneN() > 0; /* la primera lección no cuenta: el inicio ya la presenta aparte */
+  S.done[l.id] = true; if (S.prog) delete S.prog[l.id]; save(); diaHecho('lec');
   { const secs = Math.round((Date.now() - lessonT0) / 1000); track((d, now) => { const x = L(d, l.id); x.fin = x.fin || now; x.seg = secs; x.paso = l.steps.length; }); }
   $('g-ic').textContent = l.ic; $('g-t').textContent = LOGRO[l.id] || '¡Completaste "' + l.t + '"!';
   
   const nm = NOMBRE() ? ', ' + NOMBRE() : '';
   $('g-mar').textContent = pick(['¡Qué alegría' + nm + '! ¿Viste que podías? Estoy re orgullosa de vos.','¡Bravo' + nm + '! Una lección más en el bolsillo. Así, de a poquito, se llega lejísimo.','¡Eso' + nm + '! Me hiciste el día. ¿Seguimos con la próxima? Ya le estás agarrando la mano.','¡Aplausos' + nm + '! 👏 Y pensar que al principio daba miedo tocar…']);
-  const msg = '🎉 ¡Hoy aprendí "' + l.t + '" con LaProfe Digital! Ya llevo ' + doneN() + (doneN() === 1 ? ' medalla' : ' medallas') + '. ' + (l.id === '3b' ? '¡Este mensaje lo mandé yo solita/o! ' : '') + '¿Querés aprender conmigo? Es gratis probarla: ' + APP_URL;
+  const msg = '🎉 ¡Hoy aprendí "' + l.t + '" con LaProfe Digital! Ya hice ' + doneN() + (doneN() === 1 ? ' lección' : ' lecciones') + '. ' + (l.id === '3b' ? '¡Y este mensaje lo mandé yo! ' : '') + '¿Querés aprender conmigo? Es gratis probarla: ' + APP_URL;
   $('g-wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   { // Al terminar la primera lección se ofrece el recordatorio (una sola vez) en lugar de la tarjeta de la familia
     const ofrecer = false; // sin recordatorios por WhatsApp a Martina
@@ -2562,7 +2563,7 @@ function finishLesson(){
   const nx = ALL[ALL.indexOf(l) + 1]; S.ultTema = l.niv.k; const prox = proxNueva(); S.gProx = prox ? prox.id : null; save(); /* primero se termina el tema */
   const otroTema = prox && prox.niv !== l.niv;
   $('g-next').hidden = !prox; $('g-prox').hidden = !prox; $('g-home').hidden = false; $('g-home').textContent = deIA ? 'Volver a Martina IA' : 'Volver al inicio'; $('g-home').classList.toggle('ghost', !deIA); if (deIA){ $('g-next').hidden = true; $('g-prox').hidden = true; } /* desde Martina IA: se vuelve a la charla, como prometía la tarjeta */
-  if (prox){ $('g-prox').textContent = otroTema ? 'Sigue un tema nuevo: ' + prox.niv.t + '.' : 'Próxima: ' + prox.t; $('g-next').textContent = otroTema ? 'Empezar el tema nuevo' : 'Seguir con la próxima lección'; } $('g-com').hidden = !MOSTRAR_COMUNIDAD;
+  if (prox){ $('g-prox').textContent = (cumpleDia ? 'Ya hiciste la lección de hoy. Mañana te espera otra. ' : '') + (otroTema ? (cumpleDia ? 'Si querés seguir, empieza un tema nuevo: ' : 'Sigue un tema nuevo: ') + prox.niv.t + '.' : (cumpleDia ? 'Si querés seguir: ' : 'Próxima: ') + prox.t); $('g-next').textContent = otroTema ? 'Empezar el tema nuevo' : 'Seguir con la próxima lección'; } $('g-com').hidden = !MOSTRAR_COMUNIDAD;
   const nivelOk = l.niv.ls.every(x => S.done[x.id]) && !(S.nivFest || {})[l.niv.k];
   if (nivelOk){
     S.nivFest = Object.assign({}, S.nivFest, {[l.niv.k]: true}); S.nivFestK = 1; save();
@@ -2844,6 +2845,7 @@ $('m-in').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKe
 
 /* ============ PERFIL ============ */
 function renderPerfil(){
+  { const rb = $('p-reset-ok'); if (rb) rb.remove(); }
   const p = S.perfil || {}, n = doneN();
   $('p-name').textContent = p.nombre || ''; $('p-av').textContent = (p.nombre || '🙂').trim().charAt(0).toUpperCase(); $('p-lvl').textContent = n + ' de ' + ALL.length + ' lecciones';
   const md = $('p-med'); md.innerHTML = ''; const won = ALL.filter(l => S.done[l.id]); won.forEach(l => { const s = el('span', 'on'); s.textContent = l.ic; s.title = LOGRO[l.id] || l.t; s.setAttribute('role', 'img'); s.setAttribute('aria-label', LOGRO[l.id] || l.t); md.appendChild(s); }); md.hidden = !won.length; $('p-med-bar').style.width = (won.length / ALL.length * 100) + '%'; $('p-med-txt').textContent = won.length ? won.length + ' de ' + ALL.length + ' medallas. ¡Vas muy bien!' : 'Al terminar tu primera lección, acá aparece tu primera medalla.';
@@ -2851,7 +2853,7 @@ function renderPerfil(){
   const sz = $('p-sizes'); sz.innerHTML = ''; [[1,'Normal','22px'],[1.15,'Grande','28px'],[1.3,'Muy grande','34px']].forEach(o => { const x = el('button', '', '<span style="font-size:' + o[2] + '">Aa</span><br><span style="font-size:16px;font-family:var(--body)">' + o[1] + '</span>'); x.type = 'button'; x.setAttribute('aria-pressed', String((S.size || 1) === o[0])); x.addEventListener('click', () => { S.size = o[0]; save(); applySize(); renderPerfil(); }); sz.appendChild(x); });
   const pl = $('p-leer'); pl.innerHTML = ''; [[true,'Sí'],[false,'No']].forEach(o => { const x = el('button', '', '<span style="font-size:20px;font-weight:800">' + o[1] + '</span>'); x.type = 'button'; x.setAttribute('aria-pressed', String(!!S.leerIA === o[0])); x.addEventListener('click', () => { S.leerIA = o[0]; save(); renderPerfil(); toast(o[0] ? 'Listo: Martina IA te va a leer las respuestas.' : 'Listo: las respuestas no se leen solas.'); }); pl.appendChild(x); });
   const kv = $('p-kv'); kv.innerHTML = '';
-  [['Celular', p.os === 'iphone' ? 'iPhone' : 'Android'], ['Edad', p.edad || '—'], ['Con el celular', p.nivel || '—'], ['Intereses', (p.intereses || []).map(k => (INTERESES.find(i => i[0] === k) || [,,k])[2]).join(', ') || '—'], ['También quiere', p.otro || '—'], ['Tu código', UID || anonUid()]].forEach(r => { const dt = el('dt'); dt.textContent = r[0]; const dd = el('dd'); dd.textContent = r[1]; kv.append(dt, dd); });
+  [['Celular', p.os === 'iphone' ? 'iPhone' : 'Android'], ['Edad', p.edad || '—'], ['Con el celular', p.nivel || '—'], ['Intereses', (p.intereses || []).map(k => (INTERESES.find(i => i[0] === k) || [,,k])[2]).join(', ') || '—'], ['También quiere', p.otro || ''], ['Tu código', UID || anonUid()]].filter(r => r[1]).forEach(r => { const dt = el('dt'); dt.textContent = r[0]; const dd = el('dd'); dd.textContent = r[1]; kv.append(dt, dd); });
   $('p-owner').hidden = !IS_OWNER;
   $('p-datos-txt').textContent = compartir() ? 'Compartís cómo usás la app, sin tu nombre. Me ayuda a mejorar las lecciones.' : 'No compartís cómo usás la app. Tu avance queda guardado en tu celular.';
   $('p-datos-btn').textContent = compartir() ? 'Dejar de compartir mis datos' : 'Compartir mis datos';
@@ -2862,8 +2864,12 @@ $('p-brain').addEventListener('click', () => show('brain'));
 $('p-datos').addEventListener('click', () => show('datos'));
 $('p-reset').addEventListener('click', e => {
   const b = e.currentTarget;
-  if (b.dataset.sure){ S = {perfil:null, done:{}, size:1, unlocked:false, repDate:''}; save(); applySize(); TURNS.length = 0; mInit = false; $('m-chat').innerHTML = ''; $('m-chips').innerHTML = ''; b.dataset.sure = ''; b.textContent = 'Empezar de cero (otra persona)'; startOnboarding(); }
-  else { b.dataset.sure = '1'; b.textContent = '¿Seguro? Tocá de nuevo: se borra el avance'; }
+  if (b.dataset.sure){ S = {perfil:null, done:{}, size:1, unlocked:false, repDate:''}; save(); try { localStorage.removeItem('laprofe-uid'); localStorage.removeItem('laprofe-datos'); } catch(e){} UID = null; DATA = null; /* otra persona = otro código: no se mezclan sus datos */ applySize(); TURNS.length = 0; mInit = false; $('m-chat').innerHTML = ''; $('m-chips').innerHTML = ''; b.dataset.sure = ''; b.textContent = 'Empezar de cero (otra persona)'; startOnboarding(); }
+  else { /* confirmación aparte, con el botón fuerte en "no borrar": un doble toque no borra nada */
+    if ($('p-reset-ok')) return; const box = el('div', 'card stack', '<b>¿Empezar de cero?</b><p class="small">Se borra todo el avance guardado en este celular. Sirve si la app la va a usar otra persona.</p>'); box.id = 'p-reset-ok';
+    const no = el('button', 'btn', 'No, dejarlo así'); no.type = 'button'; no.addEventListener('click', () => box.remove());
+    const si = el('button', 'btn ghost', 'Sí, borrar todo'); si.type = 'button'; si.addEventListener('click', () => { box.remove(); b.dataset.sure = '1'; b.click(); });
+    box.append(no, si); b.after(box); later(() => box.scrollIntoView({behavior:'smooth', block:'center'}), 50); }
 });
 
 /* ============ PANEL DE DATOS (solo Martina) ============ */
