@@ -660,6 +660,7 @@ textarea.inp{font-size:18px;min-height:110px;resize:vertical}
 .pill{font-size:16px}
 /* Saludo del inicio: una línea */
 .hola{display:flex;align-items:center;gap:10px}
+.guia-ini{white-space:pre-line;font-size:18px;border-radius:6px 22px 22px 22px;margin-top:-6px}
 .hola .avatar{width:44px;height:44px;border-width:2px}
 .hola b{font-family:var(--display);font-size:24px}
 /* Resumen: Escuchar como en el globito */
@@ -2035,10 +2036,10 @@ function renderOb(){
     const h = el('h1', ''); h.textContent = '¡Listo, ' + (obDraft.nombre || '') + '!'; b.append(h);
     const nuevo = !S.perfil || doneN() === 0;
     const p = el('div', 'bubble'); const pri = niv.ls.find(l => !S.done[l.id]) || niv.ls[0];
-    p.textContent = nuevo ? 'Tu primera lección es "' + pri.t + '". Si te trabás, tocá "Martina IA", abajo.' : 'Listo, guardé tus cambios.';
+    p.textContent = nuevo ? 'Ya armé tu camino. Antes de la primera lección, te muestro tu pantalla de inicio.' : 'Listo, guardé tus cambios.'; void pri; /* 30/10/2026: primero conoce el inicio, después empieza */
     b.append(p);
-    const go = el('button', 'btn', nuevo ? 'Empezar la primera lección' : 'Volver al inicio'); go.type = 'button';
-    go.addEventListener('click', () => { obDraft.start = start; obDraft.startK = startK; S.nivFestK = 1; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); if (nuevo){ const l = proxNueva(); if (l){ startLesson(l); return; } } show('inicio'); });
+    const go = el('button', 'btn', nuevo ? 'Ir a mi inicio' : 'Volver al inicio'); go.type = 'button';
+    go.addEventListener('click', () => { obDraft.start = start; obDraft.startK = startK; S.nivFestK = 1; S.perfil = Object.assign({}, obDraft); delete S.perfil.size; save(); track(d => { d.perfil = {edad:S.perfil.edad || '', os:S.perfil.os || '', nivel:S.perfil.nivel || '', intereses:(S.perfil.intereses || []).slice(), otro:S.perfil.otro || ''}; }); show('inicio'); window.scrollTo(0,0); });
     b.append(go);
   }
 }
@@ -2182,9 +2183,12 @@ function renderInicio(){
   $('h-hello').parentElement.hidden = !!temaK;
   if (temaK){ renderTema(z); return; }
 
+  /* --- Primera vez (30/10/2026): Martina presenta el inicio hasta que termina la primera lección --- */
+  const primera = n === 0;
+  if (primera){ const g = el('div', 'bubble guia-ini'); g.textContent = 'Esta es tu pantalla de inicio. Acá te espera una lección cada día.\nMás abajo están todos los temas. Si tenés una duda, tocá "Martina IA".\n¿Empezamos con la primera?'; /* sin otra foto: la de "¡Hola!" ya es Martina */ z.appendChild(g); }
   /* --- Lección del día: toda la tarjeta es el botón --- */
   const d = delDia(), nueva = proxNueva(); let c;
-  const tarjeta = (tema, linea, accion, ir) => { c = el('button', 'dia', '<span class="lbl">Lección del día</span><h2></h2><p></p><span class="ir"></span>'); c.type = 'button';
+  const tarjeta = (tema, linea, accion, ir) => { c = el('button', 'dia', '<span class="lbl">' + (primera ? 'Tu primera lección' : 'Lección del día') + '</span><h2></h2><p></p><span class="ir"></span>'); c.type = 'button';
     c.querySelector('h2').textContent = tema; c.querySelector('p').textContent = linea; c.querySelector('.ir').textContent = ir;
     c.addEventListener('click', () => { if (Date.now() - (window._hc || 0) < 800) return; window._hc = Date.now(); accion(); }); };
   if (d.hecho){
