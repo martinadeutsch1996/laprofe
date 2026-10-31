@@ -5224,7 +5224,45 @@ SIMS.rsCuida = function(api){
 };
 
 /* ============ ARRANQUE ============ */
-if (S.perfil && S.perfil.nombre) show('inicio'); else startOnboarding();
+/* Intro con el logo (30/10/2026): solo la primera vez que se abre la app, antes de "Hola, soy Martina".
+   Unos 3 segundos, sin sonido y con "Saltear". No aparece si el celular pide menos movimiento,
+   ni al abrir desde el ícono (esa persona ya la vio en el navegador). */
+function introLaProfe(fin){
+  let vista = false; try { vista = !!localStorage.getItem('laprofe-intro'); localStorage.setItem('laprofe-intro', '1'); } catch(e){}
+  const quieto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (vista || quieto || EN_ICONO || !document.body.animate){ fin(); return; }
+  const st = document.createElement('style');
+  st.textContent = '#intro{position:fixed;inset:0;z-index:9999;background:#F6F3EE;display:flex;flex-direction:column;align-items:center;justify-content:center}'
+    + '.in-logo{display:flex;flex-direction:column;align-items:flex-start;font-family:var(--body);font-weight:800;color:#1A1B2E;font-size:min(24vw,130px);letter-spacing:-.03em;line-height:1.08}'
+    + '.in-row{display:flex;align-items:flex-end}.in-l{display:block;overflow:hidden}.in-l>span{display:block;transform:translateY(110%)}'
+    + '.in-dot{display:block;flex:none;width:.2em;height:.2em;border-radius:50%;background:#C8561F;margin:0 0 .2em .06em;opacity:0}'
+    + '.in-pill{align-self:stretch;margin-top:.22em;background:#5A2A4F;color:#fff;border-radius:999px;font-size:.5em;letter-spacing:0;text-align:center;padding:.12em 0 .2em;transform:scaleX(0)}.in-pill>span{opacity:0}'
+    + '.in-skip{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));min-height:48px;padding:0 24px;background:none;border:none;color:#5A2A4F;font:700 18px var(--body);text-decoration:underline;text-underline-offset:4px}';
+  document.head.appendChild(st);
+  const o = document.createElement('div'); o.id = 'intro';
+  o.innerHTML = '<div class="in-logo" role="img" aria-label="LaProfe digital"><span class="in-row"><span class="in-l"><span>La</span></span></span><span class="in-row"><span class="in-l"><span>Profe</span></span><i class="in-dot"></i></span><span class="in-pill"><span>digital</span></span></div><button type="button" class="in-skip">Saltear</button>';
+  document.body.appendChild(o);
+  let listo = false, tm = 0;
+  const cerrar = () => { if (listo) return; listo = true; clearTimeout(tm); fin();
+    o.animate([{opacity:1}, {opacity:0}], {duration:350, fill:'forwards'}).onfinish = () => { o.remove(); st.remove(); }; };
+  o.querySelector('.in-skip').addEventListener('click', cerrar);
+  const arrancar = () => { if (listo) return;
+    const E = 'cubic-bezier(.2,.8,.2,1)', dot = o.querySelector('.in-dot'), r = dot.getBoundingClientRect();
+    const dx = innerWidth / 2 - (r.left + r.width / 2), dy = innerHeight / 2 - (r.top + r.height / 2);
+    // el punto baja suave hasta el centro y después se acomoda después de "Profe"
+    dot.animate([
+      {transform:'translate(' + dx + 'px,' + (dy - 140) + 'px) scale(2)', opacity:0, easing:E},
+      {transform:'translate(' + dx + 'px,' + dy + 'px) scale(2)', opacity:1, offset:.4},
+      {transform:'translate(' + dx + 'px,' + dy + 'px) scale(2)', opacity:1, offset:.55, easing:E},
+      {transform:'none', opacity:1}], {duration:1200, fill:'both'});
+    o.querySelectorAll('.in-l>span').forEach((w, i) => w.animate([{transform:'translateY(110%)'}, {transform:'none'}], {duration:550, delay:700 + i * 150, easing:E, fill:'both'}));
+    o.querySelector('.in-pill').animate([{transform:'scaleX(0)'}, {transform:'none'}], {duration:500, delay:1300, easing:E, fill:'both'});
+    o.querySelector('.in-pill>span').animate([{opacity:0, transform:'translateY(.3em)'}, {opacity:1, transform:'none'}], {duration:400, delay:1550, easing:E, fill:'both'});
+    tm = setTimeout(cerrar, 2900);
+  };
+  Promise.race([document.fonts ? document.fonts.ready : null, new Promise(r => setTimeout(r, 800))]).then(arrancar);
+}
+if (S.perfil && S.perfil.nombre) show('inicio'); else introLaProfe(startOnboarding);
 })();
 </script>
 
